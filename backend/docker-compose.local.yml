@@ -1,0 +1,5 @@
+# Optional local healthcheck override. Secrets remain in the ignored .env file.
+services:
+  echomind:
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5).read()"]
