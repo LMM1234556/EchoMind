@@ -1,12 +1,12 @@
-# EchoMind 复现与改进版
+# EchoMind
 
-这是一个面向客服与运营场景的多 Agent 系统复现项目。仓库在原始 EchoMind Python 后端和 Vue 前端的基础上，完成了本地部署、模型接入、RAG 检索、会话记忆、路由、监控与测试方面的修正和验证。
+EchoMind 是一个面向客服与运营场景的多 Agent 系统。本仓库在原始 EchoMind Python 后端和 Vue 前端的基础上，完成了本地部署、模型接入、RAG 检索、会话记忆、路由、监控与测试方面的工程改进和验证。
 
 ## 来源与定位
 
 - 原 Python 后端：<https://github.com/Biscuit-AI531/EchoMind>
 - 原 Vue 前端：<https://github.com/Biscuit-AI531/EchoMindFrontend>
-- 当前仓库性质：学习复现与工程改进，不宣称原始项目的原创权。
+- 当前仓库性质：基于原项目的工程改进版本，不宣称原始项目的原创权。
 - 原仓库未提供项目级开源许可证。当前整理版应保持为本地或私有仓库；公开发布前需取得原作者许可。详见 [NOTICE.md](NOTICE.md)。
 
 ## 仓库结构
@@ -17,7 +17,7 @@ frontend/  Vue + Vite 调试前端
 docs/      原项目包中的架构、业务流程、使用和重点代码资料
 ```
 
-Java 版本没有参与本次复现与验证，因此未纳入本仓库。
+Java 版本没有参与本次工程验证，因此未纳入本仓库。
 
 ## 已完成的工程改进
 
