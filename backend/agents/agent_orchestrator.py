@@ -312,6 +312,7 @@ class BaseAgent:
                 "cached": bool(prefetched.get("cached")) if isinstance(prefetched, dict) else False,
                 "reranked": bool(prefetched.get("reranked")) if isinstance(prefetched, dict) else False,
                 "retrieval_mode": str(prefetched.get("retrieval_mode", "")) if isinstance(prefetched, dict) else "",
+                "invocation_source": "deterministic_prefetch",
                 "prefetched": True,
                 "error": error_text,
             }
@@ -402,6 +403,7 @@ class BaseAgent:
                         "cached": bool(result.get("cached")) if isinstance(result, dict) else False,
                         "reranked": bool(result.get("reranked")) if isinstance(result, dict) else False,
                         "retrieval_mode": str(result.get("retrieval_mode", "")) if isinstance(result, dict) else "",
+                        "invocation_source": "model_tool_call",
                         "prefetched": False,
                         "error": error_text,
                     }

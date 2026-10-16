@@ -451,6 +451,7 @@ def test_high_confidence_specific_intent_prefetches_knowledge_before_first_llm_c
     assert response.success is True
     assert response.tools_used == ["search_knowledge_base"]
     assert response.tool_traces[0]["prefetched"] is True
+    assert response.tool_traces[0]["invocation_source"] == "deterministic_prefetch"
     assert response.tool_traces[0]["retrieval_mode"] == "fast_keyword"
     assert len(client.calls) == 1
     first_call = client.calls[0]
@@ -730,6 +731,8 @@ def test_tool_use_round_trip_executes_only_whitelisted_tool():
     assert trace["tool_use_id"] == "toolu_1"
     assert trace["input"] == {"error_code": "401"}
     assert trace["success"] is True
+    assert trace["prefetched"] is False
+    assert trace["invocation_source"] == "model_tool_call"
     assert trace["latency_ms"] >= 0
     assert len(client.calls) == 2
     assert {tool["name"] for tool in client.calls[0]["tools"]} == {

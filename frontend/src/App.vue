@@ -63,7 +63,7 @@
                   <details v-for="(call, index) in item.trace.toolCalls" :key="`${item.id}-${index}`" open>
                     <summary>
                       <strong>{{ call.tool_name || 'unknown_tool' }}</strong>
-                      <span>{{ call.success ? '成功' : '失败' }}</span>
+                      <span>{{ formatToolSource(call) }} · {{ call.success ? '成功' : '失败' }}</span>
                     </summary>
                     <pre>{{ formatJson(call.input || {}) }}</pre>
                   </details>
@@ -188,7 +188,7 @@
                   <div v-for="(call, index) in lastTrace.trace.toolCalls" :key="`${call.tool_use_id || index}`" class="trace-call-item">
                     <div class="trace-call-meta">
                       <strong>{{ call.tool_name || 'unknown_tool' }}</strong>
-                      <span>{{ call.latency_ms || 0 }} ms</span>
+                      <span>{{ formatToolSource(call) }} · {{ call.latency_ms || 0 }} ms</span>
                     </div>
                     <pre>{{ formatJson(call.input || {}) }}</pre>
                   </div>
@@ -594,6 +594,12 @@ function formatStageName(key) {
     api_total_ms: '后端总计'
   }
   return labels[key] || key
+}
+
+function formatToolSource(call) {
+  if (call?.invocation_source === 'deterministic_prefetch' || call?.prefetched) return '系统预取'
+  if (call?.invocation_source === 'model_tool_call') return '模型调用'
+  return '工具调用'
 }
 
 function formatJson(value) {
