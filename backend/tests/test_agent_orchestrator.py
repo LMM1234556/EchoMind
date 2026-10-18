@@ -502,6 +502,71 @@ def test_prefetch_scopes_composite_query_for_each_domain_agent():
     assert traces == manager.queries
 
 
+def test_empty_policy_prefetch_returns_grounded_fallback_without_calling_model():
+    class EmptyRagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+    class NoModelClient:
+        def __init__(self):
+            self.calls = 0
+
+            class Messages:
+                async def create(inner, **kwargs):
+                    self.calls += 1
+                    raise AssertionError("空知识证据不应继续调用生成模型")
+
+            self.messages = Messages()
+
+    client = NoModelClient()
+    agent = BillingAgent(client, "test-model")
+    agent.set_shared_tools(build_shared_rag_tools(EmptyRagManager()))
+    result = asyncio.run(agent.handle(make_request(
+        message="电子发票最晚几天可以开出来？",
+        intent=IntentCategory.INVOICE,
+        intent_group="billing",
+        intent_confidence=0.93,
+        entities={},
+    )))
+
+    assert result.success is True
+    assert "未找到足够的可核验依据" in result.content
+    assert client.calls == 0
+    assert result.tool_traces[0]["evidence_found"] is False
+
+
+def test_empty_technical_prefetch_still_allows_low_risk_diagnostics():
+    class EmptyRagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+    class TextBlock:
+        type = "text"
+        text = "401 通常表示认证失败，请先确认登录状态和凭证是否过期。"
+
+    client = FakeClient(response=type("Response", (), {"content": [TextBlock()]})())
+    agent = TechnicalAgent(client, "test-model")
+    agent.set_shared_tools(build_shared_rag_tools(EmptyRagManager()))
+    result = asyncio.run(agent.handle(make_request(
+        message="登录时提示 401，怎么排查？",
+        intent=IntentCategory.TECHNICAL_LOGIN,
+        intent_group="technical",
+        intent_confidence=0.93,
+        entities={"error_code": ["401"]},
+    )))
+
+    assert result.success is True
+    assert "401" in result.content
+    assert len(client.calls) == 1
+    assert result.tool_traces[0]["evidence_found"] is False
+
+
 def test_low_confidence_specific_intent_does_not_force_prefetch():
     class TextBlock:
         type = "text"
@@ -843,3 +908,59 @@ def test_model_requested_rag_query_is_scoped_before_tool_execution():
     assert manager.queries == ["我登录时提示 401"]
     assert response.tool_traces[0]["input"]["query"] == "我登录时提示 401"
     assert response.tool_traces[0]["invocation_source"] == "model_tool_call"
+
+
+def test_empty_model_requested_policy_search_stops_before_hallucinated_second_turn():
+    class ToolUseBlock:
+        type = "tool_use"
+        id = "toolu_empty_rag"
+        name = "search_knowledge_base"
+        input = {"query": "电子发票开具时效", "top_k": 3}
+
+    class HallucinatedTextBlock:
+        type = "text"
+        text = "电子发票一定会在 3 个工作日内开具。"
+
+    class ToolClient:
+        def __init__(self):
+            self.calls = []
+            self.responses = [
+                type("Response", (), {"content": [ToolUseBlock()]})(),
+                type("Response", (), {"content": [HallucinatedTextBlock()]})(),
+            ]
+
+        class Messages:
+            def __init__(self, owner):
+                self.owner = owner
+
+            async def create(self, **kwargs):
+                self.owner.calls.append(kwargs)
+                return self.owner.responses.pop(0)
+
+        @property
+        def messages(self):
+            return self.Messages(self)
+
+    class EmptyRagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+    client = ToolClient()
+    agent = BillingAgent(client, "test-model")
+    agent.set_shared_tools(build_shared_rag_tools(EmptyRagManager()))
+    result = asyncio.run(agent.handle(make_request(
+        message="电子发票最晚几天可以开出来？",
+        intent=IntentCategory.INVOICE,
+        intent_group="billing",
+        intent_confidence=0.55,
+        entities={},
+    )))
+
+    assert result.success is True
+    assert "未找到足够的可核验依据" in result.content
+    assert "3 个工作日" not in result.content
+    assert len(client.calls) == 1
+    assert result.tool_traces[0]["evidence_found"] is False

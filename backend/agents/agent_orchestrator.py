@@ -62,6 +62,22 @@ class AgentType(Enum):
     ESCALATION = "escalation" # 人工升级与交接
 
 
+_POLICY_GROUNDING_INTENTS = {
+    "billing",
+    "order_status",
+    "logistics",
+    "refund",
+    "invoice",
+    "payment_issue",
+}
+
+_POLICY_FACT_KEYWORDS = (
+    "退款", "到账", "发票", "扣款", "扣费", "收费", "费用", "金额", "账单",
+    "支付", "订单", "物流", "配送", "运费", "时效", "多久", "几天",
+    "refund", "invoice", "charge", "payment", "billing", "shipping", "delivery",
+)
+
+
 @dataclass(frozen=True)
 class AgentProfile:
 
@@ -319,13 +335,18 @@ class BaseAgent:
                 "prefetched": True,
                 "error": error_text,
             }
+            evidence_found = self._knowledge_evidence_found(prefetched)
+            trace["evidence_found"] = evidence_found
             tool_traces.append(trace)
             tools_used.append("search_knowledge_base")
             self._last_tools_used = list(tools_used)
             self._last_tool_traces = list(tool_traces)
 
+            if self._requires_policy_evidence(req) and not evidence_found:
+                return self._grounded_no_evidence_response()
+
             prefetched_results = prefetched.get("results") if isinstance(prefetched, dict) else None
-            if result_success and isinstance(prefetched_results, list) and prefetched_results:
+            if evidence_found and isinstance(prefetched_results, list):
                 messages.append({
                     "role": "user",
                     "content": "[预取知识库结果]\n" + _clean(json.dumps(prefetched, ensure_ascii=False)),
@@ -364,6 +385,7 @@ class BaseAgent:
 
             messages.append({"role": "assistant", "content": resp.content})
             tool_results = []
+            grounding_blocked = False
             for block in tool_uses:
                 name = self._block_value(block, "name")
                 tool_use_id = self._block_value(block, "id")
@@ -400,23 +422,27 @@ class BaseAgent:
                 tool_latency_ms = (time.monotonic() - tool_t0) * 1000
                 if not error_text and isinstance(result, dict):
                     error_text = str(result.get("error", "") or "")
-                tool_traces.append(
-                    {
-                        "agent_type": self.agent_type.value,
-                        "tool_name": name,
-                        "tool_use_id": tool_use_id,
-                        "input": dict(args),
-                        "success": call_success,
-                        "result_success": result_success,
-                        "latency_ms": round(tool_latency_ms, 1),
-                        "cached": bool(result.get("cached")) if isinstance(result, dict) else False,
-                        "reranked": bool(result.get("reranked")) if isinstance(result, dict) else False,
-                        "retrieval_mode": str(result.get("retrieval_mode", "")) if isinstance(result, dict) else "",
-                        "invocation_source": "model_tool_call",
-                        "prefetched": False,
-                        "error": error_text,
-                    }
-                )
+                trace = {
+                    "agent_type": self.agent_type.value,
+                    "tool_name": name,
+                    "tool_use_id": tool_use_id,
+                    "input": dict(args),
+                    "success": call_success,
+                    "result_success": result_success,
+                    "latency_ms": round(tool_latency_ms, 1),
+                    "cached": bool(result.get("cached")) if isinstance(result, dict) else False,
+                    "reranked": bool(result.get("reranked")) if isinstance(result, dict) else False,
+                    "retrieval_mode": str(result.get("retrieval_mode", "")) if isinstance(result, dict) else "",
+                    "invocation_source": "model_tool_call",
+                    "prefetched": False,
+                    "error": error_text,
+                }
+                if name == "search_knowledge_base":
+                    evidence_found = self._knowledge_evidence_found(result)
+                    trace["evidence_found"] = evidence_found
+                    if self._requires_policy_evidence(req) and not evidence_found:
+                        grounding_blocked = True
+                tool_traces.append(trace)
                 self._last_tools_used = list(tools_used)
                 self._last_tool_traces = list(tool_traces)
                 tool_results.append({
@@ -424,6 +450,8 @@ class BaseAgent:
                     "tool_use_id": tool_use_id,
                     "content": json.dumps(result, ensure_ascii=False),
                 })
+            if grounding_blocked:
+                return self._grounded_no_evidence_response()
             messages.append({"role": "user", "content": tool_results})
 
         self._last_tools_used = tools_used
@@ -440,6 +468,38 @@ class BaseAgent:
         if not should_use_knowledge(req.message, req.intent):
             tools.pop("search_knowledge_base", None)
         return tools
+
+    def _requires_policy_evidence(self, req: Request) -> bool:
+        """判断当前回复是否必须先有知识库证据。
+
+        只约束 General/Billing 的政策、资金和时效事实。Technical 即使没有
+        项目知识文档，仍可使用错误码解释和低风险排障工具提供通用建议。
+        """
+        if self.agent_type not in {AgentType.GENERAL, AgentType.BILLING}:
+            return False
+        intent_value = getattr(req.intent, "value", req.intent)
+        message = (req.message or "").lower()
+        return (
+            intent_value in _POLICY_GROUNDING_INTENTS
+            or any(keyword in message for keyword in _POLICY_FACT_KEYWORDS)
+        )
+
+    @staticmethod
+    def _knowledge_evidence_found(result: Any) -> bool:
+        return bool(
+            isinstance(result, dict)
+            and result.get("success")
+            and isinstance(result.get("results"), list)
+            and result["results"]
+        )
+
+    @staticmethod
+    def _grounded_no_evidence_response() -> str:
+        return (
+            "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。"
+            "若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。"
+            "请勿发送密码、验证码或完整支付凭证。"
+        )
 
     @staticmethod
     def _block_type(block: Any) -> Optional[str]:
