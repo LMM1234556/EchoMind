@@ -17,6 +17,8 @@
 ## RAG 与知识库
 
 - 增加知识库检索门控，避免无关问题触发 RAG。
+- 支持 `BAAI/bge-small-zh-v1.5` 本地中文 Embedding；使用独立的 `knowledge_base_bge_v1` 集合，保留原 `knowledge_base` 作为回滚路径。
+- FastEmbed 模型缓存可通过 `FASTEMBED_CACHE_PATH` 定向到数据盘，Docker 默认挂载 `data/model-cache`，不把模型文件提交到仓库或重复打进镜像。
 - Windows 轻量 Chroma 客户端显式绑定本地 ONNX Embedding，并支持通过 `CHROMA_EMBEDDING_CACHE` 重定向模型缓存。
 - 本机 ChromaDB 地址自动绕过系统代理；轻量客户端连接失败时返回明确的服务模式错误。
 - 将向量召回候选与可用于回答的证据分离：关键词命中可直接使用，完整向量检索还需通过具体意图与知识文档领域校验。

@@ -25,12 +25,50 @@ from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 logger = logging.getLogger(__name__)
 
 
+DEFAULT_EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+BGE_ZH_EMBEDDING_MODEL = "BAAI/bge-small-zh-v1.5"
+DEFAULT_COLLECTIONS = {
+    DEFAULT_EMBEDDING_MODEL: "knowledge_base",
+    BGE_ZH_EMBEDDING_MODEL: "knowledge_base_bge_v1",
+}
+
+
+class FastEmbedEmbeddingFunction:
+    """把 FastEmbed 模型适配为 ChromaDB 0.5.x 的 EmbeddingFunction。"""
+
+    def __init__(self, model_name: str, cache_dir: Optional[str] = None):
+        try:
+            from fastembed import TextEmbedding
+        except ImportError as ex:
+            raise RuntimeError(
+                "使用 BGE Embedding 需要安装 fastembed；请执行 "
+                "python -m pip install -r requirements.txt"
+            ) from ex
+
+        options: Dict[str, Any] = {}
+        if os.getenv("FASTEMBED_LOCAL_FILES_ONLY", "").strip().lower() in {
+            "1", "true", "yes", "on",
+        }:
+            options["local_files_only"] = True
+        self._model = TextEmbedding(
+            model_name=model_name,
+            cache_dir=cache_dir or None,
+            **options,
+        )
+
+    def __call__(self, input):
+        # BGE v1.5 在 FastEmbed 0.9.0 中的 embed/query_embed/passage_embed
+        # 输出一致；统一走 embed 可兼容 ChromaDB 0.5.x 的单入口协议。
+        return list(self._model.embed(input))
+
+
 class KnowledgeBase:
     """
     基于 ChromaDB 的 RAG 知识库。
 
-    ChromaDB 内置了 Embedding 模型（all-MiniLM-L6-v2），
-    调用 add() 时自动生成向量，query() 时自动做语义匹配。
+    默认使用 ChromaDB 内置的 all-MiniLM-L6-v2，也可以通过环境变量
+    切换到 BAAI/bge-small-zh-v1.5。不同维度的模型使用不同 collection，
+    避免覆盖旧向量并保留回滚能力。
     不需要额外调用 Anthropic Embeddings API。
     """
 
@@ -51,24 +89,53 @@ class KnowledgeBase:
         os.environ["no_proxy"] = value
 
     @staticmethod
-    def _build_embedding_function() -> ONNXMiniLM_L6_V2:
-        """创建与 Chroma 默认模型一致的本地 ONNX Embedding 函数。
+    def _build_embedding_function(model_name: Optional[str] = None):
+        """按配置创建本地 Embedding 函数。
 
-        ``chromadb-client`` 不会自动附加 Embedding 函数；Windows 本地连接
-        Docker ChromaDB 时必须显式提供。可选环境变量把模型缓存固定到 E 盘，
-        避免 Chroma 0.5.23 使用硬编码的 ``~/.cache`` 路径占用系统盘。
+        ``chromadb-client`` 不会自动附加 Embedding 函数，因此 Windows
+        本地连接 Docker ChromaDB 时也必须显式提供。
         """
-        cache_path = os.getenv("CHROMA_EMBEDDING_CACHE", "").strip()
-        if cache_path:
-            ONNXMiniLM_L6_V2.DOWNLOAD_PATH = Path(cache_path)
-        return ONNXMiniLM_L6_V2()
+        selected = (model_name or os.getenv("CHROMA_EMBEDDING_MODEL") or
+                    DEFAULT_EMBEDDING_MODEL).strip()
+        if selected == DEFAULT_EMBEDDING_MODEL:
+            cache_path = os.getenv("CHROMA_EMBEDDING_CACHE", "").strip()
+            if cache_path:
+                ONNXMiniLM_L6_V2.DOWNLOAD_PATH = Path(cache_path)
+            return ONNXMiniLM_L6_V2()
+        if selected == BGE_ZH_EMBEDDING_MODEL:
+            cache_path = os.getenv("FASTEMBED_CACHE_PATH", "").strip()
+            return FastEmbedEmbeddingFunction(selected, cache_dir=cache_path)
+        raise ValueError(
+            f"不支持的 CHROMA_EMBEDDING_MODEL={selected!r}；"
+            f"当前支持: {', '.join(DEFAULT_COLLECTIONS)}"
+        )
+
+    @staticmethod
+    def _default_collection_name(model_name: str) -> str:
+        try:
+            return DEFAULT_COLLECTIONS[model_name]
+        except KeyError as ex:
+            raise ValueError(f"没有为 Embedding 模型 {model_name!r} 配置 collection") from ex
 
     def __init__(
         self,
         chroma_host: str = "localhost",
         chroma_port: int = 8000,
         chroma_path: str = "./data/chroma",
+        embedding_model: Optional[str] = None,
+        collection_name: Optional[str] = None,
     ):
+        self.embedding_model = (
+            embedding_model or os.getenv("CHROMA_EMBEDDING_MODEL") or
+            DEFAULT_EMBEDDING_MODEL
+        ).strip()
+        self.collection_name = (
+            collection_name or os.getenv("CHROMA_COLLECTION_NAME") or
+            self._default_collection_name(self.embedding_model)
+        ).strip()
+        if not self.collection_name:
+            raise ValueError("CHROMA_COLLECTION_NAME 不能为空")
+
         # 优先连接独立 ChromaDB 服务。HttpClient 仍在本地计算 query embedding。
         self._use_server = False
         self._bypass_proxy_for_loopback(chroma_host)
@@ -96,10 +163,16 @@ class KnowledgeBase:
 
         # HttpClient 仍在客户端计算 query embedding；Windows 使用轻量
         # chromadb-client 时尤其需要显式绑定 Embedding 函数。
-        self._embedding_function = self._build_embedding_function()
+        self._embedding_function = self._build_embedding_function(self.embedding_model)
+        collection_metadata: Dict[str, Any] = {
+            "description": "EchoMind RAG 知识库",
+            "embedding_model": self.embedding_model,
+        }
+        if self.embedding_model == BGE_ZH_EMBEDDING_MODEL:
+            collection_metadata["hnsw:space"] = "cosine"
         self._collection = self._client.get_or_create_collection(
-            name=self.COLLECTION_NAME,
-            metadata={"description": "EchoMind RAG 知识库"},
+            name=self.collection_name,
+            metadata=collection_metadata,
             embedding_function=self._embedding_function,
         )
 

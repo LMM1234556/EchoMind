@@ -15,6 +15,8 @@ redis==5.2.1
 # chroma-hnswlib 在 Python 3.12/Windows 上要求本地安装 Visual C++ Build Tools。
 chromadb-client==0.5.23; sys_platform == "win32"
 chromadb==0.5.23; sys_platform != "win32"  # Docker/Linux 仍保留完整包
+# 中文知识库 Embedding；模型文件由 FASTEMBED_CACHE_PATH 定向到数据盘
+fastembed==0.9.0
 onnxruntime==1.31.0; sys_platform == "win32"
 tokenizers==0.23.3; sys_platform == "win32"
 tqdm==4.70.1; sys_platform == "win32"

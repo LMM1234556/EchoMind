@@ -1,7 +1,7 @@
 # Chinese Embedding Candidate Benchmark
 
 Evaluation date: 2026-10-18  
-Status: candidate evaluation only; runtime migration not yet performed
+Status: controlled runtime migration completed with rollback collection retained
 
 ## Motivation
 
@@ -36,10 +36,18 @@ The only seed query not ranked first was the two-factor-authentication query: `�
 
 ## Decision boundary
 
-- The candidate is strong enough to justify a controlled migration experiment.
-- The current 384-dimensional collection must not be mixed with 512-dimensional BGE vectors. Migration requires a new collection and complete re-indexing.
+- The candidate was migrated to the isolated `knowledge_base_bge_v1` collection.
+- The original 384-dimensional `knowledge_base` collection remains intact for rollback; it must not be mixed with 512-dimensional BGE vectors.
 - A fixed similarity threshold is deferred until the benchmark includes hard negatives, close-domain unanswered questions, and more confusable documents.
 - These numbers describe a small regression dataset, not production accuracy.
+
+## Runtime verification
+
+- The BGE collection contains the 6 built-in demo documents.
+- A refund timing query ranked `退款政策` first.
+- In-container vector recall for four rewritten queries took approximately 80.7 ms in one trace.
+- The full `/search` request took approximately 29.8 seconds because query rewriting and reranking each called the configured remote LLM. This single trace is diagnostic evidence, not a stable latency benchmark.
+- Pure vector retrieval still returns a nearest document for every out-of-domain query in the negative set. Intent routing and the evidence gate therefore remain enabled.
 
 ## References
 

@@ -2,7 +2,12 @@ from pathlib import Path
 
 from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 
-from mcp.knowledge_base import KnowledgeBase
+from mcp.knowledge_base import (
+    BGE_ZH_EMBEDDING_MODEL,
+    DEFAULT_EMBEDDING_MODEL,
+    FastEmbedEmbeddingFunction,
+    KnowledgeBase,
+)
 
 
 def make_knowledge_base(documents):
@@ -21,6 +26,42 @@ def test_embedding_cache_can_be_redirected_outside_system_drive(monkeypatch, tmp
 
     assert isinstance(embedding_function, ONNXMiniLM_L6_V2)
     assert ONNXMiniLM_L6_V2.DOWNLOAD_PATH == Path(cache_path)
+
+
+def test_embedding_models_use_separate_default_collections():
+    assert KnowledgeBase._default_collection_name(DEFAULT_EMBEDDING_MODEL) == "knowledge_base"
+    assert KnowledgeBase._default_collection_name(BGE_ZH_EMBEDDING_MODEL) == "knowledge_base_bge_v1"
+
+
+def test_fastembed_adapter_uses_configured_e_drive_cache(monkeypatch, tmp_path):
+    captured = {}
+
+    class FakeTextEmbedding:
+        def __init__(self, **kwargs):
+            captured.update(kwargs)
+
+        def embed(self, values):
+            return ([float(index), 1.0] for index, _ in enumerate(values))
+
+    import sys
+    import types
+    monkeypatch.setitem(sys.modules, "fastembed", types.SimpleNamespace(TextEmbedding=FakeTextEmbedding))
+    cache_path = tmp_path / "fastembed"
+
+    function = FastEmbedEmbeddingFunction(BGE_ZH_EMBEDDING_MODEL, str(cache_path))
+
+    assert captured["model_name"] == BGE_ZH_EMBEDDING_MODEL
+    assert captured["cache_dir"] == str(cache_path)
+    assert function(["查询", "文档"]) == [[0.0, 1.0], [1.0, 1.0]]
+
+
+def test_unknown_embedding_model_is_rejected():
+    try:
+        KnowledgeBase._build_embedding_function("unknown/model")
+    except ValueError as error:
+        assert "不支持" in str(error)
+    else:
+        raise AssertionError("unknown model should be rejected")
 
 
 def test_loopback_chroma_bypasses_system_proxy(monkeypatch):

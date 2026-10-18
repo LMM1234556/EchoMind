@@ -19,6 +19,7 @@ logs/
 !.env.example
 
 data/chroma/
+data/model-cache/
 data/**/*.sqlite3
 data/.DS_Store
 
