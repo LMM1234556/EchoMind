@@ -12,7 +12,7 @@ import sys
 import time
 import uuid
 from contextlib import asynccontextmanager
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 
 _ROOT = str(pathlib.Path(__file__).parent.parent.resolve())
@@ -449,15 +449,50 @@ async def prometheus_metrics():
 
 
 @app.post("/search")
-async def search(query: str, top_k: int = 5):
+async def search(
+    query: str,
+    top_k: int = 5,
+    mode: Literal["local", "enhanced"] = "local",
+):
     """
-    演示检索优化链路：查询改写 → 并行召回 → 重排 → Top-K。
-    展示 MCP 工具调用的核心亮点。
+    调试知识库检索。
+
+    - local（默认）：单路本地向量检索，不调用 LLM。
+    - enhanced：查询改写 → 并行召回 → LLM 重排，可能调用两次远程模型。
+
+    本接口没有业务意图信息，返回内容只是候选结果，不能直接视为
+    “知识库中存在答案”。聊天主链路会额外执行意图与证据门控。
     """
     if _tool_manager is None:
         raise HTTPException(503, "服务未就绪")
-    result = await _tool_manager.search_with_rewrite("knowledge_search", query, top_k=top_k)
-    return {"query": query, "results": result.data, "reranked": result.reranked}
+
+    limited_top_k = max(1, min(top_k, 5))
+    if mode == "local":
+        result = await _tool_manager.call(
+            "knowledge_search",
+            {"query": query, "top_k": limited_top_k},
+            use_cache=True,
+        )
+    else:
+        result = await _tool_manager.search_with_rewrite(
+            "knowledge_search",
+            query,
+            top_k=limited_top_k,
+        )
+
+    data = result.data if isinstance(result.data, list) else []
+    return {
+        "success": result.success,
+        "query": query,
+        "mode": mode,
+        "top_k": limited_top_k,
+        "results": data,
+        "reranked": result.reranked,
+        "cached": result.cached,
+        "llm_assisted": mode == "enhanced",
+        "evidence_status": "unverified_candidates",
+        "error": result.error,
+    }
 
 
 class DocInput(BaseModel):
