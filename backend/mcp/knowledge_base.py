@@ -37,6 +37,20 @@ class KnowledgeBase:
     COLLECTION_NAME = "knowledge_base"
 
     @staticmethod
+    def _bypass_proxy_for_loopback(host: str) -> None:
+        """避免 Windows 系统代理接管本机 ChromaDB 请求。"""
+        if str(host).strip().lower() not in {"127.0.0.1", "localhost", "::1"}:
+            return
+        existing = os.getenv("NO_PROXY") or os.getenv("no_proxy") or ""
+        entries = [item.strip() for item in existing.split(",") if item.strip()]
+        for item in ("127.0.0.1", "localhost", "::1"):
+            if item not in entries:
+                entries.append(item)
+        value = ",".join(entries)
+        os.environ["NO_PROXY"] = value
+        os.environ["no_proxy"] = value
+
+    @staticmethod
     def _build_embedding_function() -> ONNXMiniLM_L6_V2:
         """创建与 Chroma 默认模型一致的本地 ONNX Embedding 函数。
 
@@ -55,8 +69,9 @@ class KnowledgeBase:
         chroma_port: int = 8000,
         chroma_path: str = "./data/chroma",
     ):
-        # 优先连接独立 ChromaDB 服务（服务端内置 embedding 模型，客户端无需下载）
+        # 优先连接独立 ChromaDB 服务。HttpClient 仍在本地计算 query embedding。
         self._use_server = False
+        self._bypass_proxy_for_loopback(chroma_host)
         try:
             # HttpClient 默认也会初始化 ChromaDB telemetry；显式关闭避免 posthog 兼容性错误日志。
             self._client = chromadb.HttpClient(
@@ -67,7 +82,12 @@ class KnowledgeBase:
             self._client.heartbeat()
             self._use_server = True
             logger.info(f"知识库 ChromaDB 已连接: {chroma_host}:{chroma_port}")
-        except Exception:
+        except Exception as ex:
+            if getattr(chromadb, "is_client", False):
+                raise RuntimeError(
+                    f"无法连接 ChromaDB 服务 {chroma_host}:{chroma_port}；"
+                    "当前安装的是 chromadb-client，仅支持 HTTP 服务模式。"
+                ) from ex
             logger.info(f"知识库 ChromaDB 服务不可用，使用本地模式: {chroma_path}")
             self._client = chromadb.PersistentClient(
                 path=chroma_path,

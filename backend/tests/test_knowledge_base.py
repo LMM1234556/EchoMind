@@ -23,6 +23,25 @@ def test_embedding_cache_can_be_redirected_outside_system_drive(monkeypatch, tmp
     assert ONNXMiniLM_L6_V2.DOWNLOAD_PATH == Path(cache_path)
 
 
+def test_loopback_chroma_bypasses_system_proxy(monkeypatch):
+    monkeypatch.delenv("NO_PROXY", raising=False)
+    monkeypatch.delenv("no_proxy", raising=False)
+
+    KnowledgeBase._bypass_proxy_for_loopback("127.0.0.1")
+
+    assert set(__import__("os").environ["NO_PROXY"].split(",")) == {
+        "127.0.0.1", "localhost", "::1"
+    }
+
+
+def test_remote_chroma_does_not_change_proxy_bypass(monkeypatch):
+    monkeypatch.setenv("NO_PROXY", "internal.example")
+
+    KnowledgeBase._bypass_proxy_for_loopback("chroma.internal")
+
+    assert __import__("os").environ["NO_PROXY"] == "internal.example"
+
+
 def test_keyword_search_ranks_refund_document_first():
     knowledge_base = make_knowledge_base([
         {"title": "技术故障排查", "content": "登录失败或页面报错", "chunk": 0},

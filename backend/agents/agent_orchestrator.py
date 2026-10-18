@@ -331,6 +331,8 @@ class BaseAgent:
                 "cached": bool(prefetched.get("cached")) if isinstance(prefetched, dict) else False,
                 "reranked": bool(prefetched.get("reranked")) if isinstance(prefetched, dict) else False,
                 "retrieval_mode": str(prefetched.get("retrieval_mode", "")) if isinstance(prefetched, dict) else "",
+                "candidate_count": int(prefetched.get("candidate_count", 0)) if isinstance(prefetched, dict) else 0,
+                "evidence_gate": str(prefetched.get("evidence_gate", "")) if isinstance(prefetched, dict) else "",
                 "invocation_source": "deterministic_prefetch",
                 "prefetched": True,
                 "error": error_text,
@@ -433,6 +435,8 @@ class BaseAgent:
                     "cached": bool(result.get("cached")) if isinstance(result, dict) else False,
                     "reranked": bool(result.get("reranked")) if isinstance(result, dict) else False,
                     "retrieval_mode": str(result.get("retrieval_mode", "")) if isinstance(result, dict) else "",
+                    "candidate_count": int(result.get("candidate_count", 0)) if isinstance(result, dict) else 0,
+                    "evidence_gate": str(result.get("evidence_gate", "")) if isinstance(result, dict) else "",
                     "invocation_source": "model_tool_call",
                     "prefetched": False,
                     "error": error_text,
@@ -486,6 +490,8 @@ class BaseAgent:
 
     @staticmethod
     def _knowledge_evidence_found(result: Any) -> bool:
+        if isinstance(result, dict) and "evidence_accepted" in result:
+            return bool(result.get("success") and result.get("evidence_accepted"))
         return bool(
             isinstance(result, dict)
             and result.get("success")

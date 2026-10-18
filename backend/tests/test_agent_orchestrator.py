@@ -414,6 +414,62 @@ def test_fast_rag_falls_back_to_full_rag_when_keyword_search_is_empty():
     assert result["success"] is True
     assert result["retrieval_mode"] == "full_rag"
     assert result["reranked"] is True
+    assert result["evidence_accepted"] is True
+    assert result["evidence_gate"] == "intent_title_match"
+
+
+def test_full_rag_rejects_nearest_document_from_wrong_business_domain():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type(
+                "Result",
+                (),
+                {
+                    "success": True,
+                    "data": [{"title": "配送说明", "content": "标准配送 3-5 个工作日"}],
+                    "reranked": True,
+                },
+            )()
+
+    spec = build_shared_rag_tools(RagManager())["search_knowledge_base"]
+    req = make_request(message="退款什么时候到账", intent=IntentCategory.REFUND)
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert result["success"] is True
+    assert result["candidate_count"] == 1
+    assert result["results"] == []
+    assert result["evidence_accepted"] is False
+    assert result["evidence_gate"] == "intent_title_mismatch"
+
+
+def test_full_rag_marks_missing_invoice_document_as_knowledge_gap():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type(
+                "Result",
+                (),
+                {
+                    "success": True,
+                    "data": [{"title": "退款政策", "content": "1-3 个工作日审核"}],
+                    "reranked": True,
+                },
+            )()
+
+    spec = build_shared_rag_tools(RagManager())["search_knowledge_base"]
+    req = make_request(message="电子发票多久开出", intent=IntentCategory.INVOICE)
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert result["candidate_count"] == 1
+    assert result["results"] == []
+    assert result["evidence_gate"] == "knowledge_gap"
 
 
 def test_high_confidence_specific_intent_prefetches_knowledge_before_first_llm_call():

@@ -40,6 +40,55 @@ _FAST_RAG_INTENTS = {
 }
 
 
+# 完整向量检索总会返回“最相近”的文档，因此结果非空不等于有证据。
+# 这里只为当前内置知识库建立可审计的意图-文档边界；没有对应文档的
+# 意图（例如 invoice）应明确返回知识缺口，而不是借用别的文档作答。
+_FULL_RAG_TITLES_BY_INTENT = {
+    "order_status": {"订单查询"},
+    "logistics": {"订单查询", "配送说明"},
+    "refund": {"退款政策"},
+    "invoice": set(),
+    # “支付失败”可由关键词路径命中技术文档；语义召回不足以证明
+    # 重复扣款、扣费规则等更宽泛的资金结论。
+    "payment_issue": set(),
+    "account_security": {"账户安全"},
+    "technical_login": {"技术故障排查"},
+    "technical_crash": {"技术故障排查"},
+}
+
+
+def filter_grounded_results(
+    intent_value: str,
+    retrieval_mode: str,
+    results: Any,
+) -> tuple[List[Dict[str, Any]], str]:
+    """把“召回候选”转换成可以交给生成模型的证据。
+
+    关键词快速路径已经要求实际词面交集。完整向量路径则必须同时满足
+    具体意图与文档标题的领域映射；不能用未经验证的原始相似度阈值。
+    """
+    if not isinstance(results, list) or not results:
+        return [], "no_candidates"
+
+    dict_results = [item for item in results if isinstance(item, dict)]
+    if retrieval_mode == "fast_keyword":
+        return dict_results, "lexical_overlap"
+
+    allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
+    if allowed_titles is None:
+        return [], "intent_not_specific_enough"
+    if not allowed_titles:
+        return [], "knowledge_gap"
+
+    accepted = [
+        item for item in dict_results
+        if str(item.get("title", "")) in allowed_titles
+    ]
+    if not accepted:
+        return [], "intent_title_mismatch"
+    return accepted, "intent_title_match"
+
+
 def should_prefetch_knowledge(req: "Request") -> bool:
     """只对高置信度的具体业务意图执行确定性知识预取。"""
     intent_value = getattr(req.intent, "value", req.intent)
@@ -235,14 +284,27 @@ def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
                 "query": query,
                 "error": getattr(result, "error", "知识库检索失败"),
                 "results": [],
+                "candidate_count": 0,
+                "evidence_accepted": False,
+                "evidence_gate": "retrieval_failed",
                 "reranked": False,
             }
+
+        candidate_results = result.data if isinstance(result.data, list) else []
+        accepted_results, evidence_gate = filter_grounded_results(
+            str(intent_value or ""),
+            retrieval_mode,
+            candidate_results,
+        )
 
         return {
             "success": True,
             "query": query,
             "top_k": top_k,
-            "results": result.data,
+            "results": accepted_results,
+            "candidate_count": len(candidate_results),
+            "evidence_accepted": bool(accepted_results),
+            "evidence_gate": evidence_gate,
             "reranked": bool(getattr(result, "reranked", False)),
             "retrieval_mode": retrieval_mode,
         }
