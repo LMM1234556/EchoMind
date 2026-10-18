@@ -1,3 +1,7 @@
+from pathlib import Path
+
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
+
 from mcp.knowledge_base import KnowledgeBase
 
 
@@ -5,6 +9,18 @@ def make_knowledge_base(documents):
     knowledge_base = KnowledgeBase.__new__(KnowledgeBase)
     knowledge_base.list_documents = lambda: documents
     return knowledge_base
+
+
+def test_embedding_cache_can_be_redirected_outside_system_drive(monkeypatch, tmp_path):
+    cache_path = tmp_path / "chroma-model"
+    original_path = ONNXMiniLM_L6_V2.DOWNLOAD_PATH
+    monkeypatch.setattr(ONNXMiniLM_L6_V2, "DOWNLOAD_PATH", original_path)
+    monkeypatch.setenv("CHROMA_EMBEDDING_CACHE", str(cache_path))
+
+    embedding_function = KnowledgeBase._build_embedding_function()
+
+    assert isinstance(embedding_function, ONNXMiniLM_L6_V2)
+    assert ONNXMiniLM_L6_V2.DOWNLOAD_PATH == Path(cache_path)
 
 
 def test_keyword_search_ranks_refund_document_first():

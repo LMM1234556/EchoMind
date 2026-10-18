@@ -14,10 +14,13 @@ ChromaDB 在这里的角色：
 import asyncio
 import hashlib
 import logging
+import os
 import re
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import chromadb
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +35,19 @@ class KnowledgeBase:
     """
 
     COLLECTION_NAME = "knowledge_base"
+
+    @staticmethod
+    def _build_embedding_function() -> ONNXMiniLM_L6_V2:
+        """创建与 Chroma 默认模型一致的本地 ONNX Embedding 函数。
+
+        ``chromadb-client`` 不会自动附加 Embedding 函数；Windows 本地连接
+        Docker ChromaDB 时必须显式提供。可选环境变量把模型缓存固定到 E 盘，
+        避免 Chroma 0.5.23 使用硬编码的 ``~/.cache`` 路径占用系统盘。
+        """
+        cache_path = os.getenv("CHROMA_EMBEDDING_CACHE", "").strip()
+        if cache_path:
+            ONNXMiniLM_L6_V2.DOWNLOAD_PATH = Path(cache_path)
+        return ONNXMiniLM_L6_V2()
 
     def __init__(
         self,
@@ -58,11 +74,13 @@ class KnowledgeBase:
                 settings=chromadb.Settings(anonymized_telemetry=False),
             )
 
-        # 使用服务端时不传 embedding_function，让服务端处理
-        # 本地模式时也不传，使用 ChromaDB 默认的（会触发模型下载）
+        # HttpClient 仍在客户端计算 query embedding；Windows 使用轻量
+        # chromadb-client 时尤其需要显式绑定 Embedding 函数。
+        self._embedding_function = self._build_embedding_function()
         self._collection = self._client.get_or_create_collection(
             name=self.COLLECTION_NAME,
             metadata={"description": "EchoMind RAG 知识库"},
+            embedding_function=self._embedding_function,
         )
 
         # 如果知识库为空，导入默认文档

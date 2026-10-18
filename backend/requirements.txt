@@ -15,6 +15,9 @@ redis==5.2.1
 # chroma-hnswlib 在 Python 3.12/Windows 上要求本地安装 Visual C++ Build Tools。
 chromadb-client==0.5.23; sys_platform == "win32"
 chromadb==0.5.23; sys_platform != "win32"  # Docker/Linux 仍保留完整包
+onnxruntime==1.31.0; sys_platform == "win32"
+tokenizers==0.23.3; sys_platform == "win32"
+tqdm==4.70.1; sys_platform == "win32"
 
 # ── 监控 ──────────────────────────────────────────────────────────────────────
 prometheus-client==0.21.1
