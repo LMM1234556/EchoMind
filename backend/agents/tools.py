@@ -246,7 +246,8 @@ def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
 
     async def search_knowledge_base(req: Request, args: Dict[str, Any]) -> Dict[str, Any]:
         query = str(args.get("query") or req.message or "").strip()
-        top_k = int(args.get("top_k", 5) or 5)
+        # 每路最多取 5 条候选，避免把过多弱相关文档交给后续生成阶段。
+        top_k = max(1, min(int(args.get("top_k", 5) or 5), 5))
         if not query:
             return {"success": False, "error": "query 不能为空", "results": []}
         if tool_manager is None:
@@ -271,6 +272,35 @@ def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
             ):
                 result = fast_result
                 retrieval_mode = "fast_keyword"
+
+        # 关键词没有命中时，高置信度具体意图先走一次本地向量检索。
+        # 只有结果通过既有的“意图-文档标题”证据门控才采用；否则仍回退
+        # 到查询改写 + 多路召回 + LLM 重排，不能因提速而放宽证据标准。
+        allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
+        if (
+            result is None
+            and req.intent_confidence >= 0.8
+            and bool(allowed_titles)
+        ):
+            vector_result = await tool_manager.call(
+                "knowledge_search",
+                {"query": query, "top_k": 5},
+                use_cache=True,
+            )
+            vector_candidates = (
+                vector_result.data
+                if getattr(vector_result, "success", False)
+                and isinstance(getattr(vector_result, "data", None), list)
+                else []
+            )
+            grounded_vector, _ = filter_grounded_results(
+                str(intent_value or ""),
+                "fast_vector",
+                vector_candidates,
+            )
+            if grounded_vector:
+                result = vector_result
+                retrieval_mode = "fast_vector"
 
         if result is None:
             result = await tool_manager.search_with_rewrite(

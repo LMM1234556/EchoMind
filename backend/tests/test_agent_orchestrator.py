@@ -418,6 +418,114 @@ def test_fast_rag_falls_back_to_full_rag_when_keyword_search_is_empty():
     assert result["evidence_gate"] == "intent_title_match"
 
 
+def test_high_confidence_intent_uses_grounded_fast_vector_before_llm_rag():
+    class RagManager:
+        def __init__(self):
+            self.calls = []
+            self.full_calls = []
+
+        async def call(self, tool_name, params, use_cache=True):
+            self.calls.append(dict(params))
+            if params.get("mode") == "keyword":
+                data = []
+            else:
+                data = [
+                    {"title": "退款政策", "content": "审核 1-3 日，到账 5-7 日", "score": 0.76},
+                    {"title": "配送说明", "content": "标准配送 3-5 日", "score": 0.51},
+                ]
+            return type("Result", (), {"success": True, "data": data, "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            self.full_calls.append((tool_name, query, top_k))
+            raise AssertionError("本地向量证据通过门控后不应调用 LLM RAG")
+
+    manager = RagManager()
+    spec = build_shared_rag_tools(manager)["search_knowledge_base"]
+    req = make_request(
+        message="买错东西后想退掉",
+        intent=IntentCategory.REFUND,
+        intent_confidence=0.92,
+    )
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 12}))
+
+    assert result["success"] is True
+    assert result["top_k"] == 5
+    assert result["retrieval_mode"] == "fast_vector"
+    assert result["reranked"] is False
+    assert result["candidate_count"] == 2
+    assert [item["title"] for item in result["results"]] == ["退款政策"]
+    assert manager.calls == [
+        {"query": req.message, "top_k": 5, "mode": "keyword"},
+        {"query": req.message, "top_k": 5},
+    ]
+    assert manager.full_calls == []
+
+
+def test_fast_vector_wrong_domain_falls_back_to_full_rag():
+    class RagManager:
+        def __init__(self):
+            self.call_count = 0
+            self.full_calls = []
+
+        async def call(self, tool_name, params, use_cache=True):
+            self.call_count += 1
+            data = [] if params.get("mode") == "keyword" else [
+                {"title": "配送说明", "content": "标准配送 3-5 日"},
+            ]
+            return type("Result", (), {"success": True, "data": data, "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            self.full_calls.append((tool_name, query, top_k))
+            return type(
+                "Result",
+                (),
+                {"success": True, "data": [{"title": "退款政策", "content": "支持退款"}], "reranked": True},
+            )()
+
+    manager = RagManager()
+    spec = build_shared_rag_tools(manager)["search_knowledge_base"]
+    req = make_request(message="想退掉买错的东西", intent=IntentCategory.REFUND)
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert manager.call_count == 2
+    assert manager.full_calls == [("knowledge_search", req.message, 3)]
+    assert result["retrieval_mode"] == "full_rag"
+    assert result["reranked"] is True
+
+
+def test_low_confidence_intent_does_not_trust_single_vector_recall():
+    class RagManager:
+        def __init__(self):
+            self.call_params = []
+
+        async def call(self, tool_name, params, use_cache=True):
+            self.call_params.append(dict(params))
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type(
+                "Result",
+                (),
+                {"success": True, "data": [{"title": "退款政策", "content": "支持退款"}], "reranked": True},
+            )()
+
+    manager = RagManager()
+    spec = build_shared_rag_tools(manager)["search_knowledge_base"]
+    req = make_request(
+        message="好像想退一个东西",
+        intent=IntentCategory.REFUND,
+        intent_confidence=0.55,
+    )
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert manager.call_params == [{"query": req.message, "top_k": 3, "mode": "keyword"}]
+    assert result["retrieval_mode"] == "full_rag"
+    assert result["reranked"] is True
+
+
 def test_full_rag_rejects_nearest_document_from_wrong_business_domain():
     class RagManager:
         async def call(self, tool_name, params, use_cache=True):

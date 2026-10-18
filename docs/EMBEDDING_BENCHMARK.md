@@ -47,6 +47,8 @@ The only seed query not ranked first was the two-factor-authentication query: `�
 - A refund timing query ranked `退款政策` first.
 - In-container vector recall for four rewritten queries took approximately 80.7 ms in one trace.
 - The full `/search` request took approximately 29.8 seconds because query rewriting and reranking each called the configured remote LLM. This single trace is diagnostic evidence, not a stable latency benchmark.
+- The guarded chat retrieval path now tries one local BGE recall after a keyword miss when intent confidence is at least 0.8. A container check for the colloquial refund query completed in 25.7 ms, returned `fast_vector`, and made no rewrite or rerank call.
+- Each retrieval branch is capped at five candidates. A fast-vector result is accepted only when its document title matches the audited intent-to-document mapping; otherwise the full RAG path remains available.
 - Pure vector retrieval still returns a nearest document for every out-of-domain query in the negative set. Intent routing and the evidence gate therefore remain enabled.
 
 ## References
