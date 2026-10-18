@@ -27,6 +27,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from pydantic import BaseModel, Field
 
 from core.knowledge_routing import should_use_knowledge
+from core.llm_utils import current_llm_call_stats, llm_call_scope
 
 load_dotenv()
 # Personal credentials stay in the ignored local file; Docker injects them via env_file.
@@ -211,6 +212,13 @@ app.add_middleware(
 )
 
 
+@app.middleware("http")
+async def llm_call_meter_middleware(request, call_next):
+    """Count foreground LLM call attempts without recording prompts or secrets."""
+    with llm_call_scope():
+        return await call_next(request)
+
+
 # ── 请求/响应模型 ─────────────────────────────────────────────────────────────
 class ChatRequest(BaseModel):
     message:     str
@@ -239,6 +247,8 @@ class ChatResponse(BaseModel):
     intent_source_scores: Dict[str, float] = Field(default_factory=dict)
     failure_kind: str = ""
     stage_timings: Dict[str, float] = Field(default_factory=dict)
+    llm_call_count: int = 0
+    llm_calls_by_component: Dict[str, int] = Field(default_factory=dict)
 
 
 class ToolTraceResponse(BaseModel):
@@ -346,6 +356,7 @@ async def chat(req: ChatRequest):
 
     # 5. 异步更新用户画像（不阻塞响应）
     asyncio.create_task(_memory.update_profile(req.user_id, conv_id))
+    llm_stats = current_llm_call_stats()
 
     return ChatResponse(
         conv_id=conv_id,
@@ -368,6 +379,8 @@ async def chat(req: ChatRequest):
         intent_source_scores=intent_result.source_scores,
         failure_kind=result.failure_kind,
         stage_timings=stage_timings,
+        llm_call_count=llm_stats["total"],
+        llm_calls_by_component=llm_stats["by_component"],
     )
 
 

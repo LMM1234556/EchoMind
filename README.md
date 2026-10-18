@@ -91,6 +91,19 @@ python -m venv venv
 
 测试会使用 mock 或本地服务验证大部分逻辑；真实模型调用会消耗 API 额度，应单独控制次数。
 
+### 固定端到端试运行
+
+后端健康且已配置模型服务后，可运行 7 个固定场景（8 次真实请求）：
+
+```powershell
+Set-Location backend
+.\venv\Scripts\python.exe -m evaluation.e2e_benchmark `
+  --base-url http://127.0.0.1:8000 `
+  --output evaluation\reports\e2e_latest.json
+```
+
+评测分别统计人工标注意图/路由准确率、回答契约通过率、P50/P95 延迟和前台应用层 LLM SDK 调用次数。SDK 内部自动重试不计入该次数。回答契约检查不等同于完整语义质量或生产准确率。2026-10-18 的实测结果与边界见 [端到端试运行报告](backend/evaluation/reports/e2e_final_20261018.md)。
+
 ## 文档说明
 
 `docs/` 来自项目包中的正式技术资料。资料中的设计描述不自动等于当前环境已完成验证；以代码、自动化测试和实际运行结果为准。

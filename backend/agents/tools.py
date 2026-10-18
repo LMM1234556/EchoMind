@@ -56,6 +56,14 @@ _FULL_RAG_TITLES_BY_INTENT = {
     "technical_crash": {"技术故障排查"},
 }
 
+# 词面命中也必须落在意图允许的文档标题内。否则“重复扣款”中的“订单”
+# 可能把《订单查询》误当成资金规则证据。支付失败是唯一可以由技术故障
+# 文档支撑的 payment_issue 子场景；重复扣款等资金结论仍属于知识缺口。
+_KEYWORD_TITLES_BY_INTENT = {
+    **_FULL_RAG_TITLES_BY_INTENT,
+    "payment_issue": {"技术故障排查"},
+}
+
 
 def filter_grounded_results(
     intent_value: str,
@@ -72,7 +80,18 @@ def filter_grounded_results(
 
     dict_results = [item for item in results if isinstance(item, dict)]
     if retrieval_mode == "fast_keyword":
-        return dict_results, "lexical_overlap"
+        allowed_titles = _KEYWORD_TITLES_BY_INTENT.get(str(intent_value or ""))
+        if allowed_titles is None:
+            return [], "intent_not_specific_enough"
+        if not allowed_titles:
+            return [], "knowledge_gap"
+        accepted = [
+            item for item in dict_results
+            if str(item.get("title", "")) in allowed_titles
+        ]
+        if not accepted:
+            return [], "intent_title_mismatch"
+        return accepted, "lexical_intent_title_match"
 
     allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
     if allowed_titles is None:
@@ -277,6 +296,21 @@ def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
         # 只有结果通过既有的“意图-文档标题”证据门控才采用；否则仍回退
         # 到查询改写 + 多路召回 + LLM 重排，不能因提速而放宽证据标准。
         allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
+        # 如果关键词路径没有命中，而且当前意图在内置知识库中明确没有
+        # 对应文档，就直接报告知识缺口。继续做查询改写和重排只会消耗
+        # 两次远程模型调用，也不可能产生可接受证据。
+        if result is None and allowed_titles is not None and not allowed_titles:
+            return {
+                "success": True,
+                "query": query,
+                "top_k": top_k,
+                "results": [],
+                "candidate_count": 0,
+                "evidence_accepted": False,
+                "evidence_gate": "knowledge_gap",
+                "reranked": False,
+                "retrieval_mode": "knowledge_gap",
+            }
         if (
             result is None
             and req.intent_confidence >= 0.8

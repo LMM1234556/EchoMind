@@ -21,7 +21,7 @@ from typing import Any, Dict, List, Optional
 
 from anthropic import AsyncAnthropic
 
-from core.llm_utils import extract_text_content
+from core.llm_utils import extract_text_content, tracked_messages_create
 
 logger = logging.getLogger(__name__)
 
@@ -266,7 +266,9 @@ class IntentRecognizer:
         prompt = self._clean_text(prompt)
 
         try:
-            resp = await self.client.messages.create(
+            resp = await tracked_messages_create(
+                self.client,
+                "intent_recognizer",
                 model=self.model,
                 max_tokens=256,
                 temperature=0.1,

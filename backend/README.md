@@ -103,6 +103,15 @@ docker compose logs -f echomind
 
 - `GET /monitor`
 - `POST /eval/run`
+- `POST /chat` 返回 `llm_call_count` 与 `llm_calls_by_component`，只统计响应返回前的前台应用层 `messages.create` 调用；SDK 内部自动重试不计入。
+
+固定真实链路试运行：
+
+```powershell
+python -m evaluation.e2e_benchmark --base-url http://127.0.0.1:8000
+```
+
+用 `--case <case_id>` 可只运行指定场景，避免不必要的模型费用。运行器会逐条保存结果，超时也会作为失败写入报告。
 
 ## 项目结构
 
@@ -116,6 +125,8 @@ mcp/tool_manager.py          工具层、缓存、熔断、重排
 mcp/knowledge_base.py        ChromaDB 知识库
 monitor/performance_monitor.py 在线监控
 evaluation/evaluator.py      端到端评测
+evaluation/e2e_cases.json    固定人工标注试运行集
+evaluation/e2e_benchmark.py  真实 API 试运行与指标汇总
 wiki/                       详细文档
 skills/                     动态业务规则
 data/                       持久化数据

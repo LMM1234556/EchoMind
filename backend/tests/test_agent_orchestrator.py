@@ -575,9 +575,41 @@ def test_full_rag_marks_missing_invoice_document_as_knowledge_gap():
 
     result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
 
-    assert result["candidate_count"] == 1
+    assert result["candidate_count"] == 0
     assert result["results"] == []
     assert result["evidence_gate"] == "knowledge_gap"
+    assert result["retrieval_mode"] == "knowledge_gap"
+
+
+def test_duplicate_charge_does_not_accept_order_document_as_payment_evidence():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type(
+                "Result",
+                (),
+                {
+                    "success": True,
+                    "data": [{"title": "订单查询", "content": "订单状态说明"}],
+                    "reranked": False,
+                },
+            )()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("词面候选应由标题门控拒绝，无需远程重排")
+
+    spec = build_shared_rag_tools(RagManager())["search_knowledge_base"]
+    req = make_request(
+        message="同一笔订单被重复扣款",
+        intent=IntentCategory.PAYMENT_ISSUE,
+        intent_confidence=0.55,
+    )
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert result["results"] == []
+    assert result["evidence_accepted"] is False
+    assert result["evidence_gate"] == "intent_title_mismatch"
+    assert result["retrieval_mode"] == "fast_keyword"
 
 
 def test_high_confidence_specific_intent_prefetches_knowledge_before_first_llm_call():
@@ -731,14 +763,21 @@ def test_empty_technical_prefetch_still_allows_low_risk_diagnostics():
     assert result.tool_traces[0]["evidence_found"] is False
 
 
-def test_low_confidence_specific_intent_does_not_force_prefetch():
+def test_low_confidence_policy_intent_prefetches_and_fails_closed_without_evidence():
     class TextBlock:
         type = "text"
         text = "请补充您的问题。"
 
+    class EmptyRagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
     client = FakeClient(response=type("Response", (), {"content": [TextBlock()]})())
     agent = BillingAgent(client, "test-model")
-    agent.set_shared_tools(build_shared_rag_tools(object()))
+    agent.set_shared_tools(build_shared_rag_tools(EmptyRagManager()))
     req = make_request(
         message="我想问一下",
         intent=IntentCategory.REFUND,
@@ -748,8 +787,11 @@ def test_low_confidence_specific_intent_does_not_force_prefetch():
 
     response = asyncio.run(agent.handle(req))
 
-    assert response.tools_used == []
-    assert "search_knowledge_base" in {tool["name"] for tool in client.calls[0]["tools"]}
+    assert response.tools_used == ["search_knowledge_base"]
+    assert "未找到足够的可核验依据" in response.content
+    assert client.calls == []
+    assert response.tool_traces[0]["invocation_source"] == "deterministic_prefetch"
+    assert response.tool_traces[0]["evidence_found"] is False
 
 
 def test_generated_handoff_words_do_not_control_escalation():
@@ -1126,5 +1168,6 @@ def test_empty_model_requested_policy_search_stops_before_hallucinated_second_tu
     assert result.success is True
     assert "未找到足够的可核验依据" in result.content
     assert "3 个工作日" not in result.content
-    assert len(client.calls) == 1
+    assert len(client.calls) == 0
     assert result.tool_traces[0]["evidence_found"] is False
+    assert result.tool_traces[0]["retrieval_mode"] == "knowledge_gap"

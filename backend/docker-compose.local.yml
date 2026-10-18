@@ -1,5 +1,10 @@
 # Optional local healthcheck override. Secrets remain in the ignored .env file.
 services:
   echomind:
+    # Local credentials/provider selection live in the ignored file.  Keeping
+    # this override separate prevents stale values in the shared .env file
+    # from silently switching the benchmark to another provider.
+    env_file:
+      - .env.local
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5).read()"]

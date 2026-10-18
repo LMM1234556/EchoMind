@@ -1,0 +1,110 @@
+{
+  "version": "1.0",
+  "description": "EchoMind 固定端到端试运行集。意图与路由是人工标注；回答检查只验证可观察契约，不等同于完整语义正确率。",
+  "cases": [
+    {
+      "id": "greeting",
+      "turns": [
+        {
+          "message": "你好，请问你能帮我处理哪些问题？",
+          "expected_intent": "greeting",
+          "expected_primary_agent": "general",
+          "expected_knowledge_used": false,
+          "expected_escalated": false,
+          "must_contain_groups": [["你好", "您好", "可以帮"]]
+        }
+      ]
+    },
+    {
+      "id": "refund_policy",
+      "turns": [
+        {
+          "message": "退款审核需要多久，审核通过后多久能到账？",
+          "expected_intent": "refund",
+          "expected_primary_agent": "billing",
+          "expected_knowledge_used": true,
+          "expected_evidence_found": true,
+          "expected_escalated": false,
+          "must_contain_groups": [["1-3", "1～3", "1 至 3"], ["5-7", "5～7", "5 至 7"]]
+        }
+      ]
+    },
+    {
+      "id": "technical_login",
+      "turns": [
+        {
+          "message": "登录时一直提示 401，应该怎么排查？",
+          "expected_intent": "technical_login",
+          "expected_primary_agent": "technical",
+          "expected_escalated": false,
+          "must_contain_groups": [["401", "认证失败"], ["重置密码", "用户名", "密码"]]
+        }
+      ]
+    },
+    {
+      "id": "human_handoff",
+      "turns": [
+        {
+          "message": "我已经处理多次还没解决，请帮我转人工客服。",
+          "expected_intent": "human_handoff",
+          "expected_primary_agent": "escalation",
+          "expected_knowledge_used": false,
+          "expected_escalated": true,
+          "must_contain_groups": [["人工升级", "人工客服"]]
+        }
+      ]
+    },
+    {
+      "id": "multi_agent_payment_login",
+      "turns": [
+        {
+          "message": "登录一直报 401，而且同一笔订单被重复扣款了，请一起处理。",
+          "expected_intent": "payment_issue",
+          "expected_primary_agent": "billing",
+          "expected_supporting_agents": ["technical"],
+          "expected_knowledge_used": true,
+          "expected_evidence_found": false,
+          "expected_escalated": false,
+          "must_contain_groups": [["401", "登录"], ["扣款", "交易"]]
+        }
+      ]
+    },
+    {
+      "id": "invoice_without_evidence",
+      "turns": [
+        {
+          "message": "电子发票通常多久能开出来？",
+          "expected_intent": "invoice",
+          "expected_primary_agent": "billing",
+          "expected_knowledge_used": true,
+          "expected_evidence_found": false,
+          "expected_escalated": false,
+          "must_contain_groups": [["未找到足够", "不能确认"], ["人工", "核验"]]
+        }
+      ]
+    },
+    {
+      "id": "multi_turn_refund_memory",
+      "turns": [
+        {
+          "message": "请记住我的订单号是 EM-2026-1018，我正在申请退款。",
+          "expected_intent": "refund",
+          "expected_primary_agent": "billing",
+          "expected_knowledge_used": true,
+          "expected_evidence_found": true,
+          "expected_escalated": false,
+          "must_contain_groups": [["退款"]]
+        },
+        {
+          "message": "这个订单审核通过后多久能到账？",
+          "expected_intent": "refund",
+          "expected_primary_agent": "billing",
+          "expected_knowledge_used": true,
+          "expected_evidence_found": true,
+          "expected_escalated": false,
+          "must_contain_groups": [["5-7", "5～7", "5 至 7"]]
+        }
+      ]
+    }
+  ]
+}

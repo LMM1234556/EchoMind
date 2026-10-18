@@ -1,0 +1,236 @@
+{
+  "run_id": "e2e-20261018-214332",
+  "generated_at": "2026-10-18T21:45:10.172541+08:00",
+  "status": "completed",
+  "base_url": "http://127.0.0.1:8000",
+  "dataset": {
+    "version": "1.0",
+    "description": "EchoMind 固定端到端试运行集。意图与路由是人工标注；回答检查只验证可观察契约，不等同于完整语义正确率。",
+    "case_count": 1,
+    "request_count": 1
+  },
+  "summary": {
+    "sample_size": 1,
+    "intent_accuracy": 1.0,
+    "primary_agent_accuracy": 1.0,
+    "route_accuracy": 1.0,
+    "response_contract_pass_rate": 1.0,
+    "e2e_pass_rate": 1.0,
+    "counts": {
+      "intent_correct": 1,
+      "primary_agent_correct": 1,
+      "route_correct": 1,
+      "response_contract_passed": 1,
+      "e2e_passed": 1
+    },
+    "latency_ms": {
+      "external": {
+        "count": 1,
+        "mean": 97728.9,
+        "p50": 97728.9,
+        "p95": 97728.9,
+        "max": 97728.9
+      },
+      "api_total": {
+        "count": 1,
+        "mean": 97692.0,
+        "p50": 97692.0,
+        "p95": 97692.0,
+        "max": 97692.0
+      },
+      "by_stage": {
+        "agent_billing_ms": {
+          "count": 1,
+          "mean": 6.8,
+          "p50": 6.8,
+          "p95": 6.8,
+          "max": 6.8
+        },
+        "api_total_ms": {
+          "count": 1,
+          "mean": 97692.0,
+          "p50": 97692.0,
+          "p95": 97692.0,
+          "max": 97692.0
+        },
+        "intent_recognition_ms": {
+          "count": 1,
+          "mean": 97613.9,
+          "p50": 97613.9,
+          "p95": 97613.9,
+          "max": 97613.9
+        },
+        "memory_read_ms": {
+          "count": 1,
+          "mean": 68.6,
+          "p50": 68.6,
+          "p95": 68.6,
+          "max": 68.6
+        },
+        "memory_write_ms": {
+          "count": 1,
+          "mean": 2.6,
+          "p50": 2.6,
+          "p95": 2.6,
+          "max": 2.6
+        },
+        "orchestration_ms": {
+          "count": 1,
+          "mean": 6.8,
+          "p50": 6.8,
+          "p95": 6.8,
+          "max": 6.8
+        }
+      }
+    },
+    "llm_calls": {
+      "foreground_total": 1,
+      "per_completed_request_mean": 1.0,
+      "requests_with_unknown_call_count": 0,
+      "by_component": {
+        "intent_recognizer": 1
+      },
+      "scope_note": "Only synchronous foreground calls completed before /chat returned; background profile updates are excluded."
+    },
+    "retrieval": {
+      "modes": {
+        "knowledge_gap": 1
+      },
+      "evidence": {
+        "rejected": 1
+      }
+    },
+    "claim_boundary": "Intent and route metrics use fixed human labels. Response metrics are deterministic contract checks, not a calibrated semantic-quality or production-accuracy estimate."
+  },
+  "results": [
+    {
+      "message": "电子发票通常多久能开出来？",
+      "expected": {
+        "expected_intent": "invoice",
+        "expected_primary_agent": "billing",
+        "expected_knowledge_used": true,
+        "expected_evidence_found": false,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "未找到足够",
+            "不能确认"
+          ],
+          [
+            "人工",
+            "核验"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261018-214332-invoice_without_evidence-240f5e",
+        "request_id": "123e04cd",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "invoice",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 6.8,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.8068,
+        "intent_source_scores": {
+          "llm": 0.98,
+          "embedding": 0.3541002639140851,
+          "pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 68.6,
+          "intent_recognition_ms": 97613.9,
+          "agent_billing_ms": 6.8,
+          "orchestration_ms": 6.8,
+          "memory_write_ms": 2.6,
+          "api_total_ms": 97692.0
+        },
+        "llm_call_count": 1,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1
+        }
+      },
+      "trace": {
+        "request_id": "123e04cd",
+        "timestamp": "2026-10-18T13:45:10.167013",
+        "intent": "invoice",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_123e04cd",
+            "input": {
+              "query": "电子发票通常多久能开出来？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 6.7,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "knowledge_gap",
+            "candidate_count": 0,
+            "evidence_gate": "knowledge_gap",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 6.8,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 68.6,
+          "intent_recognition_ms": 97613.9,
+          "agent_billing_ms": 6.8,
+          "orchestration_ms": 6.8,
+          "memory_write_ms": 2.6,
+          "api_total_ms": 97692.0
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "evidence_found": true,
+        "required_answer_terms": true
+      },
+      "route_pass": true,
+      "response_contract_pass": true,
+      "e2e_pass": true,
+      "external_latency_ms": 97728.9,
+      "case_id": "invoice_without_evidence",
+      "turn_index": 0,
+      "conv_id": "e2e-20261018-214332-invoice_without_evidence-240f5e"
+    }
+  ]
+}

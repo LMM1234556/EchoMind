@@ -48,7 +48,7 @@ from agents.tools import (
 )
 from core.intent_recognizer import IntentCategory, IntentRecognizer, UrgencyLevel
 from core.knowledge_routing import scope_knowledge_query, should_use_knowledge
-from core.llm_utils import extract_text_content
+from core.llm_utils import extract_text_content, tracked_messages_create
 
 logger = logging.getLogger(__name__)
 
@@ -294,9 +294,12 @@ class BaseAgent:
         tool_traces: List[Dict[str, Any]] = []
 
         # 对高置信度具体意图先确定性预取知识，避免先让 LLM 用一轮
-        # 调用来决定“是否搜索”。预取失败时保留原工具，由 Agent 正常降级处理。
+        # 调用来决定“是否搜索”。资金、政策和时效类回答无论置信度高低
+        # 都必须先取证，不能把“是否检索”交给生成模型自行决定。
         knowledge_tool = tools.get("search_knowledge_base")
-        if knowledge_tool is not None and should_prefetch_knowledge(req):
+        if knowledge_tool is not None and (
+            should_prefetch_knowledge(req) or self._requires_policy_evidence(req)
+        ):
             args = {
                 "query": scope_knowledge_query(req.message, self.agent_type),
                 "top_k": 3,
@@ -378,11 +381,21 @@ class BaseAgent:
                     }
                     for spec in tools.values()
                 ]
-            resp = await self._client.messages.create(**request_kwargs)
+            resp = await tracked_messages_create(
+                self._client,
+                f"agent.{self.agent_type.value}",
+                **request_kwargs,
+            )
             tool_uses = [block for block in (resp.content or []) if self._block_type(block) == "tool_use"]
             if not tool_uses:
                 self._last_tools_used = tools_used
                 self._last_tool_traces = tool_traces
+                if self._requires_policy_evidence(req) and not any(
+                    trace.get("tool_name") == "search_knowledge_base"
+                    and trace.get("evidence_found") is True
+                    for trace in tool_traces
+                ):
+                    return self._grounded_no_evidence_response()
                 return extract_text_content(resp.content)
 
             messages.append({"role": "assistant", "content": resp.content})
@@ -798,7 +811,9 @@ class ResponseComposer:
             if skill:
                 prompt += f"\n\n[通用客服输出边界]\n{skill}"
         try:
-            response = await self._client.messages.create(
+            response = await tracked_messages_create(
+                self._client,
+                "response_composer",
                 model=self._model,
                 max_tokens=_env_int("ECHOMIND_COMPOSER_MAX_TOKENS", 1000),
                 temperature=_env_float("ECHOMIND_COMPOSER_TEMPERATURE", 0.1),

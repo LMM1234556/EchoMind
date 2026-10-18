@@ -25,7 +25,7 @@ import chromadb
 import redis.asyncio as redis
 from anthropic import AsyncAnthropic
 
-from core.llm_utils import extract_text_content
+from core.llm_utils import extract_text_content, tracked_messages_create
 
 logger = logging.getLogger(__name__)
 
@@ -186,7 +186,9 @@ class MemoryManager:
         prompt = self._safe_text(prompt)
 
         try:
-            resp = await self._client.messages.create(
+            resp = await tracked_messages_create(
+                self._client,
+                "memory.profile",
                 model=self._model, max_tokens=512, temperature=0.0,
                 messages=[{"role": "user", "content": prompt}],
             )
@@ -273,7 +275,9 @@ class MemoryManager:
         text = self._safe_text("\n".join(f"{m.role.value}: {m.content}" for m in to_compress))
         prompt = self._safe_text(f"用 2-3 句话总结以下对话的关键信息：\n{text}")
         try:
-            resp = await self._client.messages.create(
+            resp = await tracked_messages_create(
+                self._client,
+                "memory.compress",
                 model=self._model, max_tokens=256, temperature=0.0,
                 messages=[{"role": "user", "content": prompt}],
             )
@@ -469,7 +473,9 @@ class MemoryManager:
 """
         )
         try:
-            resp = await self._client.messages.create(
+            resp = await tracked_messages_create(
+                self._client,
+                "memory.summary_merge",
                 model=self._model,
                 max_tokens=256,
                 temperature=0.0,
