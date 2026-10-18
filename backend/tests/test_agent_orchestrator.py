@@ -459,6 +459,49 @@ def test_high_confidence_specific_intent_prefetches_knowledge_before_first_llm_c
     assert "search_knowledge_base" not in {tool["name"] for tool in first_call["tools"]}
 
 
+def test_prefetch_scopes_composite_query_for_each_domain_agent():
+    mixed_query = "我登录时提示 401，而且订单被重复扣款 99 元"
+
+    class RagManager:
+        def __init__(self):
+            self.queries = []
+
+        async def call(self, tool_name, params, use_cache=True):
+            self.queries.append(params["query"])
+            return type(
+                "Result",
+                (),
+                {"success": True, "data": [{"content": "命中知识"}], "reranked": False},
+            )()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("关键词检索命中后不应调用完整 RAG")
+
+    class TextBlock:
+        type = "text"
+        text = "已根据知识库处理。"
+
+    manager = RagManager()
+    response = type("Response", (), {"content": [TextBlock()]})()
+    request = make_request(
+        message=mixed_query,
+        intent=IntentCategory.PAYMENT_ISSUE,
+        intent_group="billing",
+        intent_confidence=0.93,
+    )
+
+    traces = []
+    for agent_class in (TechnicalAgent, BillingAgent):
+        agent = agent_class(FakeClient(response=response), "test-model")
+        agent.set_shared_tools(build_shared_rag_tools(manager))
+        result = asyncio.run(agent.handle(request))
+        assert result.success is True
+        traces.append(result.tool_traces[0]["input"]["query"])
+
+    assert manager.queries == ["我登录时提示 401", "订单被重复扣款 99 元"]
+    assert traces == manager.queries
+
+
 def test_low_confidence_specific_intent_does_not_force_prefetch():
     class TextBlock:
         type = "text"
@@ -740,3 +783,63 @@ def test_tool_use_round_trip_executes_only_whitelisted_tool():
         "build_diagnostic_plan",
     }
     assert "tool_result" in str(client.calls[1]["messages"])
+
+
+def test_model_requested_rag_query_is_scoped_before_tool_execution():
+    mixed_query = "我登录时提示 401，而且订单被重复扣款 99 元"
+
+    class ToolUseBlock:
+        type = "tool_use"
+        id = "toolu_rag"
+        name = "search_knowledge_base"
+        input = {"query": mixed_query, "top_k": 3}
+
+    class TextBlock:
+        type = "text"
+        text = "请先检查登录凭证是否过期。"
+
+    class ToolClient:
+        def __init__(self):
+            self.responses = [
+                type("Response", (), {"content": [ToolUseBlock()]})(),
+                type("Response", (), {"content": [TextBlock()]})(),
+            ]
+
+        class Messages:
+            def __init__(self, owner):
+                self.owner = owner
+
+            async def create(self, **kwargs):
+                return self.owner.responses.pop(0)
+
+        @property
+        def messages(self):
+            return self.Messages(self)
+
+    class RagManager:
+        def __init__(self):
+            self.queries = []
+
+        async def call(self, tool_name, params, use_cache=True):
+            self.queries.append(params["query"])
+            return type(
+                "Result",
+                (),
+                {"success": True, "data": [{"content": "401 表示认证失败"}], "reranked": False},
+            )()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("关键词检索命中后不应调用完整 RAG")
+
+    manager = RagManager()
+    agent = TechnicalAgent(ToolClient(), "test-model")
+    agent.set_shared_tools(build_shared_rag_tools(manager))
+    response = asyncio.run(agent.handle(make_request(
+        message=mixed_query,
+        intent_confidence=0.55,
+    )))
+
+    assert response.success is True
+    assert manager.queries == ["我登录时提示 401"]
+    assert response.tool_traces[0]["input"]["query"] == "我登录时提示 401"
+    assert response.tool_traces[0]["invocation_source"] == "model_tool_call"

@@ -1,7 +1,7 @@
 from agents.agent_orchestrator import GeneralAgent, Request
 from agents.tools import build_shared_rag_tools
 from core.intent_recognizer import IntentCategory
-from core.knowledge_routing import should_use_knowledge
+from core.knowledge_routing import scope_knowledge_query, should_use_knowledge
 
 
 class FakeClient:
@@ -60,3 +60,20 @@ def test_agent_exposes_rag_tool_for_business_request():
     )
 
     assert "search_knowledge_base" in tools
+
+
+def test_composite_query_is_scoped_to_each_agent_domain():
+    message = "我登录时提示 401，而且订单被重复扣款 99 元"
+
+    assert scope_knowledge_query(message, "technical") == "我登录时提示 401"
+    assert scope_knowledge_query(message, "billing") == "订单被重复扣款 99 元"
+
+
+def test_query_scope_keeps_single_domain_and_unsplittable_messages_intact():
+    billing = "退款审核需要多久，审核通过后多久能到账？"
+    unsplittable = "登录401订单重复扣款99元"
+
+    assert scope_knowledge_query(billing, "billing") == billing
+    assert scope_knowledge_query(unsplittable, "technical") == unsplittable
+    assert scope_knowledge_query(unsplittable, "billing") == unsplittable
+    assert scope_knowledge_query("今天天气怎么样", "general") == "今天天气怎么样"

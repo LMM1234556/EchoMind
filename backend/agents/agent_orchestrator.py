@@ -47,7 +47,7 @@ from agents.tools import (
     technical_tools,
 )
 from core.intent_recognizer import IntentCategory, IntentRecognizer, UrgencyLevel
-from core.knowledge_routing import should_use_knowledge
+from core.knowledge_routing import scope_knowledge_query, should_use_knowledge
 from core.llm_utils import extract_text_content
 
 logger = logging.getLogger(__name__)
@@ -281,7 +281,10 @@ class BaseAgent:
         # 调用来决定“是否搜索”。预取失败时保留原工具，由 Agent 正常降级处理。
         knowledge_tool = tools.get("search_knowledge_base")
         if knowledge_tool is not None and should_prefetch_knowledge(req):
-            args = {"query": req.message, "top_k": 3}
+            args = {
+                "query": scope_knowledge_query(req.message, self.agent_type),
+                "top_k": 3,
+            }
             tool_t0 = time.monotonic()
             call_success = True
             result_success: Optional[bool] = None
@@ -365,6 +368,12 @@ class BaseAgent:
                 name = self._block_value(block, "name")
                 tool_use_id = self._block_value(block, "id")
                 args = self._block_value(block, "input") or {}
+                if name == "search_knowledge_base" and isinstance(args, dict):
+                    args = dict(args)
+                    args["query"] = scope_knowledge_query(
+                        str(args.get("query") or req.message or ""),
+                        self.agent_type,
+                    )
                 spec = tools.get(name)
                 tool_t0 = time.monotonic()
                 call_success = True
