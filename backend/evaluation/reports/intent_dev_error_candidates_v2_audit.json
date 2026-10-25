@@ -1,0 +1,31 @@
+{
+  "name": "intent-dev-error-candidates-v2",
+  "version": "2.0",
+  "frozen": false,
+  "baseline_commit": "",
+  "total": 15,
+  "status_counts": {
+    "draft": 15
+  },
+  "split_counts": {
+    "candidate": 15
+  },
+  "difficulty_counts": {
+    "easy": 4,
+    "hard": 4,
+    "medium": 7
+  },
+  "intent_counts": {
+    "billing": 3,
+    "logistics": 3,
+    "other": 3,
+    "query": 3,
+    "technical": 3
+  },
+  "template_overlap_ids": [],
+  "cross_dataset_overlaps": [],
+  "scoreable_total": 0,
+  "warnings": [
+    "no human-verified dev/test cases are available for scoring"
+  ]
+}
