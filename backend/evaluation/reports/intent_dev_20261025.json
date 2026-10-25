@@ -26,6 +26,25 @@
     "p95": 23654.2,
     "maximum": 24109.0
   },
+  "container_verification": {
+    "endpoint": "POST http://127.0.0.1:8000/eval/run",
+    "compose_project": "echomind",
+    "wall_time_seconds": 23.1,
+    "total": 7,
+    "correct": 7,
+    "completed": 7,
+    "failed": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "completion_rate": 1.0,
+    "latency_ms": {
+      "average": 14686.7,
+      "p50": 13578.4,
+      "p95": 22696.9,
+      "maximum": 23009.2
+    },
+    "note": "The API top-level total is one aggregate evaluation result; the evaluated sample count is metadata.total=7."
+  },
   "cases": [
     {"id":"query-001","expected":"query","predicted":"query","confidence":0.6650,"latency_ms":9453.0},
     {"id":"query-002","expected":"query","predicted":"query","confidence":0.6650,"latency_ms":6843.0},
