@@ -14,6 +14,7 @@ class FakeRecognizer:
             intent=intent,
             confidence=0.9,
             reasoning="fake result",
+            source_scores={"llm": 0.9, "embedding": 0.0, "pattern": 0.0},
         )
 
 
@@ -35,6 +36,7 @@ def test_intent_evaluator_records_timeout_without_creating_fake_class():
     assert "__timeout__" not in report["per_class"]
     assert report["cases"][2]["predicted"] == "__timeout__"
     assert report["cases"][2]["failed"] is True
+    assert "queue_ms" in report["cases"][2]
 
 
 def test_intent_evaluator_preserves_input_order_under_concurrency():
@@ -47,3 +49,4 @@ def test_intent_evaluator_preserves_input_order_under_concurrency():
     report = asyncio.run(evaluator.evaluate(cases))
 
     assert [case["message"] for case in report["cases"]] == ["slow", "complaint"]
+    assert report["cases"][1]["source_scores"]["llm"] == 0.9

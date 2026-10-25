@@ -176,8 +176,10 @@ class IntentEvaluator:
         semaphore = asyncio.Semaphore(self._max_concurrency)
 
         async def evaluate_case(index: int, case: IntentTestCase):
-            started_at = time.monotonic()
+            queued_at = time.monotonic()
             async with semaphore:
+                started_at = time.monotonic()
+                queue_ms = (started_at - queued_at) * 1000
                 try:
                     result = await asyncio.wait_for(
                         self._recognizer.recognize(case.message),
@@ -190,9 +192,11 @@ class IntentEvaluator:
                         "predicted": predicted,
                         "confidence": result.confidence,
                         "reasoning": result.reasoning,
+                        "source_scores": dict(getattr(result, "source_scores", {})),
                         "failed": False,
                         "error": None,
                         "latency_ms": round((time.monotonic() - started_at) * 1000, 1),
+                        "queue_ms": round(queue_ms, 1),
                     }
                 except asyncio.TimeoutError:
                     predicted = "__timeout__"
@@ -202,9 +206,11 @@ class IntentEvaluator:
                         "predicted": predicted,
                         "confidence": 0.0,
                         "reasoning": "",
+                        "source_scores": {},
                         "failed": True,
                         "error": f"intent recognition exceeded {self._case_timeout_s:.1f}s",
                         "latency_ms": round((time.monotonic() - started_at) * 1000, 1),
+                        "queue_ms": round(queue_ms, 1),
                     }
                 except Exception as ex:
                     predicted = "__error__"
@@ -214,9 +220,11 @@ class IntentEvaluator:
                         "predicted": predicted,
                         "confidence": 0.0,
                         "reasoning": "",
+                        "source_scores": {},
                         "failed": True,
                         "error": f"{type(ex).__name__}: {ex}",
                         "latency_ms": round((time.monotonic() - started_at) * 1000, 1),
+                        "queue_ms": round(queue_ms, 1),
                     }
             return index, predicted, case.expected_intent, detail
 

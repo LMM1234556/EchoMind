@@ -55,6 +55,29 @@ class UrgencyLevel(Enum):
     CRITICAL = 4
 
 
+_INTENT_DEFINITIONS: Dict[IntentCategory, str] = {
+    IntentCategory.QUERY: "一般信息咨询，且不属于订单、物流等更具体类别",
+    IntentCategory.COMPLAINT: "表达不满或抱怨，但没有要求主管升级或转人工",
+    IntentCategory.REQUEST: "泛化操作请求，且没有匹配到更具体业务类别",
+    IntentCategory.GREETING: "问候、寒暄或确认是否在线",
+    IntentCategory.ESCALATION: "要求主管、经理、负责人或更高级别介入",
+    IntentCategory.TECHNICAL: "一般技术问题，不是登录认证或崩溃错误码问题",
+    IntentCategory.BILLING: "一般账单查询，不是退款、发票或支付扣款异常",
+    IntentCategory.ACCOUNT: "普通账户资料维护，如修改姓名、邮箱、绑定手机号或个人信息",
+    IntentCategory.FEEDBACK: "正面评价、感谢或建议反馈",
+    IntentCategory.ORDER_STATUS: "查询订单是否受理、处理或发货状态",
+    IntentCategory.LOGISTICS: "快递、配送、运单或运输进度问题",
+    IntentCategory.REFUND: "退款、退货或退款到账问题",
+    IntentCategory.INVOICE: "发票、抬头、税号或开票问题",
+    IntentCategory.PAYMENT_ISSUE: "支付失败、重复扣款、多扣款等支付异常",
+    IntentCategory.ACCOUNT_SECURITY: "账户被盗、异常登录、密码泄露、重置密码或两步验证等安全风险",
+    IntentCategory.TECHNICAL_LOGIN: "无法登录、认证失败、401 或验证码故障",
+    IntentCategory.TECHNICAL_CRASH: "程序崩溃、闪退、500 或明确错误码故障",
+    IntentCategory.HUMAN_HANDOFF: "明确要求人工、真人客服或人工坐席",
+    IntentCategory.OTHER: "不属于客服业务范围或无法判断",
+}
+
+
 @dataclass
 class IntentResult:
     intent:     IntentCategory
@@ -213,11 +236,12 @@ class IntentRecognizer:
             source_scores=source_scores,
         )
 
-        # LRU 缓存
-        if len(self._cache) >= 1000:
-            for k in list(self._cache)[:500]:
-                del self._cache[k]
-        self._cache[key] = result
+        # Provider 失败时的降级结果不缓存，避免一次瞬时故障长期污染后续请求。
+        if not llm.get("failed"):
+            if len(self._cache) >= 1000:
+                for k in list(self._cache)[:500]:
+                    del self._cache[k]
+            self._cache[key] = result
         return result
 
     def learn(self, message: str, correct: IntentCategory) -> None:
@@ -244,6 +268,10 @@ class IntentRecognizer:
             for cat, tpls in _TEMPLATES.items()
             for t in tpls[:1]  # 每类取 1 条，控制 prompt 长度
         )
+        definitions = "\n".join(
+            f"  - {category.value}: {definition}"
+            for category, definition in _INTENT_DEFINITIONS.items()
+        )
         # 最近 3 轮对话上下文
         ctx = ""
         if history:
@@ -252,9 +280,15 @@ class IntentRecognizer:
                 for m in history[-3:]
             )
 
-        prompt = f"""你是客服意图分析专家。根据示例判断用户意图，返回 JSON。
+        prompt = f"""你是客服意图分析专家。根据业务定义和示例判断用户意图，返回 JSON。
 如果用户问题能匹配细粒度业务意图，请优先返回细粒度意图，而不是宽泛大类。
 例如退款优先返回 refund，发票优先返回 invoice，登录故障优先返回 technical_login。
+
+业务定义:
+{definitions}
+
+示例:
+{examples}
 
         {ctx}
         用户消息: "{message}"
@@ -284,7 +318,12 @@ class IntentRecognizer:
             return data
         except Exception as ex:
             logger.warning(f"LLM 识别失败: {ex}")
-            return {"intent": IntentCategory.OTHER, "confidence": 0.0, "reasoning": "LLM 失败", "failed": True}
+            return {
+                "intent": IntentCategory.OTHER,
+                "confidence": 0.0,
+                "reasoning": f"LLM 失败 ({type(ex).__name__})",
+                "failed": True,
+            }
 
     async def _embedding_recognize(self, message: str) -> Dict[str, Any]:
         """策略 2：Embedding 向量相似度匹配。"""
@@ -348,13 +387,19 @@ class IntentRecognizer:
             "llm": float(llm.get("confidence", 0.0) or 0.0),
             "embedding": float(emb.get("confidence", 0.0) or 0.0),
             "pattern": float(pat.get("confidence", 0.0) or 0.0),
+            "llm_failed": float(bool(llm.get("failed"))),
         }
         if llm.get("failed"):
-            if emb.get("intent") != IntentCategory.OTHER and emb.get("confidence", 0.0) > 0:
-                return emb["intent"], source_scores["embedding"], source_scores
-            if pat.get("intent") != IntentCategory.OTHER and pat.get("confidence", 0.0) > 0:
-                return pat["intent"], source_scores["pattern"], source_scores
-            return IntentCategory.OTHER, 0.0, source_scores
+            fallbacks = [emb, pat]
+            best_fallback = max(
+                fallbacks,
+                key=lambda item: float(item.get("confidence", 0.0) or 0.0),
+            )
+            fallback_intent = best_fallback.get("intent", IntentCategory.OTHER)
+            fallback_score = float(best_fallback.get("confidence", 0.0) or 0.0)
+            if fallback_intent != IntentCategory.OTHER and fallback_score >= self.threshold:
+                return fallback_intent, fallback_score, source_scores
+            return IntentCategory.OTHER, fallback_score, source_scores
 
         if self._embedding_enabled:
             weights = [(llm, 0.7), (emb, 0.2), (pat, 0.1)]
