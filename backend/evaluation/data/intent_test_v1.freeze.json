@@ -12,6 +12,13 @@
   "source": "ai_drafted_then_human_reviewed",
   "template_exact_overlaps": 0,
   "development_set_exact_overlaps": 0,
-  "first_evaluation_run": false,
+  "first_evaluation_run": true,
+  "first_evaluation_completed_on": "2026-10-26",
+  "first_evaluation_model": "qwen3.7-plus",
+  "first_evaluation_report": "backend/evaluation/reports/intent_test_v1_first_run_20261026.json",
+  "first_evaluation_report_sha256": "77b8caa5d093fcd7464df785f2261cb63da61df9fcfb690ad4774bd8e46be2cb",
+  "first_evaluation_accuracy": 0.9474,
+  "first_evaluation_macro_f1": 0.9495,
+  "first_evaluation_provider_failures": 0,
   "restriction": "Do not tune prompts, templates, patterns, thresholds, or model routing using this frozen test set."
 }

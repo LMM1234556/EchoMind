@@ -143,3 +143,7 @@ def test_frozen_intent_v1_matches_freeze_manifest():
     assert metadata["frozen"] is True
     assert metadata["baseline_commit"] == manifest["baseline_commit"]
     assert len(cases) == manifest["total_cases"] == 95
+    if manifest.get("first_evaluation_run"):
+        report_path = backend_root.parent / manifest["first_evaluation_report"]
+        report_hash = hashlib.sha256(report_path.read_bytes()).hexdigest()
+        assert report_hash == manifest["first_evaluation_report_sha256"]
