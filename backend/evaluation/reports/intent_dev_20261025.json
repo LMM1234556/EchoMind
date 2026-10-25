@@ -1,0 +1,39 @@
+{
+  "run_date": "2026-10-25",
+  "dataset": "evaluation/data/intent_eval_candidates.json",
+  "dataset_version": "1.0",
+  "split": "dev",
+  "model": "qwen3.7-plus",
+  "execution": {
+    "runtime": "E:/EchoMindSetup/embedding-eval-venv",
+    "max_concurrency": 2,
+    "case_timeout_seconds": 90,
+    "wall_time_seconds": 25.7
+  },
+  "summary": {
+    "total": 7,
+    "correct": 7,
+    "completed": 7,
+    "failed": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "completion_rate": 1.0,
+    "represented_intents": ["complaint", "greeting", "query", "request"]
+  },
+  "latency_ms": {
+    "average": 15749.7,
+    "p50": 14281.0,
+    "p95": 23654.2,
+    "maximum": 24109.0
+  },
+  "cases": [
+    {"id":"query-001","expected":"query","predicted":"query","confidence":0.6650,"latency_ms":9453.0},
+    {"id":"query-002","expected":"query","predicted":"query","confidence":0.6650,"latency_ms":6843.0},
+    {"id":"complaint-001","expected":"complaint","predicted":"complaint","confidence":0.7544,"latency_ms":13297.0},
+    {"id":"complaint-002","expected":"complaint","predicted":"complaint","confidence":0.6650,"latency_ms":14281.0},
+    {"id":"request-001","expected":"request","predicted":"request","confidence":0.6516,"latency_ms":19672.0},
+    {"id":"greeting-001","expected":"greeting","predicted":"greeting","confidence":0.7196,"latency_ms":22593.0},
+    {"id":"greeting-002","expected":"greeting","predicted":"greeting","confidence":0.6930,"latency_ms":24109.0}
+  ],
+  "claim_boundary": "This is a seven-case development smoke test over four intent classes. It is not an independent test-set accuracy estimate and must not be presented as production accuracy."
+}

@@ -162,32 +162,79 @@ Agent 响应: {response}
 class IntentEvaluator:
     """评测意图识别的准确率和 F1。"""
 
-    def __init__(self, recognizer: IntentRecognizer):
+    def __init__(
+        self,
+        recognizer: IntentRecognizer,
+        case_timeout_s: float = 90.0,
+        max_concurrency: int = 2,
+    ):
         self._recognizer = recognizer
+        self._case_timeout_s = max(0.01, float(case_timeout_s))
+        self._max_concurrency = max(1, int(max_concurrency))
 
     async def evaluate(self, cases: List[IntentTestCase]) -> Dict[str, Any]:
-        predictions, ground_truth = [], []
-        case_details: List[Dict[str, Any]] = []
+        semaphore = asyncio.Semaphore(self._max_concurrency)
 
-        for case in cases:
-            result = await self._recognizer.recognize(case.message)
-            predicted = result.intent.value
-            predictions.append(predicted)
-            ground_truth.append(case.expected_intent)
-            case_details.append({
-                "message": case.message,
-                "expected": case.expected_intent,
-                "predicted": predicted,
-                "confidence": result.confidence,
-                "reasoning": result.reasoning,
-            })
+        async def evaluate_case(index: int, case: IntentTestCase):
+            started_at = time.monotonic()
+            async with semaphore:
+                try:
+                    result = await asyncio.wait_for(
+                        self._recognizer.recognize(case.message),
+                        timeout=self._case_timeout_s,
+                    )
+                    predicted = result.intent.value
+                    detail = {
+                        "message": case.message,
+                        "expected": case.expected_intent,
+                        "predicted": predicted,
+                        "confidence": result.confidence,
+                        "reasoning": result.reasoning,
+                        "failed": False,
+                        "error": None,
+                        "latency_ms": round((time.monotonic() - started_at) * 1000, 1),
+                    }
+                except asyncio.TimeoutError:
+                    predicted = "__timeout__"
+                    detail = {
+                        "message": case.message,
+                        "expected": case.expected_intent,
+                        "predicted": predicted,
+                        "confidence": 0.0,
+                        "reasoning": "",
+                        "failed": True,
+                        "error": f"intent recognition exceeded {self._case_timeout_s:.1f}s",
+                        "latency_ms": round((time.monotonic() - started_at) * 1000, 1),
+                    }
+                except Exception as ex:
+                    predicted = "__error__"
+                    detail = {
+                        "message": case.message,
+                        "expected": case.expected_intent,
+                        "predicted": predicted,
+                        "confidence": 0.0,
+                        "reasoning": "",
+                        "failed": True,
+                        "error": f"{type(ex).__name__}: {ex}",
+                        "latency_ms": round((time.monotonic() - started_at) * 1000, 1),
+                    }
+            return index, predicted, case.expected_intent, detail
+
+        evaluated = await asyncio.gather(*(
+            evaluate_case(index, case) for index, case in enumerate(cases)
+        ))
+        evaluated.sort(key=lambda row: row[0])
+        predictions = [row[1] for row in evaluated]
+        ground_truth = [row[2] for row in evaluated]
+        case_details = [row[3] for row in evaluated]
 
         # 纯 Python 计算指标
         correct = sum(p == g for p, g in zip(predictions, ground_truth))
         accuracy = correct / len(predictions) if predictions else 0.0
 
         # 每类 F1
-        labels = sorted(set(ground_truth + predictions))
+        # Timeout/error sentinels are outcomes, not business intent classes.
+        labels = sorted(set(ground_truth))
         per_class: Dict[str, Dict[str, float]] = {}
         for label in labels:
             tp = sum(p == label and g == label for p, g in zip(predictions, ground_truth))
@@ -199,6 +246,8 @@ class IntentEvaluator:
             per_class[label] = {"precision": prec, "recall": rec, "f1": f1}
 
         macro_f1 = statistics.mean(v["f1"] for v in per_class.values()) if per_class else 0.0
+        failed = sum(1 for detail in case_details if detail["failed"])
+        completed = len(cases) - failed
 
         return {
             "accuracy":   round(accuracy, 4),
@@ -206,6 +255,9 @@ class IntentEvaluator:
             "per_class":  per_class,
             "total":      len(cases),
             "correct":    correct,
+            "completed":  completed,
+            "failed":     failed,
+            "completion_rate": round(completed / len(cases), 4) if cases else 0.0,
             "cases":      case_details,
         }
 
@@ -234,6 +286,8 @@ class EndToEndEvaluator:
         base_url: Optional[str] = None,
         model:    str = "claude-3-5-sonnet-20241022",
         baseline_path: Optional[str] = None,
+        intent_case_timeout_s: float = 90.0,
+        intent_max_concurrency: int = 2,
     ):
         kwargs: Dict[str, Any] = {"api_key": api_key}
         if base_url:
@@ -242,7 +296,11 @@ class EndToEndEvaluator:
 
         self._orchestrator     = orchestrator
         self._judge            = LLMJudge(client, model)
-        self._intent_evaluator = IntentEvaluator(recognizer)
+        self._intent_evaluator = IntentEvaluator(
+            recognizer,
+            case_timeout_s=intent_case_timeout_s,
+            max_concurrency=intent_max_concurrency,
+        )
         self._history:         List[EvalReport] = []
         self._baseline_path = pathlib.Path(baseline_path) if baseline_path else None
         self._baseline: Optional[EvalReport] = self._load_baseline()
@@ -278,6 +336,9 @@ class EndToEndEvaluator:
                 metadata={
                     "total": intent_metrics.get("total", 0),
                     "correct": intent_metrics.get("correct", 0),
+                    "completed": intent_metrics.get("completed", 0),
+                    "failed": intent_metrics.get("failed", 0),
+                    "completion_rate": intent_metrics.get("completion_rate", 0.0),
                     "cases": intent_metrics.get("cases", []),
                 },
             ))
@@ -416,6 +477,10 @@ class EndToEndEvaluator:
         intent_metrics: Dict[str, Any],
     ) -> List[str]:
         recs = []
+        if intent_metrics.get("failed", 0):
+            recs.append(
+                f"意图评测有 {intent_metrics['failed']} 条超时或异常：先检查模型连接、限流和单条耗时"
+            )
         if scores.get("intent_accuracy", 1.0) < 0.90:
             recs.append("意图识别准确率 < 90%：增加 Few-shot 示例，或对低 F1 的意图类别补充训练数据")
         if scores.get("relevance", 1.0) < 0.75:

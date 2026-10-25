@@ -129,6 +129,7 @@ evaluation/e2e_cases.json    固定人工标注试运行集
 evaluation/e2e_benchmark.py  真实 API 试运行与指标汇总
 evaluation/intent_dataset.py 可审计意图数据集校验与已复核样本加载
 evaluation/data/intent_eval_candidates.json  首批待人工复核候选
+evaluation/reports/intent_dev_20261025.md  7 条开发集管线试运行与结论边界
 skills/                     动态业务规则
 data/                       持久化数据
 ```

@@ -185,6 +185,8 @@ async def lifespan(app: FastAPI):
         base_url=cfg.get("base_url"),
         model=cfg["model"],
         baseline_path=os.getenv("EVAL_BASELINE_PATH", "/app/data/eval/baseline.json"),
+        intent_case_timeout_s=float(os.getenv("EVAL_INTENT_CASE_TIMEOUT_SECONDS", "90")),
+        intent_max_concurrency=int(os.getenv("EVAL_INTENT_MAX_CONCURRENCY", "2")),
     )
 
     logger.info("EchoMind 已就绪")
