@@ -2,8 +2,7 @@
   "version": "1.0",
   "total": 95,
   "status_counts": {
-    "draft": 5,
-    "verified": 90
+    "verified": 95
   },
   "split_counts": {
     "candidate": 95
