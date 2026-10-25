@@ -1,0 +1,44 @@
+{
+  "run_date": "2026-10-25",
+  "dataset": "evaluation/data/intent_eval_candidates.json",
+  "dataset_version": "1.0",
+  "split": "dev",
+  "batch": 4,
+  "dataset_state": {
+    "verified_dev": 31,
+    "draft": 6,
+    "rejected": 1,
+    "covered_intent_count": 16,
+    "total_intent_count": 19
+  },
+  "evaluated_intents": [
+    "invoice", "payment_issue", "account_security", "technical_login"
+  ],
+  "execution": {
+    "endpoint": "POST http://127.0.0.1:8000/eval/run",
+    "model": "qwen3.7-plus",
+    "max_concurrency": 2,
+    "case_timeout_seconds": 90,
+    "wall_time_seconds": 19.4
+  },
+  "summary": {
+    "total": 8,
+    "correct": 8,
+    "completed": 8,
+    "failed": 0,
+    "llm_failed_count": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0
+  },
+  "cases": [
+    {"id":"invoice-001","expected":"invoice","predicted":"invoice"},
+    {"id":"invoice-002","expected":"invoice","predicted":"invoice"},
+    {"id":"payment-issue-001","expected":"payment_issue","predicted":"payment_issue"},
+    {"id":"payment-issue-002","expected":"payment_issue","predicted":"payment_issue"},
+    {"id":"account-security-001","expected":"account_security","predicted":"account_security"},
+    {"id":"account-security-002","expected":"account_security","predicted":"account_security"},
+    {"id":"technical-login-001","expected":"technical_login","predicted":"technical_login"},
+    {"id":"technical-login-002","expected":"technical_login","predicted":"technical_login"}
+  ],
+  "claim_boundary": "This is an eight-case reviewed development batch. It is not an independent frozen test set and must not be reported as production accuracy."
+}
