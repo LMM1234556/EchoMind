@@ -10,12 +10,12 @@ EchoMind 是一个面向客服/运营场景的多 Agent 智能系统。它不是
 - 在线监控与路由降权
 - LLM-as-Judge 端到端评测
 
-## 你可以先看什么
+## 推荐阅读
 
-- [技术亮点](wiki/技术亮点.md)
-- [重点代码](wiki/重点代码.md)
-- [业务流程说明](wiki/业务流程说明.md)
-- [完整使用指南](wiki/完整使用指南.md)
+- [工程案例](../docs/PORTFOLIO_CASE_STUDY.md)
+- [工程变更摘要](../docs/CHANGES.md)
+- [业务流程说明](../docs/业务流程说明.md)
+- [完整使用指南](../docs/完整使用指南.md)
 
 ## 快速开始
 
@@ -127,7 +127,6 @@ monitor/performance_monitor.py 在线监控
 evaluation/evaluator.py      端到端评测
 evaluation/e2e_cases.json    固定人工标注试运行集
 evaluation/e2e_benchmark.py  真实 API 试运行与指标汇总
-wiki/                       详细文档
 skills/                     动态业务规则
 data/                       持久化数据
 ```
@@ -169,11 +168,11 @@ data/                       持久化数据
 5. /eval/run
 ```
 
-如果你只想看项目怎么工作，直接读：
+如果希望快速了解项目，建议阅读：
 
-- [EchoMind定位与技术亮点](wiki/EchoMind定位与技术亮点.md)
-- [技术亮点](wiki/技术亮点.md)
-- [重点代码](wiki/重点代码.md)
+- [项目定位与技术亮点](../docs/EchoMind定位与技术亮点.md)
+- [工程案例](../docs/PORTFOLIO_CASE_STUDY.md)
+- [Embedding 评测](../docs/EMBEDDING_BENCHMARK.md)
 
 ## 一句话概括
 
