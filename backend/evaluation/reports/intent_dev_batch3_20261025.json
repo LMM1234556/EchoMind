@@ -1,0 +1,42 @@
+{
+  "run_date": "2026-10-25",
+  "dataset": "evaluation/data/intent_eval_candidates.json",
+  "dataset_version": "1.0",
+  "split": "dev",
+  "batch": 3,
+  "dataset_state": {
+    "verified_dev": 23,
+    "draft": 14,
+    "rejected": 1,
+    "covered_intent_count": 12,
+    "total_intent_count": 19
+  },
+  "evaluated_intents": ["feedback", "order_status", "logistics", "refund"],
+  "execution": {
+    "endpoint": "POST http://127.0.0.1:8000/eval/run",
+    "model": "qwen3.7-plus",
+    "max_concurrency": 2,
+    "case_timeout_seconds": 90,
+    "wall_time_seconds": 19.9
+  },
+  "summary": {
+    "total": 8,
+    "correct": 8,
+    "completed": 8,
+    "failed": 0,
+    "llm_failed_count": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0
+  },
+  "cases": [
+    {"id":"feedback-001","expected":"feedback","predicted":"feedback"},
+    {"id":"feedback-002","expected":"feedback","predicted":"feedback"},
+    {"id":"order-status-001","expected":"order_status","predicted":"order_status"},
+    {"id":"order-status-002","expected":"order_status","predicted":"order_status"},
+    {"id":"logistics-001","expected":"logistics","predicted":"logistics"},
+    {"id":"logistics-002","expected":"logistics","predicted":"logistics"},
+    {"id":"refund-001","expected":"refund","predicted":"refund"},
+    {"id":"refund-002","expected":"refund","predicted":"refund"}
+  ],
+  "claim_boundary": "This is an eight-case reviewed development batch. It is not an independent frozen test set and must not be reported as production accuracy."
+}

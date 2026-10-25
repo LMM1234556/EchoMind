@@ -131,6 +131,7 @@ evaluation/intent_dataset.py 可审计意图数据集校验与已复核样本加
 evaluation/data/intent_eval_candidates.json  首批待人工复核候选
 evaluation/reports/intent_dev_20261025.md  7 条开发集管线试运行与结论边界
 evaluation/reports/intent_dev_batch2_20261025.md  15 条开发集诊断、修复与回归链
+evaluation/reports/intent_dev_batch3_20261025.md  第三批 8 条开发样本评测
 skills/                     动态业务规则
 data/                       持久化数据
 ```
