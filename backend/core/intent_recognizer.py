@@ -31,7 +31,7 @@ class IntentCategory(Enum):
     COMPLAINT  = "complaint"   # 投诉不满
     REQUEST    = "request"     # 请求操作
     GREETING   = "greeting"    # 问候
-    ESCALATION = "escalation"  # 要求升级/转人工
+    ESCALATION = "escalation"  # 要求主管或更高级别介入
     TECHNICAL  = "technical"   # 技术问题
     BILLING    = "billing"     # 账单/退款
     ACCOUNT    = "account"     # 账户管理
@@ -73,7 +73,7 @@ _TEMPLATES: Dict[IntentCategory, List[str]] = {
     IntentCategory.COMPLAINT:  ["等了好几个小时！", "服务太差了！", "一直没人处理！"],
     IntentCategory.REQUEST:    ["帮我取消订单", "我需要修改地址", "请协助退款"],
     IntentCategory.GREETING:   ["你好", "嗨，有人吗", "早上好"],
-    IntentCategory.ESCALATION: ["我要投诉！", "转人工客服", "找你们经理"],
+    IntentCategory.ESCALATION: ["请升级给主管处理", "需要更高级别负责人介入", "找你们经理"],
     IntentCategory.TECHNICAL:  ["应用一直崩溃", "无法登录", "出现500错误"],
     IntentCategory.BILLING:    ["为什么扣了两次款？", "申请退款", "发票问题"],
     IntentCategory.ACCOUNT:    ["修改邮箱", "注销账户", "更新个人信息"],
@@ -86,7 +86,7 @@ _TEMPLATES: Dict[IntentCategory, List[str]] = {
     IntentCategory.ACCOUNT_SECURITY: ["账户被盗了", "发现异常登录", "我要重置密码"],
     IntentCategory.TECHNICAL_LOGIN: ["登录一直报401", "验证码收不到", "无法登录账号"],
     IntentCategory.TECHNICAL_CRASH: ["应用一直崩溃", "页面报500错误", "系统闪退"],
-    IntentCategory.HUMAN_HANDOFF: ["转人工客服", "我要找人工", "请升级处理"],
+    IntentCategory.HUMAN_HANDOFF: ["转人工客服", "我要找人工", "请接真人坐席"],
 }
 
 _SPECIFIC_INTENTS = {
@@ -307,7 +307,9 @@ class IntentRecognizer:
         """策略 3：关键词模式匹配（同步，零延迟兜底）。"""
         msg = message.lower()
         specific_patterns = {
-            IntentCategory.HUMAN_HANDOFF: ["转人工", "人工客服", "找人工"],
+            IntentCategory.HUMAN_HANDOFF: [
+                "转人工", "人工客服", "找人工", "真人客服", "人工坐席", "真人",
+            ],
             IntentCategory.ORDER_STATUS: ["订单状态", "发货了吗", "处理到哪", "order status"],
             IntentCategory.LOGISTICS: ["物流", "快递", "配送", "运单", "delivery", "shipping"],
             IntentCategory.REFUND: ["退款", "退货", "refund", "return"],
@@ -318,7 +320,10 @@ class IntentRecognizer:
             IntentCategory.TECHNICAL_CRASH: ["崩溃", "闪退", "500", "报错", "crash"],
         }
         generic_patterns = {
-            IntentCategory.ESCALATION: ["投诉", "经理", "supervisor"],
+            IntentCategory.ESCALATION: [
+                "主管", "负责人", "升级给", "升级处理", "更高级别",
+                "经理", "supervisor", "manager",
+            ],
             IntentCategory.COMPLAINT:  ["太差", "糟糕", "horrible", "等了很久"],
             IntentCategory.QUERY:      ["?", "？", "怎么", "什么", "status"],
             IntentCategory.REQUEST:    ["帮我", "需要", "please", "help"],
