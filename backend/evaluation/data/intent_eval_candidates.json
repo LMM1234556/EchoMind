@@ -35,11 +35,11 @@
     {"id":"account-security-002","message":"怀疑密码泄露了应该先做什么","expected_intent":"account_security","split":"dev","difficulty":"medium","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
     {"id":"technical-login-001","message":"输入正确密码仍然进不去系统","expected_intent":"technical_login","split":"dev","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
     {"id":"technical-login-002","message":"登录验证码过期后无法重新获取","expected_intent":"technical_login","split":"dev","difficulty":"medium","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
-    {"id":"technical-crash-001","message":"程序启动后立刻退出","expected_intent":"technical_crash","split":"candidate","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"draft"},
-    {"id":"technical-crash-002","message":"打开订单页面就显示 500","expected_intent":"technical_crash","split":"candidate","difficulty":"medium","source":"ai_drafted_for_human_review","label_status":"draft"},
-    {"id":"human-handoff-001","message":"机器人解决不了，请接人工坐席","expected_intent":"human_handoff","split":"candidate","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"draft"},
-    {"id":"human-handoff-002","message":"我只想跟真人客服沟通","expected_intent":"human_handoff","split":"candidate","difficulty":"medium","source":"ai_drafted_for_human_review","label_status":"draft"},
-    {"id":"other-001","message":"帮我算一下圆的面积","expected_intent":"other","split":"candidate","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"draft"},
-    {"id":"other-002","message":"今天上海会下雨吗","expected_intent":"other","split":"candidate","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"draft"}
+    {"id":"technical-crash-001","message":"程序启动后立刻退出","expected_intent":"technical_crash","split":"dev","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"technical-crash-002","message":"打开订单页面就显示 500","expected_intent":"technical_crash","split":"dev","difficulty":"medium","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"human-handoff-001","message":"机器人解决不了，请接人工坐席","expected_intent":"human_handoff","split":"dev","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"human-handoff-002","message":"我只想跟真人客服沟通","expected_intent":"human_handoff","split":"dev","difficulty":"medium","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"other-001","message":"帮我算一下圆的面积","expected_intent":"other","split":"dev","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"other-002","message":"今天上海会下雨吗","expected_intent":"other","split":"dev","difficulty":"easy","source":"ai_drafted_for_human_review","label_status":"verified","reviewer":"project_owner"}
   ]
 }

@@ -1,0 +1,40 @@
+{
+  "run_date": "2026-10-25",
+  "dataset": "evaluation/data/intent_eval_candidates.json",
+  "dataset_version": "1.0",
+  "split": "dev",
+  "batch": 5,
+  "dataset_state": {
+    "verified_dev": 37,
+    "draft": 0,
+    "rejected": 1,
+    "covered_intent_count": 19,
+    "total_intent_count": 19
+  },
+  "evaluated_intents": ["technical_crash", "human_handoff", "other"],
+  "execution": {
+    "endpoint": "POST http://127.0.0.1:8000/eval/run",
+    "model": "qwen3.7-plus",
+    "max_concurrency": 2,
+    "case_timeout_seconds": 90,
+    "wall_time_seconds": 25.3
+  },
+  "summary": {
+    "total": 6,
+    "correct": 6,
+    "completed": 6,
+    "failed": 0,
+    "llm_failed_count": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0
+  },
+  "cases": [
+    {"id":"technical-crash-001","expected":"technical_crash","predicted":"technical_crash"},
+    {"id":"technical-crash-002","expected":"technical_crash","predicted":"technical_crash"},
+    {"id":"human-handoff-001","expected":"human_handoff","predicted":"human_handoff"},
+    {"id":"human-handoff-002","expected":"human_handoff","predicted":"human_handoff"},
+    {"id":"other-001","expected":"other","predicted":"other"},
+    {"id":"other-002","expected":"other","predicted":"other"}
+  ],
+  "claim_boundary": "This is a six-case reviewed development batch. It is not an independent frozen test set and must not be reported as production accuracy."
+}

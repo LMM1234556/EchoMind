@@ -133,6 +133,8 @@ evaluation/reports/intent_dev_20261025.md  7 条开发集管线试运行与结�
 evaluation/reports/intent_dev_batch2_20261025.md  15 条开发集诊断、修复与回归链
 evaluation/reports/intent_dev_batch3_20261025.md  第三批 8 条开发样本评测
 evaluation/reports/intent_dev_batch4_20261025.md  第四批 8 条开发样本评测
+evaluation/reports/intent_dev_batch5_20261025.md  第五批 6 条开发样本评测
+evaluation/reports/intent_dev_seed_summary_20261025.md  37 条开发样本建设总结
 skills/                     动态业务规则
 data/                       持久化数据
 ```
