@@ -25,6 +25,10 @@ data/
 logs/
 *.sqlite3
 
+# Versioned evaluation datasets (not runtime state)
+!backend/evaluation/data/
+!backend/evaluation/data/*.json
+
 # IDE and OS
 .idea/
 .vscode/

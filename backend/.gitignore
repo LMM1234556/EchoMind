@@ -15,6 +15,10 @@ venv/
 data/
 logs/
 
+# 评测数据集属于可版本化实验输入，不是运行时数据
+!evaluation/data/
+!evaluation/data/*.json
+
 # IDE
 .idea/
 .vscode/
