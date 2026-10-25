@@ -1,0 +1,17 @@
+{
+  "name": "intent-test-v1-freeze",
+  "dataset_path": "backend/evaluation/data/intent_test_v1.json",
+  "dataset_sha256": "13a83f914caac6a2faae530b9116eaa8bfe9df794edb7fc46b2d41dfec19803b",
+  "frozen_on": "2026-10-26",
+  "baseline_commit": "3aeca2011262594b1a6b8f774795909f3df9dbdf",
+  "human_review_completed_commit": "9e5b18aebb4aaa9662c6347858dcfb889de3bb92",
+  "reviewer": "project_owner",
+  "total_cases": 95,
+  "intent_classes": 19,
+  "cases_per_class": 5,
+  "source": "ai_drafted_then_human_reviewed",
+  "template_exact_overlaps": 0,
+  "development_set_exact_overlaps": 0,
+  "first_evaluation_run": false,
+  "restriction": "Do not tune prompts, templates, patterns, thresholds, or model routing using this frozen test set."
+}

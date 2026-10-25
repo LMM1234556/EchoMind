@@ -1,11 +1,14 @@
 {
+  "name": "intent-test-v1",
   "version": "1.0",
+  "frozen": true,
+  "baseline_commit": "3aeca2011262594b1a6b8f774795909f3df9dbdf",
   "total": 95,
   "status_counts": {
     "verified": 95
   },
   "split_counts": {
-    "candidate": 95
+    "test": 95
   },
   "difficulty_counts": {
     "easy": 36,
@@ -35,8 +38,6 @@
   },
   "template_overlap_ids": [],
   "cross_dataset_overlaps": [],
-  "scoreable_total": 0,
-  "warnings": [
-    "no human-verified dev/test cases are available for scoring"
-  ]
+  "scoreable_total": 95,
+  "warnings": []
 }

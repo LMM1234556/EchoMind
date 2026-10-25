@@ -1,4 +1,6 @@
+import hashlib
 import json
+import pathlib
 
 import pytest
 
@@ -102,3 +104,42 @@ def test_audit_reports_cross_dataset_overlap(tmp_path):
         {"id": "current", "matches": ["reviewed-dev:dev-1"]}
     ]
     assert any("comparison datasets" in warning for warning in report["warnings"])
+
+
+def test_frozen_dataset_rejects_non_test_cases(tmp_path):
+    path = tmp_path / "frozen.json"
+    path.write_text(
+        json.dumps({
+            "name": "frozen-test",
+            "version": "1.0",
+            "frozen": True,
+            "baseline_commit": "abc123",
+            "cases": [
+                _case(
+                    label_status="verified",
+                    reviewer="human-1",
+                    split="candidate",
+                ),
+            ],
+        }, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DatasetValidationError, match="verified/test"):
+        load_dataset(path)
+
+
+def test_frozen_intent_v1_matches_freeze_manifest():
+    backend_root = pathlib.Path(__file__).resolve().parents[1]
+    dataset_path = backend_root / "evaluation" / "data" / "intent_test_v1.json"
+    manifest_path = (
+        backend_root / "evaluation" / "data" / "intent_test_v1.freeze.json"
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    dataset_hash = hashlib.sha256(dataset_path.read_bytes()).hexdigest()
+
+    assert dataset_hash == manifest["dataset_sha256"]
+    metadata, cases = load_dataset(dataset_path)
+    assert metadata["frozen"] is True
+    assert metadata["baseline_commit"] == manifest["baseline_commit"]
+    assert len(cases) == manifest["total_cases"] == 95

@@ -111,6 +111,15 @@ def load_dataset(path: str | pathlib.Path) -> tuple[Dict[str, Any], List[IntentD
         if not case.source:
             errors.append(f"{case.id}: source must not be empty")
 
+    if data.get("frozen") is True:
+        if not str(data.get("baseline_commit", "")).strip():
+            errors.append("frozen dataset requires baseline_commit")
+        for case in cases:
+            if case.label_status != "verified" or case.split != "test":
+                errors.append(
+                    f"{case.id}: frozen dataset requires verified/test cases"
+                )
+
     if errors:
         raise DatasetValidationError("; ".join(errors))
     return data, cases
@@ -166,7 +175,10 @@ def audit_dataset(
         warnings.append("no human-verified dev/test cases are available for scoring")
 
     return {
+        "name": str(metadata.get("name", "")),
         "version": str(metadata.get("version", "")),
+        "frozen": metadata.get("frozen") is True,
+        "baseline_commit": str(metadata.get("baseline_commit", "")),
         "total": len(cases),
         "status_counts": dict(sorted(Counter(c.label_status for c in cases).items())),
         "split_counts": dict(sorted(Counter(c.split for c in cases).items())),

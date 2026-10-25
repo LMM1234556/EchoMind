@@ -7,6 +7,8 @@
 *.css text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+backend/evaluation/data/intent_test_v1.json text eol=lf
+backend/evaluation/data/intent_test_v1.freeze.json text eol=lf
 Dockerfile text eol=lf
 
 *.png binary
