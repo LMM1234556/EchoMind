@@ -76,3 +76,29 @@ def test_normalization_detects_punctuation_only_variants(tmp_path):
     assert normalize_message("退款，多久到账？") == "退款多久到账"
     with pytest.raises(DatasetValidationError, match="duplicate message"):
         load_dataset(path)
+
+
+def test_audit_reports_cross_dataset_overlap(tmp_path):
+    current = _write_dataset(tmp_path, [
+        _case(id="current", message="退款，多久到账？", expected_intent="refund"),
+    ])
+    comparison_dir = tmp_path / "comparison"
+    comparison_dir.mkdir()
+    comparison = comparison_dir / "dev.json"
+    comparison.write_text(
+        json.dumps({
+            "name": "reviewed-dev",
+            "version": "test",
+            "cases": [
+                _case(id="dev-1", message="退款多久到账", expected_intent="refund"),
+            ],
+        }, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    report = audit_dataset(current, compare_paths=[comparison])
+
+    assert report["cross_dataset_overlaps"] == [
+        {"id": "current", "matches": ["reviewed-dev:dev-1"]}
+    ]
+    assert any("comparison datasets" in warning for warning in report["warnings"])

@@ -13,7 +13,7 @@ import pathlib
 import re
 from collections import Counter
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Dict, Iterable, List, Optional
 
 from core.intent_recognizer import IntentCategory, _TEMPLATES
 
@@ -116,7 +116,10 @@ def load_dataset(path: str | pathlib.Path) -> tuple[Dict[str, Any], List[IntentD
     return data, cases
 
 
-def audit_dataset(path: str | pathlib.Path) -> Dict[str, Any]:
+def audit_dataset(
+    path: str | pathlib.Path,
+    compare_paths: Optional[Iterable[str | pathlib.Path]] = None,
+) -> Dict[str, Any]:
     """Return distribution and leakage warnings without scoring the model."""
     metadata, cases = load_dataset(path)
     template_texts = {
@@ -127,6 +130,25 @@ def audit_dataset(path: str | pathlib.Path) -> Dict[str, Any]:
     template_overlaps = [
         case.id for case in cases if normalize_message(case.message) in template_texts
     ]
+    comparison_messages: Dict[str, List[str]] = {}
+    for compare_path in compare_paths or []:
+        compare_metadata, compare_cases = load_dataset(compare_path)
+        compare_name = str(
+            compare_metadata.get("name") or pathlib.Path(compare_path).name
+        )
+        for compare_case in compare_cases:
+            normalized = normalize_message(compare_case.message)
+            comparison_messages.setdefault(normalized, []).append(
+                f"{compare_name}:{compare_case.id}"
+            )
+    cross_dataset_overlaps = [
+        {
+            "id": case.id,
+            "matches": comparison_messages[normalize_message(case.message)],
+        }
+        for case in cases
+        if normalize_message(case.message) in comparison_messages
+    ]
     verified = [case for case in cases if case.label_status == "verified"]
     scoreable = [case for case in verified if case.split in {"dev", "test"}]
 
@@ -134,6 +156,11 @@ def audit_dataset(path: str | pathlib.Path) -> Dict[str, Any]:
     if template_overlaps:
         warnings.append(
             "exact overlap with recognizer templates: " + ", ".join(template_overlaps)
+        )
+    if cross_dataset_overlaps:
+        warnings.append(
+            "exact overlap with comparison datasets: "
+            + ", ".join(item["id"] for item in cross_dataset_overlaps)
         )
     if not scoreable:
         warnings.append("no human-verified dev/test cases are available for scoring")
@@ -146,6 +173,7 @@ def audit_dataset(path: str | pathlib.Path) -> Dict[str, Any]:
         "difficulty_counts": dict(sorted(Counter(c.difficulty for c in cases).items())),
         "intent_counts": dict(sorted(Counter(c.expected_intent for c in cases).items())),
         "template_overlap_ids": template_overlaps,
+        "cross_dataset_overlaps": cross_dataset_overlaps,
         "scoreable_total": len(scoreable),
         "warnings": warnings,
     }
@@ -173,8 +201,18 @@ def scoreable_intent_cases(path: str | pathlib.Path):
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("path", help="path to the intent dataset JSON file")
+    parser.add_argument(
+        "--compare",
+        action="append",
+        default=[],
+        help="another dataset whose messages must not overlap (repeatable)",
+    )
     args = parser.parse_args()
-    print(json.dumps(audit_dataset(args.path), ensure_ascii=False, indent=2))
+    print(json.dumps(
+        audit_dataset(args.path, compare_paths=args.compare),
+        ensure_ascii=False,
+        indent=2,
+    ))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "total": 95,
+  "status_counts": {
+    "draft": 95
+  },
+  "split_counts": {
+    "candidate": 95
+  },
+  "difficulty_counts": {
+    "easy": 36,
+    "hard": 21,
+    "medium": 38
+  },
+  "intent_counts": {
+    "account": 5,
+    "account_security": 5,
+    "billing": 5,
+    "complaint": 5,
+    "escalation": 5,
+    "feedback": 5,
+    "greeting": 5,
+    "human_handoff": 5,
+    "invoice": 5,
+    "logistics": 5,
+    "order_status": 5,
+    "other": 5,
+    "payment_issue": 5,
+    "query": 5,
+    "refund": 5,
+    "request": 5,
+    "technical": 5,
+    "technical_crash": 5,
+    "technical_login": 5
+  },
+  "template_overlap_ids": [],
+  "cross_dataset_overlaps": [],
+  "scoreable_total": 0,
+  "warnings": [
+    "no human-verified dev/test cases are available for scoring"
+  ]
+}
