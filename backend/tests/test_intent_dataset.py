@@ -106,6 +106,37 @@ def test_audit_reports_cross_dataset_overlap(tmp_path):
     assert any("comparison datasets" in warning for warning in report["warnings"])
 
 
+def test_audit_reports_lexical_near_duplicate_without_calling_it_exact(tmp_path):
+    current = _write_dataset(tmp_path, [
+        _case(id="current", message="退款大概多久能到账", expected_intent="refund"),
+    ])
+    comparison_dir = tmp_path / "comparison-near"
+    comparison_dir.mkdir()
+    comparison = comparison_dir / "dev.json"
+    comparison.write_text(
+        json.dumps({
+            "name": "reviewed-dev",
+            "version": "test",
+            "cases": [
+                _case(id="dev-1", message="退款多久到账", expected_intent="refund"),
+            ],
+        }, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    report = audit_dataset(
+        current,
+        compare_paths=[comparison],
+        near_duplicate_threshold=0.8,
+    )
+
+    assert report["cross_dataset_overlaps"] == []
+    assert report["lexical_near_overlaps"] == [{
+        "id": "current",
+        "matches": [{"source": "reviewed-dev:dev-1", "similarity": 0.8}],
+    }]
+
+
 def test_frozen_dataset_rejects_non_test_cases(tmp_path):
     path = tmp_path / "frozen.json"
     path.write_text(

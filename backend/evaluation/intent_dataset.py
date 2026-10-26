@@ -8,6 +8,7 @@ measured model accuracy.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import pathlib
 import re
@@ -128,6 +129,7 @@ def load_dataset(path: str | pathlib.Path) -> tuple[Dict[str, Any], List[IntentD
 def audit_dataset(
     path: str | pathlib.Path,
     compare_paths: Optional[Iterable[str | pathlib.Path]] = None,
+    near_duplicate_threshold: float = 0.8,
 ) -> Dict[str, Any]:
     """Return distribution and leakage warnings without scoring the model."""
     metadata, cases = load_dataset(path)
@@ -140,6 +142,7 @@ def audit_dataset(
         case.id for case in cases if normalize_message(case.message) in template_texts
     ]
     comparison_messages: Dict[str, List[str]] = {}
+    comparison_cases: List[tuple[str, str]] = []
     for compare_path in compare_paths or []:
         compare_metadata, compare_cases = load_dataset(compare_path)
         compare_name = str(
@@ -150,6 +153,10 @@ def audit_dataset(
             comparison_messages.setdefault(normalized, []).append(
                 f"{compare_name}:{compare_case.id}"
             )
+            comparison_cases.append((
+                f"{compare_name}:{compare_case.id}",
+                normalized,
+            ))
     cross_dataset_overlaps = [
         {
             "id": case.id,
@@ -158,6 +165,29 @@ def audit_dataset(
         for case in cases
         if normalize_message(case.message) in comparison_messages
     ]
+    lexical_near_overlaps: List[Dict[str, Any]] = []
+    prior_current: List[tuple[str, str]] = []
+    for case in cases:
+        normalized = normalize_message(case.message)
+        matches = []
+        for source, other in [*comparison_cases, *prior_current]:
+            if normalized == other:
+                continue
+            similarity = difflib.SequenceMatcher(None, normalized, other).ratio()
+            if similarity >= near_duplicate_threshold:
+                matches.append({
+                    "source": source,
+                    "similarity": round(similarity, 4),
+                })
+        if matches:
+            lexical_near_overlaps.append({
+                "id": case.id,
+                "matches": sorted(
+                    matches,
+                    key=lambda item: (-item["similarity"], item["source"]),
+                ),
+            })
+        prior_current.append((f"current:{case.id}", normalized))
     verified = [case for case in cases if case.label_status == "verified"]
     scoreable = [case for case in verified if case.split in {"dev", "test"}]
 
@@ -170,6 +200,12 @@ def audit_dataset(
         warnings.append(
             "exact overlap with comparison datasets: "
             + ", ".join(item["id"] for item in cross_dataset_overlaps)
+        )
+    if lexical_near_overlaps:
+        warnings.append(
+            "lexical near-duplicates at or above "
+            f"{near_duplicate_threshold:.2f}: "
+            + ", ".join(item["id"] for item in lexical_near_overlaps)
         )
     if not scoreable:
         warnings.append("no human-verified dev/test cases are available for scoring")
@@ -186,6 +222,8 @@ def audit_dataset(
         "intent_counts": dict(sorted(Counter(c.expected_intent for c in cases).items())),
         "template_overlap_ids": template_overlaps,
         "cross_dataset_overlaps": cross_dataset_overlaps,
+        "lexical_near_duplicate_threshold": near_duplicate_threshold,
+        "lexical_near_overlaps": lexical_near_overlaps,
         "scoreable_total": len(scoreable),
         "warnings": warnings,
     }
@@ -219,9 +257,19 @@ def main() -> None:
         default=[],
         help="another dataset whose messages must not overlap (repeatable)",
     )
+    parser.add_argument(
+        "--near-threshold",
+        type=float,
+        default=0.8,
+        help="minimum SequenceMatcher ratio for lexical near-duplicate warnings",
+    )
     args = parser.parse_args()
     print(json.dumps(
-        audit_dataset(args.path, compare_paths=args.compare),
+        audit_dataset(
+            args.path,
+            compare_paths=args.compare,
+            near_duplicate_threshold=args.near_threshold,
+        ),
         ensure_ascii=False,
         indent=2,
     ))

@@ -1,0 +1,47 @@
+{
+  "name": "intent-test-v2-candidates",
+  "version": "2.0",
+  "frozen": false,
+  "baseline_commit": "5632aa90f1ded3d6d7646e63cc8a73fbcdec226a",
+  "total": 95,
+  "status_counts": {
+    "draft": 95
+  },
+  "split_counts": {
+    "candidate": 95
+  },
+  "difficulty_counts": {
+    "easy": 29,
+    "hard": 29,
+    "medium": 37
+  },
+  "intent_counts": {
+    "account": 5,
+    "account_security": 5,
+    "billing": 5,
+    "complaint": 5,
+    "escalation": 5,
+    "feedback": 5,
+    "greeting": 5,
+    "human_handoff": 5,
+    "invoice": 5,
+    "logistics": 5,
+    "order_status": 5,
+    "other": 5,
+    "payment_issue": 5,
+    "query": 5,
+    "refund": 5,
+    "request": 5,
+    "technical": 5,
+    "technical_crash": 5,
+    "technical_login": 5
+  },
+  "template_overlap_ids": [],
+  "cross_dataset_overlaps": [],
+  "lexical_near_duplicate_threshold": 0.8,
+  "lexical_near_overlaps": [],
+  "scoreable_total": 0,
+  "warnings": [
+    "no human-verified dev/test cases are available for scoring"
+  ]
+}
