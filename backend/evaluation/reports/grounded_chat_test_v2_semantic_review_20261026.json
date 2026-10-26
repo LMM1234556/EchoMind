@@ -3,9 +3,10 @@
   "status": "partially_confirmed_by_project_owner",
   "reviewer": "codex_assisted_review",
   "project_owner_confirmed": false,
-  "project_owner_confirmed_cases": 8,
+  "project_owner_confirmed_cases": 16,
   "project_owner_confirmed_ranges": [
-    "1-8"
+    "1-8",
+    "9-16"
   ],
   "reviewed_on": "2026-10-26",
   "source_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
@@ -68,41 +69,49 @@
     {
       "case_id": "ground-v2-account-supported-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly stated that digits alone fail and that at least eight characters with letters and digits are required."
     },
     {
       "case_id": "ground-v2-account-supported-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly stated that the account is automatically locked and a notification is sent."
     },
     {
       "case_id": "ground-v2-account-gap-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Did not invent the number of recovery-code groups."
     },
     {
       "case_id": "ground-v2-account-gap-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Did not invent an automatic-unlock duration."
     },
     {
       "case_id": "ground-v2-technical-supported-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly recommended updating to the latest version and did not require deleting user data or reinstalling the operating system."
     },
     {
       "case_id": "ground-v2-technical-supported-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly required checking whether online payment is enabled without promising success or requesting a full card number."
     },
     {
       "case_id": "ground-v2-technical-gap-001",
       "verdict": "fail",
+      "project_owner_confirmed": true,
       "reason": "It admitted the platform limit was unknown but still supplied concrete retry and waiting numbers, including 3, 5, 10, 15-30 minutes and 24 hours."
     },
     {
       "case_id": "ground-v2-technical-gap-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly declined to claim automatic compensation or an amount."
     },
     {
