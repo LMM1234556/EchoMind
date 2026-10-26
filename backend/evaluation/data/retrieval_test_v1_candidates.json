@@ -1,0 +1,499 @@
+{
+  "metadata": {
+    "name": "retrieval-test-v1-candidates",
+    "version": "1.0-candidate",
+    "frozen": false,
+    "created_on": "2026-10-26",
+    "source": "ai_drafted_for_blind_human_review",
+    "purpose": "independent paired comparison of baseline and improved retrieval pipelines",
+    "corpus_source": "backend/mcp/knowledge_base.py::_load_default_docs",
+    "total_cases": 60,
+    "positive_cases": 36,
+    "hard_negative_cases": 12,
+    "out_of_domain_cases": 12,
+    "reviewed_cases": 0,
+    "scoreable_total": 0
+  },
+  "cases": [
+    {
+      "id": "rag-refund-001",
+      "query": "买了五天后不想要了，还能直接申请退款吗",
+      "expected_title": "退款政策",
+      "case_type": "positive",
+      "label_basis": "7 天内可申请无理由退款",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-refund-002",
+      "query": "退款请求交上去以后，平台通常要审多久",
+      "expected_title": "退款政策",
+      "case_type": "positive",
+      "label_basis": "退款申请在 1-3 个工作日内审核",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-refund-003",
+      "query": "退款审核已经通过，钱大约什么时候回到付款账户",
+      "expected_title": "退款政策",
+      "case_type": "positive",
+      "label_basis": "审核通过后 5-7 个工作日原路退回",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-refund-004",
+      "query": "货物已经寄出了，退款前是不是得先办理退货",
+      "expected_title": "退款政策",
+      "case_type": "positive",
+      "label_basis": "已发货商品需先完成退货流程",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-refund-005",
+      "query": "不是质量问题却要退货，寄回去的运费谁承担",
+      "expected_title": "退款政策",
+      "case_type": "positive",
+      "label_basis": "非质量问题退货运费由用户承担",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-refund-006",
+      "query": "订单买了半个月才发现质量问题，还有退款资格吗",
+      "expected_title": "退款政策",
+      "case_type": "positive",
+      "label_basis": "超过 7 天但未超过 30 天需提供质量问题证据",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-order-001",
+      "query": "想让客服查一下订单进展，我需要先给什么编号",
+      "expected_title": "订单查询",
+      "case_type": "positive",
+      "label_basis": "可通过订单号查询订单状态",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-order-002",
+      "query": "订单页面一共会显示哪些处理状态",
+      "expected_title": "订单查询",
+      "case_type": "positive",
+      "label_basis": "文档列出了六种订单状态",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-order-003",
+      "query": "商品显示发出八天了还没收到，可以请客服查件吗",
+      "expected_title": "订单查询",
+      "case_type": "positive",
+      "label_basis": "已发货超过 7 天未收到可申请查件",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-order-004",
+      "query": "包裹发出以后，物流轨迹最晚多久会更新",
+      "expected_title": "订单查询",
+      "case_type": "positive",
+      "label_basis": "物流信息通常在发货后 24 小时内更新",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-order-005",
+      "query": "订单状态显示异常时，联系你们要准备哪项信息",
+      "expected_title": "订单查询",
+      "case_type": "positive",
+      "label_basis": "订单异常时需提供订单号",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-order-006",
+      "query": "待支付、运输中和已签收是不是系统里的订单状态",
+      "expected_title": "订单查询",
+      "case_type": "positive",
+      "label_basis": "文档明确列出这些订单状态",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-security-001",
+      "query": "平台建议设置的密码至少需要多少位",
+      "expected_title": "账户安全",
+      "case_type": "positive",
+      "label_basis": "密码至少 8 位且包含字母和数字",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-security-002",
+      "query": "记不起密码时能不能用绑定邮箱重新设置",
+      "expected_title": "账户安全",
+      "case_type": "positive",
+      "label_basis": "可通过绑定手机号或邮箱重置密码",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-security-003",
+      "query": "系统检测到陌生地点登录后会采取什么措施",
+      "expected_title": "账户安全",
+      "case_type": "positive",
+      "label_basis": "异常登录时自动锁定账户并发送通知",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-security-004",
+      "query": "我想给账号多加一道验证，应该在哪项设置里开启",
+      "expected_title": "账户安全",
+      "case_type": "positive",
+      "label_basis": "可在安全设置中开启两步验证",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-security-005",
+      "query": "客服为了核实身份会要求我说出账户密码吗",
+      "expected_title": "账户安全",
+      "case_type": "positive",
+      "label_basis": "客服人员不会索要用户密码",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-security-006",
+      "query": "怎样的密码组合符合平台给出的安全建议",
+      "expected_title": "账户安全",
+      "case_type": "positive",
+      "label_basis": "密码至少 8 位并包含字母和数字",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-technical-001",
+      "query": "应用一打开就退出，按文档应该先做哪些排查",
+      "expected_title": "技术故障排查",
+      "case_type": "positive",
+      "label_basis": "清除缓存、重启并更新到最新版本",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-technical-002",
+      "query": "登录页面返回 401 代表哪类问题",
+      "expected_title": "技术故障排查",
+      "case_type": "positive",
+      "label_basis": "401 表示认证失败",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-technical-003",
+      "query": "页面特别慢时，知识库建议先检查什么",
+      "expected_title": "技术故障排查",
+      "case_type": "positive",
+      "label_basis": "检查网络并尝试切换 WiFi 或移动数据",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-technical-004",
+      "query": "银行卡付款失败，除了余额还应该确认哪个功能",
+      "expected_title": "技术故障排查",
+      "case_type": "positive",
+      "label_basis": "检查是否开启网上支付功能",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-technical-005",
+      "query": "网页出现 500 时是客户端问题还是服务端问题",
+      "expected_title": "技术故障排查",
+      "case_type": "positive",
+      "label_basis": "500 是服务端问题",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-technical-006",
+      "query": "服务器错误反复出现，稍后重试仍没好该找谁",
+      "expected_title": "技术故障排查",
+      "case_type": "positive",
+      "label_basis": "持续出现应联系技术支持",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-member-001",
+      "query": "平时消费一块钱可以累计几个积分",
+      "expected_title": "会员与积分",
+      "case_type": "positive",
+      "label_basis": "每消费 1 元积 1 分",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-member-002",
+      "query": "手里的三百积分购物时能抵扣多少钱",
+      "expected_title": "会员与积分",
+      "case_type": "positive",
+      "label_basis": "100 积分等于 1 元",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-member-003",
+      "query": "累计花费达到五千元会进入哪个会员等级",
+      "expected_title": "会员与积分",
+      "case_type": "positive",
+      "label_basis": "累计消费 5000 元为金卡会员",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-member-004",
+      "query": "银卡和金卡结账时分别能享受多少折扣",
+      "expected_title": "会员与积分",
+      "case_type": "positive",
+      "label_basis": "银卡 95 折，金卡 9 折",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-member-005",
+      "query": "会员积分一直不用的话多久会被清零",
+      "expected_title": "会员与积分",
+      "case_type": "positive",
+      "label_basis": "积分有效期 1 年，过期清零",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-member-006",
+      "query": "生日所在月份下单，积分会按几倍发放",
+      "expected_title": "会员与积分",
+      "case_type": "positive",
+      "label_basis": "生日当月消费获得双倍积分",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-delivery-001",
+      "query": "普通配送一般需要几个工作日才能送达",
+      "expected_title": "配送说明",
+      "case_type": "positive",
+      "label_basis": "标准配送 3-5 个工作日",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-delivery-002",
+      "query": "选择标准配送时订单满多少钱免运费",
+      "expected_title": "配送说明",
+      "case_type": "positive",
+      "label_basis": "标准配送订单满 99 元免运费",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-delivery-003",
+      "query": "加急寄送要收多少运费，大约几天到",
+      "expected_title": "配送说明",
+      "case_type": "positive",
+      "label_basis": "加急配送 1-2 个工作日，运费 15 元",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-delivery-004",
+      "query": "同城当天或第二天送到的服务收费多少",
+      "expected_title": "配送说明",
+      "case_type": "positive",
+      "label_basis": "同城配送当日达或次日达，运费 10 元",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-delivery-005",
+      "query": "收货地比较偏远，预计会比普通地区多等几天",
+      "expected_title": "配送说明",
+      "case_type": "positive",
+      "label_basis": "偏远地区额外 2-3 天",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-delivery-006",
+      "query": "包裹还没发出时能否联系你们更改收货地址",
+      "expected_title": "配送说明",
+      "case_type": "positive",
+      "label_basis": "发货前可联系客服修改地址",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-001",
+      "query": "使用礼品卡购买的商品，退款会退回礼品卡还是现金",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有礼品卡退款规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-002",
+      "query": "申请退款时平台会不会额外收取手续费",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有退款手续费规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-003",
+      "query": "还没发货的订单可以直接在页面取消吗",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有取消订单流程",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-004",
+      "query": "同一个订单能不能拆成两张发票",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有发票规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-005",
+      "query": "换了手机号码以后怎样更新账户绑定信息",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有修改绑定手机号流程",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-006",
+      "query": "我能删除账户里以前的登录记录吗",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有删除登录记录规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-007",
+      "query": "系统支持哪些浏览器和最低版本",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有浏览器兼容性信息",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-008",
+      "query": "批量导出数据最多允许多少条记录",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有数据导出限制",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-009",
+      "query": "会员积分可以转送到家人的账户吗",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有积分转赠规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-010",
+      "query": "金卡会员长期不消费会不会降级",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有会员降级规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-011",
+      "query": "你们能把商品寄到国外的地址吗",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有国际配送范围",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-hard-negative-012",
+      "query": "下单后可以改成到店自提吗",
+      "expected_title": null,
+      "case_type": "hard_negative",
+      "label_basis": "知识库没有到店自提规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-001",
+      "query": "杭州明天下午大概多少度",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "天气问题不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-002",
+      "query": "帮我写一句毕业祝福语",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "文案创作不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-003",
+      "query": "圆周率的小数点后十位是什么",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "数学知识不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-004",
+      "query": "推荐一部适合周末看的喜剧片",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "影视推荐不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-005",
+      "query": "番茄炒蛋怎样做口感更嫩",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "烹饪问题不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-006",
+      "query": "人民币对欧元的汇率是多少",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "实时汇率不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-007",
+      "query": "解释一下什么叫线性回归",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "统计学知识不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-008",
+      "query": "北京到上海坐高铁需要多久",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "交通出行信息不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-009",
+      "query": "给我列三个适合初学者的健身动作",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "健身建议不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-010",
+      "query": "太阳系里最大的行星是哪一个",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "天文常识不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-011",
+      "query": "把这句话翻译成英语：今天阳光很好",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "翻译任务不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "rag-ood-012",
+      "query": "最近有哪些值得关注的人工智能新闻",
+      "expected_title": null,
+      "case_type": "out_of_domain",
+      "label_basis": "新闻资讯不属于知识库",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    }
+  ]
+}
