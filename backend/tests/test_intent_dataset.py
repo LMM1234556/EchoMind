@@ -160,11 +160,14 @@ def test_frozen_dataset_rejects_non_test_cases(tmp_path):
         load_dataset(path)
 
 
-def test_frozen_intent_v1_matches_freeze_manifest():
+@pytest.mark.parametrize("version", ["v1", "v2"])
+def test_frozen_intent_dataset_matches_freeze_manifest(version):
     backend_root = pathlib.Path(__file__).resolve().parents[1]
-    dataset_path = backend_root / "evaluation" / "data" / "intent_test_v1.json"
+    dataset_path = (
+        backend_root / "evaluation" / "data" / f"intent_test_{version}.json"
+    )
     manifest_path = (
-        backend_root / "evaluation" / "data" / "intent_test_v1.freeze.json"
+        backend_root / "evaluation" / "data" / f"intent_test_{version}.freeze.json"
     )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     dataset_hash = hashlib.sha256(dataset_path.read_bytes()).hexdigest()

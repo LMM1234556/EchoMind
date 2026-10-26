@@ -114,6 +114,8 @@ async def run(args: argparse.Namespace) -> int:
     dataset_path = args.dataset.resolve()
     manifest_path = args.manifest.resolve()
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("first_evaluation_run") is True:
+        raise RuntimeError("freeze manifest already records a completed first evaluation")
     dataset_hash = _sha256(dataset_path)
     if dataset_hash != manifest["dataset_sha256"]:
         raise RuntimeError("dataset SHA-256 does not match freeze manifest")
@@ -179,7 +181,7 @@ async def run(args: argparse.Namespace) -> int:
 
     ordered = [successful[case.id] for case in cases]
     report = {
-        "name": "intent-test-v1-first-run",
+        "name": f"{metadata.get('name', dataset_path.stem)}-first-run",
         "run_status": "complete",
         "dataset": str(dataset_path),
         "dataset_sha256": dataset_hash,
