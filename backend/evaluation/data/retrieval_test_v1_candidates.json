@@ -11,7 +11,7 @@
     "positive_cases": 36,
     "hard_negative_cases": 12,
     "out_of_domain_cases": 12,
-    "reviewed_cases": 30,
+    "reviewed_cases": 40,
     "scoreable_total": 0
   },
   "cases": [
@@ -261,7 +261,7 @@
       "expected_title": "配送说明",
       "case_type": "positive",
       "label_basis": "标准配送 3-5 个工作日",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-delivery-002",
@@ -269,7 +269,7 @@
       "expected_title": "配送说明",
       "case_type": "positive",
       "label_basis": "标准配送订单满 99 元免运费",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-delivery-003",
@@ -277,7 +277,7 @@
       "expected_title": "配送说明",
       "case_type": "positive",
       "label_basis": "加急配送 1-2 个工作日，运费 15 元",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-delivery-004",
@@ -285,7 +285,7 @@
       "expected_title": "配送说明",
       "case_type": "positive",
       "label_basis": "同城配送当日达或次日达，运费 10 元",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-delivery-005",
@@ -293,7 +293,7 @@
       "expected_title": "配送说明",
       "case_type": "positive",
       "label_basis": "偏远地区额外 2-3 天",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-delivery-006",
@@ -301,7 +301,7 @@
       "expected_title": "配送说明",
       "case_type": "positive",
       "label_basis": "发货前可联系客服修改地址",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-001",
@@ -309,7 +309,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有礼品卡退款规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-002",
@@ -317,7 +317,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有退款手续费规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-003",
@@ -325,7 +325,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有取消订单流程",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-004",
@@ -333,7 +333,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有发票规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-005",
