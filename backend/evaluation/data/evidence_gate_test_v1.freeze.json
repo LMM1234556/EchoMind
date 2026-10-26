@@ -1,0 +1,46 @@
+{
+  "name": "evidence-gate-test-v1-freeze",
+  "dataset_path": "backend/evaluation/data/evidence_gate_test_v1.json",
+  "dataset_sha256": "c47bcfc0e89d27a7a938a464632abeacc8aa5f75ad601f9d36ca99104121d105",
+  "corpus_path": "backend/evaluation/data/retrieval_corpus_v1.json",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "development_dataset_path": "backend/evaluation/data/evidence_gate_dev_v1.json",
+  "development_dataset_sha256": "8adbdf4e0c6a3f7b16f8eacc9587f9e10c884312c525084fe9fd8b2301a66b87",
+  "development_report_path": "backend/evaluation/reports/evidence_gate_dev_v1_20261026.json",
+  "development_report_sha256": "780375d6f9a43f30831a37bbb500a3920a5295a072b0a4db93b8e815169ad7fc",
+  "frozen_on": "2026-10-26",
+  "candidate_set_creation_commit": "1b068b7",
+  "human_review_completed_commit": "a8a2bf8aa34e8148cf0d8784fb71daf796298711",
+  "gate_rules_commit": "c57dbf7",
+  "reviewer": "project_owner",
+  "total_cases": 42,
+  "supported_cases": 24,
+  "knowledge_gap_cases": 18,
+  "development_exact_overlaps": 0,
+  "development_near_overlaps": 0,
+  "other_retrieval_data_exact_overlaps": 0,
+  "other_retrieval_data_near_overlaps": 0,
+  "near_duplicate_threshold": 0.8,
+  "top_k": 6,
+  "evaluation_engine": "direct_local_embeddings",
+  "embedding_model": "BAAI/bge-small-zh-v1.5",
+  "similarity": "cosine",
+  "fixed_rules": {
+    "original_score_gate": {
+      "threshold": 0.46692987
+    },
+    "calibrated_score_gate": {
+      "threshold": 0.6691784
+    },
+    "score_and_coverage_gate": {
+      "threshold": 0.61528328,
+      "coverage_threshold": 0.18898809,
+      "operator": "and"
+    }
+  },
+  "first_evaluation_run": false,
+  "first_evaluation_completed_at": null,
+  "first_evaluation_report": null,
+  "first_evaluation_report_sha256": null,
+  "restriction": "Do not tune embedding models, corpus, lexical units, thresholds, or gate rules using this frozen test set. Run the fixed comparison once and preserve the first report."
+}

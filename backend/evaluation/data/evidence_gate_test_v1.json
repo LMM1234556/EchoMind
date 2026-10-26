@@ -1,19 +1,23 @@
 {
   "metadata": {
-    "name": "evidence-gate-test-v1-candidates",
-    "version": "1.0-candidate",
+    "name": "evidence-gate-test-v1",
+    "version": "1.0",
+    "frozen": true,
+    "frozen_on": "2026-10-26",
     "created_on": "2026-10-26",
     "purpose": "independent evidence support test drafted after gate rules were fixed",
-    "source": "ai_drafted_from_corpus_for_human_review",
+    "source": "ai_drafted_then_human_reviewed",
+    "reviewer": "project_owner",
+    "human_review_completed_commit": "a8a2bf8aa34e8148cf0d8784fb71daf796298711",
     "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
     "development_dataset": "backend/evaluation/data/evidence_gate_dev_v1.json",
     "baseline_commit": "c57dbf7",
-    "evaluation_status": "prohibited_until_reviewed_and_frozen",
+    "evaluation_status": "frozen_not_run",
     "total_cases": 42,
     "supported_cases": 24,
     "knowledge_gap_cases": 18,
     "reviewed_cases": 42,
-    "scoreable_total": 0
+    "scoreable_total": 42
   },
   "cases": [
     {
