@@ -1,0 +1,356 @@
+{
+  "metadata": {
+    "name": "evidence-gate-test-v1-candidates",
+    "version": "1.0-candidate",
+    "created_on": "2026-10-26",
+    "purpose": "independent evidence support test drafted after gate rules were fixed",
+    "source": "ai_drafted_from_corpus_for_human_review",
+    "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
+    "development_dataset": "backend/evaluation/data/evidence_gate_dev_v1.json",
+    "baseline_commit": "c57dbf7",
+    "evaluation_status": "prohibited_until_reviewed_and_frozen",
+    "total_cases": 42,
+    "supported_cases": 24,
+    "knowledge_gap_cases": 18,
+    "reviewed_cases": 0,
+    "scoreable_total": 0
+  },
+  "cases": [
+    {
+      "id": "gate-test-refund-supported-001",
+      "query": "购买商品第四天改变主意，不说明理由还能退吗",
+      "candidate_title": "退款政策",
+      "expected_supported": true,
+      "label_basis": "购买后 7 天内支持无理由退款",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-refund-supported-002",
+      "query": "收到商品第十九天发现质量问题，退款时需要准备什么材料",
+      "candidate_title": "退款政策",
+      "expected_supported": true,
+      "label_basis": "超过 7 天且未超过 30 天需提供质量问题证据",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-refund-supported-003",
+      "query": "提交退款申请后，平台审核一般要花几天",
+      "candidate_title": "退款政策",
+      "expected_supported": true,
+      "label_basis": "退款审核时效为 1-3 个工作日",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-refund-supported-004",
+      "query": "审核已经通过，款项回到付款账户通常还要多久",
+      "candidate_title": "退款政策",
+      "expected_supported": true,
+      "label_basis": "审核通过后 5-7 个工作日原路退回",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-refund-gap-001",
+      "query": "退货寄回产生的快递费由买家还是平台支付",
+      "candidate_title": "退款政策",
+      "expected_supported": false,
+      "label_basis": "文档没有退货运费承担规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-refund-gap-002",
+      "query": "一个订单买了两件商品，能否只退其中一件",
+      "candidate_title": "退款政策",
+      "expected_supported": false,
+      "label_basis": "文档没有部分退款规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-refund-gap-003",
+      "query": "退款申请被拒后最多还能重新提交多少次",
+      "candidate_title": "退款政策",
+      "expected_supported": false,
+      "label_basis": "文档没有退款重试次数规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-supported-001",
+      "query": "输入订单编号后可以查看订单进度和物流信息吗",
+      "candidate_title": "订单查询",
+      "expected_supported": true,
+      "label_basis": "可通过订单号查询订单状态和物流信息",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-supported-002",
+      "query": "包裹刚交给快递，物流跟踪信息最迟什么时候出现",
+      "candidate_title": "订单查询",
+      "expected_supported": true,
+      "label_basis": "物流信息通常在发货后 24 小时内更新",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-supported-003",
+      "query": "快递发出八天仍未送到，能否让平台客服协助查件",
+      "candidate_title": "订单查询",
+      "expected_supported": true,
+      "label_basis": "已发货超过 7 天未收到可联系客服申请查件",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-supported-004",
+      "query": "电脑网页和手机应用都能查询订单状态吗",
+      "candidate_title": "订单查询",
+      "expected_supported": true,
+      "label_basis": "可通过网站或 App 查询订单状态",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-gap-001",
+      "query": "商品已经发出以后还可以直接取消订单吗",
+      "candidate_title": "订单查询",
+      "expected_supported": false,
+      "label_basis": "文档没有发货后取消订单规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-gap-002",
+      "query": "平台是否可能把同一个订单拆成多个快递包裹",
+      "candidate_title": "订单查询",
+      "expected_supported": false,
+      "label_basis": "文档没有拆单发货规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-order-gap-003",
+      "query": "预售商品付款以后通常会在几天内发货",
+      "candidate_title": "订单查询",
+      "expected_supported": false,
+      "label_basis": "文档没有预售商品发货规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-supported-001",
+      "query": "新密码长度至少几位，需要包含什么字符组合",
+      "candidate_title": "账户安全",
+      "expected_supported": true,
+      "label_basis": "密码至少 8 位并包含字母和数字",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-supported-002",
+      "query": "忘记密码以后可以使用已经绑定的邮箱找回吗",
+      "candidate_title": "账户安全",
+      "expected_supported": true,
+      "label_basis": "可通过绑定手机号或邮箱重置密码",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-supported-003",
+      "query": "想增强账户安全性，应该到哪里开启两步验证",
+      "candidate_title": "账户安全",
+      "expected_supported": true,
+      "label_basis": "可在安全设置中开启两步验证",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-supported-004",
+      "query": "有人自称平台客服索要我的登录密码，应该提供吗",
+      "candidate_title": "账户安全",
+      "expected_supported": true,
+      "label_basis": "客服人员不会索要用户密码，不应分享密码",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-gap-001",
+      "query": "连续输错多少次密码会触发账户锁定",
+      "candidate_title": "账户安全",
+      "expected_supported": false,
+      "label_basis": "文档没有密码错误次数规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-gap-002",
+      "query": "更换绑定手机号码前是否必须进行人脸识别",
+      "candidate_title": "账户安全",
+      "expected_supported": false,
+      "label_basis": "文档没有换绑手机或人脸识别规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-security-gap-003",
+      "query": "两步验证能选择短信验证码还是验证器应用吗",
+      "candidate_title": "账户安全",
+      "expected_supported": false,
+      "label_basis": "文档没有两步验证的具体认证方式",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-supported-001",
+      "query": "清除缓存并重新启动后应用依旧崩溃，还可以怎么处理",
+      "candidate_title": "技术故障排查",
+      "expected_supported": true,
+      "label_basis": "问题持续时应更新到最新版本",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-supported-002",
+      "query": "网页提示 500 错误时，应该等待重试还是立即修改密码",
+      "candidate_title": "技术故障排查",
+      "expected_supported": true,
+      "label_basis": "500 是服务端问题，应稍后重试，持续出现时联系技术支持",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-supported-003",
+      "query": "页面打开特别慢，可以尝试在 WiFi 和移动数据之间切换吗",
+      "candidate_title": "技术故障排查",
+      "expected_supported": true,
+      "label_basis": "页面加载慢时可检查网络并切换 WiFi 或移动数据",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-supported-004",
+      "query": "付款失败时除了检查余额，还要确认银行卡的哪项功能",
+      "candidate_title": "技术故障排查",
+      "expected_supported": true,
+      "label_basis": "应确认银行卡已开启网上支付功能",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-gap-001",
+      "query": "平台推荐使用哪些浏览器以及最低版本",
+      "candidate_title": "技术故障排查",
+      "expected_supported": false,
+      "label_basis": "文档没有浏览器兼容信息",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-gap-002",
+      "query": "服务是否异常可以到哪个状态页面查看",
+      "candidate_title": "技术故障排查",
+      "expected_supported": false,
+      "label_basis": "文档没有服务状态页面信息",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-technical-gap-003",
+      "query": "断网以后应用还能查看已经缓存的订单吗",
+      "candidate_title": "技术故障排查",
+      "expected_supported": false,
+      "label_basis": "文档没有离线使用规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-supported-001",
+      "query": "本月消费三百五十元，按照基础规则会新增多少积分",
+      "candidate_title": "会员与积分",
+      "expected_supported": true,
+      "label_basis": "每消费 1 元积 1 分，可得 350 积分",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-supported-002",
+      "query": "累计消费五千五百元后是什么会员，结账享受几折",
+      "candidate_title": "会员与积分",
+      "expected_supported": true,
+      "label_basis": "累计消费 5000 元为金卡会员，享受 9 折",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-supported-003",
+      "query": "账户获得的积分经过多长时间会自动失效",
+      "candidate_title": "会员与积分",
+      "expected_supported": true,
+      "label_basis": "积分有效期为 1 年，过期自动清零",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-supported-004",
+      "query": "银卡会员相比商品原价可以享受什么折扣",
+      "candidate_title": "会员与积分",
+      "expected_supported": true,
+      "label_basis": "银卡会员享受 95 折优惠",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-gap-001",
+      "query": "积分能否赠送或转入另一个用户的账户",
+      "candidate_title": "会员与积分",
+      "expected_supported": false,
+      "label_basis": "文档没有积分转赠规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-gap-002",
+      "query": "使用积分抵扣时还能同时享受会员折扣吗",
+      "candidate_title": "会员与积分",
+      "expected_supported": false,
+      "label_basis": "文档没有积分与会员折扣叠加规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-member-gap-003",
+      "query": "订单退货以后，此前获得的积分是否会被扣回",
+      "candidate_title": "会员与积分",
+      "expected_supported": false,
+      "label_basis": "文档没有退货后的积分处理规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-supported-001",
+      "query": "不选择加急服务时，一般需要多少个工作日送到",
+      "candidate_title": "配送说明",
+      "expected_supported": true,
+      "label_basis": "标准配送为 3-5 个工作日",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-supported-002",
+      "query": "希望一到两个工作日收到，应选择什么配送并支付多少运费",
+      "candidate_title": "配送说明",
+      "expected_supported": true,
+      "label_basis": "加急配送 1-2 个工作日，运费 15 元",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-supported-003",
+      "query": "同城订单最快什么时候收到，配送费用是多少",
+      "candidate_title": "配送说明",
+      "expected_supported": true,
+      "label_basis": "同城配送当日达或次日达，运费 10 元",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-supported-004",
+      "query": "快递尚未发出，想更换收件地址应该怎么办",
+      "candidate_title": "配送说明",
+      "expected_supported": true,
+      "label_basis": "发货前可联系客服修改收货地址",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-gap-001",
+      "query": "第一次派送无人签收后，平台会免费再次配送几次",
+      "candidate_title": "配送说明",
+      "expected_supported": false,
+      "label_basis": "文档没有再次配送次数规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-gap-002",
+      "query": "平台是否支持把包裹寄送到中国大陆以外地区",
+      "candidate_title": "配送说明",
+      "expected_supported": false,
+      "label_basis": "文档没有国际或境外配送范围",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "gate-test-delivery-gap-003",
+      "query": "配送员出发前会不会电话联系收件人",
+      "candidate_title": "配送说明",
+      "expected_supported": false,
+      "label_basis": "文档没有配送前电话联系规则",
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    }
+  ]
+}
