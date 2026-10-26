@@ -10,7 +10,9 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Sequence
 
 from evaluation.evidence_gate_evaluator import (
+    add_lexical_coverage,
     annotate_rankings,
+    calibrate_score_coverage_gate,
     evidence_gate_metrics,
     load_evidence_gate_dataset,
 )
@@ -82,9 +84,10 @@ def main() -> None:
         [case.as_retrieval_case() for case in cases],
         top_k=args.top_k,
     )
-    rows = annotate_rankings(base_rows, cases)
+    rows = add_lexical_coverage(annotate_rankings(base_rows, cases), documents)
     calibration = calibrate_threshold(rows)
     calibrated_threshold = float(calibration["threshold"])
+    combined_calibration = calibrate_score_coverage_gate(rows)
     supported_scores = [float(row["top_score"]) for row in rows if row["expected_supported"]]
     gap_scores = [float(row["top_score"]) for row in rows if not row["expected_supported"]]
     false_accepts = [
@@ -94,6 +97,22 @@ def main() -> None:
     false_rejects = [
         row["id"] for row in rows
         if row["expected_supported"] and float(row["top_score"]) < calibrated_threshold
+    ]
+    combined_threshold = float(combined_calibration["threshold"])
+    combined_coverage = float(combined_calibration["coverage_threshold"])
+    combined_false_accepts = [
+        row["id"] for row in rows
+        if not row["expected_supported"]
+        and float(row["top_score"]) >= combined_threshold
+        and float(row["lexical_coverage"]) >= combined_coverage
+    ]
+    combined_false_rejects = [
+        row["id"] for row in rows
+        if row["expected_supported"]
+        and not (
+            float(row["top_score"]) >= combined_threshold
+            and float(row["lexical_coverage"]) >= combined_coverage
+        )
     ]
 
     payload = {
@@ -112,6 +131,12 @@ def main() -> None:
         "existing_threshold_metrics": evidence_gate_metrics(rows, args.existing_threshold),
         "calibration": calibration,
         "calibrated_metrics": evidence_gate_metrics(rows, calibrated_threshold),
+        "combined_calibration": combined_calibration,
+        "combined_metrics": evidence_gate_metrics(
+            rows,
+            combined_threshold,
+            combined_coverage,
+        ),
         "score_distribution": {
             "supported": _score_summary(supported_scores),
             "knowledge_gap": _score_summary(gap_scores),
@@ -119,6 +144,10 @@ def main() -> None:
         "calibrated_errors": {
             "false_accept_ids": false_accepts,
             "false_reject_ids": false_rejects,
+        },
+        "combined_errors": {
+            "false_accept_ids": combined_false_accepts,
+            "false_reject_ids": combined_false_rejects,
         },
         "cases": rows,
     }
@@ -133,6 +162,13 @@ def main() -> None:
         f"calibrated_threshold={calibrated_threshold:.8f} "
         f"macro_f1={payload['calibrated_metrics']['macro_f1']:.4f} "
         f"rejection={payload['calibrated_metrics']['correct_rejection_rate']:.4f}",
+        flush=True,
+    )
+    print(
+        f"combined_threshold={combined_threshold:.8f} "
+        f"coverage_threshold={combined_coverage:.8f} "
+        f"macro_f1={payload['combined_metrics']['macro_f1']:.4f} "
+        f"rejection={payload['combined_metrics']['correct_rejection_rate']:.4f}",
         flush=True,
     )
     print(f"report={args.report}", flush=True)

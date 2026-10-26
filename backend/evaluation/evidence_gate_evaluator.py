@@ -4,7 +4,8 @@ from __future__ import annotations
 import json
 import pathlib
 from dataclasses import dataclass
-from typing import Any, Dict, List, Sequence
+import re
+from typing import Any, Dict, List, Mapping, Sequence
 
 from evaluation.retrieval_comparison import LabelledRetrievalCase
 
@@ -105,12 +106,52 @@ def annotate_rankings(
     return annotated
 
 
-def evidence_gate_metrics(rows: Sequence[Dict[str, Any]], threshold: float) -> Dict[str, Any]:
+def _lexical_units(text: str) -> set[str]:
+    normalized = str(text or "").lower()
+    units = set(re.findall(r"[a-z0-9]+", normalized))
+    for segment in re.findall(r"[\u4e00-\u9fff]+", normalized):
+        if len(segment) == 1:
+            units.add(segment)
+        else:
+            units.update(segment[index:index + 2] for index in range(len(segment) - 1))
+    return units
+
+
+def add_lexical_coverage(
+    rows: Sequence[Dict[str, Any]],
+    documents: Sequence[Mapping[str, Any]],
+) -> List[Dict[str, Any]]:
+    contents = {str(item.get("title", "")): str(item.get("content", "")) for item in documents}
+    enriched: List[Dict[str, Any]] = []
+    for row in rows:
+        top_title = str(row.get("top_title") or "")
+        if top_title not in contents:
+            raise ValueError(f"top title missing from documents: {top_title!r}")
+        query_units = _lexical_units(str(row.get("query", "")))
+        document_units = _lexical_units(contents[top_title])
+        matched = query_units & document_units
+        coverage = len(matched) / len(query_units) if query_units else 0.0
+        enriched.append({
+            **row,
+            "query_unit_count": len(query_units),
+            "matched_query_unit_count": len(matched),
+            "lexical_coverage": round(coverage, 8),
+        })
+    return enriched
+
+
+def evidence_gate_metrics(
+    rows: Sequence[Dict[str, Any]],
+    threshold: float,
+    coverage_threshold: float | None = None,
+) -> Dict[str, Any]:
     tp = fp = fn = tn = strict_correct = 0
     for row in rows:
         expected = bool(row.get("expected_supported"))
         score = row.get("top_score")
         predicted = score is not None and float(score) >= threshold
+        if coverage_threshold is not None:
+            predicted = predicted and float(row.get("lexical_coverage", 0.0)) >= coverage_threshold
         if expected and predicted:
             tp += 1
         elif not expected and predicted:
@@ -133,7 +174,7 @@ def evidence_gate_metrics(rows: Sequence[Dict[str, Any]], threshold: float) -> D
     negative_precision = safe_div(tn, tn + fn)
     negative_recall = safe_div(tn, tn + fp)
     negative_f1 = safe_div(2 * negative_precision * negative_recall, negative_precision + negative_recall)
-    return {
+    metrics = {
         "threshold": round(float(threshold), 8),
         "tp": tp,
         "fp": fp,
@@ -146,4 +187,54 @@ def evidence_gate_metrics(rows: Sequence[Dict[str, Any]], threshold: float) -> D
         "supported_f1": round(positive_f1, 4),
         "correct_rejection_rate": round(negative_recall, 4),
         "macro_f1": round((positive_f1 + negative_f1) / 2, 4),
+    }
+    if coverage_threshold is not None:
+        metrics["coverage_threshold"] = round(float(coverage_threshold), 8)
+    return metrics
+
+
+def _threshold_candidates(values: Sequence[float]) -> List[float]:
+    ordered = sorted({float(value) for value in values})
+    if not ordered:
+        raise ValueError("cannot calibrate without feature values")
+    epsilon = max(1.0, max(abs(value) for value in ordered)) * 1e-9
+    return [
+        ordered[0] - epsilon,
+        *((left + right) / 2 for left, right in zip(ordered, ordered[1:])),
+        ordered[-1] + epsilon,
+    ]
+
+
+def calibrate_score_coverage_gate(rows: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    """Calibrate an interpretable AND gate on development data only."""
+    score_thresholds = _threshold_candidates([
+        float(row["top_score"]) for row in rows if row.get("top_score") is not None
+    ])
+    coverage_thresholds = _threshold_candidates([
+        float(row["lexical_coverage"]) for row in rows
+    ])
+    scored = [
+        evidence_gate_metrics(rows, score_threshold, coverage_threshold)
+        for score_threshold in score_thresholds
+        for coverage_threshold in coverage_thresholds
+    ]
+    best = max(
+        scored,
+        key=lambda item: (
+            item["macro_f1"],
+            item["strict_decision_accuracy"],
+            item["correct_rejection_rate"],
+            item["supported_recall"],
+            item["coverage_threshold"],
+            item["threshold"],
+        ),
+    )
+    return {
+        **best,
+        "candidate_count": len(scored),
+        "selection_rule": (
+            "max_macro_f1_then_strict_accuracy_then_rejection_then_recall_"
+            "then_higher_thresholds"
+        ),
+        "rule": "top_score >= threshold AND lexical_coverage >= coverage_threshold",
     }

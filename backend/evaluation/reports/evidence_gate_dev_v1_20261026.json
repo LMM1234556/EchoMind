@@ -1,6 +1,6 @@
 {
   "name": "evidence-gate-dev-evaluation-v1",
-  "completed_at": "2026-10-26T05:00:07.789498+00:00",
+  "completed_at": "2026-10-26T05:12:00.276075+00:00",
   "warning": "development-set result; not an independent test result",
   "dataset": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\evidence_gate_dev_v1.json",
   "dataset_sha256": "8adbdf4e0c6a3f7b16f8eacc9587f9e10c884312c525084fe9fd8b2301a66b87",
@@ -67,6 +67,39 @@
     "correct_rejection_rate": 0.9167,
     "macro_f1": 0.8643
   },
+  "combined_calibration": {
+    "threshold": 0.61528328,
+    "tp": 15,
+    "fp": 0,
+    "fn": 3,
+    "tn": 12,
+    "accuracy": 0.9,
+    "strict_decision_accuracy": 0.8667,
+    "supported_precision": 1.0,
+    "supported_recall": 0.8333,
+    "supported_f1": 0.9091,
+    "correct_rejection_rate": 1.0,
+    "macro_f1": 0.899,
+    "coverage_threshold": 0.18898809,
+    "candidate_count": 744,
+    "selection_rule": "max_macro_f1_then_strict_accuracy_then_rejection_then_recall_then_higher_thresholds",
+    "rule": "top_score >= threshold AND lexical_coverage >= coverage_threshold"
+  },
+  "combined_metrics": {
+    "threshold": 0.61528328,
+    "tp": 15,
+    "fp": 0,
+    "fn": 3,
+    "tn": 12,
+    "accuracy": 0.9,
+    "strict_decision_accuracy": 0.8667,
+    "supported_precision": 1.0,
+    "supported_recall": 0.8333,
+    "supported_f1": 0.9091,
+    "correct_rejection_rate": 1.0,
+    "macro_f1": 0.899,
+    "coverage_threshold": 0.18898809
+  },
   "score_distribution": {
     "supported": {
       "min": 0.57331532,
@@ -86,6 +119,14 @@
     "false_reject_ids": [
       "gate-order-supported-002",
       "gate-security-supported-001",
+      "gate-delivery-supported-003"
+    ]
+  },
+  "combined_errors": {
+    "false_accept_ids": [],
+    "false_reject_ids": [
+      "gate-refund-supported-001",
+      "gate-delivery-supported-002",
       "gate-delivery-supported-003"
     ]
   },
@@ -113,7 +154,7 @@
         0.38065666
       ],
       "top_score": 0.72179258,
-      "latency_ms": 15.0,
+      "latency_ms": 0.0,
       "candidate_title": "退款政策",
       "expected_supported": true,
       "label_basis": "购买后 7 天内支持无理由退款",
@@ -121,7 +162,10 @@
       "second_score": 0.51808441,
       "score_margin": 0.20370817,
       "candidate_rank": 1,
-      "candidate_score": 0.72179258
+      "candidate_score": 0.72179258,
+      "query_unit_count": 18,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.16666667
     },
     {
       "id": "gate-refund-supported-002",
@@ -154,7 +198,10 @@
       "second_score": 0.53659046,
       "score_margin": 0.21925735,
       "candidate_rank": 1,
-      "candidate_score": 0.75584781
+      "candidate_score": 0.75584781,
+      "query_unit_count": 18,
+      "matched_query_unit_count": 11,
+      "lexical_coverage": 0.61111111
     },
     {
       "id": "gate-refund-supported-003",
@@ -179,7 +226,7 @@
         0.40962869
       ],
       "top_score": 0.72845715,
-      "latency_ms": 0.0,
+      "latency_ms": 16.0,
       "candidate_title": "退款政策",
       "expected_supported": true,
       "label_basis": "超过 7 天未超过 30 天需提供质量问题证据",
@@ -187,7 +234,10 @@
       "second_score": 0.53959388,
       "score_margin": 0.18886327,
       "candidate_rank": 1,
-      "candidate_score": 0.72845715
+      "candidate_score": 0.72845715,
+      "query_unit_count": 22,
+      "matched_query_unit_count": 8,
+      "lexical_coverage": 0.36363636
     },
     {
       "id": "gate-refund-gap-001",
@@ -220,7 +270,10 @@
       "second_score": 0.50231612,
       "score_margin": 0.16558397,
       "candidate_rank": 1,
-      "candidate_score": 0.66790009
+      "candidate_score": 0.66790009,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.17647059
     },
     {
       "id": "gate-refund-gap-002",
@@ -253,7 +306,10 @@
       "second_score": 0.48604205,
       "score_margin": 0.18252239,
       "candidate_rank": 1,
-      "candidate_score": 0.66856444
+      "candidate_score": 0.66856444,
+      "query_unit_count": 16,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.1875
     },
     {
       "id": "gate-order-supported-001",
@@ -286,7 +342,10 @@
       "second_score": 0.60447609,
       "score_margin": 0.19166661,
       "candidate_rank": 1,
-      "candidate_score": 0.7961427
+      "candidate_score": 0.7961427,
+      "query_unit_count": 19,
+      "matched_query_unit_count": 9,
+      "lexical_coverage": 0.47368421
     },
     {
       "id": "gate-order-supported-002",
@@ -311,7 +370,7 @@
         0.37446582
       ],
       "top_score": 0.65045762,
-      "latency_ms": 16.0,
+      "latency_ms": 0.0,
       "candidate_title": "订单查询",
       "expected_supported": true,
       "label_basis": "物流信息通常在发货后 24 小时内更新",
@@ -319,7 +378,10 @@
       "second_score": 0.57901293,
       "score_margin": 0.07144469,
       "candidate_rank": 1,
-      "candidate_score": 0.65045762
+      "candidate_score": 0.65045762,
+      "query_unit_count": 21,
+      "matched_query_unit_count": 4,
+      "lexical_coverage": 0.19047619
     },
     {
       "id": "gate-order-supported-003",
@@ -352,7 +414,10 @@
       "second_score": 0.61783433,
       "score_margin": 0.10807055,
       "candidate_rank": 1,
-      "candidate_score": 0.72590488
+      "candidate_score": 0.72590488,
+      "query_unit_count": 19,
+      "matched_query_unit_count": 8,
+      "lexical_coverage": 0.42105263
     },
     {
       "id": "gate-order-gap-001",
@@ -377,7 +442,7 @@
         0.40146786
       ],
       "top_score": 0.50372714,
-      "latency_ms": 0.0,
+      "latency_ms": 16.0,
       "candidate_title": "订单查询",
       "expected_supported": false,
       "label_basis": "文档没有修改商品规格规则",
@@ -385,7 +450,10 @@
       "second_score": 0.45779538,
       "score_margin": 0.04593176,
       "candidate_rank": 5,
-      "candidate_score": 0.4091447
+      "candidate_score": 0.4091447,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 1,
+      "lexical_coverage": 0.05882353
     },
     {
       "id": "gate-order-gap-002",
@@ -418,7 +486,10 @@
       "second_score": 0.51061434,
       "score_margin": 0.04823923,
       "candidate_rank": 1,
-      "candidate_score": 0.55885357
+      "candidate_score": 0.55885357,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.17647059
     },
     {
       "id": "gate-security-supported-001",
@@ -451,7 +522,10 @@
       "second_score": 0.44937891,
       "score_margin": 0.18080646,
       "candidate_rank": 1,
-      "candidate_score": 0.63018537
+      "candidate_score": 0.63018537,
+      "query_unit_count": 20,
+      "matched_query_unit_count": 5,
+      "lexical_coverage": 0.25
     },
     {
       "id": "gate-security-supported-002",
@@ -484,7 +558,10 @@
       "second_score": 0.53881651,
       "score_margin": 0.16423285,
       "candidate_rank": 1,
-      "candidate_score": 0.70304936
+      "candidate_score": 0.70304936,
+      "query_unit_count": 18,
+      "matched_query_unit_count": 10,
+      "lexical_coverage": 0.55555556
     },
     {
       "id": "gate-security-supported-003",
@@ -517,7 +594,10 @@
       "second_score": 0.58696514,
       "score_margin": 0.0980385,
       "candidate_rank": 1,
-      "candidate_score": 0.68500364
+      "candidate_score": 0.68500364,
+      "query_unit_count": 18,
+      "matched_query_unit_count": 6,
+      "lexical_coverage": 0.33333333
     },
     {
       "id": "gate-security-gap-001",
@@ -542,7 +622,7 @@
         0.44014812
       ],
       "top_score": 0.59357882,
-      "latency_ms": 16.0,
+      "latency_ms": 0.0,
       "candidate_title": "账户安全",
       "expected_supported": false,
       "label_basis": "文档没有可信设备数量限制",
@@ -550,7 +630,10 @@
       "second_score": 0.50687516,
       "score_margin": 0.08670366,
       "candidate_rank": 1,
-      "candidate_score": 0.59357882
+      "candidate_score": 0.59357882,
+      "query_unit_count": 16,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.1875
     },
     {
       "id": "gate-security-gap-002",
@@ -575,7 +658,7 @@
         0.42984089
       ],
       "top_score": 0.54100174,
-      "latency_ms": 0.0,
+      "latency_ms": 15.0,
       "candidate_title": "账户安全",
       "expected_supported": false,
       "label_basis": "文档没有账号注销与数据保留规则",
@@ -583,7 +666,10 @@
       "second_score": 0.5370847,
       "score_margin": 0.00391704,
       "candidate_rank": 2,
-      "candidate_score": 0.5370847
+      "candidate_score": 0.5370847,
+      "query_unit_count": 15,
+      "matched_query_unit_count": 0,
+      "lexical_coverage": 0.0
     },
     {
       "id": "gate-technical-supported-001",
@@ -616,7 +702,10 @@
       "second_score": 0.50426006,
       "score_margin": 0.18757743,
       "candidate_rank": 1,
-      "candidate_score": 0.69183749
+      "candidate_score": 0.69183749,
+      "query_unit_count": 16,
+      "matched_query_unit_count": 4,
+      "lexical_coverage": 0.25
     },
     {
       "id": "gate-technical-supported-002",
@@ -649,7 +738,10 @@
       "second_score": 0.59849298,
       "score_margin": 0.0893895,
       "candidate_rank": 2,
-      "candidate_score": 0.59849298
+      "candidate_score": 0.59849298,
+      "query_unit_count": 14,
+      "matched_query_unit_count": 4,
+      "lexical_coverage": 0.28571429
     },
     {
       "id": "gate-technical-supported-003",
@@ -682,7 +774,10 @@
       "second_score": 0.52639234,
       "score_margin": 0.18303382,
       "candidate_rank": 1,
-      "candidate_score": 0.70942616
+      "candidate_score": 0.70942616,
+      "query_unit_count": 20,
+      "matched_query_unit_count": 9,
+      "lexical_coverage": 0.45
     },
     {
       "id": "gate-technical-gap-001",
@@ -715,7 +810,10 @@
       "second_score": 0.44806069,
       "score_margin": 0.0244951,
       "candidate_rank": 6,
-      "candidate_score": 0.38744277
+      "candidate_score": 0.38744277,
+      "query_unit_count": 15,
+      "matched_query_unit_count": 0,
+      "lexical_coverage": 0.0
     },
     {
       "id": "gate-technical-gap-002",
@@ -748,7 +846,10 @@
       "second_score": 0.41065449,
       "score_margin": 0.13835978,
       "candidate_rank": 1,
-      "candidate_score": 0.54901427
+      "candidate_score": 0.54901427,
+      "query_unit_count": 12,
+      "matched_query_unit_count": 2,
+      "lexical_coverage": 0.16666667
     },
     {
       "id": "gate-member-supported-001",
@@ -773,7 +874,7 @@
         0.37692329
       ],
       "top_score": 0.70895308,
-      "latency_ms": 15.0,
+      "latency_ms": 0.0,
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "累计消费 1000 元达到银卡会员",
@@ -781,7 +882,10 @@
       "second_score": 0.48451501,
       "score_margin": 0.22443807,
       "candidate_rank": 1,
-      "candidate_score": 0.70895308
+      "candidate_score": 0.70895308,
+      "query_unit_count": 18,
+      "matched_query_unit_count": 6,
+      "lexical_coverage": 0.33333333
     },
     {
       "id": "gate-member-supported-002",
@@ -806,7 +910,7 @@
         0.39167011
       ],
       "top_score": 0.7159732,
-      "latency_ms": 0.0,
+      "latency_ms": 16.0,
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "100 积分等于 1 元",
@@ -814,7 +918,10 @@
       "second_score": 0.49712488,
       "score_margin": 0.21884832,
       "candidate_rank": 1,
-      "candidate_score": 0.7159732
+      "candidate_score": 0.7159732,
+      "query_unit_count": 15,
+      "matched_query_unit_count": 8,
+      "lexical_coverage": 0.53333333
     },
     {
       "id": "gate-member-supported-003",
@@ -847,7 +954,10 @@
       "second_score": 0.4193601,
       "score_margin": 0.25043225,
       "candidate_rank": 1,
-      "candidate_score": 0.66979235
+      "candidate_score": 0.66979235,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 5,
+      "lexical_coverage": 0.29411765
     },
     {
       "id": "gate-member-gap-001",
@@ -880,7 +990,10 @@
       "second_score": 0.47451717,
       "score_margin": 0.10688203,
       "candidate_rank": 1,
-      "candidate_score": 0.5813992
+      "candidate_score": 0.5813992,
+      "query_unit_count": 10,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.3
     },
     {
       "id": "gate-member-gap-002",
@@ -913,7 +1026,10 @@
       "second_score": 0.36853829,
       "score_margin": 0.23184291,
       "candidate_rank": 1,
-      "candidate_score": 0.6003812
+      "candidate_score": 0.6003812,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 2,
+      "lexical_coverage": 0.11764706
     },
     {
       "id": "gate-delivery-supported-001",
@@ -946,7 +1062,10 @@
       "second_score": 0.54945749,
       "score_margin": 0.15725255,
       "candidate_rank": 1,
-      "candidate_score": 0.70671004
+      "candidate_score": 0.70671004,
+      "query_unit_count": 15,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.2
     },
     {
       "id": "gate-delivery-supported-002",
@@ -971,7 +1090,7 @@
         0.36104116
       ],
       "top_score": 0.74501479,
-      "latency_ms": 16.0,
+      "latency_ms": 0.0,
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "配送时间为每天 9:00-18:00",
@@ -979,7 +1098,10 @@
       "second_score": 0.51928914,
       "score_margin": 0.22572565,
       "candidate_rank": 1,
-      "candidate_score": 0.74501479
+      "candidate_score": 0.74501479,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 3,
+      "lexical_coverage": 0.17647059
     },
     {
       "id": "gate-delivery-supported-003",
@@ -1012,7 +1134,10 @@
       "second_score": 0.45409825,
       "score_margin": 0.11921707,
       "candidate_rank": 1,
-      "candidate_score": 0.57331532
+      "candidate_score": 0.57331532,
+      "query_unit_count": 17,
+      "matched_query_unit_count": 4,
+      "lexical_coverage": 0.23529412
     },
     {
       "id": "gate-delivery-gap-001",
@@ -1037,7 +1162,7 @@
         0.33412024
       ],
       "top_score": 0.72877765,
-      "latency_ms": 0.0,
+      "latency_ms": 16.0,
       "candidate_title": "配送说明",
       "expected_supported": false,
       "label_basis": "文档只有配送时间范围，没有预约小时服务",
@@ -1045,7 +1170,10 @@
       "second_score": 0.52606422,
       "score_margin": 0.20271343,
       "candidate_rank": 1,
-      "candidate_score": 0.72877765
+      "candidate_score": 0.72877765,
+      "query_unit_count": 16,
+      "matched_query_unit_count": 2,
+      "lexical_coverage": 0.125
     },
     {
       "id": "gate-delivery-gap-002",
@@ -1078,7 +1206,10 @@
       "second_score": 0.45216811,
       "score_margin": 0.00898635,
       "candidate_rank": 1,
-      "candidate_score": 0.46115446
+      "candidate_score": 0.46115446,
+      "query_unit_count": 16,
+      "matched_query_unit_count": 1,
+      "lexical_coverage": 0.0625
     }
   ]
 }

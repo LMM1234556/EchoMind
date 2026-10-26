@@ -3,7 +3,9 @@ import json
 import pytest
 
 from evaluation.evidence_gate_evaluator import (
+    add_lexical_coverage,
     annotate_rankings,
+    calibrate_score_coverage_gate,
     evidence_gate_metrics,
     load_evidence_gate_dataset,
 )
@@ -103,3 +105,41 @@ def test_evidence_gate_metrics_reports_false_accepts_and_strict_title_errors():
     assert metrics["accuracy"] == 0.6667
     assert metrics["strict_decision_accuracy"] == 0.3333
     assert metrics["correct_rejection_rate"] == 0.5
+
+
+def test_add_lexical_coverage_measures_query_units_found_in_top_document():
+    rows = [{"query": "退款到账时间", "top_title": "退款政策"}]
+    documents = [{"title": "退款政策", "content": "退款将在三个工作日内到账。"}]
+
+    enriched = add_lexical_coverage(rows, documents)
+
+    assert enriched[0]["query_unit_count"] > 0
+    assert enriched[0]["matched_query_unit_count"] > 0
+    assert 0 < enriched[0]["lexical_coverage"] <= 1
+
+
+def test_calibrate_score_coverage_gate_uses_both_features():
+    rows = [
+        {
+            "expected_supported": True, "top_score": 0.9, "lexical_coverage": 0.8,
+            "top_title": "A", "candidate_title": "A",
+        },
+        {
+            "expected_supported": True, "top_score": 0.7, "lexical_coverage": 0.6,
+            "top_title": "A", "candidate_title": "A",
+        },
+        {
+            "expected_supported": False, "top_score": 0.8, "lexical_coverage": 0.2,
+            "top_title": "A", "candidate_title": "A",
+        },
+        {
+            "expected_supported": False, "top_score": 0.3, "lexical_coverage": 0.7,
+            "top_title": "B", "candidate_title": "A",
+        },
+    ]
+
+    calibrated = calibrate_score_coverage_gate(rows)
+
+    assert calibrated["macro_f1"] == 1.0
+    assert calibrated["correct_rejection_rate"] == 1.0
+    assert calibrated["rule"].startswith("top_score >=")
