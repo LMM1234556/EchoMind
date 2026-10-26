@@ -43,6 +43,36 @@ def test_dissatisfaction_without_handoff_stays_complaint():
     assert result["intent"] is IntentCategory.COMPLAINT
 
 
+def test_generic_few_shots_match_their_declared_boundaries():
+    assert _TEMPLATES[IntentCategory.QUERY] == [
+        "客服服务时间是什么？", "平台支持哪些服务？", "在哪里查看使用说明？",
+    ]
+    assert _TEMPLATES[IntentCategory.BILLING] == [
+        "账单金额如何计算？", "套餐费用怎么收取？", "查看本月账单明细",
+    ]
+    assert _TEMPLATES[IntentCategory.TECHNICAL] == [
+        "接口请求超时", "数据同步失败", "配置保存后未生效",
+    ]
+
+
+def test_negated_crash_keywords_stay_general_technical():
+    recognizer = _recognizer()
+
+    for message in (
+        "接口响应很慢，但没有报错也没有宕机",
+        "页面加载超时，应用并未闪退",
+        "服务偶尔延迟，不存在 500 或崩溃现象",
+    ):
+        result = recognizer._pattern_recognize(message)
+        assert result["intent"] is IntentCategory.TECHNICAL
+
+
+def test_affirmative_crash_keyword_stays_specific():
+    result = _recognizer()._pattern_recognize("提交时页面报 500 错误")
+
+    assert result["intent"] is IntentCategory.TECHNICAL_CRASH
+
+
 def test_failed_llm_does_not_bypass_confidence_threshold_or_pollute_cache():
     recognizer = _recognizer()
 

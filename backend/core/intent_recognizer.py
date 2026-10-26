@@ -92,13 +92,13 @@ class IntentResult:
 
 # ── Few-shot 模板（同时用于 LLM 示例和 Embedding 匹配）────────────────────────
 _TEMPLATES: Dict[IntentCategory, List[str]] = {
-    IntentCategory.QUERY:      ["我的订单状态是什么？", "如何重置密码？", "快递什么时候到？"],
+    IntentCategory.QUERY:      ["客服服务时间是什么？", "平台支持哪些服务？", "在哪里查看使用说明？"],
     IntentCategory.COMPLAINT:  ["等了好几个小时！", "服务太差了！", "一直没人处理！"],
-    IntentCategory.REQUEST:    ["帮我取消订单", "我需要修改地址", "请协助退款"],
+    IntentCategory.REQUEST:    ["请协助处理这个问题", "请帮我登记服务需求", "请记录我的补充说明"],
     IntentCategory.GREETING:   ["你好", "嗨，有人吗", "早上好"],
     IntentCategory.ESCALATION: ["请升级给主管处理", "需要更高级别负责人介入", "找你们经理"],
-    IntentCategory.TECHNICAL:  ["应用一直崩溃", "无法登录", "出现500错误"],
-    IntentCategory.BILLING:    ["为什么扣了两次款？", "申请退款", "发票问题"],
+    IntentCategory.TECHNICAL:  ["接口请求超时", "数据同步失败", "配置保存后未生效"],
+    IntentCategory.BILLING:    ["账单金额如何计算？", "套餐费用怎么收取？", "查看本月账单明细"],
     IntentCategory.ACCOUNT:    ["修改邮箱", "注销账户", "更新个人信息"],
     IntentCategory.FEEDBACK:   ["服务很棒！", "非常满意", "给个好评"],
     IntentCategory.ORDER_STATUS: ["我的订单现在是什么状态？", "订单有没有发货？", "订单处理到哪一步了？"],
@@ -356,7 +356,7 @@ class IntentRecognizer:
             IntentCategory.PAYMENT_ISSUE: ["重复扣款", "多扣", "支付失败", "扣费", "payment failed"],
             IntentCategory.ACCOUNT_SECURITY: ["被盗", "异常登录", "重置密码", "两步验证", "安全"],
             IntentCategory.TECHNICAL_LOGIN: ["无法登录", "登录失败", "401", "验证码"],
-            IntentCategory.TECHNICAL_CRASH: ["崩溃", "闪退", "500", "报错", "crash"],
+            IntentCategory.TECHNICAL_CRASH: ["崩溃", "闪退", "500", "crash"],
         }
         generic_patterns = {
             IntentCategory.ESCALATION: [
@@ -364,13 +364,19 @@ class IntentRecognizer:
                 "经理", "supervisor", "manager",
             ],
             IntentCategory.COMPLAINT:  ["太差", "糟糕", "horrible", "等了很久"],
-            IntentCategory.QUERY:      ["?", "？", "怎么", "什么", "status"],
+            IntentCategory.QUERY:      ["客服时间", "服务时间", "帮助中心", "使用说明", "支持哪些"],
             IntentCategory.REQUEST:    ["帮我", "需要", "please", "help"],
             IntentCategory.GREETING:   ["你好", "嗨", "hello", "hi"],
-            IntentCategory.BILLING:    ["退款", "扣款", "发票", "refund"],
-            IntentCategory.TECHNICAL:  ["崩溃", "报错", "error", "crash"],
+            IntentCategory.BILLING:    ["账单", "套餐", "费用", "收费", "计费", "价格", "续费"],
+            IntentCategory.TECHNICAL:  ["接口", "超时", "同步", "配置", "延迟", "报错", "error"],
             IntentCategory.ACCOUNT:    ["密码", "邮箱", "账户", "password"],
         }
+
+        crash_patterns = specific_patterns[IntentCategory.TECHNICAL_CRASH]
+        specific_patterns[IntentCategory.TECHNICAL_CRASH] = [
+            keyword for keyword in crash_patterns
+            if self._has_unnegated_keyword(msg, keyword)
+        ]
 
         best_cat, best_score = self._best_pattern_match(msg, specific_patterns)
         if best_cat != IntentCategory.OTHER:
@@ -518,6 +524,20 @@ class IntentRecognizer:
     @staticmethod
     def _unique(values: List[str]) -> List[str]:
         return list(dict.fromkeys(value.strip() for value in values if value and value.strip()))
+
+    @staticmethod
+    def _has_unnegated_keyword(message: str, keyword: str) -> bool:
+        """Return true when at least one keyword occurrence is not negated nearby."""
+        negation = re.compile(
+            r"(?:没有|并未|不存在|不会|不是|无)"
+            r"(?:出现|发生|任何)?[^，。；;!?！？]{0,10}$"
+        )
+        positions = [match.start() for match in re.finditer(re.escape(keyword), message)]
+        for position in positions:
+            prefix = message[max(0, position - 24):position]
+            if not negation.search(prefix):
+                return True
+        return False
 
     @staticmethod
     def _best_pattern_match(
