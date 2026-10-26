@@ -293,9 +293,9 @@ class BaseAgent:
         tools_used: List[str] = []
         tool_traces: List[Dict[str, Any]] = []
 
-        # 对高置信度具体意图先确定性预取知识，避免先让 LLM 用一轮
-        # 调用来决定“是否搜索”。资金、政策和时效类回答无论置信度高低
-        # 都必须先取证，不能把“是否检索”交给生成模型自行决定。
+        # 对具体业务意图先确定性预取知识，避免让生成模型决定“是否搜索”。
+        # 意图置信度不作为检索开关；候选是否充分由证据门控判断。
+        # 资金、政策和时效类回答还会走强制取证与失败关闭逻辑。
         knowledge_tool = tools.get("search_knowledge_base")
         if knowledge_tool is not None and (
             should_prefetch_knowledge(req) or self._requires_policy_evidence(req)
@@ -351,6 +351,11 @@ class BaseAgent:
             self._last_tools_used = list(tools_used)
             self._last_tool_traces = list(tool_traces)
 
+            # 确定性预取已经完成后，不再让生成模型重复调用同一 RAG 工具。
+            # 有证据时直接注入；无证据时政策问题失败关闭，技术问题仍可
+            # 使用其余低风险诊断工具。
+            tools.pop("search_knowledge_base", None)
+
             if self._requires_policy_evidence(req) and not evidence_found:
                 return self._grounded_no_evidence_response()
 
@@ -364,7 +369,6 @@ class BaseAgent:
                     "role": "assistant",
                     "content": "好的，我会优先根据这些知识库证据直接回答，只在必要时调用其他工具。",
                 })
-                tools.pop("search_knowledge_base", None)
 
         messages.append({"role": "user", "content": _clean(req.message)})
 

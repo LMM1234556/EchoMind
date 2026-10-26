@@ -112,9 +112,14 @@ def filter_grounded_results(
 
 
 def should_prefetch_knowledge(req: "Request") -> bool:
-    """只对高置信度的具体业务意图执行确定性知识预取。"""
+    """对具体业务意图执行确定性知识预取。
+
+    不能用意图置信度决定是否检索：真实模型可能把正确的细粒度意图打成
+    低于 0.8，随后生成模型又选择不调用 RAG。候选是否真正支持问题由后续
+    证据门控或语义选择器判断。
+    """
     intent_value = getattr(req.intent, "value", req.intent)
-    return intent_value in _FAST_RAG_INTENTS and req.intent_confidence >= 0.8
+    return intent_value in _FAST_RAG_INTENTS
 
 
 @dataclass(frozen=True)

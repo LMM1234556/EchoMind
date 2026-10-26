@@ -890,6 +890,50 @@ def test_empty_technical_prefetch_still_allows_low_risk_diagnostics():
     assert result.tool_traces[0]["evidence_found"] is False
 
 
+def test_low_confidence_specific_technical_intent_still_prefetches_knowledge():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {
+                "success": True,
+                "data": [{"title": "技术故障排查", "content": "401 通常表示认证失败"}],
+                "reranked": False,
+            })()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("关键词结果已命中，不应进入完整 RAG")
+
+    class Selector:
+        async def select(self, query, candidates):
+            return {
+                "success": True,
+                "supported": True,
+                "selected_title": "技术故障排查",
+                "evidence": "文档明确解释 401",
+            }
+
+    class TextBlock:
+        type = "text"
+        text = "401 通常表示认证失败。"
+
+    client = FakeClient(response=type("Response", (), {"content": [TextBlock()]})())
+    agent = TechnicalAgent(client, "test-model")
+    agent.set_shared_tools(build_shared_rag_tools(RagManager(), Selector()))
+
+    result = asyncio.run(agent.handle(make_request(
+        message="登录报 401 是什么问题？",
+        intent=IntentCategory.TECHNICAL_LOGIN,
+        intent_group="technical",
+        intent_confidence=0.55,
+        entities={"error_code": ["401"]},
+    )))
+
+    assert result.tools_used == ["search_knowledge_base"]
+    assert result.tool_traces[0]["invocation_source"] == "deterministic_prefetch"
+    assert result.tool_traces[0]["evidence_selector_success"] is True
+    assert result.tool_traces[0]["evidence_selected_title"] == "技术故障排查"
+    assert result.tool_traces[0]["evidence_found"] is True
+
+
 def test_low_confidence_policy_intent_prefetches_and_fails_closed_without_evidence():
     class TextBlock:
         type = "text"
@@ -1227,13 +1271,20 @@ def test_model_requested_rag_query_is_scoped_before_tool_execution():
             )()
 
         async def search_with_rewrite(self, tool_name, query, top_k=5):
-            raise AssertionError("关键词检索命中后不应调用完整 RAG")
+            self.queries.append(query)
+            return type(
+                "Result",
+                (),
+                {"success": True, "data": [{"content": "401 表示认证失败"}], "reranked": True},
+            )()
 
     manager = RagManager()
     agent = TechnicalAgent(ToolClient(), "test-model")
     agent.set_shared_tools(build_shared_rag_tools(manager))
     response = asyncio.run(agent.handle(make_request(
         message=mixed_query,
+        intent=IntentCategory.TECHNICAL,
+        intent_group="technical",
         intent_confidence=0.55,
     )))
 
