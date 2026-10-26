@@ -1,0 +1,310 @@
+{
+  "name": "intent-dev-error-candidates-v2",
+  "run_status": "complete",
+  "dataset": "evaluation\\data\\intent_dev_error_candidates_v2.json",
+  "model": "qwen3.7-plus",
+  "completed_at": "2026-10-26T02:38:13.048862+00:00",
+  "provider_failures": 0,
+  "metrics": {
+    "total": 15,
+    "correct": 15,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "predicted_counts": {
+      "billing": 3,
+      "logistics": 3,
+      "other": 3,
+      "query": 3,
+      "technical": 3
+    },
+    "per_class": {
+      "billing": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3
+      },
+      "logistics": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3
+      },
+      "other": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3
+      },
+      "query": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3
+      },
+      "technical": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 3
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "dev2-query-001",
+      "message": "请问你们有没有在线帮助中心",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.715,
+      "reasoning": "用户询问是否有在线帮助中心，属于查询平台功能或使用说明的一般服务信息。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.11338934190276816,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4297.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-query-002",
+      "message": "这个服务支持哪些使用场景",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.7879,
+      "reasoning": "用户询问服务的使用场景，属于平台功能或使用说明等一般服务信息查询。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.36464644927248774,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4828.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-query-003",
+      "message": "工作日咨询窗口几点开放",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.7,
+      "reasoning": "用户询问工作日咨询窗口的开放时间，属于查询客服服务时间的一般服务信息，符合query的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.11572751247156893,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3234.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-billing-001",
+      "message": "基础版和专业版分别怎么收费",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.8308,
+      "reasoning": "用户询问基础版和专业版的收费标准，属于套餐价格和计费规则查询，符合 billing 的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.4040950971038547,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3844.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-billing-002",
+      "message": "超出套餐额度后费用如何计算",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.8338,
+      "reasoning": "用户询问超出套餐额度后的费用计算规则，属于收费计费规则范畴，匹配 billing 意图。",
+      "source_scores": {
+        "llm": 0.98,
+        "embedding": 0.36424639819288707,
+        "pattern": 0.75,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5312.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-billing-003",
+      "message": "续费价格跟首次购买时一样吗",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.8094,
+      "reasoning": "用户询问续费价格与首次购买价格是否一致，属于套餐价格和收费计费规则相关的咨询，符合billing定义。",
+      "source_scores": {
+        "llm": 0.98,
+        "embedding": 0.24210006235312614,
+        "pattern": 0.75,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4468.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-logistics-001",
+      "message": "已经出库的包裹可以改成自提吗",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.665,
+      "reasoning": "用户询问已出库包裹更改配送方式（改为自提）的问题，属于快递配送相关的物流业务。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19518001458970666,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6344.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-logistics-002",
+      "message": "配送途中能不能更换收件人",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.7123,
+      "reasoning": "用户询问在配送途中修改收件人的问题，属于物流配送环节的相关业务咨询。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.16169041669088866,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 8734.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-logistics-003",
+      "message": "快递显示派送中还能修改送达时间吗",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.715,
+      "reasoning": "用户询问快递派送中是否可以修改送达时间，属于快递、配送和运输进度相关的物流问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.251259453814803,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4329.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-other-001",
+      "message": "现在欧元兑换人民币的汇率是多少",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7478,
+      "reasoning": "用户询问欧元兑换人民币的汇率，属于不属于客服业务范围的通用知识问题，符合 other 意图的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.2390457218668787,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3485.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-other-002",
+      "message": "推荐一条适合周末的徒步路线",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7503,
+      "reasoning": "用户询问徒步路线推荐，属于生活建议或通用知识，不属于客服业务范围。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.2513123449750173,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3703.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-other-003",
+      "message": "讲讲牛顿第二定律是什么意思",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7,
+      "reasoning": "用户询问物理学中的牛顿第二定律，属于通用知识问答，不属于客服业务范围。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.23232092779870994,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3656.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-technical-001",
+      "message": "接口响应很慢，但没有报错也没有宕机",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.74,
+      "reasoning": "用户反馈接口响应慢的性能问题，未涉及登录或崩溃宕机，符合一般技术问题的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.1363988678940947,
+        "pattern": 0.75,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4078.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-technical-002",
+      "message": "页面加载超时，应用并未闪退",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.715,
+      "reasoning": "用户反馈页面加载超时，属于一般技术问题，且明确排除了闪退和登录故障。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.13801311186847084,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3859.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "dev2-technical-003",
+      "message": "服务偶尔延迟，不存在 500 或崩溃现象",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.715,
+      "reasoning": "用户反馈服务延迟问题，并明确排除了崩溃和500错误，符合一般技术问题的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.18090680674665816,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4703.0,
+      "failed": false,
+      "error": null
+    }
+  ]
+}
