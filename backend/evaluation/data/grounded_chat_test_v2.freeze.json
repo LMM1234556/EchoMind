@@ -47,7 +47,11 @@
     "automatic_keyword_checks": "diagnostic_only_not_semantic_accuracy"
   },
   "first_evaluation_run": false,
-  "evaluation_code_commit": null,
+  "evaluation_runner": "backend/evaluation/run_frozen_grounded_chat_v2.py",
+  "evaluation_code_commit": "99edfaa08221f7ba467a0815efa661f0a1aec23f",
+  "estimated_foreground_llm_calls": 60,
+  "observed_call_stop_threshold": 80,
+  "execution_requires_flag": "--execute",
   "first_evaluation_report": null,
   "restriction": "After freeze, do not modify labels, prompts, corpus, routing, selector, or thresholds based on first-run outcomes. Preserve failures and use a new development set plus v3 test set for later improvements."
 }
