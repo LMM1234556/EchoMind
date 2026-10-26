@@ -11,7 +11,7 @@
     "positive_cases": 36,
     "hard_negative_cases": 12,
     "out_of_domain_cases": 12,
-    "reviewed_cases": 10,
+    "reviewed_cases": 20,
     "scoreable_total": 0
   },
   "cases": [
@@ -101,7 +101,7 @@
       "expected_title": "订单查询",
       "case_type": "positive",
       "label_basis": "订单异常时需提供订单号",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-order-006",
@@ -109,7 +109,7 @@
       "expected_title": "订单查询",
       "case_type": "positive",
       "label_basis": "文档明确列出这些订单状态",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-security-001",
@@ -117,7 +117,7 @@
       "expected_title": "账户安全",
       "case_type": "positive",
       "label_basis": "密码至少 8 位且包含字母和数字",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-security-002",
@@ -125,7 +125,7 @@
       "expected_title": "账户安全",
       "case_type": "positive",
       "label_basis": "可通过绑定手机号或邮箱重置密码",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-security-003",
@@ -133,7 +133,7 @@
       "expected_title": "账户安全",
       "case_type": "positive",
       "label_basis": "异常登录时自动锁定账户并发送通知",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-security-004",
@@ -141,7 +141,7 @@
       "expected_title": "账户安全",
       "case_type": "positive",
       "label_basis": "可在安全设置中开启两步验证",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-security-005",
@@ -149,7 +149,7 @@
       "expected_title": "账户安全",
       "case_type": "positive",
       "label_basis": "客服人员不会索要用户密码",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-security-006",
@@ -157,7 +157,7 @@
       "expected_title": "账户安全",
       "case_type": "positive",
       "label_basis": "密码至少 8 位并包含字母和数字",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-technical-001",
@@ -165,7 +165,7 @@
       "expected_title": "技术故障排查",
       "case_type": "positive",
       "label_basis": "清除缓存、重启并更新到最新版本",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-technical-002",
@@ -173,7 +173,7 @@
       "expected_title": "技术故障排查",
       "case_type": "positive",
       "label_basis": "401 表示认证失败",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-technical-003",
