@@ -11,7 +11,7 @@
     "positive_cases": 36,
     "hard_negative_cases": 12,
     "out_of_domain_cases": 12,
-    "reviewed_cases": 50,
+    "reviewed_cases": 60,
     "scoreable_total": 0
   },
   "cases": [
@@ -421,7 +421,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "数学知识不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-004",
@@ -429,7 +429,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "影视推荐不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-005",
@@ -437,7 +437,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "烹饪问题不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-006",
@@ -445,7 +445,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "实时汇率不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-007",
@@ -453,7 +453,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "统计学知识不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-008",
@@ -461,7 +461,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "交通出行信息不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-009",
@@ -469,7 +469,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "健身建议不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-010",
@@ -477,7 +477,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "天文常识不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-011",
@@ -485,7 +485,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "翻译任务不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-012",
@@ -493,7 +493,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "新闻资讯不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     }
   ]
 }
