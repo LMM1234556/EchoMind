@@ -5,8 +5,8 @@
   "baseline_commit": "5632aa90f1ded3d6d7646e63cc8a73fbcdec226a",
   "total": 95,
   "status_counts": {
-    "draft": 65,
-    "verified": 30
+    "draft": 55,
+    "verified": 40
   },
   "split_counts": {
     "candidate": 95
