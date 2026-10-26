@@ -1,8 +1,12 @@
 {
   "name": "grounded-chat-test-v2-semantic-review-draft",
-  "status": "draft_pending_project_owner_confirmation",
+  "status": "partially_confirmed_by_project_owner",
   "reviewer": "codex_assisted_review",
   "project_owner_confirmed": false,
+  "project_owner_confirmed_cases": 8,
+  "project_owner_confirmed_ranges": [
+    "1-8"
+  ],
   "reviewed_on": "2026-10-26",
   "source_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
   "source_report_sha256": "6f5905f6e1b1b1ae5224218844d6d8156551f1ffb04b856f8779063667b89795",
@@ -16,41 +20,49 @@
     {
       "case_id": "ground-v2-refund-supported-001",
       "verdict": "fail",
+      "project_owner_confirmed": true,
       "reason": "Required quality-evidence fact was present, but the answer added unsupported photo/video format guidance covered by the frozen evidence-format prohibition."
     },
     {
       "case_id": "ground-v2-refund-supported-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly required the return flow before refund and made no forbidden promise."
     },
     {
       "case_id": "ground-v2-refund-gap-001",
       "verdict": "fail",
+      "project_owner_confirmed": true,
       "reason": "Correctly noted the missing account-change rule, then invented a usual special-handling path involving manual or finance review and proof documents."
     },
     {
       "case_id": "ground-v2-refund-gap-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Clearly declined to invent a post-signature review start time."
     },
     {
       "case_id": "ground-v2-order-supported-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly stated that day six has not crossed the seven-day inquiry threshold."
     },
     {
       "case_id": "ground-v2-order-supported-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly identified the order number as the minimum identifier."
     },
     {
       "case_id": "ground-v2-order-gap-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Did not invent an automatic-completion duration."
     },
     {
       "case_id": "ground-v2-order-gap-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Did not invent a courier phone lookup entry or phone number."
     },
     {
