@@ -1,0 +1,1770 @@
+{
+  "name": "intent-test-v2-first-run",
+  "run_status": "complete",
+  "dataset": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\intent_test_v2.json",
+  "dataset_sha256": "407c5599363ee7a0106f5d2f46bad08afe9e18fa853ed99ee34f207e26da1426",
+  "baseline_commit": "5632aa90f1ded3d6d7646e63cc8a73fbcdec226a",
+  "model": "qwen3.7-plus",
+  "completed_at": "2026-10-26T03:26:58.864189+00:00",
+  "provider_failures": 0,
+  "metrics": {
+    "total": 95,
+    "correct": 94,
+    "accuracy": 0.9895,
+    "macro_f1": 0.9894,
+    "predicted_counts": {
+      "account": 4,
+      "account_security": 5,
+      "billing": 5,
+      "complaint": 5,
+      "escalation": 5,
+      "feedback": 5,
+      "greeting": 5,
+      "human_handoff": 5,
+      "invoice": 5,
+      "logistics": 5,
+      "order_status": 5,
+      "other": 5,
+      "payment_issue": 5,
+      "query": 6,
+      "refund": 5,
+      "request": 5,
+      "technical": 5,
+      "technical_crash": 5,
+      "technical_login": 5
+    },
+    "per_class": {
+      "account": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.8889,
+        "support": 5
+      },
+      "account_security": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "billing": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "complaint": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "escalation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "feedback": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "greeting": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "human_handoff": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "invoice": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "logistics": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "order_status": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "other": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "payment_issue": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "query": {
+        "precision": 0.8333,
+        "recall": 1.0,
+        "f1": 0.9091,
+        "support": 5
+      },
+      "refund": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "request": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "technical": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "technical_crash": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "technical_login": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "v2-query-001",
+      "message": "人工服务渠道都有哪些",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.7178,
+      "reasoning": "用户询问人工服务的渠道，属于查询客服渠道等一般服务信息，符合 query 的定义，而非直接要求转接人工。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.264197974633739,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5797.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-query-002",
+      "message": "新用户从哪儿看入门教程",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.665,
+      "reasoning": "用户询问如何查看入门教程，属于平台功能或使用说明等一般服务信息查询。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.10540925533894598,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4969.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-query-003",
+      "message": "你们的平台支持手机端使用吗",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.7238,
+      "reasoning": "用户询问平台是否支持手机端使用，属于平台功能或使用说明的一般服务信息查询。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.29417420270727607,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3297.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-query-004",
+      "message": "在线咨询每天开放到几点",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.7,
+      "reasoning": "用户询问在线咨询的开放时间，属于查询客服渠道和服务时间的一般服务信息，符合query意图定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.11420804814403215,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3141.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-query-005",
+      "message": "能简单介绍一下这个系统的主要用途不",
+      "expected": "query",
+      "predicted": "query",
+      "confidence": 0.665,
+      "reasoning": "用户询问系统的主要用途，属于平台功能或使用说明等一般服务信息查询。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.14744195615489714,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3765.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-complaint-001",
+      "message": "这个工单拖太久了，我完全不能接受",
+      "expected": "complaint",
+      "predicted": "complaint",
+      "confidence": 0.665,
+      "reasoning": "用户表达了对工单处理时间过长的强烈不满和抱怨，但未要求主管升级或转人工。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.15249857033260467,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3953.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-complaint-002",
+      "message": "来回问了几遍还是没解决，真让人失望",
+      "expected": "complaint",
+      "predicted": "complaint",
+      "confidence": 0.665,
+      "reasoning": "用户表达了多次询问未解决问题的不满和失望情绪，属于抱怨但未要求升级或转人工。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.21081851067789195,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4078.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-complaint-003",
+      "message": "你们这次处理得也太敷衍了吧",
+      "expected": "complaint",
+      "predicted": "complaint",
+      "confidence": 0.665,
+      "reasoning": "用户表达了对服务处理的不满和抱怨，但未要求升级或转人工，符合complaint的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19364916731037085,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4000.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-complaint-004",
+      "message": "说好的回复一直没来，体验很差",
+      "expected": "complaint",
+      "predicted": "complaint",
+      "confidence": 0.665,
+      "reasoning": "用户明确表达了对服务响应慢的不满和糟糕的体验，属于抱怨和投诉，且未要求升级或转人工。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.15097027121927944,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5422.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-complaint-005",
+      "message": "折腾半天问题还在，这服务我不满意",
+      "expected": "complaint",
+      "predicted": "complaint",
+      "confidence": 0.665,
+      "reasoning": "用户明确表达了对服务的不满和抱怨，但未要求主管升级或转人工。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19062321291575585,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5468.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-request-001",
+      "message": "请替我登记一条后续待办",
+      "expected": "request",
+      "predicted": "request",
+      "confidence": 0.7027,
+      "reasoning": "用户要求登记后续待办，属于泛化的操作请求，未匹配到更具体的业务类别。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.18844459036110225,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3719.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-request-002",
+      "message": "麻烦把这段补充材料附到处理记录中",
+      "expected": "request",
+      "predicted": "request",
+      "confidence": 0.7096,
+      "reasoning": "用户提出将补充材料附到处理记录中的操作请求，未匹配到具体业务类别，属于泛化操作请求。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2231518495721684,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3391.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-request-003",
+      "message": "请安排一次产品功能演示",
+      "expected": "request",
+      "predicted": "request",
+      "confidence": 0.63,
+      "reasoning": "用户请求安排产品功能演示，属于未匹配到具体业务类别的泛化操作请求。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.18856180831641267,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 8047.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-request-004",
+      "message": "帮我创建一个后续跟进事项",
+      "expected": "request",
+      "predicted": "request",
+      "confidence": 0.7595,
+      "reasoning": "用户要求创建后续跟进事项，属于泛化操作请求，且没有匹配到更具体的业务类别。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.22268088570756164,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7453.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-request-005",
+      "message": "先帮我保存当前处理进度，材料稍后给",
+      "expected": "request",
+      "predicted": "request",
+      "confidence": 0.68,
+      "reasoning": "用户要求保存当前处理进度，属于泛化的操作请求，未匹配到更具体的业务类别。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.1781741612749496,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5203.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-greeting-001",
+      "message": "午安",
+      "expected": "greeting",
+      "predicted": "greeting",
+      "confidence": 0.7,
+      "reasoning": "用户发送了问候语“午安”，属于日常寒暄和问候。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.3849001794597505,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4125.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-greeting-002",
+      "message": "哈喽哈喽",
+      "expected": "greeting",
+      "predicted": "greeting",
+      "confidence": 0.7236,
+      "reasoning": "用户使用了常见的问候语'哈喽哈喽'，属于寒暄和打招呼。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.11785113019775793,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3704.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-greeting-003",
+      "message": "您好，有空吗",
+      "expected": "greeting",
+      "predicted": "greeting",
+      "confidence": 0.7596,
+      "reasoning": "用户使用了问候语'您好'并询问'有空吗'，属于典型的问候和确认客服是否在线的寒暄。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.29814239699997197,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4547.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-greeting-004",
+      "message": "嗨，先来打个招呼",
+      "expected": "greeting",
+      "predicted": "greeting",
+      "confidence": 0.7878,
+      "reasoning": "用户明确表达了打招呼的意图，属于问候和寒暄。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.18898223650461363,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3266.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-greeting-005",
+      "message": "在不在呀，我来咨询啦",
+      "expected": "greeting",
+      "predicted": "greeting",
+      "confidence": 0.665,
+      "reasoning": "用户询问'在不在呀'并表达咨询意愿，属于确认客服是否在线的问候寒暄。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.11322770341445959,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3641.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-escalation-001",
+      "message": "麻烦让值班经理处理这件事",
+      "expected": "escalation",
+      "predicted": "escalation",
+      "confidence": 0.75,
+      "reasoning": "用户明确要求值班经理（更高级别负责人）介入处理问题，符合escalation的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.24504901470490173,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4890.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-escalation-002",
+      "message": "我要向负责这个部门的人反馈",
+      "expected": "escalation",
+      "predicted": "escalation",
+      "confidence": 0.665,
+      "reasoning": "用户要求向部门负责人反馈，属于要求负责人或更高级别人员介入处理，符合escalation的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19802950859533489,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5781.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-escalation-003",
+      "message": "现有权限解决不了，请往上升级",
+      "expected": "escalation",
+      "predicted": "escalation",
+      "confidence": 0.7244,
+      "reasoning": "用户明确要求将问题往上升级，符合要求更高级别或主管介入的 escalation 意图。",
+      "source_scores": {
+        "llm": 0.99,
+        "embedding": 0.15677236033392414,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5016.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-escalation-004",
+      "message": "请把记录提交给上级团队复核",
+      "expected": "escalation",
+      "predicted": "escalation",
+      "confidence": 0.665,
+      "reasoning": "用户明确要求将记录提交给上级团队复核，符合要求更高级别介入的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2721655269759087,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4063.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-escalation-005",
+      "message": "这事需要你们管理层给个处理意见",
+      "expected": "escalation",
+      "predicted": "escalation",
+      "confidence": 0.7,
+      "reasoning": "用户明确要求管理层介入处理，符合escalation的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.28690952087850224,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4938.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-001",
+      "message": "批量导入后总会少几行数据",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.7021,
+      "reasoning": "用户反馈批量导入功能存在数据丢失的异常，属于一般技术问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.18549555830406733,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6031.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-002",
+      "message": "Webhook 偶尔收不到回调",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.665,
+      "reasoning": "用户反馈Webhook回调接收异常，属于系统接口或技术层面的故障，符合一般技术问题的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.22990024493585146,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3813.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-003",
+      "message": "搜索结果加载很慢，但页面没有报错",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.715,
+      "reasoning": "用户反馈搜索结果加载慢的性能问题且无报错，属于一般技术问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.13046561461068845,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4266.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-004",
+      "message": "参数更新以后还是读取到旧配置",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.758,
+      "reasoning": "用户反馈系统参数更新后仍读取旧配置的技术故障，属于一般技术问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.21524880100025257,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5453.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-005",
+      "message": "接口能返回结果，只是耗时忽高忽低",
+      "expected": "technical",
+      "predicted": "technical",
+      "confidence": 0.7485,
+      "reasoning": "用户反馈接口响应时间不稳定，属于一般技术问题，未涉及登录或崩溃错误码。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.16754156331667822,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4953.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-billing-001",
+      "message": "团队版每个账号怎么计价",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.665,
+      "reasoning": "用户询问团队版账号的计价方式，属于套餐价格和收费计费规则查询，符合 billing 的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19034674690672027,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4094.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-billing-002",
+      "message": "流量超额之后按什么标准收费",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.7653,
+      "reasoning": "用户询问流量超额后的收费标准，属于收费计费规则查询，符合 billing 意图。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2513123449750173,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4266.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-billing-003",
+      "message": "年度订阅中途升级套餐，费用怎么算",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.8185,
+      "reasoning": "用户询问年度订阅中途升级套餐的费用计算规则，属于套餐价格和收费计费规则咨询。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.21768964474989302,
+        "pattern": 0.75,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4625.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-billing-004",
+      "message": "账单里那项附加服务费是什么",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.715,
+      "reasoning": "用户询问账单中的附加服务费明细，属于一般账单查询和收费计费规则范畴。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.269069117598525,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5703.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-billing-005",
+      "message": "优惠到期后会恢复成多少价格",
+      "expected": "billing",
+      "predicted": "billing",
+      "confidence": 0.715,
+      "reasoning": "用户询问优惠到期后的恢复价格，属于套餐价格和计费规则相关的查询，符合 billing 意图。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.15075567228888181,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4829.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-001",
+      "message": "个人头像在哪里更换",
+      "expected": "account",
+      "predicted": "account",
+      "confidence": 0.63,
+      "reasoning": "用户询问更换个人头像的方法，属于修改个人信息的账户资料维护操作。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.2558408596267325,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 10469.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-002",
+      "message": "想把通知邮箱改成新的地址",
+      "expected": "account",
+      "predicted": "account",
+      "confidence": 0.7881,
+      "reasoning": "用户要求修改通知邮箱，属于普通账户资料维护范畴。",
+      "source_scores": {
+        "llm": 0.99,
+        "embedding": 0.2253744679276044,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3672.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-003",
+      "message": "账户里的公司名称需要更新",
+      "expected": "account",
+      "predicted": "account",
+      "confidence": 0.7,
+      "reasoning": "用户要求更新账户中的公司名称，属于修改账户资料或个人信息的普通账户维护操作。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.19178532059415365,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4656.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-004",
+      "message": "怎么调整个人中心的时区设置",
+      "expected": "account",
+      "predicted": "query",
+      "confidence": 0.63,
+      "reasoning": "用户询问如何调整个人中心的时区设置，属于平台功能操作和使用说明的咨询，符合 query 的定义。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.24779731389167606,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 8657.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-005",
+      "message": "原来的联系方式停用了，资料怎么换绑",
+      "expected": "account",
+      "predicted": "account",
+      "confidence": 0.665,
+      "reasoning": "用户询问如何换绑停用的联系方式，属于修改绑定手机号或邮箱等普通账户资料维护操作。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2359071298478354,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3954.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-feedback-001",
+      "message": "这次响应速度很快，表扬一下",
+      "expected": "feedback",
+      "predicted": "feedback",
+      "confidence": 0.7,
+      "reasoning": "用户表达了对服务响应速度的满意和表扬，属于正面评价。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.14852213144650114,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 16187.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-feedback-002",
+      "message": "新加的批量操作特别实用",
+      "expected": "feedback",
+      "predicted": "feedback",
+      "confidence": 0.686,
+      "reasoning": "用户表达了对新功能的正面评价和赞赏，符合正面评价或感谢反馈的定义。",
+      "source_scores": {
+        "llm": 0.98,
+        "embedding": 0.18856180831641267,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5172.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-feedback-003",
+      "message": "建议搜索框支持拼音模糊匹配",
+      "expected": "feedback",
+      "predicted": "feedback",
+      "confidence": 0.665,
+      "reasoning": "用户提出了关于产品功能改进的具体建议，符合反馈（feedback）的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.12565617248750865,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5015.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-feedback-004",
+      "message": "希望报表以后可以自定义颜色",
+      "expected": "feedback",
+      "predicted": "feedback",
+      "confidence": 0.665,
+      "reasoning": "用户提出了关于产品功能改进的建议，属于建议反馈。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.1475422227126635,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4969.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-feedback-005",
+      "message": "整体挺顺手，如果能加快捷键就更好了",
+      "expected": "feedback",
+      "predicted": "feedback",
+      "confidence": 0.6933,
+      "reasoning": "用户表达了正面评价并提出了增加快捷键的建议，符合反馈意图的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.1414213562373095,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3797.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-order-status-001",
+      "message": "我提交的购买申请审核了吗",
+      "expected": "order_status",
+      "predicted": "order_status",
+      "confidence": 0.665,
+      "reasoning": "用户询问购买申请的审核状态，属于查询订单或申请的受理与处理进度，符合order_status的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.1624591083221647,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4875.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-order-status-002",
+      "message": "这笔单子怎么还处于待受理",
+      "expected": "order_status",
+      "predicted": "order_status",
+      "confidence": 0.7,
+      "reasoning": "用户询问订单（单子）当前的处理状态（待受理），符合查询订单是否受理或处理状态的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.2351585405008862,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4422.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-order-status-003",
+      "message": "订单已经确认还是仍在处理中",
+      "expected": "order_status",
+      "predicted": "order_status",
+      "confidence": 0.7,
+      "reasoning": "用户询问订单是已确认还是仍在处理中，属于查询订单受理或处理状态，符合order_status的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.20211302086361083,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4750.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-order-status-004",
+      "message": "撤销申请提交后，那张订单关闭了吗",
+      "expected": "order_status",
+      "predicted": "order_status",
+      "confidence": 0.63,
+      "reasoning": "用户询问撤销申请后订单是否关闭，核心诉求是查询订单的当前处理状态。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.1760901812651248,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 8172.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-order-status-005",
+      "message": "昨天建的订单一直没进入下一环节",
+      "expected": "order_status",
+      "predicted": "order_status",
+      "confidence": 0.665,
+      "reasoning": "用户询问订单的处理进度和当前状态，符合order_status的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.264197974633739,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6032.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-logistics-001",
+      "message": "货物目前运输到哪个城市了",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.7,
+      "reasoning": "用户询问货物的运输进度和当前位置，属于物流配送和运输进度问题。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.10050378152592121,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5687.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-logistics-002",
+      "message": "配送记录从昨晚开始就没变化",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.715,
+      "reasoning": "用户反馈配送记录未更新，属于快递配送和运输进度问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.21650635094610968,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3938.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-logistics-003",
+      "message": "快件被退回中转站是什么情况",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.665,
+      "reasoning": "用户询问快件被退回中转站的情况，属于快递、配送或运输进度问题，符合logistics的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.20180183819889375,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4718.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-logistics-004",
+      "message": "包裹还在路上，可以改成送到公司吗",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.63,
+      "reasoning": "用户提及包裹在途并要求修改派送地址，属于快递配送相关的物流问题。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.19078890022466802,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7454.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-logistics-005",
+      "message": "物流写着本人签收，可我没见到货",
+      "expected": "logistics",
+      "predicted": "logistics",
+      "confidence": 0.715,
+      "reasoning": "用户反馈物流配送状态异常，显示已签收但未实际收到货物，属于快递和运输进度问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.14673479641335554,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5625.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-refund-001",
+      "message": "退款审核通过了，余额什么时候能回来",
+      "expected": "refund",
+      "predicted": "refund",
+      "confidence": 0.743,
+      "reasoning": "用户询问退款审核通过后的余额到账时间，属于退款到账问题，匹配refund意图。",
+      "source_scores": {
+        "llm": 0.99,
+        "embedding": 0.29801978033963483,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4359.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-refund-002",
+      "message": "我想撤销购买并退回付款",
+      "expected": "refund",
+      "predicted": "refund",
+      "confidence": 0.693,
+      "reasoning": "用户明确表示要撤销购买并退回付款，符合退款或退货的意图定义。",
+      "source_scores": {
+        "llm": 0.99,
+        "embedding": 0.20254787341673333,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5719.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-refund-003",
+      "message": "退货入库好几天了还没收到钱",
+      "expected": "refund",
+      "predicted": "refund",
+      "confidence": 0.7622,
+      "reasoning": "用户提到退货入库后未收到钱，属于退款到账问题，符合refund意图定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.23606684260939012,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6578.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-refund-004",
+      "message": "退款金额比原来支付的少，怎么核算的",
+      "expected": "refund",
+      "predicted": "refund",
+      "confidence": 0.7668,
+      "reasoning": "用户询问退款金额少于原支付金额的计算规则，核心围绕退款金额核算，属于退款相关问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.25890435250935817,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 8343.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-refund-005",
+      "message": "一张订单里能只退部分商品吗",
+      "expected": "refund",
+      "predicted": "refund",
+      "confidence": 0.665,
+      "reasoning": "用户询问订单中部分商品退款或退货的规则，属于具体的退款业务范畴。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.1360827634879543,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7891.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-invoice-001",
+      "message": "纸质票可以邮寄到公司吗",
+      "expected": "invoice",
+      "predicted": "invoice",
+      "confidence": 0.595,
+      "reasoning": "用户询问纸质发票的邮寄地址或方式，属于发票及开票相关问题。",
+      "source_scores": {
+        "llm": 0.85,
+        "embedding": 0.15512630699850574,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 16750.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-invoice-002",
+      "message": "开票时纳税人识别号写错了",
+      "expected": "invoice",
+      "predicted": "invoice",
+      "confidence": 0.686,
+      "reasoning": "用户提到开票时纳税人识别号写错，属于发票、税号或开票相关问题，匹配invoice意图。",
+      "source_scores": {
+        "llm": 0.98,
+        "embedding": 0.15511334686589623,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 9328.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-invoice-003",
+      "message": "能按不同项目拆成两张发票吗",
+      "expected": "invoice",
+      "predicted": "invoice",
+      "confidence": 0.75,
+      "reasoning": "用户询问关于发票拆分和开具的具体问题，属于发票业务范畴。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.14301938838683884,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7110.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-invoice-004",
+      "message": "电子票链接失效后从哪里重新获取",
+      "expected": "invoice",
+      "predicted": "invoice",
+      "confidence": 0.6304,
+      "reasoning": "用户询问重新获取失效的电子票（通常指电子发票）链接的方法，属于发票相关的细粒度业务问题。",
+      "source_scores": {
+        "llm": 0.85,
+        "embedding": 0.17699808135119716,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 19156.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-invoice-005",
+      "message": "跨月的消费记录是否还能申请开票",
+      "expected": "invoice",
+      "predicted": "invoice",
+      "confidence": 0.7,
+      "reasoning": "用户询问跨月消费记录是否可以申请开票，明确涉及发票和开票业务，符合invoice意图。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.20786985482077452,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6234.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-payment-issue-001",
+      "message": "付款二维码扫完提示订单不存在",
+      "expected": "payment_issue",
+      "predicted": "payment_issue",
+      "confidence": 0.63,
+      "reasoning": "用户在扫码付款时遇到订单不存在的提示，属于支付过程中的异常和失败问题，符合支付异常的定义。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.2727977357881894,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6531.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-payment-issue-002",
+      "message": "页面说支付超时，可银行卡已经扣款",
+      "expected": "payment_issue",
+      "predicted": "payment_issue",
+      "confidence": 0.665,
+      "reasoning": "用户反馈支付页面提示超时但银行卡已实际扣款，属于典型的支付异常问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.17460757394239454,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5719.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-payment-issue-003",
+      "message": "同一次结算生成了两条扣费记录",
+      "expected": "payment_issue",
+      "predicted": "payment_issue",
+      "confidence": 0.715,
+      "reasoning": "用户反馈同一次结算产生两条扣费记录，属于重复扣款的支付异常问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19920476822239894,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5969.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-payment-issue-004",
+      "message": "用余额付款一直卡在确认中",
+      "expected": "payment_issue",
+      "predicted": "payment_issue",
+      "confidence": 0.665,
+      "reasoning": "用户反馈余额付款卡在确认中，属于支付状态异常，符合 payment_issue 的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.22680460581325723,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6062.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-payment-issue-005",
+      "message": "更换支付方式后仍提示交易受限",
+      "expected": "payment_issue",
+      "predicted": "payment_issue",
+      "confidence": 0.665,
+      "reasoning": "用户反馈在支付过程中遇到交易受限的提示，属于支付失败或支付异常问题。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.13046561461068845,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7250.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-security-001",
+      "message": "有人在异地尝试进入我的账户",
+      "expected": "account_security",
+      "predicted": "account_security",
+      "confidence": 0.7,
+      "reasoning": "用户报告有异地异常登录尝试，属于账户安全风险问题。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.19802950859533489,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7094.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-security-002",
+      "message": "邮箱收到一封我没操作过的安全提醒",
+      "expected": "account_security",
+      "predicted": "account_security",
+      "confidence": 0.715,
+      "reasoning": "用户收到未操作的安全提醒，涉及账户异常登录或安全风险，符合account_security的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.22473328748774737,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7484.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-security-003",
+      "message": "登录口令可能被别人看到了",
+      "expected": "account_security",
+      "predicted": "account_security",
+      "confidence": 0.7189,
+      "reasoning": "用户表示登录口令（密码）可能被他人看到，属于密码泄露的安全风险问题，符合 account_security 的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.26967994498529685,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6797.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-security-004",
+      "message": "怎样关闭所有其他设备的会话",
+      "expected": "account_security",
+      "predicted": "account_security",
+      "confidence": 0.595,
+      "reasoning": "用户询问如何关闭其他设备的会话，属于管理登录设备和防范异常登录的账户安全操作。",
+      "source_scores": {
+        "llm": 0.85,
+        "embedding": 0.1178511301977579,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 15344.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-account-security-005",
+      "message": "突然收到陌生的二次验证请求",
+      "expected": "account_security",
+      "predicted": "account_security",
+      "confidence": 0.665,
+      "reasoning": "用户收到陌生的二次验证请求，涉及账户异常登录和两步验证等安全风险，符合 account_security 的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2214037213850238,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5719.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-login-001",
+      "message": "登录页的图形验证码刷不出来",
+      "expected": "technical_login",
+      "predicted": "technical_login",
+      "confidence": 0.715,
+      "reasoning": "用户反馈登录页面的图形验证码无法加载，属于登录认证过程中的验证码故障，匹配 technical_login 意图。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.21516574145596762,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7250.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-login-002",
+      "message": "单点登录认证后一直循环跳转",
+      "expected": "technical_login",
+      "predicted": "technical_login",
+      "confidence": 0.7178,
+      "reasoning": "用户描述了单点登录认证过程中的循环跳转故障，属于登录认证异常，匹配 technical_login 意图。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2637521893583148,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6468.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-login-003",
+      "message": "手机端能进，电脑端却总说认证失败",
+      "expected": "technical_login",
+      "predicted": "technical_login",
+      "confidence": 0.665,
+      "reasoning": "用户反馈电脑端认证失败，明确属于登录认证故障，符合 technical_login 的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19034674690672024,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5219.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-login-004",
+      "message": "刚修改的密码在登录时不被接受",
+      "expected": "technical_login",
+      "predicted": "technical_login",
+      "confidence": 0.665,
+      "reasoning": "用户反馈修改密码后登录不被接受，属于无法登录或认证失败的故障。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.2135042050734495,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4922.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-login-005",
+      "message": "登录令牌失效以后无法再次获取",
+      "expected": "technical_login",
+      "predicted": "technical_login",
+      "confidence": 0.665,
+      "reasoning": "用户反馈登录令牌失效且无法重新获取，属于登录认证失败的技术故障，匹配 technical_login 意图。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.21821789023599236,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6078.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-crash-001",
+      "message": "客户端运行几分钟后自动退出",
+      "expected": "technical_crash",
+      "predicted": "technical_crash",
+      "confidence": 0.665,
+      "reasoning": "用户描述客户端运行后自动退出，属于程序崩溃或闪退现象，匹配 technical_crash 意图。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.1111111111111111,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4968.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-crash-002",
+      "message": "打开统计模块就出现白屏并卡死",
+      "expected": "technical_crash",
+      "predicted": "technical_crash",
+      "confidence": 0.7033,
+      "reasoning": "用户描述打开模块后白屏并卡死，属于程序崩溃或无响应故障，符合 technical_crash 的定义。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.19166296949998196,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5500.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-crash-003",
+      "message": "保存记录时服务返回 502",
+      "expected": "technical_crash",
+      "predicted": "technical_crash",
+      "confidence": 0.686,
+      "reasoning": "用户报告了保存记录时遇到明确的错误码 502，属于服务器或程序故障，匹配 technical_crash 意图。",
+      "source_scores": {
+        "llm": 0.98,
+        "embedding": 0.21081851067789195,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6579.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-crash-004",
+      "message": "新版安装完成后程序根本启动不了",
+      "expected": "technical_crash",
+      "predicted": "technical_crash",
+      "confidence": 0.63,
+      "reasoning": "用户反馈程序安装后无法启动，属于程序崩溃或闪退类的故障，优先匹配细粒度意图 technical_crash。",
+      "source_scores": {
+        "llm": 0.9,
+        "embedding": 0.09365858115816941,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 14312.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-technical-crash-005",
+      "message": "一点批量下载应用就崩掉",
+      "expected": "technical_crash",
+      "predicted": "technical_crash",
+      "confidence": 0.725,
+      "reasoning": "用户反馈应用在批量下载时发生崩溃，明确符合程序崩溃或闪退的故障定义。",
+      "source_scores": {
+        "llm": 0.98,
+        "embedding": 0.1951800145897066,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6594.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-human-handoff-001",
+      "message": "机器人先别答了，给我人工",
+      "expected": "human_handoff",
+      "predicted": "human_handoff",
+      "confidence": 0.7,
+      "reasoning": "用户明确要求转接人工客服，符合human_handoff的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.14285714285714285,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4015.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-human-handoff-002",
+      "message": "我希望由真人客服继续处理",
+      "expected": "human_handoff",
+      "predicted": "human_handoff",
+      "confidence": 0.814,
+      "reasoning": "用户明确要求由真人客服继续处理，符合human_handoff的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.19518001458970666,
+        "pattern": 0.75,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3782.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-human-handoff-003",
+      "message": "自助服务没找到答案，帮忙接坐席",
+      "expected": "human_handoff",
+      "predicted": "human_handoff",
+      "confidence": 0.7398,
+      "reasoning": "用户明确要求接入人工坐席，符合human_handoff的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.1992047682223989,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3375.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-human-handoff-004",
+      "message": "请安排人工现在给我回电",
+      "expected": "human_handoff",
+      "predicted": "human_handoff",
+      "confidence": 0.7,
+      "reasoning": "用户明确要求安排人工客服回电，符合human_handoff的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.18856180831641267,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 3937.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-human-handoff-005",
+      "message": "不要自动回复，我要跟客服人员直接沟通",
+      "expected": "human_handoff",
+      "predicted": "human_handoff",
+      "confidence": 0.7426,
+      "reasoning": "用户明确要求拒绝自动回复并与真人客服直接沟通，符合人工转接的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.21281413268968716,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4203.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-other-001",
+      "message": "帮我算一下复利公式的结果",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.665,
+      "reasoning": "用户要求计算复利公式结果，属于通用知识或数学计算，不属于客服业务范围。",
+      "source_scores": {
+        "llm": 0.95,
+        "embedding": 0.23728949893812476,
+        "pattern": 0.5,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 7828.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-other-002",
+      "message": "广州周末会不会下雨",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7,
+      "reasoning": "用户询问的是天气情况，属于非客服业务范围的通用知识问题，符合 other 的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.17320508075688776,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 6172.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-other-003",
+      "message": "推荐几本适合睡前看的小说",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7,
+      "reasoning": "用户要求推荐睡前小说，属于书籍推荐等通用知识问答，不属于客服业务范围。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.1539600717839002,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5312.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-other-004",
+      "message": "日元最近为什么会贬值",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7,
+      "reasoning": "询问日元贬值原因属于汇率和通用知识问题，不属于客服业务范围。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.15491933384829668,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 4188.0,
+      "failed": false,
+      "error": null
+    },
+    {
+      "id": "v2-other-005",
+      "message": "什么是概率论里的中心极限定理",
+      "expected": "other",
+      "predicted": "other",
+      "confidence": 0.7,
+      "reasoning": "用户询问的是数学领域的通用知识（中心极限定理），不属于客服业务范围，符合other的定义。",
+      "source_scores": {
+        "llm": 1.0,
+        "embedding": 0.18033392693348646,
+        "pattern": 0.0,
+        "llm_failed": 0.0
+      },
+      "latency_ms": 5390.0,
+      "failed": false,
+      "error": null
+    }
+  ]
+}

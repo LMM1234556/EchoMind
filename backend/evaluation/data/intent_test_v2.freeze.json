@@ -15,6 +15,12 @@
   "test_v1_exact_overlaps": 0,
   "lexical_near_duplicate_threshold": 0.8,
   "lexical_near_overlaps": 0,
-  "first_evaluation_run": false,
+  "first_evaluation_run": true,
+  "first_evaluation_completed_at": "2026-10-26T03:26:58.864189+00:00",
+  "first_evaluation_report": "backend/evaluation/reports/intent_test_v2_first_run_20261026.json",
+  "first_evaluation_report_sha256": "38b3c32654df59bab4c876f3f1f968c9e0b942e834ed7a710ed3fcfee2c09aec",
+  "first_evaluation_accuracy": 0.9895,
+  "first_evaluation_macro_f1": 0.9894,
+  "first_evaluation_provider_failures": 0,
   "restriction": "Do not tune prompts, templates, patterns, thresholds, or model routing using this frozen test set."
 }
