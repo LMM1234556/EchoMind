@@ -39,9 +39,9 @@
       "operator": "and"
     }
   },
-  "first_evaluation_run": false,
-  "first_evaluation_completed_at": null,
-  "first_evaluation_report": null,
-  "first_evaluation_report_sha256": null,
+  "first_evaluation_run": true,
+  "first_evaluation_completed_at": "2026-10-26T05:56:29.311394+00:00",
+  "first_evaluation_report": "backend/evaluation/reports/evidence_gate_test_v1_first_run_20261026.json",
+  "first_evaluation_report_sha256": "5691574442a6e7bcbd005640305910ce6ca4508f36c18da7b56fb30e152d3c88",
   "restriction": "Do not tune embedding models, corpus, lexical units, thresholds, or gate rules using this frozen test set. Run the fixed comparison once and preserve the first report."
 }

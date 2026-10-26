@@ -112,9 +112,13 @@ def test_repository_evidence_gate_freeze_manifest_matches_files():
         backend.parent / manifest["development_report_path"],
     ]
 
-    validate_freeze_manifest(manifest, *paths)
+    validate_freeze_manifest(manifest, *paths, allow_completed=True)
 
     assert manifest["total_cases"] == 42
     assert manifest["supported_cases"] == 24
     assert manifest["knowledge_gap_cases"] == 18
-    assert manifest["first_evaluation_run"] is False
+    assert manifest["first_evaluation_run"] is True
+    first_report = backend.parent / manifest["first_evaluation_report"]
+    assert hashlib.sha256(first_report.read_bytes()).hexdigest() == manifest["first_evaluation_report_sha256"]
+    with pytest.raises(RuntimeError, match="completed first evaluation"):
+        validate_freeze_manifest(manifest, *paths)
