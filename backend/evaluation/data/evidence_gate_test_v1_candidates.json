@@ -12,7 +12,7 @@
     "total_cases": 42,
     "supported_cases": 24,
     "knowledge_gap_cases": 18,
-    "reviewed_cases": 30,
+    "reviewed_cases": 40,
     "scoreable_total": 0
   },
   "cases": [
@@ -262,7 +262,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "积分有效期为 1 年，过期自动清零",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-member-supported-004",
@@ -270,7 +270,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "银卡会员享受 95 折优惠",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-member-gap-001",
@@ -278,7 +278,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": false,
       "label_basis": "文档没有积分转赠规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-member-gap-002",
@@ -286,7 +286,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": false,
       "label_basis": "文档没有积分与会员折扣叠加规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-member-gap-003",
@@ -294,7 +294,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": false,
       "label_basis": "文档没有退货后的积分处理规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-supported-001",
@@ -302,7 +302,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "标准配送为 3-5 个工作日",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-supported-002",
@@ -310,7 +310,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "加急配送 1-2 个工作日，运费 15 元",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-supported-003",
@@ -318,7 +318,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "同城配送当日达或次日达，运费 10 元",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-supported-004",
@@ -326,7 +326,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "发货前可联系客服修改收货地址",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-gap-001",
@@ -334,7 +334,7 @@
       "candidate_title": "配送说明",
       "expected_supported": false,
       "label_basis": "文档没有再次配送次数规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-gap-002",
