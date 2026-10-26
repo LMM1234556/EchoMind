@@ -105,6 +105,37 @@ def test_add_message_uses_isolated_key_and_refreshes_24_hour_ttl():
     assert MemoryManager._wm_key("user-2", "conversation-1") != key
 
 
+def test_redis_outage_degrades_to_empty_working_memory_without_failing_chat_context():
+    memory = MemoryManager.__new__(MemoryManager)
+    memory._redis = AsyncMock()
+    memory._redis.lrange.side_effect = ConnectionError("redis unavailable")
+    memory._redis.get.side_effect = ConnectionError("redis unavailable")
+    memory._search_episodic = AsyncMock(return_value=["历史证据"])
+    memory._get_profile = AsyncMock(return_value={"tier": "vip"})
+
+    context = asyncio.run(memory.get_context("user-1", "conversation-1", "退款多久到账"))
+
+    assert context.recent_messages == []
+    assert context.summary == ""
+    assert context.relevant_history == ["历史证据"]
+    assert context.user_profile == {"tier": "vip"}
+
+
+def test_redis_outage_does_not_fail_message_generation_after_response():
+    memory = MemoryManager.__new__(MemoryManager)
+    memory._redis = AsyncMock()
+    memory._redis.lpush.side_effect = ConnectionError("redis unavailable")
+
+    asyncio.run(memory.add_message(
+        "user-1",
+        "conversation-1",
+        MsgRole.ASSISTANT,
+        "仍然返回给用户的回答",
+    ))
+
+    memory._redis.lpush.assert_awaited_once()
+
+
 def test_working_memory_reads_only_latest_window_in_chronological_order():
     memory = MemoryManager.__new__(MemoryManager)
     memory._redis = AsyncMock()

@@ -147,18 +147,22 @@ class MemoryManager:
         msg = Message(role=role, content=self._safe_text(content), metadata=clean_metadata)
         key = self._wm_key(user_id, conv_id)
 
-        # 追加到 Redis 列表（左推，最新在前）
-        await self._redis.lpush(key, json.dumps({
-            "role":      msg.role.value,
-            "content":   msg.content,
-            "ts":        msg.timestamp.isoformat(),
-            "metadata":  msg.metadata,
-        }))
-        await self._redis.expire(key, self.WORKING_TTL_SECONDS)
+        try:
+            # 追加到 Redis 列表（左推，最新在前）
+            await self._redis.lpush(key, json.dumps({
+                "role":      msg.role.value,
+                "content":   msg.content,
+                "ts":        msg.timestamp.isoformat(),
+                "metadata":  msg.metadata,
+            }))
+            await self._redis.expire(key, self.WORKING_TTL_SECONDS)
 
-        # 超过压缩阈值时触发压缩
-        if await self._redis.llen(key) >= self.COMPRESS_AT:
-            await self._compress(user_id, conv_id)
+            # 超过压缩阈值时触发压缩
+            if await self._redis.llen(key) >= self.COMPRESS_AT:
+                await self._compress(user_id, conv_id)
+        except Exception as ex:
+            # 记忆属于增强能力；Redis 短时不可用时不能让主对话链路失败。
+            logger.warning(f"工作记忆写入失败，已降级为无记忆模式: {ex}")
 
     async def update_profile(self, user_id: str, conv_id: str) -> None:
         """
@@ -167,7 +171,11 @@ class MemoryManager:
         """
         user_id = self._safe_text(user_id)
         conv_id = self._safe_text(conv_id)
-        messages = await self._get_working_memory(user_id, conv_id)
+        try:
+            messages = await self._get_working_memory(user_id, conv_id)
+        except Exception as ex:
+            logger.warning(f"读取工作记忆失败，跳过画像更新: {ex}")
+            return
         if not messages:
             return
 
@@ -232,7 +240,11 @@ class MemoryManager:
         conv_id = self._safe_text(conv_id)
         query = self._safe_text(query)
 
-        recent = await self._get_working_memory(user_id, conv_id)
+        try:
+            recent = await self._get_working_memory(user_id, conv_id)
+        except Exception as ex:
+            logger.warning(f"工作记忆读取失败，已降级为无工作记忆模式: {ex}")
+            recent = []
 
         # 2. 情景记忆（跨会话语义检索）
         history = await self._search_episodic(
@@ -245,7 +257,11 @@ class MemoryManager:
         profile = await self._get_profile(user_id)
 
         # 4. 会话摘要（如果已压缩过）
-        summary = await self._redis.get(self._summary_key(user_id, conv_id)) or ""
+        try:
+            summary = await self._redis.get(self._summary_key(user_id, conv_id)) or ""
+        except Exception as ex:
+            logger.warning(f"会话摘要读取失败，已跳过: {ex}")
+            summary = ""
 
         return MemoryContext(
             recent_messages=recent,

@@ -3,7 +3,7 @@ import time
 from collections import deque
 
 import httpx
-from anthropic import APIConnectionError
+from anthropic import APIConnectionError, APIStatusError, APITimeoutError, RateLimitError
 
 from agents.agent_orchestrator import (
     AgentProfile,
@@ -1150,6 +1150,22 @@ def test_provider_connection_failure_preserves_prefetched_tool_trace():
     assert response.tools_used == ["search_knowledge_base"]
     assert response.tool_traces[0]["prefetched"] is True
     assert response.tool_traces[0]["result_success"] is True
+
+
+def test_provider_failures_are_classified_for_safe_user_messages():
+    request = httpx.Request("POST", "https://provider.invalid/messages")
+    rate_response = httpx.Response(429, request=request)
+    status_response = httpx.Response(500, request=request)
+    cases = [
+        (APITimeoutError(request=request), "provider_timeout", "超时"),
+        (RateLimitError("rate limited", response=rate_response, body=None), "provider_rate_limit", "额度受限"),
+        (APIStatusError("server error", response=status_response, body=None), "provider_status", "暂时返回错误"),
+    ]
+
+    for error, expected_kind, expected_message in cases:
+        kind = BaseAgent._classify_failure(error)
+        assert kind == expected_kind
+        assert expected_message in BaseAgent._failure_message(kind)
 
 
 def test_provider_failure_skips_redundant_general_fallback():

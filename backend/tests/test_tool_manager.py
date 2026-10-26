@@ -2,7 +2,7 @@ import asyncio
 import logging
 from types import SimpleNamespace
 
-from mcp.tool_manager import MCPToolManager, ToolResult
+from mcp.tool_manager import CircuitState, MCPToolManager, Tool, ToolResult
 
 
 class FakeRerankClient:
@@ -112,3 +112,33 @@ def test_rerank_falls_back_to_original_order_for_malformed_output():
     result = asyncio.run(manager._rerank("退款时效", items, top_k=3))
 
     assert result == ["A", "D", "B"]
+
+
+def test_tool_timeout_uses_fallback_and_opens_circuit_after_threshold():
+    manager = MCPToolManager.__new__(MCPToolManager)
+    manager._tools = {}
+    manager._cache = {}
+
+    async def slow_handler(params, context):
+        await asyncio.sleep(0.05)
+
+    tool = Tool(
+        name="slow_search",
+        description="timeout test",
+        handler=slow_handler,
+        schema={"type": "object", "properties": {}, "required": []},
+        timeout_s=0.001,
+        fallback=lambda params, context, error: [{"degraded": True, "reason": error}],
+    )
+    tool.breaker.threshold = 2
+    manager.register(tool)
+
+    first = asyncio.run(manager.call("slow_search", {}, use_cache=False))
+    second = asyncio.run(manager.call("slow_search", {}, use_cache=False))
+    third = asyncio.run(manager.call("slow_search", {}, use_cache=False))
+
+    assert first.success is True and first.error == "执行超时"
+    assert second.success is True and second.error == "执行超时"
+    assert tool.breaker.state is CircuitState.OPEN
+    assert third.success is True and "工具熔断中" in third.error
+    assert third.data[0]["degraded"] is True

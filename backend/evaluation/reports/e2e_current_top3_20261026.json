@@ -1,0 +1,1195 @@
+{
+  "run_id": "e2e-20261026-211823",
+  "generated_at": "2026-10-26T21:22:59.590258+08:00",
+  "status": "completed",
+  "base_url": "http://127.0.0.1:8000",
+  "dataset": {
+    "version": "1.0",
+    "description": "EchoMind 固定端到端试运行集。意图与路由是人工标注；回答检查只验证可观察契约，不等同于完整语义正确率。",
+    "case_count": 7,
+    "request_count": 8
+  },
+  "summary": {
+    "sample_size": 8,
+    "intent_accuracy": 0.75,
+    "primary_agent_accuracy": 0.875,
+    "route_accuracy": 0.75,
+    "response_contract_pass_rate": 0.75,
+    "e2e_pass_rate": 0.625,
+    "counts": {
+      "intent_correct": 6,
+      "primary_agent_correct": 7,
+      "route_correct": 6,
+      "response_contract_passed": 6,
+      "e2e_passed": 5
+    },
+    "latency_ms": {
+      "external": {
+        "count": 8,
+        "mean": 34425.5,
+        "p50": 34551.5,
+        "p95": 68004.0,
+        "max": 81283.1
+      },
+      "api_total": {
+        "count": 8,
+        "mean": 34383.9,
+        "p50": 34509.9,
+        "p95": 67967.0,
+        "max": 81246.6
+      },
+      "by_stage": {
+        "agent_billing_ms": {
+          "count": 5,
+          "mean": 12235.9,
+          "p50": 8439.2,
+          "p95": 29364.5,
+          "max": 31365.2
+        },
+        "agent_escalation_ms": {
+          "count": 1,
+          "mean": 0.1,
+          "p50": 0.1,
+          "p95": 0.1,
+          "max": 0.1
+        },
+        "agent_general_ms": {
+          "count": 1,
+          "mean": 24432.1,
+          "p50": 24432.1,
+          "p95": 24432.1,
+          "max": 24432.1
+        },
+        "agent_technical_ms": {
+          "count": 2,
+          "mean": 33248.6,
+          "p50": 33248.6,
+          "p95": 35491.9,
+          "max": 35741.2
+        },
+        "api_total_ms": {
+          "count": 8,
+          "mean": 34383.9,
+          "p50": 34509.9,
+          "p95": 67967.0,
+          "max": 81246.6
+        },
+        "compose_ms": {
+          "count": 1,
+          "mean": 23351.2,
+          "p50": 23351.2,
+          "p95": 23351.2,
+          "max": 23351.2
+        },
+        "intent_recognition_ms": {
+          "count": 8,
+          "mean": 12348.0,
+          "p50": 9257.9,
+          "p95": 23673.7,
+          "max": 27036.0
+        },
+        "memory_read_ms": {
+          "count": 8,
+          "mean": 101.6,
+          "p50": 68.8,
+          "p95": 243.6,
+          "max": 320.4
+        },
+        "memory_write_ms": {
+          "count": 8,
+          "mean": 2.6,
+          "p50": 1.8,
+          "p95": 4.9,
+          "max": 5.3
+        },
+        "orchestration_ms": {
+          "count": 8,
+          "mean": 21931.6,
+          "p50": 22896.9,
+          "p95": 47679.3,
+          "max": 54107.5
+        },
+        "parallel_agents_ms": {
+          "count": 1,
+          "mean": 30756.1,
+          "p50": 30756.1,
+          "p95": 30756.1,
+          "max": 30756.1
+        }
+      }
+    },
+    "llm_calls": {
+      "foreground_total": 19,
+      "per_completed_request_mean": 2.38,
+      "requests_with_unknown_call_count": 0,
+      "by_component": {
+        "agent.billing": 2,
+        "agent.general": 1,
+        "agent.technical": 2,
+        "evidence_selector": 5,
+        "intent_recognizer": 8,
+        "response_composer": 1
+      },
+      "scope_note": "Counts application-level messages.create invocations completed before /chat returned. Background profile updates and provider SDK internal retries are excluded."
+    },
+    "retrieval": {
+      "modes": {
+        "fast_keyword": 6,
+        "knowledge_gap": 1
+      },
+      "evidence": {
+        "accepted": 4,
+        "rejected": 3
+      }
+    },
+    "claim_boundary": "Intent and route metrics use fixed human labels. Response metrics are deterministic contract checks, not a calibrated semantic-quality or production-accuracy estimate."
+  },
+  "results": [
+    {
+      "message": "你好，请问你能帮我处理哪些问题？",
+      "expected": {
+        "expected_intent": "greeting",
+        "expected_primary_agent": "general",
+        "expected_knowledge_used": false,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "你好",
+            "您好",
+            "可以帮"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-greeting-d4547a",
+        "request_id": "5b898d5c",
+        "response": "你好！我是 EchoMind 智能客服。我可以帮你处理以下类型的问题：\n\n1. **基础业务咨询**：平台规则、服务说明、常见问题解答。\n2. **订单与售后**：订单状态查询、简单的售后进度说明。\n3. **账户基础问题**：登录指引、基础信息修改说明。\n\n如果你遇到的是**退款/账单、技术故障、复杂投诉**或需要**人工审核**的问题，我会帮你梳理情况，并转接给专业的客服团队或人工处理。\n\n请问你今天遇到了什么具体问题，或者需要我帮你做些什么呢？",
+        "intent": "request",
+        "intent_group": "request",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [],
+        "routing_reason": "intent=request, group=request, primary=general, supporting=none, scores=[general=0.65, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.65,
+        "escalated": false,
+        "latency_ms": 24432.1,
+        "knowledge_used": false,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.5,
+        "intent_source_scores": {
+          "llm": 0.0,
+          "embedding": 0.3268602252303067,
+          "pattern": 0.5,
+          "llm_failed": 1.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 320.4,
+          "intent_recognition_ms": 17429.5,
+          "agent_general_ms": 24432.1,
+          "orchestration_ms": 24432.2,
+          "memory_write_ms": 4.3,
+          "api_total_ms": 42186.4
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "agent.general": 1
+        }
+      },
+      "trace": {
+        "request_id": "5b898d5c",
+        "timestamp": "2026-10-26T13:19:06.375869",
+        "intent": "request",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [],
+        "tool_calls": [],
+        "escalated": false,
+        "latency_ms": 24432.1,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 320.4,
+          "intent_recognition_ms": 17429.5,
+          "agent_general_ms": 24432.1,
+          "orchestration_ms": 24432.2,
+          "memory_write_ms": 4.3,
+          "api_total_ms": 42186.4
+        }
+      },
+      "checks": {
+        "intent": false,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "required_answer_terms": true
+      },
+      "route_pass": false,
+      "response_contract_pass": true,
+      "e2e_pass": false,
+      "external_latency_ms": 42232.4,
+      "case_id": "greeting",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-greeting-d4547a"
+    },
+    {
+      "message": "退款审核需要多久，审核通过后多久能到账？",
+      "expected": {
+        "expected_intent": "refund",
+        "expected_primary_agent": "billing",
+        "expected_knowledge_used": true,
+        "expected_evidence_found": true,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "1-3",
+            "1～3",
+            "1 至 3"
+          ],
+          [
+            "5-7",
+            "5～7",
+            "5 至 7"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-refund_policy-740a15",
+        "request_id": "7ba4c96f",
+        "response": "您好！关于退款审核与到账时效，根据平台退款政策说明如下：\n\n**当前可判断的时效规则**：\n- **审核时间**：退款申请提交后，系统通常会在 1-3 个工作日内完成审核。\n- **到账时间**：审核通过后，款项预计将在 5-7 个工作日内退回原支付账户。实际到账时间以支付渠道的实际处理为准。\n- **特殊情况**：如果商品已发货，需要先完成退货流程才能进行退款。\n\n**需要核验的信息**：\n由于目前缺少您的具体订单信息，无法确认您这笔订单的实际退款状态或是否符合退款条件。如需进一步核实，请提供以下信息：\n1. 订单号或交易号\n2. 支付金额与支付时间\n3. 支付渠道（如微信、支付宝、银行卡等）\n\n**下一步处理路径**：\n- 如果您尚未提交申请，请确认订单是否符合“购买后 7 天内无理由退款”或相关退款规则（超过 7 天但未超过 30 天的订单，需要提供商品质量问题的证据）。\n- 如果您已提交申请，请留意系统审核通知，并关注原支付账户的入账记录。\n- 请补充上述核验信息，以便我为您做进一步的账单状态确认。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 31365.3,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.8008,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.42906393528989223,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 60.4,
+          "intent_recognition_ms": 8932.2,
+          "agent_billing_ms": 31365.2,
+          "orchestration_ms": 31365.3,
+          "memory_write_ms": 4.1,
+          "api_total_ms": 40362.0
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "7ba4c96f",
+        "timestamp": "2026-10-26T13:19:46.783273",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_7ba4c96f",
+            "input": {
+              "query": "退款审核需要多久，审核通过后多久能到账？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 10773.0,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "退款政策",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 31365.3,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 60.4,
+          "intent_recognition_ms": 8932.2,
+          "agent_billing_ms": 31365.2,
+          "orchestration_ms": 31365.3,
+          "memory_write_ms": 4.1,
+          "api_total_ms": 40362.0
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "evidence_found": true,
+        "required_answer_terms": true
+      },
+      "route_pass": true,
+      "response_contract_pass": true,
+      "e2e_pass": true,
+      "external_latency_ms": 40402.7,
+      "case_id": "refund_policy",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-refund_policy-740a15"
+    },
+    {
+      "message": "登录时一直提示 401，应该怎么排查？",
+      "expected": {
+        "expected_intent": "technical_login",
+        "expected_primary_agent": "technical",
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "401",
+            "认证失败"
+          ],
+          [
+            "重置密码",
+            "用户名",
+            "密码"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-technical_login-a23e00",
+        "request_id": "de7366de",
+        "response": "您好，了解到您在登录时持续遇到 401 错误。\n\n**【平台确认事实】**\n根据平台技术故障排查指南，**登录失败提示 401 错误表示认证失败**。首要的排查方向是**检查用户名和密码是否正确，或者尝试重置密码**。\n\n**【通用排查建议】**\n除了上述平台建议，以下是**通用技术排查建议**，帮助您进一步排除环境或状态异常（请注意，这些为通用经验，非平台特定规则）：\n\n1. **核对输入细节**：确认密码输入时是否开启了大小写锁定，或复制粘贴时前后是否不小心多输入了空格。\n2. **清除缓存与重启**：如果是 App 或浏览器端，尝试清除应用缓存后重启应用，或更换浏览器/使用无痕模式测试，以排除本地旧登录态或缓存冲突。\n3. **检查账号状态**：确认账号是否因为多次密码错误触发了安全机制被临时锁定。\n4. **接口/Token 排查（若为开发者调用 API）**：如果您是在通过代码调用接口，请检查使用的 Token 是否已过期，请求签名是否包含正确的时间戳，以及当前环境是否使用了对应的 API Key。\n\n**【需要补充的信息】**\n为了更准确地帮您定位问题，请补充以下信息：\n1. **运行环境**：您是在哪里遇到这个问题的？（例如：手机 App、电脑浏览器、还是服务端 API 调用？）\n2. **发生时间与变更**：这个问题是刚刚出现还是持续了一段时间？最近是否有修改过密码、更换过设备或升级过版本？\n3. **影响范围**：是只有您的账号提示 401，还是其他同事/朋友的账号也无法登录？\n\n**【升级条件】**\n如果您尝试重置密码并清除缓存后，问题依然持续存在，或者发现是多名用户同时无法登录（生产大面积不可用），建议立即升级至二线技术支持或人工处理，并保留最近一次失败请求的截图或日志时间点。",
+        "intent": "technical_login",
+        "intent_group": "technical",
+        "agent_type": "technical",
+        "agent_types": [
+          "technical"
+        ],
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.13, general=0.10, billing=0.00]",
+        "routing_confidence": 1.0,
+        "escalated": false,
+        "latency_ms": 35741.3,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": [
+            "401"
+          ]
+        },
+        "intent_confidence": 0.8295,
+        "intent_source_scores": {
+          "llm": 1.0,
+          "embedding": 0.39725304768741604,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 57.5,
+          "intent_recognition_ms": 7504.7,
+          "agent_technical_ms": 35741.2,
+          "orchestration_ms": 35741.3,
+          "memory_write_ms": 1.4,
+          "api_total_ms": 43305.0
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.technical": 1
+        }
+      },
+      "trace": {
+        "request_id": "de7366de",
+        "timestamp": "2026-10-26T13:20:30.133892",
+        "intent": "technical_login",
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "technical",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_de7366de",
+            "input": {
+              "query": "登录时一直提示 401，应该怎么排查？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 7967.9,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "技术故障排查",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 35741.3,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 57.5,
+          "intent_recognition_ms": 7504.7,
+          "agent_technical_ms": 35741.2,
+          "orchestration_ms": 35741.3,
+          "memory_write_ms": 1.4,
+          "api_total_ms": 43305.0
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "required_answer_terms": true
+      },
+      "route_pass": true,
+      "response_contract_pass": true,
+      "e2e_pass": true,
+      "external_latency_ms": 43342.9,
+      "case_id": "technical_login",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-technical_login-a23e00"
+    },
+    {
+      "message": "我已经处理多次还没解决，请帮我转人工客服。",
+      "expected": {
+        "expected_intent": "human_handoff",
+        "expected_primary_agent": "escalation",
+        "expected_knowledge_used": false,
+        "expected_escalated": true,
+        "must_contain_groups": [
+          [
+            "人工升级",
+            "人工客服"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-human_handoff-c56ce6",
+        "request_id": "169af93b",
+        "response": "我已将这个问题标记为人工升级处理。\n\n升级原因：意图=human_handoff，紧急度=HIGH\n已记录信息：{\"order_id\": [], \"product\": [], \"date\": [], \"amount\": [], \"error_code\": []}\n请不要发送密码、短信验证码或完整支付凭证；人工客服会根据会话记录继续核验。",
+        "intent": "human_handoff",
+        "intent_group": "escalation",
+        "agent_type": "escalation",
+        "agent_types": [
+          "escalation"
+        ],
+        "primary_agent": "escalation",
+        "supporting_agents": [],
+        "tools_used": [],
+        "routing_reason": "意图为 human_handoff，触发升级路由",
+        "routing_confidence": 0.8,
+        "escalated": true,
+        "latency_ms": 0.3,
+        "knowledge_used": false,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.75,
+        "intent_source_scores": {
+          "llm": 0.0,
+          "embedding": 0.43617837214497934,
+          "pattern": 0.75,
+          "llm_failed": 1.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 71.1,
+          "intent_recognition_ms": 17068.8,
+          "agent_escalation_ms": 0.1,
+          "orchestration_ms": 0.4,
+          "memory_write_ms": 5.3,
+          "api_total_ms": 17145.6
+        },
+        "llm_call_count": 1,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1
+        }
+      },
+      "trace": {
+        "request_id": "169af93b",
+        "timestamp": "2026-10-26T13:20:47.321216",
+        "intent": "human_handoff",
+        "primary_agent": "escalation",
+        "supporting_agents": [],
+        "tools_used": [],
+        "tool_calls": [],
+        "escalated": true,
+        "latency_ms": 0.3,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 71.1,
+          "intent_recognition_ms": 17068.8,
+          "agent_escalation_ms": 0.1,
+          "orchestration_ms": 0.4,
+          "memory_write_ms": 5.3,
+          "api_total_ms": 17145.6
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "required_answer_terms": true
+      },
+      "route_pass": true,
+      "response_contract_pass": true,
+      "e2e_pass": true,
+      "external_latency_ms": 17188.6,
+      "case_id": "human_handoff",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-human_handoff-c56ce6"
+    },
+    {
+      "message": "登录一直报 401，而且同一笔订单被重复扣款了，请一起处理。",
+      "expected": {
+        "expected_intent": "payment_issue",
+        "expected_primary_agent": "billing",
+        "expected_supporting_agents": [
+          "technical"
+        ],
+        "expected_knowledge_used": true,
+        "expected_evidence_found": false,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "401",
+            "登录"
+          ],
+          [
+            "扣款",
+            "交易"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-multi_agent_payment_login-785506",
+        "request_id": "2d3aa04e",
+        "response": "您好，您反馈的登录报错和订单重复扣款问题已收到。这两个问题需要分开处理，以下是具体的排查建议与后续处理流程：\n\n### 一、 关于登录一直报 401 错误\n401 错误通常表示账号凭证校验未通过。建议您按以下步骤进行排查：\n1. **核对凭证**：请检查输入的用户名和密码是否正确，注意区分大小写，并确认是否误触了空格。\n2. **重置密码**：如果确认密码输入无误但仍报错，建议您通过登录页面的“忘记密码”功能尝试重置密码，然后再重新登录。\n\n### 二、 关于同一笔订单重复扣款\n重复扣款涉及资金流水异常，需要核对后台的订单状态和支付渠道的实际扣款记录。由于当前无法直接查询您的后台资金明细，此问题需要升级至人工或二线技术支持进行核实与退款处理。\n\n为了尽快帮您提交升级处理申请，请您补充以下信息：\n1. **订单信息**：被重复扣款的订单号（如果找不到订单号，请提供订单截图）。\n2. **扣款明细**：扣款发生的具体时间、金额。\n3. **扣款凭证**：支付渠道（如微信、支付宝或银行）显示两次扣款的账单流水截图。\n\n**⚠️ 安全提示**：在提供上述信息时，请**不要**发送您的完整银行卡号、支付密码或验证码，提供订单号和打码后的流水截图即可。\n\n请您先尝试重置密码解决登录问题。同时，请准备好上述重复扣款的相关凭证并回复给我，我将立即为您提交升级处理申请。",
+        "intent": "technical_login",
+        "intent_group": "technical",
+        "agent_type": "technical",
+        "agent_types": [
+          "technical",
+          "billing"
+        ],
+        "primary_agent": "technical",
+        "supporting_agents": [
+          "billing"
+        ],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=billing, scores=[technical=1.13, general=0.22, billing=0.18]",
+        "routing_confidence": 1.0,
+        "escalated": false,
+        "latency_ms": 54107.4,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": [
+            "401"
+          ]
+        },
+        "intent_confidence": 0.7257,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.47826086956521746,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 101.0,
+          "intent_recognition_ms": 27036.0,
+          "agent_billing_ms": 7.9,
+          "agent_technical_ms": 30756.0,
+          "parallel_agents_ms": 30756.1,
+          "compose_ms": 23351.2,
+          "orchestration_ms": 54107.5,
+          "memory_write_ms": 2.0,
+          "api_total_ms": 81246.6
+        },
+        "llm_call_count": 4,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.technical": 1,
+          "response_composer": 1
+        }
+      },
+      "trace": {
+        "request_id": "2d3aa04e",
+        "timestamp": "2026-10-26T13:22:08.618079",
+        "intent": "technical_login",
+        "primary_agent": "technical",
+        "supporting_agents": [
+          "billing"
+        ],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "technical",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_2d3aa04e",
+            "input": {
+              "query": "登录一直报 401",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 5553.4,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "技术故障排查",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          },
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_2d3aa04e",
+            "input": {
+              "query": "同一笔订单被重复扣款了",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 7.7,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "intent_title_mismatch",
+            "evidence_selector_used": false,
+            "evidence_selector_success": null,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 54107.4,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 101.0,
+          "intent_recognition_ms": 27036.0,
+          "agent_billing_ms": 7.9,
+          "agent_technical_ms": 30756.0,
+          "parallel_agents_ms": 30756.1,
+          "compose_ms": 23351.2,
+          "orchestration_ms": 54107.5,
+          "memory_write_ms": 2.0,
+          "api_total_ms": 81246.6
+        }
+      },
+      "checks": {
+        "intent": false,
+        "primary_agent": false,
+        "supporting_agents": false,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "evidence_found": false,
+        "required_answer_terms": true
+      },
+      "route_pass": false,
+      "response_contract_pass": false,
+      "e2e_pass": false,
+      "external_latency_ms": 81283.1,
+      "case_id": "multi_agent_payment_login",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-multi_agent_payment_login-785506"
+    },
+    {
+      "message": "电子发票通常多久能开出来？",
+      "expected": {
+        "expected_intent": "invoice",
+        "expected_primary_agent": "billing",
+        "expected_knowledge_used": true,
+        "expected_evidence_found": false,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "未找到足够",
+            "不能确认"
+          ],
+          [
+            "人工",
+            "核验"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-invoice_without_evidence-d87ae1",
+        "request_id": "503698ad",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "invoice",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 5.5,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7858,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.3541002639140851,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 66.6,
+          "intent_recognition_ms": 9583.5,
+          "agent_billing_ms": 5.4,
+          "orchestration_ms": 5.5,
+          "memory_write_ms": 1.3,
+          "api_total_ms": 9657.0
+        },
+        "llm_call_count": 1,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1
+        }
+      },
+      "trace": {
+        "request_id": "503698ad",
+        "timestamp": "2026-10-26T13:22:18.322977",
+        "intent": "invoice",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_503698ad",
+            "input": {
+              "query": "电子发票通常多久能开出来？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 5.3,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "knowledge_gap",
+            "candidate_count": 0,
+            "evidence_gate": "knowledge_gap",
+            "evidence_selector_used": false,
+            "evidence_selector_success": null,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 5.5,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 66.6,
+          "intent_recognition_ms": 9583.5,
+          "agent_billing_ms": 5.4,
+          "orchestration_ms": 5.5,
+          "memory_write_ms": 1.3,
+          "api_total_ms": 9657.0
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "evidence_found": true,
+        "required_answer_terms": true
+      },
+      "route_pass": true,
+      "response_contract_pass": true,
+      "e2e_pass": true,
+      "external_latency_ms": 9701.3,
+      "case_id": "invoice_without_evidence",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-invoice_without_evidence-d87ae1"
+    },
+    {
+      "message": "请记住我的订单号是 EM-2026-1018，我正在申请退款。",
+      "expected": {
+        "expected_intent": "refund",
+        "expected_primary_agent": "billing",
+        "expected_knowledge_used": true,
+        "expected_evidence_found": true,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "退款"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-multi_turn_refund_memory-ee25be",
+        "request_id": "f4b72681",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.22, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 8439.3,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.8232,
+        "intent_source_scores": {
+          "llm": 1.0,
+          "embedding": 0.366146046676159,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 60.4,
+          "intent_recognition_ms": 4009.4,
+          "agent_billing_ms": 8439.2,
+          "orchestration_ms": 8439.3,
+          "memory_write_ms": 1.5,
+          "api_total_ms": 12510.7
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "f4b72681",
+        "timestamp": "2026-10-26T13:22:30.880276",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_f4b72681",
+            "input": {
+              "query": "请记住我的订单号是 EM-2026-1018，我正在申请退款。",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 8439.0,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 2,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 8439.3,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 60.4,
+          "intent_recognition_ms": 4009.4,
+          "agent_billing_ms": 8439.2,
+          "orchestration_ms": 8439.3,
+          "memory_write_ms": 1.5,
+          "api_total_ms": 12510.7
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "evidence_found": false,
+        "required_answer_terms": false
+      },
+      "route_pass": true,
+      "response_contract_pass": false,
+      "e2e_pass": false,
+      "external_latency_ms": 12552.8,
+      "case_id": "multi_turn_refund_memory",
+      "turn_index": 0,
+      "conv_id": "e2e-20261026-211823-multi_turn_refund_memory-ee25be"
+    },
+    {
+      "message": "这个订单审核通过后多久能到账？",
+      "expected": {
+        "expected_intent": "refund",
+        "expected_primary_agent": "billing",
+        "expected_knowledge_used": true,
+        "expected_evidence_found": true,
+        "expected_escalated": false,
+        "must_contain_groups": [
+          [
+            "5-7",
+            "5～7",
+            "5 至 7"
+          ]
+        ]
+      },
+      "actual": {
+        "conv_id": "e2e-20261026-211823-multi_turn_refund_memory-ee25be",
+        "request_id": "04085fec",
+        "response": "根据平台退款政策，退款审核通过后，款项将在 **5-7 个工作日内** 退回您的原支付账户。\n\n**通用排查建议**：不同支付渠道（如微信、支付宝、银行卡等）的银行处理时间可能存在细微差异，具体到账时间请以您原支付账户的实际入账明细为准。\n\n如果您在审核通过 7 个工作日后仍未收到退款，或者订单状态有其他异常，建议您直接联系人工客服进行核实与介入处理。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=0.75, general=0.22, technical=0.00]",
+        "routing_confidence": 0.75,
+        "escalated": false,
+        "latency_ms": 21361.6,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7484,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.41702882811414954,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 75.1,
+          "intent_recognition_ms": 7219.7,
+          "agent_billing_ms": 21361.6,
+          "orchestration_ms": 21361.6,
+          "memory_write_ms": 1.3,
+          "api_total_ms": 28657.8
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "04085fec",
+        "timestamp": "2026-10-26T13:22:59.584645",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_04085fec",
+            "input": {
+              "query": "这个订单审核通过后多久能到账？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 9046.5,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 2,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "退款政策",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 21361.6,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 75.1,
+          "intent_recognition_ms": 7219.7,
+          "agent_billing_ms": 21361.6,
+          "orchestration_ms": 21361.6,
+          "memory_write_ms": 1.3,
+          "api_total_ms": 28657.8
+        }
+      },
+      "checks": {
+        "intent": true,
+        "primary_agent": true,
+        "supporting_agents": true,
+        "escalated": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true,
+        "knowledge_used": true,
+        "evidence_found": true,
+        "required_answer_terms": true
+      },
+      "route_pass": true,
+      "response_contract_pass": true,
+      "e2e_pass": true,
+      "external_latency_ms": 28700.3,
+      "case_id": "multi_turn_refund_memory",
+      "turn_index": 1,
+      "conv_id": "e2e-20261026-211823-multi_turn_refund_memory-ee25be"
+    }
+  ]
+}
