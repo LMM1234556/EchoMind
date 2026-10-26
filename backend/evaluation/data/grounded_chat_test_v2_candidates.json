@@ -1,0 +1,287 @@
+{
+  "metadata": {
+    "name": "grounded-chat-test-v2-candidates",
+    "version": "2.0-candidate",
+    "created_on": "2026-10-26",
+    "frozen": false,
+    "evaluation_status": "candidate_pending_human_review",
+    "purpose": "independent Top-3 evidence selection and grounded-answer evaluation after production integration",
+    "source": "ai_drafted_from_frozen_corpus_then_human_review_required",
+    "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
+    "total_cases": 24,
+    "supported_cases": 12,
+    "knowledge_gap_cases": 12,
+    "reviewed_cases": 0
+  },
+  "cases": [
+    {
+      "id": "ground-v2-refund-supported-001",
+      "query": "下单第八天发现商品有质量问题，申请退款时要提交什么",
+      "intended_intent": "refund",
+      "expected_supported": true,
+      "expected_title": "退款政策",
+      "evidence_basis": "超过7天但未超过30天，需要提供商品质量问题证据",
+      "expected_answer_facts": ["需要提供商品质量问题的证据"],
+      "forbidden_claims": ["保证退款通过", "指定证据格式或数量"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-refund-supported-002",
+      "query": "商品已经发出了，可以不退货就直接拿到退款吗",
+      "intended_intent": "refund",
+      "expected_supported": true,
+      "expected_title": "退款政策",
+      "evidence_basis": "已发货商品需要先完成退货流程才能退款",
+      "expected_answer_facts": ["需要先完成退货流程"],
+      "forbidden_claims": ["可以跳过退货", "承诺立即退款"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-refund-gap-001",
+      "query": "退款时能不能改成退到另一张银行卡",
+      "intended_intent": "refund",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档只说明退回原支付账户，没有变更收款账户规则",
+      "expected_answer_facts": ["知识库没有变更退款账户的规则"],
+      "forbidden_claims": ["可以更换银行卡", "绝对不能更换银行卡"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-refund-gap-002",
+      "query": "退货仓库签收后几个小时会开始退款审核",
+      "intended_intent": "refund",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档有申请后的审核时效，但没有仓库签收后的小时级启动时间",
+      "expected_answer_facts": ["知识库没有仓库签收后的审核启动时间"],
+      "forbidden_claims": ["签收后立即审核", "给出具体小时数"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+
+    {
+      "id": "ground-v2-order-supported-001",
+      "query": "订单显示发货第六天还没收到，现在是否已经达到申请查件的条件",
+      "intended_intent": "order_status",
+      "expected_supported": true,
+      "expected_title": "订单查询",
+      "evidence_basis": "超过7天未收到才能申请查件，第六天尚未达到",
+      "expected_answer_facts": ["第六天尚未超过7天", "尚未达到文档中的查件条件"],
+      "forbidden_claims": ["已经可以申请查件", "承诺具体送达日期"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-order-supported-002",
+      "query": "订单页面显示状态异常，联系处理时最少要准备哪个编号",
+      "intended_intent": "order_status",
+      "expected_supported": true,
+      "expected_title": "订单查询",
+      "evidence_basis": "订单状态异常时应提供订单号联系客服",
+      "expected_answer_facts": ["准备订单号"],
+      "forbidden_claims": ["必须提供身份证", "必须提供银行卡号"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-order-gap-001",
+      "query": "订单签收以后会在多少小时后自动变成已完成",
+      "intended_intent": "order_status",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档列出状态但没有签收到自动完成的时间",
+      "expected_answer_facts": ["知识库没有自动完成时长"],
+      "forbidden_claims": ["给出自动完成小时数或天数"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-order-gap-002",
+      "query": "在哪里能查到负责配送这个订单的快递员电话号码",
+      "intended_intent": "logistics",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档没有快递员联系方式查询规则",
+      "expected_answer_facts": ["知识库没有快递员电话查询方式"],
+      "forbidden_claims": ["编造查询入口", "编造电话号码"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+
+    {
+      "id": "ground-v2-account-supported-001",
+      "query": "密码只写八个数字，是否符合平台文档的密码要求",
+      "intended_intent": "account_security",
+      "expected_supported": true,
+      "expected_title": "账户安全",
+      "evidence_basis": "密码至少8位且必须包含字母和数字，纯数字不符合",
+      "expected_answer_facts": ["纯数字不符合", "至少8位并包含字母和数字"],
+      "forbidden_claims": ["要求特殊符号", "要求大小写字母同时存在"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-account-supported-002",
+      "query": "平台检测到账户被异常登录时会采取什么动作",
+      "intended_intent": "account_security",
+      "expected_supported": true,
+      "expected_title": "账户安全",
+      "evidence_basis": "系统会自动锁定账户并发送通知",
+      "expected_answer_facts": ["自动锁定账户", "发送通知"],
+      "forbidden_claims": ["自动报警", "自动冻结银行卡"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-account-gap-001",
+      "query": "两步验证的备用恢复码一共会生成几组",
+      "intended_intent": "account_security",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档只说明可以开启两步验证，没有恢复码数量",
+      "expected_answer_facts": ["知识库没有恢复码数量"],
+      "forbidden_claims": ["给出恢复码数量"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-account-gap-002",
+      "query": "账户因为异常登录被锁后多久会自动解锁",
+      "intended_intent": "account_security",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档说明会锁定账户，但没有自动解锁时长",
+      "expected_answer_facts": ["知识库没有自动解锁时长"],
+      "forbidden_claims": ["给出解锁分钟数或天数"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+
+    {
+      "id": "ground-v2-technical-supported-001",
+      "query": "App清理缓存并重新启动后还是不断闪退，文档建议接着做什么",
+      "intended_intent": "technical_crash",
+      "expected_supported": true,
+      "expected_title": "技术故障排查",
+      "evidence_basis": "清缓存重启后仍持续，应更新到最新版本",
+      "expected_answer_facts": ["更新到最新版本"],
+      "forbidden_claims": ["删除全部用户数据", "重装操作系统"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-technical-supported-002",
+      "query": "银行卡余额足够但付款失败，按排查文档还应确认银行卡开了什么功能",
+      "intended_intent": "payment_issue",
+      "expected_supported": true,
+      "expected_title": "技术故障排查",
+      "evidence_basis": "应检查银行卡是否开启网上支付功能",
+      "expected_answer_facts": ["确认开启网上支付功能"],
+      "forbidden_claims": ["保证开启后支付成功", "要求提供完整银行卡号"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-technical-gap-001",
+      "query": "登录连续报401后账号会被锁定多长时间",
+      "intended_intent": "technical_login",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "技术文档说明401含义和排查方式，没有锁定时长",
+      "expected_answer_facts": ["知识库没有账号锁定时长"],
+      "forbidden_claims": ["给出锁定分钟数或小时数"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-technical-gap-002",
+      "query": "页面出现500以后平台会自动发放多少补偿金",
+      "intended_intent": "technical_crash",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档只有500排查建议，没有补偿政策",
+      "expected_answer_facts": ["知识库没有500错误补偿规则"],
+      "forbidden_claims": ["承诺补偿", "给出补偿金额"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+
+    {
+      "id": "ground-v2-member-supported-001",
+      "query": "累计消费3200元属于哪个会员等级，购物时能打几折",
+      "intended_intent": "query",
+      "expected_supported": true,
+      "expected_title": "会员与积分",
+      "evidence_basis": "3200元达到银卡但未达到金卡，银卡享受95折",
+      "expected_answer_facts": ["银卡会员", "95折"],
+      "forbidden_claims": ["金卡会员", "9折"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-member-supported-002",
+      "query": "账户里有450积分，按规则下次购物最多可以抵多少元",
+      "intended_intent": "query",
+      "expected_supported": true,
+      "expected_title": "会员与积分",
+      "evidence_basis": "100积分等于1元，450积分可换算为4.5元",
+      "expected_answer_facts": ["4.5元"],
+      "forbidden_claims": ["450元", "积分可以提现"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-member-gap-001",
+      "query": "我的积分能不能转给另一个会员账户",
+      "intended_intent": "query",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档没有积分转赠规则",
+      "expected_answer_facts": ["知识库没有积分转赠规则"],
+      "forbidden_claims": ["允许转赠", "禁止转赠"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-member-gap-002",
+      "query": "会员累计消费金额会在每年一月一日重新清零吗",
+      "intended_intent": "query",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档没有会员累计消费金额重置规则",
+      "expected_answer_facts": ["知识库没有累计消费金额重置规则"],
+      "forbidden_claims": ["每年清零", "永久不清零"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+
+    {
+      "id": "ground-v2-delivery-supported-001",
+      "query": "订单金额60元选择标准配送，是否符合免运费条件",
+      "intended_intent": "logistics",
+      "expected_supported": true,
+      "expected_title": "配送说明",
+      "evidence_basis": "标准配送订单满99元免运费，60元未达到条件",
+      "expected_answer_facts": ["不符合满99元免运费条件"],
+      "forbidden_claims": ["给出未满99元的具体运费"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-delivery-supported-002",
+      "query": "偏远地区选择加急配送，按文档合计大约需要几天",
+      "intended_intent": "logistics",
+      "expected_supported": true,
+      "expected_title": "配送说明",
+      "evidence_basis": "加急1-2个工作日，偏远地区额外2-3天，合计约3-5天",
+      "expected_answer_facts": ["约3-5天"],
+      "forbidden_claims": ["保证3天送达", "忽略偏远地区增加时间"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-delivery-gap-001",
+      "query": "周六和周日是否照常在九点到十八点之间配送",
+      "intended_intent": "logistics",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档说明每日配送时间和节假日延迟，但没有明确周末是否照常",
+      "expected_answer_facts": ["知识库没有明确周末配送规则"],
+      "forbidden_claims": ["周末一定配送", "周末一定停运"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    },
+    {
+      "id": "ground-v2-delivery-gap-002",
+      "query": "平台默认会把包裹交给哪一家快递公司",
+      "intended_intent": "logistics",
+      "expected_supported": false,
+      "expected_title": null,
+      "evidence_basis": "文档没有指定承运快递公司",
+      "expected_answer_facts": ["知识库没有默认快递公司信息"],
+      "forbidden_claims": ["编造快递公司名称"],
+      "review": {"status": "pending", "reviewer": null, "notes": null}
+    }
+  ]
+}
