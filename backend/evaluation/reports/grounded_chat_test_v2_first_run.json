@@ -1,0 +1,3557 @@
+{
+  "name": "grounded-chat-test-v2-first-run",
+  "status": "completed_automatic_pending_human_review",
+  "generated_at": "2026-10-26T11:55:01.507186+00:00",
+  "dataset": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\grounded_chat_test_v2.json",
+  "dataset_sha256": "b90847bd1ac6dff852a930ebc9c1ab6eb9d2a7a6ef4a331587db3415fc7b6c13",
+  "freeze_manifest": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\grounded_chat_test_v2.freeze.json",
+  "freeze_sha256": "35ebde0a437a9c349130667cbdf3c3bce727fad8b63845637cc047549acf8d03",
+  "system_under_test_commit": "c0cb495fd4eba1ab4bc3036a466d213d2f2fdb3c",
+  "base_url": "http://127.0.0.1:8000",
+  "budget": {
+    "max_observed_foreground_llm_calls": 90,
+    "observed_foreground_llm_calls": 84
+  },
+  "summary": {
+    "completed_cases": 24,
+    "automatic_metrics": {
+      "intent_accuracy": 0.7917,
+      "selector_coverage": 0.9583,
+      "selector_success_rate": 0.9167,
+      "evidence_classification_accuracy": 0.9167,
+      "strict_evidence_selection_accuracy": 0.875,
+      "supported_selection_accuracy": 0.9167,
+      "correct_rejection_rate": 0.9167,
+      "false_acceptance_rate": 0.0833,
+      "automatic_pipeline_pass_rate": 0.7083
+    },
+    "latency_ms": {
+      "external": {
+        "count": 24,
+        "mean": 42003.6,
+        "p50": 38066.4,
+        "p95": 73489.0,
+        "max": 75694.1
+      },
+      "api_total": {
+        "count": 24,
+        "mean": 41961.4,
+        "p50": 38024.8,
+        "p95": 73447.7,
+        "max": 75655.0
+      }
+    },
+    "llm_calls": {
+      "foreground_total": 84,
+      "per_case_mean": 3.5,
+      "by_component": {
+        "agent.billing": 6,
+        "agent.general": 11,
+        "agent.technical": 4,
+        "evidence_selector": 23,
+        "intent_recognizer": 24,
+        "rag.query_rewrite": 8,
+        "rag.rerank": 8
+      }
+    },
+    "answer_faithfulness": {
+      "status": "pending_human_review",
+      "reviewed_cases": 0,
+      "pass_rate": null,
+      "claim_boundary": "No semantic answer-faithfulness score is claimed until human review against the frozen facts and forbidden claims is complete."
+    }
+  },
+  "results": [
+    {
+      "case_id": "ground-v2-refund-supported-001",
+      "query": "下单第八天发现商品有质量问题，申请退款时要提交什么",
+      "expected": {
+        "intent": "refund",
+        "supported": true,
+        "title": "退款政策",
+        "evidence_basis": "超过7天但未超过30天，需要提供商品质量问题证据"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-refund-supported-001-36739280",
+        "request_id": "59b62f47",
+        "response": "根据平台退款政策，针对您下单第八天发现商品有质量问题的情况，以下是具体的处理说明：\n\n**【当前说明】**\n由于您的订单已超过7天但未超过30天，申请退款时**需要提供商品质量问题的证据**。此外，如果商品已发货，需要先完成退货流程；因属于商品质量问题，退货运费无需由您承担。\n\n**【需要核验的信息】**\n为了协助您核实订单状态并推进退款流程，请您补充以下必要信息：\n- 订单号或交易号\n- 支付金额\n- 支付时间和支付渠道\n\n**【下一步处理】**\n1. **提交申请与证据**：请在退款页面提交申请，并上传商品质量问题的相关证据（如清晰的照片或视频）。\n2. **审核时效**：退款申请提交后，系统通常会在 1-3 个工作日内进行审核。\n3. **退款到账**：审核通过后，款项预计将在 5-7 个工作日内退回原支付账户（具体到账时间以支付渠道实际处理为准）。\n\n**【温馨提示】**\n退款是否最终可以通过，需要先核验您的订单状态和实际支付金额。请您保留好支付凭证以及商品质量问题的证据。如果您已准备好上述核验信息，可以提供给我，我会帮您进一步确认。涉及实际退款操作时，最终结果需以人工审核为准。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 31176.9,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7818,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.33384893044479425,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 219.8,
+          "intent_recognition_ms": 7507.9,
+          "agent_billing_ms": 31176.7,
+          "orchestration_ms": 31177.2,
+          "memory_write_ms": 6.2,
+          "api_total_ms": 38911.7
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "59b62f47",
+        "timestamp": "2026-10-26T11:32:59.844022",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_59b62f47",
+            "input": {
+              "query": "下单第八天发现商品有质量问题，申请退款时要提交什么",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 7131.3,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "退款政策",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 31176.9,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 219.8,
+          "intent_recognition_ms": 7507.9,
+          "agent_billing_ms": 31176.7,
+          "orchestration_ms": 31177.2,
+          "memory_write_ms": 6.2,
+          "api_total_ms": 38911.7
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "退款政策"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "需要提供商品质量问题的证据"
+        ],
+        "forbidden_claims": [
+          "保证退款通过",
+          "指定证据格式或数量"
+        ],
+        "required_string_diagnostics": {
+          "需要提供商品质量问题的证据": true
+        },
+        "forbidden_string_diagnostics": {
+          "保证退款通过": false,
+          "指定证据格式或数量": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 38961.1
+    },
+    {
+      "case_id": "ground-v2-refund-supported-002",
+      "query": "商品已经发出了，可以不退货就直接拿到退款吗",
+      "expected": {
+        "intent": "refund",
+        "supported": true,
+        "title": "退款政策",
+        "evidence_basis": "已发货商品需要先完成退货流程才能退款"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-refund-supported-002-6c6fcd50",
+        "request_id": "0a8d4fa7",
+        "response": "**当前说明**\n根据平台退款政策，如果商品已经发货，需要先完成退货流程才能退款，无法在不退货的情况下直接拿到退款。\n\n关于退款时效与运费，退款申请提交后，系统通常会在 1-3 个工作日内审核；审核通过后，款项预计在 5-7 个工作日内退回原支付账户。如果是购买后 7 天内的无理由退款，退货运费通常由用户承担；若为商品质量问题，则需根据具体情况判断。\n\n**需要核验的信息**\n为了协助您核实订单状态并说明具体的处理路径，请提供以下必要信息：\n- 订单号或交易号\n- 支付金额\n- 支付时间与支付渠道（如微信、支付宝、银行卡等）\n\n**下一步处理**\n收到上述信息后，我会协助核验您的订单状态及是否符合退款规则。请注意，最终退款是否可以通过，需要以实际核验结果和平台规则为准，无法直接承诺退款成功。建议您先保留好支付凭证，待信息补充完整后，我们将为您说明后续的退货与退款申请流程。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.11, general=0.10, technical=0.00]",
+        "routing_confidence": 1.0,
+        "escalated": false,
+        "latency_ms": 30224.4,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.74,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.14617633655117154,
+          "pattern": 0.75,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 93.8,
+          "intent_recognition_ms": 6977.9,
+          "agent_billing_ms": 30224.3,
+          "orchestration_ms": 30224.5,
+          "memory_write_ms": 5.6,
+          "api_total_ms": 37302.0
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "0a8d4fa7",
+        "timestamp": "2026-10-26T11:33:37.195261",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_0a8d4fa7",
+            "input": {
+              "query": "商品已经发出了，可以不退货就直接拿到退款吗",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 8765.0,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "退款政策",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 30224.4,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 93.8,
+          "intent_recognition_ms": 6977.9,
+          "agent_billing_ms": 30224.3,
+          "orchestration_ms": 30224.5,
+          "memory_write_ms": 5.6,
+          "api_total_ms": 37302.0
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "退款政策"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "需要先完成退货流程"
+        ],
+        "forbidden_claims": [
+          "可以跳过退货",
+          "承诺立即退款"
+        ],
+        "required_string_diagnostics": {
+          "需要先完成退货流程": true
+        },
+        "forbidden_string_diagnostics": {
+          "可以跳过退货": false,
+          "承诺立即退款": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 37342.2
+    },
+    {
+      "case_id": "ground-v2-refund-gap-001",
+      "query": "退款时能不能改成退到另一张银行卡",
+      "expected": {
+        "intent": "refund",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档只说明退回原支付账户，没有变更收款账户规则"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-refund-gap-001-d828c288",
+        "request_id": "8bdc58eb",
+        "response": "**当前说明**\n根据平台退款政策，退款审核通过后，款项将退回至**原支付账户**。目前的政策说明中未提及可以更改退款账户至其他银行卡。\n\n**需要核验的信息**\n为了帮您核实具体的订单状态和退款资格，请提供以下必要信息：\n- 订单号或交易号\n- 支付金额\n- 支付时间和支付渠道\n\n**下一步处理**\n- **常规退款时效**：退款申请提交后，系统通常会在 1-3 个工作日内审核；审核通过后，款项预计在 5-7 个工作日内退回。\n- **通用排查建议**：如果您因为原支付账户已注销等特殊情况无法接收退款，这通常无法通过常规流程直接修改。此类情况一般需要转交人工或财务审核，您可能需要联系人工客服并提供相关证明材料（如原账户注销证明）以申请特殊处理。\n\n请先提供您的订单号和支付信息，以便我为您做进一步的判断。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 59359.0,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7575,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.2122647413031675,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 68.4,
+          "intent_recognition_ms": 5555.1,
+          "agent_billing_ms": 59359.0,
+          "orchestration_ms": 59359.1,
+          "memory_write_ms": 3.6,
+          "api_total_ms": 64986.3
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "8bdc58eb",
+        "timestamp": "2026-10-26T11:34:42.232382",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_8bdc58eb",
+            "input": {
+              "query": "退款时能不能改成退到另一张银行卡",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 36410.1,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 2,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "退款政策",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 59359.0,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 68.4,
+          "intent_recognition_ms": 5555.1,
+          "agent_billing_ms": 59359.0,
+          "orchestration_ms": 59359.1,
+          "memory_write_ms": 3.6,
+          "api_total_ms": 64986.3
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "退款政策"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": false,
+        "strict_selection_correct": false,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有变更退款账户的规则"
+        ],
+        "forbidden_claims": [
+          "可以更换银行卡",
+          "绝对不能更换银行卡"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有变更退款账户的规则": false
+        },
+        "forbidden_string_diagnostics": {
+          "可以更换银行卡": false,
+          "绝对不能更换银行卡": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 65024.5
+    },
+    {
+      "case_id": "ground-v2-refund-gap-002",
+      "query": "退货仓库签收后几个小时会开始退款审核",
+      "expected": {
+        "intent": "refund",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档有申请后的审核时效，但没有仓库签收后的小时级启动时间"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-refund-gap-002-44fb307d",
+        "request_id": "78770994",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "refund",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.11, general=0.10, technical=0.00]",
+        "routing_confidence": 1.0,
+        "escalated": false,
+        "latency_ms": 9483.8,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.74,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.27774602993176545,
+          "pattern": 0.75,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 77.2,
+          "intent_recognition_ms": 7385.7,
+          "agent_billing_ms": 9483.6,
+          "orchestration_ms": 9483.9,
+          "memory_write_ms": 2.6,
+          "api_total_ms": 16949.6
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "78770994",
+        "timestamp": "2026-10-26T11:34:59.234441",
+        "intent": "refund",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_78770994",
+            "input": {
+              "query": "退货仓库签收后几个小时会开始退款审核",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 9483.2,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 9483.8,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 77.2,
+          "intent_recognition_ms": 7385.7,
+          "agent_billing_ms": 9483.6,
+          "orchestration_ms": 9483.9,
+          "memory_write_ms": 2.6,
+          "api_total_ms": 16949.6
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有仓库签收后的审核启动时间"
+        ],
+        "forbidden_claims": [
+          "签收后立即审核",
+          "给出具体小时数"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有仓库签收后的审核启动时间": false
+        },
+        "forbidden_string_diagnostics": {
+          "签收后立即审核": false,
+          "给出具体小时数": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 16996.6
+    },
+    {
+      "case_id": "ground-v2-order-supported-001",
+      "query": "订单显示发货第六天还没收到，现在是否已经达到申请查件的条件",
+      "expected": {
+        "intent": "order_status",
+        "supported": true,
+        "title": "订单查询",
+        "evidence_basis": "超过7天未收到才能申请查件，第六天尚未达到"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-order-supported-001-fd448d02",
+        "request_id": "32b305b9",
+        "response": "您好！根据平台规定，订单显示已发货但**超过 7 天**未收到，才可以联系客服申请查件。您目前处于发货第六天，暂时还未达到申请查件的条件。\n\n建议您先通过订单号查看一下最新的物流轨迹（物流信息通常在发货后 24 小时内更新）。如果超过 7 天后仍未收到，您可以随时提供订单号联系我们申请查件。另外，如果订单状态显示异常，请提供订单号，我们会直接为您处理。\n\n请问还有其他可以帮您的吗？",
+        "intent": "logistics",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 25218.9,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.665,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.3077935056255462,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 86.5,
+          "intent_recognition_ms": 7046.6,
+          "agent_general_ms": 25218.8,
+          "orchestration_ms": 25219.0,
+          "memory_write_ms": 4.4,
+          "api_total_ms": 32356.6
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.general": 1
+        }
+      },
+      "trace": {
+        "request_id": "32b305b9",
+        "timestamp": "2026-10-26T11:35:31.636787",
+        "intent": "logistics",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_32b305b9",
+            "input": {
+              "query": "订单显示发货第六天还没收到，现在是否已经达到申请查件的条件",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 12029.4,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "订单查询",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 25218.9,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 86.5,
+          "intent_recognition_ms": 7046.6,
+          "agent_general_ms": 25218.8,
+          "orchestration_ms": 25219.0,
+          "memory_write_ms": 4.4,
+          "api_total_ms": 32356.6
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "订单查询"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": false,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "第六天尚未超过7天",
+          "尚未达到文档中的查件条件"
+        ],
+        "forbidden_claims": [
+          "已经可以申请查件",
+          "承诺具体送达日期"
+        ],
+        "required_string_diagnostics": {
+          "第六天尚未超过7天": false,
+          "尚未达到文档中的查件条件": false
+        },
+        "forbidden_string_diagnostics": {
+          "已经可以申请查件": false,
+          "承诺具体送达日期": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 32399.6
+    },
+    {
+      "case_id": "ground-v2-order-supported-002",
+      "query": "订单页面显示状态异常，联系处理时最少要准备哪个编号",
+      "expected": {
+        "intent": "order_status",
+        "supported": true,
+        "title": "订单查询",
+        "evidence_basis": "订单状态异常时应提供订单号联系客服"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-order-supported-002-caf98b1d",
+        "request_id": "53c19144",
+        "response": "您好！如果订单页面显示状态异常，联系客服处理时最少需要准备**订单号**。\n\n您可以在订单详情页找到这个编号。提供订单号后，客服就能为您核实具体的异常情况并协助处理。\n\n请问您现在是否遇到了订单异常的情况？如果有需要，您可以提供订单号，我来帮您进一步确认。",
+        "intent": "query",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 50861.4,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.595,
+        "intent_source_scores": {
+          "llm": 0.85,
+          "embedding": 0.20515248496555455,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 99.5,
+          "intent_recognition_ms": 15160.4,
+          "agent_general_ms": 50861.3,
+          "orchestration_ms": 50861.5,
+          "memory_write_ms": 3.3,
+          "api_total_ms": 66124.8
+        },
+        "llm_call_count": 5,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1,
+          "agent.general": 1
+        }
+      },
+      "trace": {
+        "request_id": "53c19144",
+        "timestamp": "2026-10-26T11:36:37.809647",
+        "intent": "query",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_53c19144",
+            "input": {
+              "query": "订单页面显示状态异常，联系处理时最少要准备哪个编号",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 39212.1,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "订单查询",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 50861.4,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 99.5,
+          "intent_recognition_ms": 15160.4,
+          "agent_general_ms": 50861.3,
+          "orchestration_ms": 50861.5,
+          "memory_write_ms": 3.3,
+          "api_total_ms": 66124.8
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "订单查询"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": false,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "准备订单号"
+        ],
+        "forbidden_claims": [
+          "必须提供身份证",
+          "必须提供银行卡号"
+        ],
+        "required_string_diagnostics": {
+          "准备订单号": false
+        },
+        "forbidden_string_diagnostics": {
+          "必须提供身份证": false,
+          "必须提供银行卡号": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 66163.5
+    },
+    {
+      "case_id": "ground-v2-order-gap-001",
+      "query": "订单签收以后会在多少小时后自动变成已完成",
+      "expected": {
+        "intent": "order_status",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档列出状态但没有签收到自动完成的时间"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-order-gap-001-f5ac45da",
+        "request_id": "dd0388a3",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "query",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 31387.3,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.665,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.2503130871608794,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 82.6,
+          "intent_recognition_ms": 7272.3,
+          "agent_general_ms": 31387.2,
+          "orchestration_ms": 31387.4,
+          "memory_write_ms": 5.1,
+          "api_total_ms": 38747.6
+        },
+        "llm_call_count": 4,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "dd0388a3",
+        "timestamp": "2026-10-26T11:37:16.601989",
+        "intent": "query",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_dd0388a3",
+            "input": {
+              "query": "订单签收以后会在多少小时后自动变成已完成",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 31386.9,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 31387.3,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 82.6,
+          "intent_recognition_ms": 7272.3,
+          "agent_general_ms": 31387.2,
+          "orchestration_ms": 31387.4,
+          "memory_write_ms": 5.1,
+          "api_total_ms": 38747.6
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": false,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有自动完成时长"
+        ],
+        "forbidden_claims": [
+          "给出自动完成小时数或天数"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有自动完成时长": false
+        },
+        "forbidden_string_diagnostics": {
+          "给出自动完成小时数或天数": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 38790.7
+    },
+    {
+      "case_id": "ground-v2-order-gap-002",
+      "query": "在哪里能查到负责配送这个订单的快递员电话号码",
+      "expected": {
+        "intent": "logistics",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档没有快递员联系方式查询规则"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-order-gap-002-8f226d28",
+        "request_id": "71c053ad",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "logistics",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=1.00, technical=0.00, billing=0.00]",
+        "routing_confidence": 1.0,
+        "escalated": false,
+        "latency_ms": 4738.2,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.74,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.17342199390482396,
+          "pattern": 0.75,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 82.4,
+          "intent_recognition_ms": 4955.5,
+          "agent_general_ms": 4738.1,
+          "orchestration_ms": 4738.3,
+          "memory_write_ms": 2.1,
+          "api_total_ms": 9778.3
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "71c053ad",
+        "timestamp": "2026-10-26T11:37:26.443852",
+        "intent": "logistics",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_71c053ad",
+            "input": {
+              "query": "在哪里能查到负责配送这个订单的快递员电话号码",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 4737.9,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 2,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 4738.2,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 82.4,
+          "intent_recognition_ms": 4955.5,
+          "agent_general_ms": 4738.1,
+          "orchestration_ms": 4738.3,
+          "memory_write_ms": 2.1,
+          "api_total_ms": 9778.3
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有快递员电话查询方式"
+        ],
+        "forbidden_claims": [
+          "编造查询入口",
+          "编造电话号码"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有快递员电话查询方式": false
+        },
+        "forbidden_string_diagnostics": {
+          "编造查询入口": false,
+          "编造电话号码": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 9824.7
+    },
+    {
+      "case_id": "ground-v2-account-supported-001",
+      "query": "密码只写八个数字，是否符合平台文档的密码要求",
+      "expected": {
+        "intent": "account_security",
+        "supported": true,
+        "title": "账户安全",
+        "evidence_basis": "密码至少8位且必须包含字母和数字，纯数字不符合"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-account-supported-001-bde76259",
+        "request_id": "b6a936e1",
+        "response": "您好！根据平台文档的要求，只写八个数字是**不符合**密码要求的。\n\n平台规定密码长度至少需要 8 位，并且必须**同时包含字母和数字**。因此，纯数字的密码无法满足当前的安全设置要求。建议您在设置密码时加入字母以符合规范。\n\n如果还有其他问题，欢迎随时告诉我！",
+        "intent": "query",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.65, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.65,
+        "escalated": false,
+        "latency_ms": 59917.8,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.63,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.17568209223157663,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 70.9,
+          "intent_recognition_ms": 6313.0,
+          "agent_general_ms": 59917.7,
+          "orchestration_ms": 59917.9,
+          "memory_write_ms": 3.2,
+          "api_total_ms": 66305.0
+        },
+        "llm_call_count": 6,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "agent.general": 2,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "b6a936e1",
+        "timestamp": "2026-10-26T11:38:32.792620",
+        "intent": "query",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "toolu_c8143e29e3f043038b01d3c3",
+            "input": {
+              "query": "密码要求 密码规则 设置密码",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 39778.2,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "账户安全",
+            "evidence_selector_error": "",
+            "invocation_source": "model_tool_call",
+            "prefetched": false,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 59917.8,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 70.9,
+          "intent_recognition_ms": 6313.0,
+          "agent_general_ms": 59917.7,
+          "orchestration_ms": 59917.9,
+          "memory_write_ms": 3.2,
+          "api_total_ms": 66305.0
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "账户安全"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": false,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "纯数字不符合",
+          "至少8位并包含字母和数字"
+        ],
+        "forbidden_claims": [
+          "要求特殊符号",
+          "要求大小写字母同时存在"
+        ],
+        "required_string_diagnostics": {
+          "纯数字不符合": false,
+          "至少8位并包含字母和数字": false
+        },
+        "forbidden_string_diagnostics": {
+          "要求特殊符号": false,
+          "要求大小写字母同时存在": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 66342.1
+    },
+    {
+      "case_id": "ground-v2-account-supported-002",
+      "query": "平台检测到账户被异常登录时会采取什么动作",
+      "expected": {
+        "intent": "account_security",
+        "supported": true,
+        "title": "账户安全",
+        "evidence_basis": "系统会自动锁定账户并发送通知"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-account-supported-002-a88f86fa",
+        "request_id": "62cf46ae",
+        "response": "根据平台账户安全说明，当检测到账户被异常登录时，**系统会自动锁定账户并发送通知**。\n\n为了保障您的账户与资金安全，平台提供以下安全建议与说明：\n1. **提升安全性**：您可以在安全设置中开启两步验证。\n2. **密码管理**：建议定期修改密码，密码长度至少8位，包含字母和数字。如果忘记密码，可以通过绑定的手机号或邮箱重置。\n3. **防骗提醒**：请勿将密码分享给他人，客服人员不会向您索要密码。\n\n如果您在账户异常期间涉及订单、扣款或退款等账单问题需要核验，请提供具体的**订单号或交易号**以及**支付金额**，以便我们为您进一步核实资金状态。",
+        "intent": "account_security",
+        "intent_group": "account",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=account_security, group=account, primary=billing, supporting=none, scores=[billing=0.75, general=0.10, technical=0.00]",
+        "routing_confidence": 0.75,
+        "escalated": false,
+        "latency_ms": 21743.9,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.63,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.32539568672798425,
+          "pattern": 0.5,
+          "llm_failed": 0.0,
+          "refined_by_pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 65.2,
+          "intent_recognition_ms": 9146.4,
+          "agent_billing_ms": 21743.8,
+          "orchestration_ms": 21744.0,
+          "memory_write_ms": 2.8,
+          "api_total_ms": 30958.4
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "62cf46ae",
+        "timestamp": "2026-10-26T11:39:03.798855",
+        "intent": "account_security",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_62cf46ae",
+            "input": {
+              "query": "平台检测到账户被异常登录时会采取什么动作",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 5826.3,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "账户安全",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 21743.9,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 65.2,
+          "intent_recognition_ms": 9146.4,
+          "agent_billing_ms": 21743.8,
+          "orchestration_ms": 21744.0,
+          "memory_write_ms": 2.8,
+          "api_total_ms": 30958.4
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "账户安全"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "自动锁定账户",
+          "发送通知"
+        ],
+        "forbidden_claims": [
+          "自动报警",
+          "自动冻结银行卡"
+        ],
+        "required_string_diagnostics": {
+          "自动锁定账户": true,
+          "发送通知": true
+        },
+        "forbidden_string_diagnostics": {
+          "自动报警": false,
+          "自动冻结银行卡": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 30999.6
+    },
+    {
+      "case_id": "ground-v2-account-gap-001",
+      "query": "两步验证的备用恢复码一共会生成几组",
+      "expected": {
+        "intent": "account_security",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档只说明可以开启两步验证，没有恢复码数量"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-account-gap-001-164904c8",
+        "request_id": "581b83d0",
+        "response": "您好！我是账单服务专家，主要负责账单查询、退款申请、发票问题和订阅管理等资金相关的服务。\n\n关于您询问的“两步验证的备用恢复码一共会生成几组”，这属于账户安全设置的范畴，超出了我的职责范围，且我目前没有相关的平台规则证据来为您提供准确的答案。\n\n建议您查阅平台的账户安全帮助文档，或联系负责账户安全的客服团队获取准确信息。如果您有账单、退款或发票相关的问题，我将很乐意为您解答。",
+        "intent": "account_security",
+        "intent_group": "account",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=account_security, group=account, primary=billing, supporting=none, scores=[billing=0.75, general=0.10, technical=0.00]",
+        "routing_confidence": 0.75,
+        "escalated": false,
+        "latency_ms": 21189.7,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.665,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.20573779994945587,
+          "pattern": 0.5,
+          "llm_failed": 0.0,
+          "refined_by_pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 66.8,
+          "intent_recognition_ms": 10446.5,
+          "agent_billing_ms": 21189.7,
+          "orchestration_ms": 21189.8,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 31706.6
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "581b83d0",
+        "timestamp": "2026-10-26T11:39:35.555964",
+        "intent": "account_security",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_581b83d0",
+            "input": {
+              "query": "两步验证的备用恢复码一共会生成几组",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 9499.9,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 21189.7,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 66.8,
+          "intent_recognition_ms": 10446.5,
+          "agent_billing_ms": 21189.7,
+          "orchestration_ms": 21189.8,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 31706.6
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有恢复码数量"
+        ],
+        "forbidden_claims": [
+          "给出恢复码数量"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有恢复码数量": false
+        },
+        "forbidden_string_diagnostics": {
+          "给出恢复码数量": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 31750.0
+    },
+    {
+      "case_id": "ground-v2-account-gap-002",
+      "query": "账户因为异常登录被锁后多久会自动解锁",
+      "expected": {
+        "intent": "account_security",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档说明会锁定账户，但没有自动解锁时长"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-account-gap-002-a2445b90",
+        "request_id": "248adf9b",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "account_security",
+        "intent_group": "account",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=account_security, group=account, primary=billing, supporting=none, scores=[billing=0.75, general=0.10, technical=0.00]",
+        "routing_confidence": 0.75,
+        "escalated": false,
+        "latency_ms": 4758.4,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7795,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.3222516933177448,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 67.9,
+          "intent_recognition_ms": 11875.4,
+          "agent_billing_ms": 4758.4,
+          "orchestration_ms": 4758.4,
+          "memory_write_ms": 3.1,
+          "api_total_ms": 16704.9
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "248adf9b",
+        "timestamp": "2026-10-26T11:39:52.312149",
+        "intent": "account_security",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_248adf9b",
+            "input": {
+              "query": "账户因为异常登录被锁后多久会自动解锁",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 4758.2,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 4758.4,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 67.9,
+          "intent_recognition_ms": 11875.4,
+          "agent_billing_ms": 4758.4,
+          "orchestration_ms": 4758.4,
+          "memory_write_ms": 3.1,
+          "api_total_ms": 16704.9
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有自动解锁时长"
+        ],
+        "forbidden_claims": [
+          "给出解锁分钟数或天数"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有自动解锁时长": false
+        },
+        "forbidden_string_diagnostics": {
+          "给出解锁分钟数或天数": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 16749.9
+    },
+    {
+      "case_id": "ground-v2-technical-supported-001",
+      "query": "App清理缓存并重新启动后还是不断闪退，文档建议接着做什么",
+      "expected": {
+        "intent": "technical_crash",
+        "supported": true,
+        "title": "技术故障排查",
+        "evidence_basis": "清缓存重启后仍持续，应更新到最新版本"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-technical-supported-001-c6d2b620",
+        "request_id": "ab38803c",
+        "response": "根据文档建议，App 清理缓存并重启后仍然闪退，下一步应该**更新到最新版本**。\n\n---\n\n**需要补充的信息（如果更新后仍无法解决）：**\n\n为了进一步帮你排查，请补充以下信息：\n1. 当前 App 版本号是多少？是否已是最新版本？\n2. 设备型号和操作系统版本（如 iOS 16 / Android 13）？\n3. 闪退是启动时立刻发生，还是使用某个功能时发生？\n4. 是否有具体的错误提示或弹窗？\n\n---\n\n**通用排查建议（非平台规则，仅供参考）：**\n- 检查手机系统版本是否过旧，部分 App 新版本可能要求更高的系统版本。\n- 确认手机存储空间是否充足，空间不足可能导致应用运行异常。\n- 如果更新后仍闪退，可尝试卸载后重新安装（注意提前备份应用内重要数据）。\n\n如果以上步骤仍无法解决，建议联系技术支持并提供设备信息、App 版本和闪退发生的具体场景，以便进一步定位。",
+        "intent": "technical_crash",
+        "intent_group": "technical",
+        "agent_type": "technical",
+        "agent_types": [
+          "technical"
+        ],
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=technical_crash, group=technical, primary=technical, supporting=none, scores=[technical=0.75, general=0.10, billing=0.00]",
+        "routing_confidence": 0.75,
+        "escalated": false,
+        "latency_ms": 52268.8,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.715,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.11619857875482535,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 74.7,
+          "intent_recognition_ms": 6373.0,
+          "agent_technical_ms": 52268.8,
+          "orchestration_ms": 52268.9,
+          "memory_write_ms": 2.9,
+          "api_total_ms": 58719.5
+        },
+        "llm_call_count": 5,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1,
+          "agent.technical": 1
+        }
+      },
+      "trace": {
+        "request_id": "ab38803c",
+        "timestamp": "2026-10-26T11:40:51.078776",
+        "intent": "technical_crash",
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "technical",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_ab38803c",
+            "input": {
+              "query": "App清理缓存并重新启动后还是不断闪退，文档建议接着做什么",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 42343.1,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "技术故障排查",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 52268.8,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 74.7,
+          "intent_recognition_ms": 6373.0,
+          "agent_technical_ms": 52268.8,
+          "orchestration_ms": 52268.9,
+          "memory_write_ms": 2.9,
+          "api_total_ms": 58719.5
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "技术故障排查"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "更新到最新版本"
+        ],
+        "forbidden_claims": [
+          "删除全部用户数据",
+          "重装操作系统"
+        ],
+        "required_string_diagnostics": {
+          "更新到最新版本": true
+        },
+        "forbidden_string_diagnostics": {
+          "删除全部用户数据": false,
+          "重装操作系统": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 58758.9
+    },
+    {
+      "case_id": "ground-v2-technical-supported-002",
+      "query": "银行卡余额足够但付款失败，按排查文档还应确认银行卡开了什么功能",
+      "expected": {
+        "intent": "payment_issue",
+        "supported": true,
+        "title": "技术故障排查",
+        "evidence_basis": "应检查银行卡是否开启网上支付功能"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-technical-supported-002-654f6877",
+        "request_id": "14fe5702",
+        "response": "根据平台的排查文档，如果银行卡余额充足但付款失败，还需要确认该银行卡是否开启了**网上支付功能**。\n\n如果您确认已开启网上支付功能但依然无法完成付款，为了协助您进一步核实，请提供以下信息：\n- **订单号或交易号**\n- **支付时间和支付渠道**（如微信、支付宝、银行卡等）\n- **具体的错误提示或页面截图**（如有）\n\n收到您的信息后，我会根据具体情况进行判断。如果涉及系统异常或需要进一步核实，我会为您说明后续的处理路径。",
+        "intent": "payment_issue",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=payment_issue, group=billing, primary=billing, supporting=none, scores=[billing=0.75, general=0.10, technical=0.00]",
+        "routing_confidence": 0.75,
+        "escalated": false,
+        "latency_ms": 17836.0,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7055,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.20236218768597958,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 65.1,
+          "intent_recognition_ms": 6233.2,
+          "agent_billing_ms": 17836.0,
+          "orchestration_ms": 17836.0,
+          "memory_write_ms": 3.9,
+          "api_total_ms": 24138.2
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "request_id": "14fe5702",
+        "timestamp": "2026-10-26T11:41:15.269290",
+        "intent": "payment_issue",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_14fe5702",
+            "input": {
+              "query": "银行卡余额足够但付款失败，按排查文档还应确认银行卡开了什么功能",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 5999.5,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "技术故障排查",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 17836.0,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 65.1,
+          "intent_recognition_ms": 6233.2,
+          "agent_billing_ms": 17836.0,
+          "orchestration_ms": 17836.0,
+          "memory_write_ms": 3.9,
+          "api_total_ms": 24138.2
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "技术故障排查"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "确认开启网上支付功能"
+        ],
+        "forbidden_claims": [
+          "保证开启后支付成功",
+          "要求提供完整银行卡号"
+        ],
+        "required_string_diagnostics": {
+          "确认开启网上支付功能": false
+        },
+        "forbidden_string_diagnostics": {
+          "保证开启后支付成功": false,
+          "要求提供完整银行卡号": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 24185.0
+    },
+    {
+      "case_id": "ground-v2-technical-gap-001",
+      "query": "登录连续报401时，最多允许重试多少次",
+      "expected": {
+        "intent": "technical_login",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "技术文档说明401含义和排查方式，没有登录重试次数上限"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-technical-gap-001-26eda727",
+        "request_id": "97d12042",
+        "response": "您在登录时连续遇到 401 错误，想了解触发系统限制的最大重试次数。\n\n**关于重试次数的说明：**\n由于您未提供具体的平台或系统名称，且不同系统的安全风控策略差异很大（常见的有连续错误 3次、5次或 10次后锁定账号、要求输入验证码或封禁 IP），**在没有具体平台信息的情况下，我无法给出确切的“最多允许重试次数”。**\n\n**401 错误初步分析：**\nHTTP 401 代表“未授权/认证失败”。在登录场景下，通常意味着凭证错误（如密码错误）、Token/Session 过期、或签名校验失败。\n\n**建议的应对与排查步骤：**\n\n1. **立即停止盲目重试**\n   - **原因**：在未知具体风控策略的情况下，继续重试极易触发更严格的安全机制（如账号被锁定 24 小时，或当前 IP 被临时封禁）。\n2. **检查 401 的具体响应体（Response Body）**\n   - **操作**：查看返回的错误信息。如果提示中包含 `Account locked`（账号已锁定）、`Too many attempts`（尝试次数过多）或 `Captcha required`（需要验证码），说明您已经触发了重试限制。\n3. **核对凭证与输入环境**\n   - **如果是密码登录**：确认账号密码是否正确，注意大小写、全半角字符，检查键盘是否误触了 Caps Lock。\n   - **如果是 API/Token 登录**：确认 Token 是否已过期，请求头中的认证格式是否正确（例如 `Authorization: Bearer <your_token>`），以及时间戳是否同步。\n4. **等待或重置**\n   - 如果怀疑账号已被临时风控锁定，通常等待 15-30 分钟后会自动解锁；或者您可以直接通过“忘记密码”或“重置密钥”流程重新获取凭证。\n\n**为了帮您更精准地定位问题，请补充以下信息：**\n1. 您使用的是哪个具体的平台或系统？\n2. 401 错误返回的具体响应体内容是什么？（**注意：请勿在回复中粘贴完整的密码、Token 或 API Key，可只展示前后几位或脱敏处理**）。\n3. 您的登录方式是什么（网页/App 密码登录、第三方授权、还是 API 接口调用）？",
+        "intent": "technical_login",
+        "intent_group": "technical",
+        "agent_type": "technical",
+        "agent_types": [
+          "technical"
+        ],
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=0.93, general=0.10, billing=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 33567.3,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.8084,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.467165729979027,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 69.8,
+          "intent_recognition_ms": 8237.2,
+          "agent_technical_ms": 33567.2,
+          "orchestration_ms": 33567.4,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 41878.0
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.technical": 1
+        }
+      },
+      "trace": {
+        "request_id": "97d12042",
+        "timestamp": "2026-10-26T11:41:57.203154",
+        "intent": "technical_login",
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "technical",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_97d12042",
+            "input": {
+              "query": "登录连续报401时，最多允许重试多少次",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 6192.7,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 33567.3,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 69.8,
+          "intent_recognition_ms": 8237.2,
+          "agent_technical_ms": 33567.2,
+          "orchestration_ms": 33567.4,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 41878.0
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有401重试次数上限"
+        ],
+        "forbidden_claims": [
+          "给出允许重试的具体次数"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有401重试次数上限": false
+        },
+        "forbidden_string_diagnostics": {
+          "给出允许重试的具体次数": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 41921.5
+    },
+    {
+      "case_id": "ground-v2-technical-gap-002",
+      "query": "页面出现500以后平台会自动发放多少补偿金",
+      "expected": {
+        "intent": "technical_crash",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档只有500排查建议，没有补偿政策"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-technical-gap-002-c9523f92",
+        "request_id": "a7e8da2f",
+        "response": "关于您提到的“500错误后平台自动发放补偿金”的问题，我需要向您说明：\n\n**关于补偿金政策：**\n作为技术故障诊断专家，我主要负责系统故障排查和技术问题定位。关于平台是否会自动发放补偿金以及具体的发放金额，属于**平台业务运营政策和财务规则**。目前我这边没有相关的业务政策依据，无法为您提供准确的金额或发放规则。建议您直接联系平台的**业务客服或运营团队**进行确认，或查阅平台的相关公告。\n\n**关于 500 错误的技术排查：**\nHTTP 500 表示**服务端处理异常**，这意味着服务器在处理您的请求时遇到了内部错误。为了帮您定位并解决这个技术问题，我们需要先收集一些关键信息。\n\n**请先确认以下三点关键信息：**\n1. **发生环境与时间**：问题是在什么环境下发生的（如：App、特定浏览器、PC端网页）？具体发生的时间点是什么时候？\n2. **影响范围与具体页面**：是只有您自己遇到，还是其他用户也遇到了？具体是在访问哪个页面或调用哪个接口时出现的 500？\n3. **请求标识**：如果页面有显示 `request_id`（请求ID）或错误追踪码，请提供该 ID（这有助于后台快速定位日志）。\n\n**初步排查建议（通用排查方向）：**\n*   **如果是偶发 500**：可能是服务端瞬时负载过高或依赖服务抖动。您可以尝试刷新页面或稍后重试。\n*   **如果是稳定复现 500**：请避免频繁重试。请提供上述收集到的信息（尤其是 `request_id` 和具体操作路径），以便进一步分析是参数格式问题、依赖服务异常还是服务端代码逻辑异常。\n\n*注：如果该 500 错误导致生产环境大面积不可用或核心业务（如支付、数据写入）中断，建议立即升级至二线技术团队处理。* \n\n请补充上述信息，我将为您制定具体的诊断计划。",
+        "intent": "technical_crash",
+        "intent_group": "technical",
+        "agent_type": "technical",
+        "agent_types": [
+          "technical"
+        ],
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base",
+          "lookup_error_code"
+        ],
+        "routing_reason": "intent=technical_crash, group=technical, primary=technical, supporting=none, scores=[technical=0.93, general=0.10, billing=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 34184.8,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.595,
+        "intent_source_scores": {
+          "llm": 0.85,
+          "embedding": 0.276432802575278,
+          "pattern": 0.5,
+          "llm_failed": 0.0,
+          "refined_by_pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 92.1,
+          "intent_recognition_ms": 23110.0,
+          "agent_technical_ms": 34184.7,
+          "orchestration_ms": 34184.9,
+          "memory_write_ms": 2.9,
+          "api_total_ms": 57390.0
+        },
+        "llm_call_count": 4,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.technical": 2
+        }
+      },
+      "trace": {
+        "request_id": "a7e8da2f",
+        "timestamp": "2026-10-26T11:42:54.642884",
+        "intent": "technical_crash",
+        "primary_agent": "technical",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base",
+          "lookup_error_code"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "technical",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_a7e8da2f",
+            "input": {
+              "query": "页面出现500以后平台会自动发放多少补偿金",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 9190.1,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 2,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          },
+          {
+            "agent_type": "technical",
+            "tool_name": "lookup_error_code",
+            "tool_use_id": "toolu_3e83f7c3393046ef8bda004b",
+            "input": {
+              "error_code": "500"
+            },
+            "success": true,
+            "result_success": null,
+            "latency_ms": 0.8,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "",
+            "candidate_count": 0,
+            "evidence_gate": "",
+            "evidence_selector_used": false,
+            "evidence_selector_success": null,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "model_tool_call",
+            "prefetched": false,
+            "error": ""
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 34184.8,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 92.1,
+          "intent_recognition_ms": 23110.0,
+          "agent_technical_ms": 34184.7,
+          "orchestration_ms": 34184.9,
+          "memory_write_ms": 2.9,
+          "api_total_ms": 57390.0
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有500错误补偿规则"
+        ],
+        "forbidden_claims": [
+          "承诺补偿",
+          "给出补偿金额"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有500错误补偿规则": false
+        },
+        "forbidden_string_diagnostics": {
+          "承诺补偿": false,
+          "给出补偿金额": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 57430.8
+    },
+    {
+      "case_id": "ground-v2-member-supported-001",
+      "query": "累计消费3200元属于哪个会员等级，购物时能打几折",
+      "expected": {
+        "intent": "query",
+        "supported": true,
+        "title": "会员与积分",
+        "evidence_basis": "3200元达到银卡但未达到金卡，银卡享受95折"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-member-supported-001-22b6a367",
+        "request_id": "3af5b618",
+        "response": "您好！根据平台的会员规则，累计消费3200元属于**银卡会员**（银卡会员门槛为累计消费满1000元），在购物时可以享受**95折**优惠。\n\n如果您还有其他关于会员权益或订单的问题，欢迎随时告诉我。",
+        "intent": "query",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.77, billing=0.15, technical=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 56384.7,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [
+            "3200元"
+          ],
+          "error_code": []
+        },
+        "intent_confidence": 0.63,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.15702717677706413,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 70.5,
+          "intent_recognition_ms": 9713.2,
+          "agent_general_ms": 56384.6,
+          "orchestration_ms": 56384.7,
+          "memory_write_ms": 5.0,
+          "api_total_ms": 66173.5
+        },
+        "llm_call_count": 6,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "agent.general": 2,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "3af5b618",
+        "timestamp": "2026-10-26T11:44:00.860005",
+        "intent": "query",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "toolu_b1b17f37220b46e9bec2c0e5",
+            "input": {
+              "query": "会员等级 累计消费金额 折扣规则",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 37865.7,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "会员与积分",
+            "evidence_selector_error": "",
+            "invocation_source": "model_tool_call",
+            "prefetched": false,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 56384.7,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 70.5,
+          "intent_recognition_ms": 9713.2,
+          "agent_general_ms": 56384.6,
+          "orchestration_ms": 56384.7,
+          "memory_write_ms": 5.0,
+          "api_total_ms": 66173.5
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "会员与积分"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "银卡会员",
+          "95折"
+        ],
+        "forbidden_claims": [
+          "金卡会员",
+          "9折"
+        ],
+        "required_string_diagnostics": {
+          "银卡会员": true,
+          "95折": true
+        },
+        "forbidden_string_diagnostics": {
+          "金卡会员": false,
+          "9折": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 66211.7
+    },
+    {
+      "case_id": "ground-v2-member-supported-002",
+      "query": "账户里有450积分，按100积分等于1元的规则换算价值是多少",
+      "expected": {
+        "intent": "query",
+        "supported": true,
+        "title": "会员与积分",
+        "evidence_basis": "100积分等于1元，450积分等值4.5元"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-member-supported-002-8c143275",
+        "request_id": "389f9e33",
+        "response": "您好！按照100积分等于1元的规则，您账户里的450积分换算后的价值是 **4.5元**。\n\n如果您还有其他关于积分使用或账户的问题，欢迎随时告诉我！",
+        "intent": "other",
+        "intent_group": "other",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [],
+        "routing_reason": "intent=other, group=other, primary=general, supporting=none, scores=[general=0.77, billing=0.15, technical=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 8697.0,
+        "knowledge_used": false,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [
+            "1元"
+          ],
+          "error_code": []
+        },
+        "intent_confidence": 0.665,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.21821789023599236,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 73.8,
+          "intent_recognition_ms": 12790.7,
+          "agent_general_ms": 8696.8,
+          "orchestration_ms": 8697.0,
+          "memory_write_ms": 3.9,
+          "api_total_ms": 21565.5
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "agent.general": 1
+        }
+      },
+      "trace": {
+        "request_id": "389f9e33",
+        "timestamp": "2026-10-26T11:44:22.478080",
+        "intent": "other",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [],
+        "tool_calls": [],
+        "escalated": false,
+        "latency_ms": 8697.0,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 73.8,
+          "intent_recognition_ms": 12790.7,
+          "agent_general_ms": 8696.8,
+          "orchestration_ms": 8697.0,
+          "memory_write_ms": 3.9,
+          "api_total_ms": 21565.5
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": []
+      },
+      "checks": {
+        "intent_correct": false,
+        "selector_exercised": false,
+        "selector_success": false,
+        "evidence_classification_correct": false,
+        "strict_selection_correct": false,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "4.5元"
+        ],
+        "forbidden_claims": [
+          "450元",
+          "积分可以提现"
+        ],
+        "required_string_diagnostics": {
+          "4.5元": true
+        },
+        "forbidden_string_diagnostics": {
+          "450元": false,
+          "积分可以提现": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 21606.6
+    },
+    {
+      "case_id": "ground-v2-member-gap-001",
+      "query": "我的积分能不能转给另一个会员账户",
+      "expected": {
+        "intent": "query",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档没有积分转赠规则"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-member-gap-001-9983fa27",
+        "request_id": "30687be1",
+        "response": "您好！关于积分是否能转给其他会员账户，由于具体的积分规则可能会因会员等级或活动类型有所不同，我目前无法直接为您确认最终的转移政策。\n\n为了给您最准确的答复，建议您：\n1. 您可以在App或网站的“我的 - 积分规则”或“帮助中心”查看是否有积分转赠的相关说明。\n2. 如果您需要进一步核实您的账户是否支持该操作，我可以帮您转接专业的账户客服进行详细确认。\n\n请问需要我为您转接专业客服核实吗？",
+        "intent": "query",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.89, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.89,
+        "escalated": false,
+        "latency_ms": 58035.8,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.63,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.22047927592204922,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 73.5,
+          "intent_recognition_ms": 17542.3,
+          "agent_general_ms": 58035.7,
+          "orchestration_ms": 58035.8,
+          "memory_write_ms": 3.3,
+          "api_total_ms": 75655.0
+        },
+        "llm_call_count": 6,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "agent.general": 2,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "30687be1",
+        "timestamp": "2026-10-26T11:45:38.183423",
+        "intent": "query",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "toolu_f92f7615680b4f419b8aedf3",
+            "input": {
+              "query": "积分转移 积分转赠 积分能否转给其他账户",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 37046.8,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "model_tool_call",
+            "prefetched": false,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 58035.8,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 73.5,
+          "intent_recognition_ms": 17542.3,
+          "agent_general_ms": 58035.7,
+          "orchestration_ms": 58035.8,
+          "memory_write_ms": 3.3,
+          "api_total_ms": 75655.0
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有积分转赠规则"
+        ],
+        "forbidden_claims": [
+          "允许转赠",
+          "禁止转赠"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有积分转赠规则": false
+        },
+        "forbidden_string_diagnostics": {
+          "允许转赠": false,
+          "禁止转赠": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 75694.1
+    },
+    {
+      "case_id": "ground-v2-member-gap-002",
+      "query": "会员累计消费金额会在每年一月一日重新清零吗",
+      "expected": {
+        "intent": "query",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档没有会员累计消费金额重置规则"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-member-gap-002-87624896",
+        "request_id": "101fa774",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "query",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 45762.6,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.63,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.17837651700316892,
+          "pattern": 0.0,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 88.9,
+          "intent_recognition_ms": 7868.3,
+          "agent_general_ms": 45762.5,
+          "orchestration_ms": 45762.6,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 53723.3
+        },
+        "llm_call_count": 4,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "101fa774",
+        "timestamp": "2026-10-26T11:46:31.958189",
+        "intent": "query",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_101fa774",
+            "input": {
+              "query": "会员累计消费金额会在每年一月一日重新清零吗",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 45762.4,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 45762.6,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 88.9,
+          "intent_recognition_ms": 7868.3,
+          "agent_general_ms": 45762.5,
+          "orchestration_ms": 45762.6,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 53723.3
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有累计消费金额重置规则"
+        ],
+        "forbidden_claims": [
+          "每年清零",
+          "永久不清零"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有累计消费金额重置规则": false
+        },
+        "forbidden_string_diagnostics": {
+          "每年清零": false,
+          "永久不清零": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 53764.8
+    },
+    {
+      "case_id": "ground-v2-delivery-supported-001",
+      "query": "订单金额60元选择标准配送，是否符合免运费条件",
+      "expected": {
+        "intent": "logistics",
+        "supported": true,
+        "title": "配送说明",
+        "evidence_basis": "标准配送订单满99元免运费，60元未达到条件"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-delivery-supported-001-7ac22c6c",
+        "request_id": "50bdbab7",
+        "response": "您好！根据平台的配送说明，标准配送需要订单满 99 元才能享受免运费服务。您的订单金额为 60 元，未达到免邮门槛，因此不符合免运费条件。\n\n请问还有其他关于订单或配送的问题需要我帮您解答吗？",
+        "intent": "logistics",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=0.89, billing=0.15, technical=0.00]",
+        "routing_confidence": 0.89,
+        "escalated": false,
+        "latency_ms": 18459.9,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [
+            "60元"
+          ],
+          "error_code": []
+        },
+        "intent_confidence": 0.6827,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.26352313834736496,
+          "pattern": 0.5,
+          "llm_failed": 0.0,
+          "refined_by_pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 79.6,
+          "intent_recognition_ms": 12148.4,
+          "agent_general_ms": 18459.8,
+          "orchestration_ms": 18459.9,
+          "memory_write_ms": 1.4,
+          "api_total_ms": 30689.4
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.general": 1
+        }
+      },
+      "trace": {
+        "request_id": "50bdbab7",
+        "timestamp": "2026-10-26T11:47:02.704276",
+        "intent": "logistics",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_50bdbab7",
+            "input": {
+              "query": "订单金额60元选择标准配送，是否符合免运费条件",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 9456.8,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 2,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "配送说明",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 18459.9,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 79.6,
+          "intent_recognition_ms": 12148.4,
+          "agent_general_ms": 18459.8,
+          "orchestration_ms": 18459.9,
+          "memory_write_ms": 1.4,
+          "api_total_ms": 30689.4
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "配送说明"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "不符合满99元免运费条件"
+        ],
+        "forbidden_claims": [
+          "给出未满99元的具体运费"
+        ],
+        "required_string_diagnostics": {
+          "不符合满99元免运费条件": false
+        },
+        "forbidden_string_diagnostics": {
+          "给出未满99元的具体运费": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 30732.0
+    },
+    {
+      "case_id": "ground-v2-delivery-supported-002",
+      "query": "住在偏远地区，即使选择加急配送还可能额外增加多久",
+      "expected": {
+        "intent": "logistics",
+        "supported": true,
+        "title": "配送说明",
+        "evidence_basis": "偏远地区可能额外增加2-3天"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-delivery-supported-002-f612e204",
+        "request_id": "e1de8f24",
+        "response": "您好！根据平台的配送说明，如果您住在偏远地区，即使选择加急配送，可能还需要额外增加 2-3 天的时间。\n\n请问还有其他我可以帮您的吗？",
+        "intent": "logistics",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 20515.6,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7557,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.2034190510862431,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 63.6,
+          "intent_recognition_ms": 6966.5,
+          "agent_general_ms": 20515.6,
+          "orchestration_ms": 20515.7,
+          "memory_write_ms": 3.4,
+          "api_total_ms": 27549.2
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.general": 1
+        }
+      },
+      "trace": {
+        "request_id": "e1de8f24",
+        "timestamp": "2026-10-26T11:47:30.303334",
+        "intent": "logistics",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_e1de8f24",
+            "input": {
+              "query": "住在偏远地区，即使选择加急配送还可能额外增加多久",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 10901.5,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_topk_selected",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "配送说明",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 20515.6,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 63.6,
+          "intent_recognition_ms": 6966.5,
+          "agent_general_ms": 20515.6,
+          "orchestration_ms": 20515.7,
+          "memory_write_ms": 3.4,
+          "api_total_ms": 27549.2
+        }
+      },
+      "observed": {
+        "evidence_found": true,
+        "selected_titles": [
+          "配送说明"
+        ],
+        "evidence_gates": [
+          "semantic_topk_selected"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "可能额外增加2-3天"
+        ],
+        "forbidden_claims": [
+          "保证增加2天",
+          "给出确定送达日期"
+        ],
+        "required_string_diagnostics": {
+          "可能额外增加2-3天": false
+        },
+        "forbidden_string_diagnostics": {
+          "保证增加2天": false,
+          "给出确定送达日期": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 27592.2
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-001",
+      "query": "周六配送会不会额外收取周末服务费",
+      "expected": {
+        "intent": "logistics",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档没有周末服务费规则"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-delivery-gap-001-9219352b",
+        "request_id": "fe9c31d3",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "logistics",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 17024.9,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.665,
+        "intent_source_scores": {
+          "llm": 0.95,
+          "embedding": 0.16666666666666666,
+          "pattern": 0.5,
+          "llm_failed": 0.0,
+          "refined_by_pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 78.0,
+          "intent_recognition_ms": 6947.2,
+          "agent_general_ms": 17024.8,
+          "orchestration_ms": 17024.9,
+          "memory_write_ms": 1.8,
+          "api_total_ms": 24051.9
+        },
+        "llm_call_count": 2,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "fe9c31d3",
+        "timestamp": "2026-10-26T11:47:54.410396",
+        "intent": "logistics",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_fe9c31d3",
+            "input": {
+              "query": "周六配送会不会额外收取周末服务费",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 17024.7,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "fast_keyword",
+            "candidate_count": 1,
+            "evidence_gate": "semantic_selector_failed",
+            "evidence_selector_used": true,
+            "evidence_selector_success": false,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "APIConnectionError: Connection error.",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 17024.9,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 78.0,
+          "intent_recognition_ms": 6947.2,
+          "agent_general_ms": 17024.8,
+          "orchestration_ms": 17024.9,
+          "memory_write_ms": 1.8,
+          "api_total_ms": 24051.9
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_selector_failed"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": false,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": false,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": false,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有周末服务费规则"
+        ],
+        "forbidden_claims": [
+          "周末一定加价",
+          "周末一定不加价",
+          "编造服务费金额"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有周末服务费规则": false
+        },
+        "forbidden_string_diagnostics": {
+          "周末一定加价": false,
+          "周末一定不加价": false,
+          "编造服务费金额": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 24094.5
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-002",
+      "query": "平台默认会把包裹交给哪一家快递公司",
+      "expected": {
+        "intent": "logistics",
+        "supported": false,
+        "title": null,
+        "evidence_basis": "文档没有指定承运快递公司"
+      },
+      "actual": {
+        "conv_id": "ground-v2-ground-v2-delivery-gap-002-6dc0424d",
+        "request_id": "e5ff8ecd",
+        "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+        "intent": "logistics",
+        "intent_group": "query",
+        "agent_type": "general",
+        "agent_types": [
+          "general"
+        ],
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=0.77, technical=0.00, billing=0.00]",
+        "routing_confidence": 0.77,
+        "escalated": false,
+        "latency_ms": 50405.7,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.6753,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.22645540682891918,
+          "pattern": 0.5,
+          "llm_failed": 0.0,
+          "refined_by_pattern": 0.5
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 123.6,
+          "intent_recognition_ms": 24175.2,
+          "agent_general_ms": 50405.6,
+          "orchestration_ms": 50405.7,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 74708.2
+        },
+        "llm_call_count": 4,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "rag.query_rewrite": 1,
+          "rag.rerank": 1,
+          "evidence_selector": 1
+        }
+      },
+      "trace": {
+        "request_id": "e5ff8ecd",
+        "timestamp": "2026-10-26T11:55:01.485483",
+        "intent": "logistics",
+        "primary_agent": "general",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "general",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_e5ff8ecd",
+            "input": {
+              "query": "平台默认会把包裹交给哪一家快递公司",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 50405.4,
+            "cached": false,
+            "reranked": true,
+            "retrieval_mode": "full_rag",
+            "candidate_count": 3,
+            "evidence_gate": "semantic_unsupported",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "",
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": false
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 50405.7,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 123.6,
+          "intent_recognition_ms": 24175.2,
+          "agent_general_ms": 50405.6,
+          "orchestration_ms": 50405.7,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 74708.2
+        }
+      },
+      "observed": {
+        "evidence_found": false,
+        "selected_titles": [],
+        "evidence_gates": [
+          "semantic_unsupported"
+        ]
+      },
+      "checks": {
+        "intent_correct": true,
+        "selector_exercised": true,
+        "selector_success": true,
+        "evidence_classification_correct": true,
+        "strict_selection_correct": true,
+        "no_runtime_failure": true,
+        "non_empty_response": true
+      },
+      "automatic_pipeline_pass": true,
+      "answer_review": {
+        "status": "pending_human_review",
+        "expected_answer_facts": [
+          "知识库没有默认快递公司信息"
+        ],
+        "forbidden_claims": [
+          "编造快递公司名称"
+        ],
+        "required_string_diagnostics": {
+          "知识库没有默认快递公司信息": false
+        },
+        "forbidden_string_diagnostics": {
+          "编造快递公司名称": false
+        },
+        "diagnostic_warning": "String matches are not semantic-faithfulness scores."
+      },
+      "external_latency_ms": 74750.2
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "name": "grounded-chat-test-v2-human-review",
+  "reviewed_on": "2026-10-26",
+  "source_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
+  "source_report_sha256": "6f5905f6e1b1b1ae5224218844d6d8156551f1ffb04b856f8779063667b89795",
+  "dataset_sha256": "b90847bd1ac6dff852a930ebc9c1ab6eb9d2a7a6ef4a331587db3415fc7b6c13",
+  "method": "manual semantic review against each frozen expected_answer_facts and forbidden_claims field; ambiguous unsupported platform guidance is conservatively failed",
+  "reviewed_cases": 24,
+  "passed_cases": 20,
+  "failed_cases": 4,
+  "pass_rate": 0.8333,
+  "cases": [
+    {
+      "case_id": "ground-v2-refund-supported-001",
+      "verdict": "fail",
+      "reason": "Required quality-evidence fact was present, but the answer added unsupported photo/video format guidance covered by the frozen evidence-format prohibition."
+    },
+    {
+      "case_id": "ground-v2-refund-supported-002",
+      "verdict": "pass",
+      "reason": "Correctly required the return flow before refund and made no forbidden promise."
+    },
+    {
+      "case_id": "ground-v2-refund-gap-001",
+      "verdict": "fail",
+      "reason": "Correctly noted the missing account-change rule, then invented a usual special-handling path involving manual or finance review and proof documents."
+    },
+    {
+      "case_id": "ground-v2-refund-gap-002",
+      "verdict": "pass",
+      "reason": "Clearly declined to invent a post-signature review start time."
+    },
+    {
+      "case_id": "ground-v2-order-supported-001",
+      "verdict": "pass",
+      "reason": "Correctly stated that day six has not crossed the seven-day inquiry threshold."
+    },
+    {
+      "case_id": "ground-v2-order-supported-002",
+      "verdict": "pass",
+      "reason": "Correctly identified the order number as the minimum identifier."
+    },
+    {
+      "case_id": "ground-v2-order-gap-001",
+      "verdict": "pass",
+      "reason": "Did not invent an automatic-completion duration."
+    },
+    {
+      "case_id": "ground-v2-order-gap-002",
+      "verdict": "pass",
+      "reason": "Did not invent a courier phone lookup entry or phone number."
+    },
+    {
+      "case_id": "ground-v2-account-supported-001",
+      "verdict": "pass",
+      "reason": "Correctly stated that digits alone fail and that at least eight characters with letters and digits are required."
+    },
+    {
+      "case_id": "ground-v2-account-supported-002",
+      "verdict": "pass",
+      "reason": "Correctly stated that the account is automatically locked and a notification is sent."
+    },
+    {
+      "case_id": "ground-v2-account-gap-001",
+      "verdict": "pass",
+      "reason": "Did not invent the number of recovery-code groups."
+    },
+    {
+      "case_id": "ground-v2-account-gap-002",
+      "verdict": "pass",
+      "reason": "Did not invent an automatic-unlock duration."
+    },
+    {
+      "case_id": "ground-v2-technical-supported-001",
+      "verdict": "pass",
+      "reason": "Correctly recommended updating to the latest version and did not require deleting user data or reinstalling the operating system."
+    },
+    {
+      "case_id": "ground-v2-technical-supported-002",
+      "verdict": "pass",
+      "reason": "Correctly required checking whether online payment is enabled without promising success or requesting a full card number."
+    },
+    {
+      "case_id": "ground-v2-technical-gap-001",
+      "verdict": "fail",
+      "reason": "It admitted the platform limit was unknown but still supplied concrete retry and waiting numbers, including 3, 5, 10, 15-30 minutes and 24 hours."
+    },
+    {
+      "case_id": "ground-v2-technical-gap-002",
+      "verdict": "pass",
+      "reason": "Correctly declined to claim automatic compensation or an amount."
+    },
+    {
+      "case_id": "ground-v2-member-supported-001",
+      "verdict": "pass",
+      "reason": "Correctly answered silver membership and a 5 percent discount."
+    },
+    {
+      "case_id": "ground-v2-member-supported-002",
+      "verdict": "pass",
+      "reason": "Correctly performed the deterministic conversion to 4.5 yuan and did not claim cash withdrawal."
+    },
+    {
+      "case_id": "ground-v2-member-gap-001",
+      "verdict": "fail",
+      "reason": "It did not assert transfer permission, but invented possible membership/activity-dependent rules and a specific UI path for transfer documentation."
+    },
+    {
+      "case_id": "ground-v2-member-gap-002",
+      "verdict": "pass",
+      "reason": "Did not assert either annual reset or permanent accumulation."
+    },
+    {
+      "case_id": "ground-v2-delivery-supported-001",
+      "verdict": "pass",
+      "reason": "Correctly stated that 60 yuan does not meet the 99-yuan free-shipping threshold without inventing the shipping fee."
+    },
+    {
+      "case_id": "ground-v2-delivery-supported-002",
+      "verdict": "pass",
+      "reason": "Correctly stated a possible additional two to three days without guaranteeing a delivery date."
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-001",
+      "verdict": "pass",
+      "reason": "The selector failed because of a provider connection error, but the final answer safely declined to invent a weekend surcharge rule."
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-002",
+      "verdict": "pass",
+      "reason": "Correctly rejected the unsupported default-carrier question without naming a carrier."
+    }
+  ],
+  "claim_boundary": "This is a conservative review of 24 frozen cases, not a production accuracy estimate."
+}

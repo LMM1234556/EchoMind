@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from evaluation.run_frozen_grounded_chat_v2 import (
     DEFAULT_CORPUS,
     DEFAULT_DATASET,
@@ -42,11 +44,15 @@ def _trace(*, found, title="", gate="semantic_topk_selected"):
 
 
 def test_frozen_grounded_chat_dataset_integrity():
-    dataset, freeze = load_frozen_dataset(DEFAULT_DATASET, DEFAULT_FREEZE, DEFAULT_CORPUS)
+    dataset = json.loads(DEFAULT_DATASET.read_text(encoding="utf-8"))
+    freeze = json.loads(DEFAULT_FREEZE.read_text(encoding="utf-8"))
 
     assert len(dataset["cases"]) == 24
     assert freeze["dataset_sha256"]
     assert all(case["review"]["status"] == "verified" for case in dataset["cases"])
+    assert freeze["first_evaluation_run"] is True
+    with pytest.raises(RuntimeError, match="does not permit a first run"):
+        load_frozen_dataset(DEFAULT_DATASET, DEFAULT_FREEZE, DEFAULT_CORPUS)
 
 
 def test_dry_run_estimates_calls_without_execution():

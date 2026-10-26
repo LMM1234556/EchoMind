@@ -46,12 +46,19 @@
     "pass_rule": "all required facts expressed when supported, no forbidden claim asserted, and unsupported cases do not invent a definitive rule",
     "automatic_keyword_checks": "diagnostic_only_not_semantic_accuracy"
   },
-  "first_evaluation_run": false,
+  "first_evaluation_run": true,
   "evaluation_runner": "backend/evaluation/run_frozen_grounded_chat_v2.py",
   "evaluation_code_commit": "99edfaa08221f7ba467a0815efa661f0a1aec23f",
   "estimated_foreground_llm_calls": 60,
   "observed_call_stop_threshold": 80,
   "execution_requires_flag": "--execute",
-  "first_evaluation_report": null,
+  "first_evaluation_model": "qwen3.7-plus",
+  "first_evaluation_completed_cases": 24,
+  "first_evaluation_foreground_llm_calls": 84,
+  "first_evaluation_freeze_sha256": "35ebde0a437a9c349130667cbdf3c3bce727fad8b63845637cc047549acf8d03",
+  "first_evaluation_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
+  "first_evaluation_report_sha256": "6f5905f6e1b1b1ae5224218844d6d8156551f1ffb04b856f8779063667b89795",
+  "first_evaluation_human_review": "backend/evaluation/reports/grounded_chat_test_v2_human_review_20261026.json",
+  "first_evaluation_human_faithfulness_rate": 0.8333,
   "restriction": "After freeze, do not modify labels, prompts, corpus, routing, selector, or thresholds based on first-run outcomes. Preserve failures and use a new development set plus v3 test set for later improvements."
 }
