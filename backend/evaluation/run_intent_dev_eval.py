@@ -15,9 +15,13 @@ from evaluation.run_frozen_intent_test import _evaluate_one, _write_json, comput
 
 
 async def run(args: argparse.Namespace) -> int:
-    metadata, cases = load_dataset(args.dataset)
-    if not cases or any(case.label_status != "verified" or case.split != "dev" for case in cases):
-        raise RuntimeError("development evaluation requires only verified/dev cases")
+    metadata, all_cases = load_dataset(args.dataset)
+    cases = [
+        case for case in all_cases
+        if case.label_status == "verified" and case.split == "dev"
+    ]
+    if not cases:
+        raise RuntimeError("development evaluation requires verified/dev cases")
 
     load_dotenv(args.env_file, override=True)
     api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
@@ -28,7 +32,11 @@ async def run(args: argparse.Namespace) -> int:
 
     recognizer = IntentRecognizer(api_key=api_key, base_url=base_url, model=model)
     completed = []
-    print(f"dev_eval_start total={len(cases)} model={model}", flush=True)
+    print(
+        f"dev_eval_start total={len(cases)} excluded={len(all_cases) - len(cases)} "
+        f"model={model}",
+        flush=True,
+    )
     for offset in range(0, len(cases), args.concurrency):
         batch = cases[offset:offset + args.concurrency]
         rows = await asyncio.gather(*(
