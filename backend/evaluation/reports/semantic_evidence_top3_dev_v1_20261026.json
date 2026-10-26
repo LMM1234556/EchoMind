@@ -1,0 +1,604 @@
+{
+  "name": "semantic-evidence-topk-dev-evaluation-v1",
+  "completed_at": "2026-10-26T06:33:33.443260+00:00",
+  "warning": "development-set result; not an independent test result",
+  "dataset": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\evidence_gate_dev_v1.json",
+  "dataset_sha256": "8adbdf4e0c6a3f7b16f8eacc9587f9e10c884312c525084fe9fd8b2301a66b87",
+  "retrieval_report": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\reports\\evidence_gate_dev_v1_20261026.json",
+  "retrieval_report_sha256": "780375d6f9a43f30831a37bbb500a3920a5295a072b0a4db93b8e815169ad7fc",
+  "model": "qwen3.7-plus",
+  "base_url_configured": true,
+  "top_k": 3,
+  "batch_size": 5,
+  "api_calls": 6,
+  "usage": {
+    "input_tokens": 11242,
+    "output_tokens": 7053
+  },
+  "metrics": {
+    "total": 30,
+    "tp": 18,
+    "fp": 0,
+    "fn": 0,
+    "tn": 12,
+    "classification_accuracy": 1.0,
+    "strict_selection_accuracy": 1.0,
+    "supported_precision": 1.0,
+    "supported_recall": 1.0,
+    "supported_f1": 1.0,
+    "correct_rejection_rate": 1.0,
+    "macro_f1": 1.0
+  },
+  "cases": [
+    {
+      "id": "gate-refund-supported-001",
+      "query": "下单第六天不想要了，申请退款必须说明原因吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "退款政策",
+      "evidence": "文档说明购买后7天内可申请无理由退款，第六天属于此范围，无需说明原因。",
+      "candidate_title": "退款政策",
+      "retrieved_titles": [
+        "退款政策",
+        "订单查询",
+        "配送说明"
+      ],
+      "retrieved_scores": [
+        0.72179258,
+        0.51808441,
+        0.49008426
+      ]
+    },
+    {
+      "id": "gate-refund-supported-002",
+      "query": "退款申请提交后，审核最晚通常需要几个工作日",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "退款政策",
+      "evidence": "文档明确说明退款申请提交后，系统会在1-3个工作日内审核，最晚为3个工作日。",
+      "candidate_title": "退款政策",
+      "retrieved_titles": [
+        "退款政策",
+        "订单查询",
+        "配送说明"
+      ],
+      "retrieved_scores": [
+        0.75584781,
+        0.53659046,
+        0.52922726
+      ]
+    },
+    {
+      "id": "gate-refund-supported-003",
+      "query": "买了二十天才发现商品质量有问题，退款需要提交证明吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "退款政策",
+      "evidence": "文档说明超过7天但未超过30天的订单，需要提供商品质量问题的证据才能退款，20天符合此条件。",
+      "candidate_title": "退款政策",
+      "retrieved_titles": [
+        "退款政策",
+        "账户安全",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.72845715,
+        0.53959388,
+        0.5069508
+      ]
+    },
+    {
+      "id": "gate-refund-gap-001",
+      "query": "退款后原订单使用的优惠券会自动退回吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档均未提及退款后原订单使用的优惠券是否会自动退回。",
+      "candidate_title": "退款政策",
+      "retrieved_titles": [
+        "退款政策",
+        "会员与积分",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.66790009,
+        0.50231612,
+        0.49740586
+      ]
+    },
+    {
+      "id": "gate-refund-gap-002",
+      "query": "已经激活的虚拟商品是否还能申请退款",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档均未提及已经激活的虚拟商品是否还能申请退款。",
+      "candidate_title": "退款政策",
+      "retrieved_titles": [
+        "退款政策",
+        "技术故障排查",
+        "账户安全"
+      ],
+      "retrieved_scores": [
+        0.66856444,
+        0.48604205,
+        0.46441227
+      ]
+    },
+    {
+      "id": "gate-order-supported-001",
+      "query": "联系客服查询订单状态时应该先提供什么号码",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "订单查询",
+      "evidence": "文档明确指出如果订单显示异常，请提供订单号联系客服处理。",
+      "candidate_title": "订单查询",
+      "retrieved_titles": [
+        "订单查询",
+        "配送说明",
+        "账户安全"
+      ],
+      "retrieved_scores": [
+        0.7961427,
+        0.60447609,
+        0.54351705
+      ]
+    },
+    {
+      "id": "gate-order-supported-002",
+      "query": "发货后一天还没有物流记录，是否仍在正常更新时间内",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "订单查询",
+      "evidence": "文档说明物流信息通常在发货后24小时内更新，可据此判断发货后一天是否仍在正常更新时间内。",
+      "candidate_title": "订单查询",
+      "retrieved_titles": [
+        "订单查询",
+        "配送说明",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.65045762,
+        0.57901293,
+        0.53530085
+      ]
+    },
+    {
+      "id": "gate-order-supported-003",
+      "query": "订单发出九天还没收到，可以联系平台申请查件吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "订单查询",
+      "evidence": "文档明确规定订单显示已发货但超过7天未收到可以联系客服申请查件，9天符合该条件。",
+      "candidate_title": "订单查询",
+      "retrieved_titles": [
+        "订单查询",
+        "退款政策",
+        "配送说明"
+      ],
+      "retrieved_scores": [
+        0.72590488,
+        0.61783433,
+        0.55589765
+      ]
+    },
+    {
+      "id": "gate-order-gap-001",
+      "query": "付款后还能把商品颜色换成另一个规格吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档中均未提及付款后修改商品颜色或规格的相关规则。",
+      "candidate_title": "订单查询",
+      "retrieved_titles": [
+        "退款政策",
+        "会员与积分",
+        "账户安全"
+      ],
+      "retrieved_scores": [
+        0.50372714,
+        0.45779538,
+        0.42322677
+      ]
+    },
+    {
+      "id": "gate-order-gap-002",
+      "query": "两个不同订单可以合并成一个包裹发货吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档中均未提及是否可以将两个不同订单合并成一个包裹发货的规则。",
+      "candidate_title": "订单查询",
+      "retrieved_titles": [
+        "订单查询",
+        "配送说明",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.55885357,
+        0.51061434,
+        0.45960453
+      ]
+    },
+    {
+      "id": "gate-security-supported-001",
+      "query": "设置安全密码时，文档要求至少多长并包含哪些字符",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "账户安全",
+      "evidence": "文档明确指出密码长度至少8位，包含字母和数字。",
+      "candidate_title": "账户安全",
+      "retrieved_titles": [
+        "账户安全",
+        "技术故障排查",
+        "配送说明"
+      ],
+      "retrieved_scores": [
+        0.63018537,
+        0.44937891,
+        0.36167225
+      ]
+    },
+    {
+      "id": "gate-security-supported-002",
+      "query": "忘记登录密码后，可以通过绑定手机完成重置吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "账户安全",
+      "evidence": "文档说明如果忘记密码，可以通过绑定的手机号或邮箱重置。",
+      "candidate_title": "账户安全",
+      "retrieved_titles": [
+        "账户安全",
+        "技术故障排查",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.70304936,
+        0.53881651,
+        0.41277376
+      ]
+    },
+    {
+      "id": "gate-security-supported-003",
+      "query": "发现异常登录时平台会锁住账号并通知我吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "账户安全",
+      "evidence": "文档提到发现账户异常登录时，系统会自动锁定账户并发送通知。",
+      "candidate_title": "账户安全",
+      "retrieved_titles": [
+        "账户安全",
+        "技术故障排查",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.68500364,
+        0.58696514,
+        0.52591747
+      ]
+    },
+    {
+      "id": "gate-security-gap-001",
+      "query": "一个账户最多可以绑定多少台可信设备",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档均未提及一个账户最多可以绑定多少台可信设备。",
+      "candidate_title": "账户安全",
+      "retrieved_titles": [
+        "账户安全",
+        "技术故障排查",
+        "会员与积分"
+      ],
+      "retrieved_scores": [
+        0.59357882,
+        0.50687516,
+        0.47905532
+      ]
+    },
+    {
+      "id": "gate-security-gap-002",
+      "query": "注销账号以后历史数据会保留多少天",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档均未提及注销账号后历史数据的保留天数。",
+      "candidate_title": "账户安全",
+      "retrieved_titles": [
+        "退款政策",
+        "账户安全",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.54100174,
+        0.5370847,
+        0.47647262
+      ]
+    },
+    {
+      "id": "gate-technical-supported-001",
+      "query": "应用频繁闪退，清缓存重启后还要检查什么",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "技术故障排查",
+      "evidence": "文档明确指出应用崩溃清除缓存重启后，如果问题持续请更新到最新版本。",
+      "candidate_title": "技术故障排查",
+      "retrieved_titles": [
+        "技术故障排查",
+        "账户安全",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.69183749,
+        0.50426006,
+        0.48789537
+      ]
+    },
+    {
+      "id": "gate-technical-supported-002",
+      "query": "登录报 401 时可以尝试重新设置密码吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "技术故障排查",
+      "evidence": "文档明确指出登录失败 401 错误时，可以尝试重置密码。",
+      "candidate_title": "技术故障排查",
+      "retrieved_titles": [
+        "账户安全",
+        "技术故障排查",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.68788248,
+        0.59849298,
+        0.42171368
+      ]
+    },
+    {
+      "id": "gate-technical-supported-003",
+      "query": "支付失败时需要确认银行卡有没有开通网上支付吗",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "技术故障排查",
+      "evidence": "文档明确指出支付失败时，需要检查是否开启了网上支付功能。",
+      "candidate_title": "技术故障排查",
+      "retrieved_titles": [
+        "技术故障排查",
+        "账户安全",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.70942616,
+        0.52639234,
+        0.52146345
+      ]
+    },
+    {
+      "id": "gate-technical-gap-001",
+      "query": "上传附件时单个文件最大允许多少 MB",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档中均未提及上传附件的大小限制信息。",
+      "candidate_title": "技术故障排查",
+      "retrieved_titles": [
+        "配送说明",
+        "账户安全",
+        "会员与积分"
+      ],
+      "retrieved_scores": [
+        0.47255579,
+        0.44806069,
+        0.42091888
+      ]
+    },
+    {
+      "id": "gate-technical-gap-002",
+      "query": "桌面客户端最低支持哪个 Windows 版本",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档中均未提及桌面客户端最低支持的 Windows 版本信息。",
+      "candidate_title": "技术故障排查",
+      "retrieved_titles": [
+        "技术故障排查",
+        "账户安全",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.54901427,
+        0.41065449,
+        0.34901962
+      ]
+    },
+    {
+      "id": "gate-member-supported-001",
+      "query": "累计消费一千二百元以后属于什么会员等级",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "会员与积分",
+      "evidence": "文档明确指出银卡会员需累计消费1000元，金卡会员需5000元，1200元属于银卡会员。",
+      "candidate_title": "会员与积分",
+      "retrieved_titles": [
+        "会员与积分",
+        "配送说明",
+        "技术故障排查"
+      ],
+      "retrieved_scores": [
+        0.70895308,
+        0.48451501,
+        0.44274774
+      ]
+    },
+    {
+      "id": "gate-member-supported-002",
+      "query": "两百积分在下次购物时可以抵扣几元",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "会员与积分",
+      "evidence": "文档明确说明100积分等于1元，据此可计算出200积分可抵扣2元。",
+      "candidate_title": "会员与积分",
+      "retrieved_titles": [
+        "会员与积分",
+        "配送说明",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.7159732,
+        0.49712488,
+        0.43518752
+      ]
+    },
+    {
+      "id": "gate-member-supported-003",
+      "query": "生日月消费获得的积分是不是平时的两倍",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "会员与积分",
+      "evidence": "文档明确说明生日当月消费可获得双倍积分。",
+      "candidate_title": "会员与积分",
+      "retrieved_titles": [
+        "会员与积分",
+        "配送说明",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.66979235,
+        0.4193601,
+        0.35444692
+      ]
+    },
+    {
+      "id": "gate-member-gap-001",
+      "query": "账户里的积分可以提现吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档仅说明积分可用于购物抵扣及有效期等规则，未提及积分是否可以提现。",
+      "candidate_title": "会员与积分",
+      "retrieved_titles": [
+        "会员与积分",
+        "账户安全",
+        "技术故障排查"
+      ],
+      "retrieved_scores": [
+        0.5813992,
+        0.47451717,
+        0.40681943
+      ]
+    },
+    {
+      "id": "gate-member-gap-002",
+      "query": "夫妻两个人的会员消费金额能合并计算吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "候选文档仅说明个人累计消费金额与会员等级的关系，未提及夫妻消费金额是否能合并计算。",
+      "candidate_title": "会员与积分",
+      "retrieved_titles": [
+        "会员与积分",
+        "退款政策",
+        "账户安全"
+      ],
+      "retrieved_scores": [
+        0.6003812,
+        0.36853829,
+        0.36697084
+      ]
+    },
+    {
+      "id": "gate-delivery-supported-001",
+      "query": "普通配送想免邮，订单金额需要达到多少",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "配送说明",
+      "evidence": "文档明确说明标准配送免运费的条件是订单满99元。",
+      "candidate_title": "配送说明",
+      "retrieved_titles": [
+        "配送说明",
+        "订单查询",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.70671004,
+        0.54945749,
+        0.50947124
+      ]
+    },
+    {
+      "id": "gate-delivery-supported-002",
+      "query": "每天可以安排配送的时间范围是几点到几点",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "配送说明",
+      "evidence": "文档明确说明配送时间为每天9:00-18:00。",
+      "candidate_title": "配送说明",
+      "retrieved_titles": [
+        "配送说明",
+        "订单查询",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.74501479,
+        0.51928914,
+        0.4796699
+      ]
+    },
+    {
+      "id": "gate-delivery-supported-003",
+      "query": "偏远地区一般要在标准时效上再增加多久",
+      "expected_supported": true,
+      "predicted_supported": true,
+      "selected_title": "配送说明",
+      "evidence": "文档明确说明偏远地区可能需要额外2-3天。",
+      "candidate_title": "配送说明",
+      "retrieved_titles": [
+        "配送说明",
+        "退款政策",
+        "账户安全"
+      ],
+      "retrieved_scores": [
+        0.57331532,
+        0.45409825,
+        0.40521783
+      ]
+    },
+    {
+      "id": "gate-delivery-gap-001",
+      "query": "配送前可以预约具体到某个小时送达吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "缺少是否可以预约具体到某个小时送达的信息。",
+      "candidate_title": "配送说明",
+      "retrieved_titles": [
+        "配送说明",
+        "订单查询",
+        "退款政策"
+      ],
+      "retrieved_scores": [
+        0.72877765,
+        0.52606422,
+        0.49917138
+      ]
+    },
+    {
+      "id": "gate-delivery-gap-002",
+      "query": "需要冷藏的商品运输时会提供保温箱吗",
+      "expected_supported": false,
+      "predicted_supported": false,
+      "selected_title": null,
+      "evidence": "缺少关于冷藏商品运输是否提供保温箱的信息。",
+      "candidate_title": "配送说明",
+      "retrieved_titles": [
+        "配送说明",
+        "退款政策",
+        "订单查询"
+      ],
+      "retrieved_scores": [
+        0.46115446,
+        0.45216811,
+        0.41893789
+      ]
+    }
+  ]
+}
