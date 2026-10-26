@@ -1,10 +1,11 @@
 {
   "metadata": {
-    "name": "grounded-chat-test-v2-candidates",
-    "version": "2.0-candidate",
+    "name": "grounded-chat-test-v2",
+    "version": "2.0",
     "created_on": "2026-10-26",
-    "frozen": false,
-    "evaluation_status": "human_review_complete_pending_freeze",
+    "frozen": true,
+    "frozen_on": "2026-10-26",
+    "evaluation_status": "frozen_not_run",
     "purpose": "independent Top-3 evidence selection and grounded-answer evaluation after production integration",
     "source": "ai_drafted_from_frozen_corpus_then_human_review_required",
     "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
@@ -12,6 +13,7 @@
     "supported_cases": 12,
     "knowledge_gap_cases": 12,
     "reviewer": "project_owner",
+    "human_review_completed_commit": "e4e50ae",
     "reviewed_cases": 24
   },
   "cases": [

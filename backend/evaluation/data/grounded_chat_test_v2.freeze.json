@@ -1,0 +1,53 @@
+{
+  "name": "grounded-chat-test-v2-freeze",
+  "dataset_path": "backend/evaluation/data/grounded_chat_test_v2.json",
+  "dataset_sha256": "b90847bd1ac6dff852a930ebc9c1ab6eb9d2a7a6ef4a331587db3415fc7b6c13",
+  "corpus_path": "backend/evaluation/data/retrieval_corpus_v1.json",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "created_on": "2026-10-26",
+  "frozen_on": "2026-10-26",
+  "candidate_set_creation_commit": "99352923cf644fefc7247e2d907389882a218b5c",
+  "human_review_completed_commit": "e4e50aeba23ef80bdfdd5d12035987f2f9b8714f",
+  "system_under_test_commit": "c0cb495fd4eba1ab4bc3036a466d213d2f2fdb3c",
+  "reviewer": "project_owner",
+  "total_cases": 24,
+  "supported_cases": 12,
+  "knowledge_gap_cases": 12,
+  "reviewed_cases": 24,
+  "development_and_v1_exact_overlaps": 0,
+  "development_and_v1_near_overlaps": 0,
+  "internal_exact_overlaps": 0,
+  "internal_near_overlaps": 0,
+  "near_duplicate_threshold": 0.8,
+  "evaluation_target": "production POST /chat with Top-3 semantic evidence selector enabled",
+  "fixed_runtime": {
+    "evidence_selector_enabled": true,
+    "top_k": 3,
+    "temperature": 0,
+    "fresh_user_and_conversation_per_case": true,
+    "sequential_requests": true
+  },
+  "automatic_metrics": [
+    "intent_accuracy",
+    "evidence_classification_accuracy",
+    "strict_evidence_selection_accuracy",
+    "correct_rejection_rate",
+    "false_acceptance_rate",
+    "api_latency_p50_p95",
+    "foreground_llm_call_count",
+    "llm_calls_by_component"
+  ],
+  "answer_faithfulness_protocol": {
+    "method": "human_review_against_frozen_rubric",
+    "required_fields": [
+      "expected_answer_facts",
+      "forbidden_claims"
+    ],
+    "pass_rule": "all required facts expressed when supported, no forbidden claim asserted, and unsupported cases do not invent a definitive rule",
+    "automatic_keyword_checks": "diagnostic_only_not_semantic_accuracy"
+  },
+  "first_evaluation_run": false,
+  "evaluation_code_commit": null,
+  "first_evaluation_report": null,
+  "restriction": "After freeze, do not modify labels, prompts, corpus, routing, selector, or thresholds based on first-run outcomes. Preserve failures and use a new development set plus v3 test set for later improvements."
+}
