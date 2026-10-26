@@ -1,14 +1,17 @@
 {
-  "name": "grounded-chat-test-v2-human-review",
+  "name": "grounded-chat-test-v2-semantic-review-draft",
+  "status": "draft_pending_project_owner_confirmation",
+  "reviewer": "codex_assisted_review",
+  "project_owner_confirmed": false,
   "reviewed_on": "2026-10-26",
   "source_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
   "source_report_sha256": "6f5905f6e1b1b1ae5224218844d6d8156551f1ffb04b856f8779063667b89795",
   "dataset_sha256": "b90847bd1ac6dff852a930ebc9c1ab6eb9d2a7a6ef4a331587db3415fc7b6c13",
-  "method": "manual semantic review against each frozen expected_answer_facts and forbidden_claims field; ambiguous unsupported platform guidance is conservatively failed",
+  "method": "Codex-assisted semantic review against each frozen expected_answer_facts and forbidden_claims field; ambiguous unsupported platform guidance is conservatively failed",
   "reviewed_cases": 24,
   "passed_cases": 20,
   "failed_cases": 4,
-  "pass_rate": 0.8333,
+  "provisional_pass_rate": 0.8333,
   "cases": [
     {
       "case_id": "ground-v2-refund-supported-001",
@@ -131,5 +134,5 @@
       "reason": "Correctly rejected the unsupported default-carrier question without naming a carrier."
     }
   ],
-  "claim_boundary": "This is a conservative review of 24 frozen cases, not a production accuracy estimate."
+  "claim_boundary": "This is a Codex-assisted draft, not completed human review or a production accuracy estimate. The project owner must confirm every verdict before reporting answer-faithfulness as a final metric."
 }
