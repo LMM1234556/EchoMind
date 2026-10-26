@@ -12,6 +12,7 @@
   "candidate_set_creation_commit": "1b068b7",
   "human_review_completed_commit": "a8a2bf8aa34e8148cf0d8784fb71daf796298711",
   "gate_rules_commit": "c57dbf7",
+  "evaluation_code_commit": "0489c2db643ade1e5f70537d8bf362721afdf323",
   "reviewer": "project_owner",
   "total_cases": 42,
   "supported_cases": 24,
