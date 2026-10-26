@@ -1,16 +1,18 @@
 {
   "metadata": {
-    "name": "evidence-gate-dev-v1-candidates",
-    "version": "1.0-candidate",
+    "name": "evidence-gate-dev-v1",
+    "version": "1.0",
     "created_on": "2026-10-26",
     "purpose": "development-only evidence support classification for close-domain knowledge gaps",
-    "source": "ai_drafted_from_frozen_corpus_for_human_review",
+    "source": "ai_drafted_then_human_reviewed",
+    "reviewer": "project_owner",
+    "human_review_completed_on": "2026-10-26",
     "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
     "total_cases": 30,
     "supported_cases": 18,
     "knowledge_gap_cases": 12,
-    "reviewed_cases": 20,
-    "scoreable_total": 0
+    "reviewed_cases": 30,
+    "scoreable_total": 30
   },
   "cases": [
     {
@@ -179,7 +181,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "累计消费 1000 元达到银卡会员",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-member-supported-002",
@@ -187,7 +189,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "100 积分等于 1 元",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-member-supported-003",
@@ -195,7 +197,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": true,
       "label_basis": "生日当月消费获得双倍积分",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-member-gap-001",
@@ -203,7 +205,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": false,
       "label_basis": "文档没有积分提现规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-member-gap-002",
@@ -211,7 +213,7 @@
       "candidate_title": "会员与积分",
       "expected_supported": false,
       "label_basis": "文档没有会员账户合并规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-delivery-supported-001",
@@ -219,7 +221,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "标准配送订单满 99 元免运费",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-delivery-supported-002",
@@ -227,7 +229,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "配送时间为每天 9:00-18:00",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-delivery-supported-003",
@@ -235,7 +237,7 @@
       "candidate_title": "配送说明",
       "expected_supported": true,
       "label_basis": "偏远地区额外 2-3 天",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-delivery-gap-001",
@@ -243,7 +245,7 @@
       "candidate_title": "配送说明",
       "expected_supported": false,
       "label_basis": "文档只有配送时间范围，没有预约小时服务",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-delivery-gap-002",
@@ -251,7 +253,7 @@
       "candidate_title": "配送说明",
       "expected_supported": false,
       "label_basis": "文档没有冷链或保温包装服务",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     }
   ]
 }
