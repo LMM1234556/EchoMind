@@ -173,13 +173,13 @@
     },
     {
       "id": "ground-v2-technical-gap-001",
-      "query": "登录连续报401后账号会被锁定多长时间",
+      "query": "登录连续报401时，最多允许重试多少次",
       "intended_intent": "technical_login",
       "expected_supported": false,
       "expected_title": null,
-      "evidence_basis": "技术文档说明401含义和排查方式，没有锁定时长",
-      "expected_answer_facts": ["知识库没有账号锁定时长"],
-      "forbidden_claims": ["给出锁定分钟数或小时数"],
+      "evidence_basis": "技术文档说明401含义和排查方式，没有登录重试次数上限",
+      "expected_answer_facts": ["知识库没有401重试次数上限"],
+      "forbidden_claims": ["给出允许重试的具体次数"],
       "review": {"status": "pending", "reviewer": null, "notes": null}
     },
     {
