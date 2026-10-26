@@ -33,6 +33,53 @@ def load_corpus(path: pathlib.Path) -> tuple[Dict[str, Any], List[Dict[str, str]
     return metadata, documents
 
 
+def load_test_dataset(
+    path: pathlib.Path,
+    require_frozen: bool = True,
+) -> tuple[Dict[str, Any], List[LabelledRetrievalCase]]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    metadata = dict(payload.get("metadata") or {})
+    raw_cases = list(payload.get("cases") or [])
+    if require_frozen and metadata.get("frozen") is not True:
+        raise ValueError("retrieval test dataset is not frozen")
+    if metadata.get("total_cases") != len(raw_cases):
+        raise ValueError("test total_cases does not match cases")
+    if metadata.get("reviewed_cases") != len(raw_cases):
+        raise ValueError("all retrieval test cases must be reviewed")
+    if metadata.get("scoreable_total") != len(raw_cases):
+        raise ValueError("frozen retrieval test cases must all be scoreable")
+
+    cases: List[LabelledRetrievalCase] = []
+    seen_ids = set()
+    seen_queries = set()
+    valid_types = {"positive", "hard_negative", "out_of_domain"}
+    for item in raw_cases:
+        case_id = str(item.get("id", "")).strip()
+        query = str(item.get("query", "")).strip()
+        case_type = str(item.get("case_type", "")).strip()
+        expected_title = item.get("expected_title")
+        review = item.get("review") or {}
+        if not case_id or not query or case_type not in valid_types:
+            raise ValueError("retrieval test case has invalid required fields")
+        if case_id in seen_ids or query in seen_queries:
+            raise ValueError("retrieval test ids and queries must be unique")
+        if review.get("status") != "verified" or not review.get("reviewer"):
+            raise ValueError("retrieval test case is not verified")
+        if case_type == "positive" and not expected_title:
+            raise ValueError("positive retrieval case must have expected_title")
+        if case_type != "positive" and expected_title is not None:
+            raise ValueError("negative retrieval case must not have expected_title")
+        seen_ids.add(case_id)
+        seen_queries.add(query)
+        cases.append(LabelledRetrievalCase(
+            id=case_id,
+            query=query,
+            expected_title=str(expected_title) if expected_title is not None else None,
+            case_type=case_type,
+        ))
+    return metadata, cases
+
+
 def normalize_documents(documents: Iterable[Dict[str, Any]]) -> List[Dict[str, str]]:
     """Compare corpus content without relying on collection insertion order."""
     return sorted(

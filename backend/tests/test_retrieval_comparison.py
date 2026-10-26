@@ -10,6 +10,7 @@ from evaluation.retrieval_comparison import (
     calibrate_threshold,
     collect_rankings,
     load_corpus,
+    load_test_dataset,
     summarize_retrieval,
 )
 
@@ -87,3 +88,52 @@ def test_load_corpus_validates_document_count(tmp_path):
 
     with pytest.raises(ValueError, match="document_count"):
         load_corpus(path)
+
+
+def test_load_test_dataset_requires_frozen_reviewed_scoreable_cases(tmp_path):
+    path = tmp_path / "test.json"
+    path.write_text(json.dumps({
+        "metadata": {
+            "frozen": True,
+            "total_cases": 2,
+            "reviewed_cases": 2,
+            "scoreable_total": 2,
+        },
+        "cases": [
+            {
+                "id": "p1",
+                "query": "answerable",
+                "expected_title": "A",
+                "case_type": "positive",
+                "review": {"status": "verified", "reviewer": "owner"},
+            },
+            {
+                "id": "n1",
+                "query": "not answerable",
+                "expected_title": None,
+                "case_type": "hard_negative",
+                "review": {"status": "verified", "reviewer": "owner"},
+            },
+        ],
+    }), encoding="utf-8")
+
+    metadata, cases = load_test_dataset(path)
+
+    assert metadata["frozen"] is True
+    assert [case.id for case in cases] == ["p1", "n1"]
+
+
+def test_load_test_dataset_refuses_unfrozen_data(tmp_path):
+    path = tmp_path / "test.json"
+    path.write_text(json.dumps({
+        "metadata": {
+            "frozen": False,
+            "total_cases": 0,
+            "reviewed_cases": 0,
+            "scoreable_total": 0,
+        },
+        "cases": [],
+    }), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="not frozen"):
+        load_test_dataset(path)
