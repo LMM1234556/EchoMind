@@ -113,7 +113,7 @@
       "evidence_basis": "密码至少8位且必须包含字母和数字，纯数字不符合",
       "expected_answer_facts": ["纯数字不符合", "至少8位并包含字母和数字"],
       "forbidden_claims": ["要求特殊符号", "要求大小写字母同时存在"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-account-supported-002",
@@ -124,7 +124,7 @@
       "evidence_basis": "系统会自动锁定账户并发送通知",
       "expected_answer_facts": ["自动锁定账户", "发送通知"],
       "forbidden_claims": ["自动报警", "自动冻结银行卡"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-account-gap-001",
@@ -135,7 +135,7 @@
       "evidence_basis": "文档只说明可以开启两步验证，没有恢复码数量",
       "expected_answer_facts": ["知识库没有恢复码数量"],
       "forbidden_claims": ["给出恢复码数量"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-account-gap-002",
@@ -146,7 +146,7 @@
       "evidence_basis": "文档说明会锁定账户，但没有自动解锁时长",
       "expected_answer_facts": ["知识库没有自动解锁时长"],
       "forbidden_claims": ["给出解锁分钟数或天数"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
 
     {
@@ -158,7 +158,7 @@
       "evidence_basis": "清缓存重启后仍持续，应更新到最新版本",
       "expected_answer_facts": ["更新到最新版本"],
       "forbidden_claims": ["删除全部用户数据", "重装操作系统"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-technical-supported-002",
@@ -169,7 +169,7 @@
       "evidence_basis": "应检查银行卡是否开启网上支付功能",
       "expected_answer_facts": ["确认开启网上支付功能"],
       "forbidden_claims": ["保证开启后支付成功", "要求提供完整银行卡号"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-technical-gap-001",
@@ -180,7 +180,7 @@
       "evidence_basis": "技术文档说明401含义和排查方式，没有登录重试次数上限",
       "expected_answer_facts": ["知识库没有401重试次数上限"],
       "forbidden_claims": ["给出允许重试的具体次数"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-technical-gap-002",
@@ -191,7 +191,7 @@
       "evidence_basis": "文档只有500排查建议，没有补偿政策",
       "expected_answer_facts": ["知识库没有500错误补偿规则"],
       "forbidden_claims": ["承诺补偿", "给出补偿金额"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
 
     {
