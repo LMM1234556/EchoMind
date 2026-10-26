@@ -9,7 +9,7 @@
     "total_cases": 30,
     "supported_cases": 18,
     "knowledge_gap_cases": 12,
-    "reviewed_cases": 10,
+    "reviewed_cases": 20,
     "scoreable_total": 0
   },
   "cases": [
@@ -99,7 +99,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "密码至少 8 位并包含字母和数字",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-security-supported-002",
@@ -107,7 +107,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "可通过绑定手机号或邮箱重置",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-security-supported-003",
@@ -115,7 +115,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "异常登录时自动锁定账户并发送通知",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-security-gap-001",
@@ -123,7 +123,7 @@
       "candidate_title": "账户安全",
       "expected_supported": false,
       "label_basis": "文档没有可信设备数量限制",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-security-gap-002",
@@ -131,7 +131,7 @@
       "candidate_title": "账户安全",
       "expected_supported": false,
       "label_basis": "文档没有账号注销与数据保留规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-technical-supported-001",
@@ -139,7 +139,7 @@
       "candidate_title": "技术故障排查",
       "expected_supported": true,
       "label_basis": "问题持续时更新到最新版本",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-technical-supported-002",
@@ -147,7 +147,7 @@
       "candidate_title": "技术故障排查",
       "expected_supported": true,
       "label_basis": "401 认证失败可检查密码或重置密码",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-technical-supported-003",
@@ -155,7 +155,7 @@
       "candidate_title": "技术故障排查",
       "expected_supported": true,
       "label_basis": "支付失败需检查网上支付功能",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-technical-gap-001",
@@ -163,7 +163,7 @@
       "candidate_title": "技术故障排查",
       "expected_supported": false,
       "label_basis": "文档没有上传文件大小限制",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-technical-gap-002",
@@ -171,7 +171,7 @@
       "candidate_title": "技术故障排查",
       "expected_supported": false,
       "label_basis": "文档没有操作系统兼容要求",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-member-supported-001",
