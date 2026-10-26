@@ -12,7 +12,7 @@
     "total_cases": 42,
     "supported_cases": 24,
     "knowledge_gap_cases": 18,
-    "reviewed_cases": 10,
+    "reviewed_cases": 20,
     "scoreable_total": 0
   },
   "cases": [
@@ -102,7 +102,7 @@
       "candidate_title": "订单查询",
       "expected_supported": true,
       "label_basis": "可通过网站或 App 查询订单状态",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-order-gap-001",
@@ -110,7 +110,7 @@
       "candidate_title": "订单查询",
       "expected_supported": false,
       "label_basis": "文档没有发货后取消订单规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-order-gap-002",
@@ -118,7 +118,7 @@
       "candidate_title": "订单查询",
       "expected_supported": false,
       "label_basis": "文档没有拆单发货规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-order-gap-003",
@@ -126,7 +126,7 @@
       "candidate_title": "订单查询",
       "expected_supported": false,
       "label_basis": "文档没有预售商品发货规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-supported-001",
@@ -134,7 +134,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "密码至少 8 位并包含字母和数字",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-supported-002",
@@ -142,7 +142,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "可通过绑定手机号或邮箱重置密码",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-supported-003",
@@ -150,7 +150,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "可在安全设置中开启两步验证",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-supported-004",
@@ -158,7 +158,7 @@
       "candidate_title": "账户安全",
       "expected_supported": true,
       "label_basis": "客服人员不会索要用户密码，不应分享密码",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-gap-001",
@@ -166,7 +166,7 @@
       "candidate_title": "账户安全",
       "expected_supported": false,
       "label_basis": "文档没有密码错误次数规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-gap-002",
@@ -174,7 +174,7 @@
       "candidate_title": "账户安全",
       "expected_supported": false,
       "label_basis": "文档没有换绑手机或人脸识别规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-security-gap-003",
