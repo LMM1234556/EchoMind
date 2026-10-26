@@ -7,6 +7,8 @@
     "source": "ai_drafted_for_blind_human_review",
     "purpose": "independent paired comparison of baseline and improved retrieval pipelines",
     "corpus_source": "backend/mcp/knowledge_base.py::_load_default_docs",
+    "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
+    "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
     "total_cases": 60,
     "positive_cases": 36,
     "hard_negative_cases": 12,
