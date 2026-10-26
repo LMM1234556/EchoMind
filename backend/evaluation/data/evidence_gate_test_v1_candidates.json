@@ -12,7 +12,7 @@
     "total_cases": 42,
     "supported_cases": 24,
     "knowledge_gap_cases": 18,
-    "reviewed_cases": 40,
+    "reviewed_cases": 42,
     "scoreable_total": 0
   },
   "cases": [
@@ -342,7 +342,7 @@
       "candidate_title": "配送说明",
       "expected_supported": false,
       "label_basis": "文档没有国际或境外配送范围",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "gate-test-delivery-gap-003",
@@ -350,7 +350,7 @@
       "candidate_title": "配送说明",
       "expected_supported": false,
       "label_basis": "文档没有配送前电话联系规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     }
   ]
 }
