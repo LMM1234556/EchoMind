@@ -1,0 +1,1701 @@
+{
+  "name": "retrieval-threshold-calibration-v1",
+  "completed_at": "2026-10-26T04:03:41.290285+00:00",
+  "corpus": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\retrieval_corpus_v1.json",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "development_scope": {
+    "total": 32,
+    "positive": 24,
+    "negative": 8,
+    "warning": "development cases only; not an independent test result"
+  },
+  "top_k": 6,
+  "models": {
+    "baseline_minilm": {
+      "embedding_model": "all-MiniLM-L6-v2",
+      "collection": "retrieval_eval_minilm_v1",
+      "evaluation_engine": "direct_local_embeddings",
+      "similarity": "cosine",
+      "calibration": {
+        "threshold": 0.46261191,
+        "tp": 18,
+        "fp": 4,
+        "fn": 6,
+        "tn": 4,
+        "answerable_precision": 0.8182,
+        "answerable_recall": 0.75,
+        "answerable_f1": 0.7826,
+        "correct_rejection_rate": 0.5,
+        "macro_f1": 0.6135,
+        "candidate_count": 30,
+        "selection_rule": "max_macro_f1_then_correct_rejection_then_higher_threshold"
+      },
+      "development_metrics": {
+        "total": 32,
+        "positive_total": 24,
+        "negative_total": 8,
+        "threshold": 0.46261191,
+        "hit_at_1": 0.375,
+        "hit_at_3": 0.75,
+        "mrr_at_k": 0.584,
+        "decision_accuracy": 0.3438,
+        "answerable_precision": 0.8182,
+        "answerable_recall": 0.75,
+        "answerable_f1": 0.7826,
+        "correct_rejection_rate": 0.5,
+        "hard_negative_rejection_rate": null,
+        "latency_ms": {
+          "mean": 11.7,
+          "p50": 15.0,
+          "p95": 16.0,
+          "max": 16.0
+        }
+      },
+      "cases": [
+        {
+          "id": "dev-seed-001",
+          "query": "退款申请提交后多久审核",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.50461358,
+            0.50278956,
+            0.49850646,
+            0.48221129,
+            0.43921462,
+            0.40835595
+          ],
+          "top_score": 0.50461358,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-seed-002",
+          "query": "审核通过后几天退回原支付账户",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.69458294,
+            0.66101211,
+            0.62602693,
+            0.53547293,
+            0.50384915,
+            0.49865937
+          ],
+          "top_score": 0.69458294,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-seed-003",
+          "query": "订单已经发货为什么还没收到",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.50668818,
+            0.48186329,
+            0.47166899,
+            0.41974568,
+            0.40505353,
+            0.35324368
+          ],
+          "top_score": 0.50668818,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-004",
+          "query": "物流信息发货后多久更新",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.53582966,
+            0.5238663,
+            0.52015889,
+            0.5101766,
+            0.46193671,
+            0.45245367
+          ],
+          "top_score": 0.53582966,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-seed-005",
+          "query": "忘记密码怎么重置",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.41595989,
+            0.40695331,
+            0.40279755,
+            0.38923079,
+            0.3533003,
+            0.30532032
+          ],
+          "top_score": 0.41595989,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-seed-006",
+          "query": "怎么开启两步验证",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.41595989,
+            0.40695331,
+            0.40279755,
+            0.38923079,
+            0.3533003,
+            0.30532032
+          ],
+          "top_score": 0.41595989,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-seed-007",
+          "query": "登录提示 401 怎么办",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "账户安全",
+            "退款政策",
+            "会员与积分",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.58965218,
+            0.5610224,
+            0.4814772,
+            0.46904778,
+            0.42292944,
+            0.41499746
+          ],
+          "top_score": 0.58965218,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-008",
+          "query": "应用总是崩溃如何处理",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.44831938,
+            0.44730172,
+            0.43641552,
+            0.40207726,
+            0.37549758,
+            0.32923102
+          ],
+          "top_score": 0.44831938,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-seed-009",
+          "query": "一百积分能抵多少钱",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 6,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "账户安全",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.47664627,
+            0.47467706,
+            0.47463262,
+            0.46868876,
+            0.45186508,
+            0.44940442
+          ],
+          "top_score": 0.47664627,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-seed-010",
+          "query": "金卡会员有什么折扣",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.67805982,
+            0.56589842,
+            0.46883056,
+            0.46826851,
+            0.45488957,
+            0.452485
+          ],
+          "top_score": 0.67805982,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-seed-011",
+          "query": "标准配送需要几天",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.64489394,
+            0.61970699,
+            0.58392191,
+            0.48583245,
+            0.4591594,
+            0.38781518
+          ],
+          "top_score": 0.64489394,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-012",
+          "query": "加急配送运费是多少",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 5,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.58941066,
+            0.52396607,
+            0.50456113,
+            0.4712787,
+            0.47100189,
+            0.32150799
+          ],
+          "top_score": 0.58941066,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-001",
+          "query": "钱什么时候能原路退回来",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 4,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "会员与积分",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.52257878,
+            0.51448494,
+            0.50528049,
+            0.49448109,
+            0.46845183,
+            0.45945206
+          ],
+          "top_score": 0.52257878,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-002",
+          "query": "买错东西后想退掉",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 5,
+          "top_titles": [
+            "技术故障排查",
+            "配送说明",
+            "订单查询",
+            "账户安全",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.44501689,
+            0.43184343,
+            0.42348781,
+            0.41200563,
+            0.37631062,
+            0.25968584
+          ],
+          "top_score": 0.44501689,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-challenge-003",
+          "query": "包裹状态在哪里查",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.48230392,
+            0.44878006,
+            0.44605815,
+            0.4460142,
+            0.41911709,
+            0.34519196
+          ],
+          "top_score": 0.48230392,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-004",
+          "query": "订单显示寄出了但一直没收到",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.58434403,
+            0.54142994,
+            0.49200359,
+            0.46517766,
+            0.41996416,
+            0.34021243
+          ],
+          "top_score": 0.58434403,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-005",
+          "query": "账号好像被别人登过",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.58350921,
+            0.44912833,
+            0.44256866,
+            0.40357497,
+            0.36778665,
+            0.32266617
+          ],
+          "top_score": 0.58350921,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-006",
+          "query": "密码想不起来了",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.52228844,
+            0.46205568,
+            0.4553864,
+            0.39065,
+            0.32870123,
+            0.32287747
+          ],
+          "top_score": 0.52228844,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-challenge-007",
+          "query": "打开软件就闪退",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.39837274,
+            0.39333069,
+            0.38261753,
+            0.38095149,
+            0.34441102,
+            0.29389435
+          ],
+          "top_score": 0.39837274,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-008",
+          "query": "网页报 500 应该怎么处理",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "会员与积分",
+            "配送说明",
+            "订单查询",
+            "账户安全",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.52045226,
+            0.41626024,
+            0.35023266,
+            0.32430896,
+            0.3059333,
+            0.30563414
+          ],
+          "top_score": 0.52045226,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-009",
+          "query": "我的积分什么时候作废",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 5,
+          "top_titles": [
+            "退款政策",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.50249541,
+            0.50001246,
+            0.46565554,
+            0.44003269,
+            0.43403265,
+            0.38111281
+          ],
+          "top_score": 0.50249541,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-challenge-010",
+          "query": "银卡能便宜多少",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 6,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.39837274,
+            0.39333069,
+            0.38261753,
+            0.38095149,
+            0.34441102,
+            0.29389435
+          ],
+          "top_score": 0.39837274,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-011",
+          "query": "偏远地区会晚几天",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.6323092,
+            0.54092014,
+            0.50200945,
+            0.49130416,
+            0.44133684,
+            0.40723509
+          ],
+          "top_score": 0.6323092,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-012",
+          "query": "想当天收到货要选什么方式",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6676923,
+            0.66717505,
+            0.59778857,
+            0.53395379,
+            0.51134974,
+            0.41484457
+          ],
+          "top_score": 0.6676923,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-001",
+          "query": "明天北京天气怎么样",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.65938401,
+            0.54896539,
+            0.52938592,
+            0.47085416,
+            0.41475308,
+            0.35400358
+          ],
+          "top_score": 0.65938401,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-negative-002",
+          "query": "帮我写一首关于秋天的诗",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "配送说明",
+            "订单查询",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.56824881,
+            0.56316841,
+            0.54540461,
+            0.47165161,
+            0.42194596,
+            0.39597696
+          ],
+          "top_score": 0.56824881,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-negative-003",
+          "query": "比特币现在多少钱",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.48948887,
+            0.46574843,
+            0.43984336,
+            0.42940131,
+            0.40346292,
+            0.32541424
+          ],
+          "top_score": 0.48948887,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-negative-004",
+          "query": "推荐一部科幻电影",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.44717228,
+            0.41441262,
+            0.3969596,
+            0.39028114,
+            0.34621912,
+            0.29593459
+          ],
+          "top_score": 0.44717228,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-005",
+          "query": "红烧肉应该怎么做",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.41595989,
+            0.40695331,
+            0.40279755,
+            0.38923079,
+            0.3533003,
+            0.30532032
+          ],
+          "top_score": 0.41595989,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-negative-006",
+          "query": "法国的首都是哪里",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "技术故障排查",
+            "配送说明",
+            "账户安全",
+            "订单查询",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.44857755,
+            0.42270842,
+            0.42160913,
+            0.41172054,
+            0.39861163,
+            0.35679474
+          ],
+          "top_score": 0.44857755,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-negative-007",
+          "query": "计算 123 乘以 456",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.40313646,
+            0.40094692,
+            0.3991158,
+            0.35899419,
+            0.31521454,
+            0.31274694
+          ],
+          "top_score": 0.40313646,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-negative-008",
+          "query": "今天有什么新闻",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.61004829,
+            0.60264903,
+            0.58875066,
+            0.49632546,
+            0.4850623,
+            0.41537994
+          ],
+          "top_score": 0.61004829,
+          "latency_ms": 0.0
+        }
+      ]
+    },
+    "candidate_bge": {
+      "embedding_model": "BAAI/bge-small-zh-v1.5",
+      "collection": "retrieval_eval_bge_v1",
+      "evaluation_engine": "direct_local_embeddings",
+      "similarity": "cosine",
+      "calibration": {
+        "threshold": 0.46692987,
+        "tp": 24,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "answerable_precision": 1.0,
+        "answerable_recall": 1.0,
+        "answerable_f1": 1.0,
+        "correct_rejection_rate": 1.0,
+        "macro_f1": 1.0,
+        "candidate_count": 33,
+        "selection_rule": "max_macro_f1_then_correct_rejection_then_higher_threshold"
+      },
+      "development_metrics": {
+        "total": 32,
+        "positive_total": 24,
+        "negative_total": 8,
+        "threshold": 0.46692987,
+        "hit_at_1": 0.9583,
+        "hit_at_3": 1.0,
+        "mrr_at_k": 0.9792,
+        "decision_accuracy": 0.9688,
+        "answerable_precision": 1.0,
+        "answerable_recall": 1.0,
+        "answerable_f1": 1.0,
+        "correct_rejection_rate": 1.0,
+        "hard_negative_rejection_rate": null,
+        "latency_ms": {
+          "mean": 1.9,
+          "p50": 0.0,
+          "p95": 15.4,
+          "max": 16.0
+        }
+      },
+      "cases": [
+        {
+          "id": "dev-seed-001",
+          "query": "退款申请提交后多久审核",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.80566853,
+            0.52984345,
+            0.46635124,
+            0.44096601,
+            0.42089424,
+            0.40845597
+          ],
+          "top_score": 0.80566853,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-002",
+          "query": "审核通过后几天退回原支付账户",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.74273276,
+            0.57051271,
+            0.51875293,
+            0.50123787,
+            0.446024,
+            0.4361009
+          ],
+          "top_score": 0.74273276,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-003",
+          "query": "订单已经发货为什么还没收到",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.68564081,
+            0.56272453,
+            0.55501837,
+            0.50728846,
+            0.44196948,
+            0.35319319
+          ],
+          "top_score": 0.68564081,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-004",
+          "query": "物流信息发货后多久更新",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6691559,
+            0.60230815,
+            0.60024679,
+            0.46423385,
+            0.43473449,
+            0.3912493
+          ],
+          "top_score": 0.6691559,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-seed-005",
+          "query": "忘记密码怎么重置",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "会员与积分",
+            "退款政策",
+            "配送说明",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.68272972,
+            0.57169843,
+            0.35074493,
+            0.31476879,
+            0.3069059,
+            0.28919575
+          ],
+          "top_score": 0.68272972,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-006",
+          "query": "怎么开启两步验证",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.54635566,
+            0.52251518,
+            0.3926152,
+            0.36584967,
+            0.34340671,
+            0.32679975
+          ],
+          "top_score": 0.54635566,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-007",
+          "query": "登录提示 401 怎么办",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.56745142,
+            0.56238574,
+            0.43651804,
+            0.42200422,
+            0.41202363,
+            0.37935585
+          ],
+          "top_score": 0.56745142,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-008",
+          "query": "应用总是崩溃如何处理",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.63185644,
+            0.4631522,
+            0.39691398,
+            0.39204675,
+            0.37693188,
+            0.3267028
+          ],
+          "top_score": 0.63185644,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-009",
+          "query": "一百积分能抵多少钱",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "账户安全",
+            "退款政策",
+            "技术故障排查",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.68709993,
+            0.4459514,
+            0.37692755,
+            0.3666943,
+            0.36570433,
+            0.32728773
+          ],
+          "top_score": 0.68709993,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-010",
+          "query": "金卡会员有什么折扣",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.69861776,
+            0.42604509,
+            0.42209661,
+            0.3938196,
+            0.38053003,
+            0.34594992
+          ],
+          "top_score": 0.69861776,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-seed-011",
+          "query": "标准配送需要几天",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "订单查询",
+            "会员与积分",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.76883793,
+            0.56792593,
+            0.55559814,
+            0.41331366,
+            0.39977634,
+            0.38854212
+          ],
+          "top_score": 0.76883793,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-seed-012",
+          "query": "加急配送运费是多少",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.76648998,
+            0.43910277,
+            0.43459916,
+            0.43412095,
+            0.41285917,
+            0.37023622
+          ],
+          "top_score": 0.76648998,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-001",
+          "query": "钱什么时候能原路退回来",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.5370968,
+            0.41631657,
+            0.41148517,
+            0.39781305,
+            0.39553359,
+            0.3470057
+          ],
+          "top_score": 0.5370968,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-002",
+          "query": "买错东西后想退掉",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.5982458,
+            0.5379945,
+            0.4519518,
+            0.44818038,
+            0.37826261,
+            0.35985008
+          ],
+          "top_score": 0.5982458,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-003",
+          "query": "包裹状态在哪里查",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.60389042,
+            0.48552135,
+            0.43982089,
+            0.41128832,
+            0.37089366,
+            0.35444054
+          ],
+          "top_score": 0.60389042,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-004",
+          "query": "订单显示寄出了但一直没收到",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.70321667,
+            0.5674476,
+            0.55832875,
+            0.53722137,
+            0.48452434,
+            0.36439693
+          ],
+          "top_score": 0.70321667,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-005",
+          "query": "账号好像被别人登过",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "会员与积分",
+            "退款政策",
+            "订单查询",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.6517939,
+            0.54276866,
+            0.46795994,
+            0.42766523,
+            0.42547733,
+            0.40816808
+          ],
+          "top_score": 0.6517939,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-006",
+          "query": "密码想不起来了",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.61105078,
+            0.54839641,
+            0.35127228,
+            0.32689884,
+            0.31994539,
+            0.27742437
+          ],
+          "top_score": 0.61105078,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "dev-challenge-007",
+          "query": "打开软件就闪退",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.64545774,
+            0.51655459,
+            0.51086771,
+            0.40545762,
+            0.37766072,
+            0.37277752
+          ],
+          "top_score": 0.64545774,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-008",
+          "query": "网页报 500 应该怎么处理",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "配送说明",
+            "账户安全",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.55928904,
+            0.46257859,
+            0.45527032,
+            0.4394435,
+            0.38528645,
+            0.38361466
+          ],
+          "top_score": 0.55928904,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-009",
+          "query": "我的积分什么时候作废",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "订单查询",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.50918144,
+            0.4271017,
+            0.40604725,
+            0.36132389,
+            0.35462266,
+            0.34936267
+          ],
+          "top_score": 0.50918144,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-010",
+          "query": "银卡能便宜多少",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "配送说明",
+            "账户安全",
+            "退款政策",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.59773463,
+            0.4742519,
+            0.46312496,
+            0.42428118,
+            0.4228262,
+            0.35878986
+          ],
+          "top_score": 0.59773463,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-011",
+          "query": "偏远地区会晚几天",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.51263326,
+            0.38837254,
+            0.3435232,
+            0.32848436,
+            0.31412244,
+            0.27821434
+          ],
+          "top_score": 0.51263326,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-challenge-012",
+          "query": "想当天收到货要选什么方式",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.60973245,
+            0.58569729,
+            0.54426628,
+            0.45908132,
+            0.43356955,
+            0.40317696
+          ],
+          "top_score": 0.60973245,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-001",
+          "query": "明天北京天气怎么样",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.39755866,
+            0.26751897,
+            0.26558179,
+            0.23694052,
+            0.23677289,
+            0.23560026
+          ],
+          "top_score": 0.39755866,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-002",
+          "query": "帮我写一首关于秋天的诗",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "配送说明",
+            "订单查询",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.24084501,
+            0.23593071,
+            0.22562774,
+            0.22269063,
+            0.20856534,
+            0.20512134
+          ],
+          "top_score": 0.24084501,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "dev-negative-003",
+          "query": "比特币现在多少钱",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.4246783,
+            0.39167917,
+            0.35869378,
+            0.35236847,
+            0.24603644,
+            0.2446779
+          ],
+          "top_score": 0.4246783,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-004",
+          "query": "推荐一部科幻电影",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.27166572,
+            0.27132824,
+            0.24386409,
+            0.2378515,
+            0.20645565,
+            0.15157007
+          ],
+          "top_score": 0.27166572,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-005",
+          "query": "红烧肉应该怎么做",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "技术故障排查",
+            "会员与积分",
+            "账户安全",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.34841508,
+            0.27640575,
+            0.26414585,
+            0.24423741,
+            0.21261488,
+            0.19677009
+          ],
+          "top_score": 0.34841508,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-006",
+          "query": "法国的首都是哪里",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "技术故障排查",
+            "会员与积分",
+            "订单查询",
+            "账户安全",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.20239651,
+            0.16305602,
+            0.15874334,
+            0.14348724,
+            0.08305797,
+            0.0765515
+          ],
+          "top_score": 0.20239651,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-007",
+          "query": "计算 123 乘以 456",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.41159865,
+            0.40893185,
+            0.38352606,
+            0.36533973,
+            0.33278951,
+            0.31359085
+          ],
+          "top_score": 0.41159865,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "dev-negative-008",
+          "query": "今天有什么新闻",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "配送说明",
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.25801444,
+            0.25028715,
+            0.24287254,
+            0.2148867,
+            0.20201313,
+            0.20132966
+          ],
+          "top_score": 0.25801444,
+          "latency_ms": 0.0
+        }
+      ]
+    }
+  }
+}
