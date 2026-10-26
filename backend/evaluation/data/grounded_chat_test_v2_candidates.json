@@ -207,11 +207,11 @@
     },
     {
       "id": "ground-v2-member-supported-002",
-      "query": "账户里有450积分，按规则下次购物最多可以抵多少元",
+      "query": "账户里有450积分，按100积分等于1元的规则换算价值是多少",
       "intended_intent": "query",
       "expected_supported": true,
       "expected_title": "会员与积分",
-      "evidence_basis": "100积分等于1元，450积分可换算为4.5元",
+      "evidence_basis": "100积分等于1元，450积分等值4.5元",
       "expected_answer_facts": ["4.5元"],
       "forbidden_claims": ["450元", "积分可以提现"],
       "review": {"status": "pending", "reviewer": null, "notes": null}
