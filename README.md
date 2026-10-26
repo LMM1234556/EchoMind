@@ -49,7 +49,7 @@ flowchart LR
 - 完成 Windows 本地环境、Docker 服务和阿里云百炼 Qwen API 的接入与联调。
 - 接入 `BAAI/bge-small-zh-v1.5` 中文 Embedding，并使用独立 ChromaDB collection 保留回滚路径。
 - 将本地向量检索设为默认模式，把查询改写和 LLM 重排调整为可选增强模式。
-- 增加意图门控、Agent 领域过滤和证据校验，降低无效检索及无依据的政策/财务回答。
+- 增加意图门控、Agent 领域过滤和语义证据选择器；仅把 Top-K 候选中被确认支持问题的一条证据交给回复模型，降低无效检索及无依据的政策/财务回答。
 - 修正复合领域路由、工具调用后的回复生成、Redis 会话窗口与 ChromaDB 用户/会话过滤。
 - 构建可审计端到端基准，记录意图、完整路由、回答契约、延迟和前台模型调用次数。
 
@@ -113,6 +113,17 @@ ANTHROPIC_API_KEY=your_api_key
 ```
 
 `.env` 已被 Git 忽略，不要提交真实密钥。
+
+语义证据选择器默认启用，会为需要 RAG 的请求增加一次模型调用。它只接收最多 3 条候选的标题和正文；若超时、返回格式无效或判定无证据，系统按无证据处理，不把候选文档交给回复模型。可在本地 `.env` 调整：
+
+```env
+EVIDENCE_SELECTOR_ENABLED=true
+EVIDENCE_SELECTOR_TOP_K=3
+EVIDENCE_SELECTOR_MAX_TOKENS=512
+EVIDENCE_SELECTOR_TIMEOUT_SECONDS=45
+```
+
+需要回滚到旧证据门控时，可设置 `EVIDENCE_SELECTOR_ENABLED=false`。
 
 ### 3. 启动后端
 

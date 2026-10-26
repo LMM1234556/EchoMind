@@ -48,6 +48,15 @@ ANTHROPIC_API_KEY=your_api_key
 REDIS_PASSWORD=echomind123
 ```
 
+RAG 语义证据选择器默认启用。它从最多 3 条候选中选择一条有依据的文档；无证据、超时或返回格式错误时会失败关闭，不把候选内容交给回复模型。该步骤会为需要 RAG 的请求增加一次模型调用：
+
+```env
+EVIDENCE_SELECTOR_ENABLED=true
+EVIDENCE_SELECTOR_TOP_K=3
+EVIDENCE_SELECTOR_MAX_TOKENS=512
+EVIDENCE_SELECTOR_TIMEOUT_SECONDS=45
+```
+
 ### 3. 启动服务
 
 推荐直接启动全栈：

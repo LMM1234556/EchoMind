@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass
 from typing import Any, Awaitable, Callable, Dict, List, Optional, TYPE_CHECKING, Union
 
@@ -26,6 +27,8 @@ if TYPE_CHECKING:
 
 
 AgentToolHandler = Callable[["Request", Dict[str, Any]], Union[Any, Awaitable[Any]]]
+
+logger = logging.getLogger(__name__)
 
 
 _FAST_RAG_INTENTS = {
@@ -260,7 +263,10 @@ def create_handoff_summary(req: Request, args: Dict[str, Any]) -> Dict[str, Any]
     }
 
 
-def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
+def build_shared_rag_tools(
+    tool_manager: Any,
+    evidence_selector: Optional[Any] = None,
+) -> Dict[str, AgentToolSpec]:
     """构建所有 Agent 可共享的 RAG 工具。"""
 
     async def search_knowledge_base(req: Request, args: Dict[str, Any]) -> Dict[str, Any]:
@@ -360,6 +366,57 @@ def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
             retrieval_mode,
             candidate_results,
         )
+        # 旧规则对没有专属意图标签的知识查询默认拒绝。启用语义选择器后，
+        # 这类查询可以把召回候选交给 Judge；具体业务意图仍保留标题白名单，
+        # 明确为空的 invoice/payment 等知识缺口也不会被放宽。
+        if evidence_selector is not None and candidate_results:
+            title_map = (
+                _KEYWORD_TITLES_BY_INTENT
+                if retrieval_mode == "fast_keyword"
+                else _FULL_RAG_TITLES_BY_INTENT
+            )
+            semantic_allowed_titles = title_map.get(str(intent_value or ""))
+            if semantic_allowed_titles is None:
+                accepted_results = [
+                    item for item in candidate_results
+                    if isinstance(item, dict)
+                ][:3]
+                evidence_gate = "semantic_candidate_pool"
+
+        selector_used = False
+        selector_success: Optional[bool] = None
+        selected_title: Optional[str] = None
+        selection_evidence = ""
+        selector_error = ""
+        if accepted_results and evidence_selector is not None:
+            selector_used = True
+            try:
+                selection = evidence_selector.select(query, accepted_results[:3])
+                if isinstance(selection, Awaitable):
+                    selection = await selection
+                if not isinstance(selection, dict) or not selection.get("success"):
+                    raise RuntimeError("evidence selector returned an invalid result")
+                selector_success = True
+                selection_evidence = str(selection.get("evidence", "") or "")
+                if selection.get("supported") is True:
+                    selected_title = str(selection.get("selected_title", "") or "")
+                    selected = [
+                        item for item in accepted_results
+                        if str(item.get("title", "")) == selected_title
+                    ]
+                    if not selected:
+                        raise RuntimeError("evidence selector chose an unavailable document")
+                    accepted_results = selected[:1]
+                    evidence_gate = "semantic_topk_selected"
+                else:
+                    accepted_results = []
+                    evidence_gate = "semantic_unsupported"
+            except Exception as ex:
+                selector_success = False
+                selector_error = f"{type(ex).__name__}: {ex}"
+                accepted_results = []
+                evidence_gate = "semantic_selector_failed"
+                logger.warning("语义证据选择失败，按无证据处理: %s", ex)
 
         return {
             "success": True,
@@ -369,6 +426,11 @@ def build_shared_rag_tools(tool_manager: Any) -> Dict[str, AgentToolSpec]:
             "candidate_count": len(candidate_results),
             "evidence_accepted": bool(accepted_results),
             "evidence_gate": evidence_gate,
+            "evidence_selector_used": selector_used,
+            "evidence_selector_success": selector_success,
+            "evidence_selected_title": selected_title,
+            "evidence_selection_reason": selection_evidence,
+            "evidence_selector_error": selector_error,
             "reranked": bool(getattr(result, "reranked", False)),
             "retrieval_mode": retrieval_mode,
         }

@@ -78,6 +78,7 @@ async def lifespan(app: FastAPI):
 
     from agents.agent_orchestrator import AgentOrchestrator, Request, build_shared_rag_tools
     from core.intent_recognizer import IntentRecognizer
+    from core.evidence_selector import SemanticEvidenceSelector
     from evaluation.evaluator import EndToEndEvaluator
     from mcp.knowledge_base import KnowledgeBase
     from mcp.tool_manager import MCPToolManager, Tool
@@ -162,8 +163,23 @@ async def lifespan(app: FastAPI):
         supports_rerank=True,
         fallback=knowledge_fallback,
     ))
+    selector_enabled = os.getenv("EVIDENCE_SELECTOR_ENABLED", "true").strip().lower() in {
+        "1", "true", "yes", "on",
+    }
+    evidence_selector = None
+    if selector_enabled:
+        evidence_selector = SemanticEvidenceSelector(
+            api_key=cfg["api_key"],
+            base_url=cfg.get("base_url"),
+            model=cfg["model"],
+            top_k=max(1, min(int(os.getenv("EVIDENCE_SELECTOR_TOP_K", "3")), 5)),
+            max_tokens=max(128, int(os.getenv("EVIDENCE_SELECTOR_MAX_TOKENS", "512"))),
+            timeout_seconds=max(1.0, float(os.getenv("EVIDENCE_SELECTOR_TIMEOUT_SECONDS", "45"))),
+        )
     if _orchestrator is not None:
-        _orchestrator.set_shared_tools(build_shared_rag_tools(_tool_manager))
+        _orchestrator.set_shared_tools(
+            build_shared_rag_tools(_tool_manager, evidence_selector=evidence_selector)
+        )
 
     # 性能监控（可选启动 Prometheus）
     prom_port = int(os.getenv("PROMETHEUS_PORT", "0")) or None

@@ -581,6 +581,133 @@ def test_full_rag_marks_missing_invoice_document_as_knowledge_gap():
     assert result["retrieval_mode"] == "knowledge_gap"
 
 
+def test_semantic_selector_can_choose_second_grounded_candidate():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {"success": True, "data": [], "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type("Result", (), {
+                "success": True,
+                "data": [
+                    {"title": "订单查询", "content": "查询订单状态"},
+                    {"title": "配送说明", "content": "偏远地区增加2-3天"},
+                ],
+                "reranked": True,
+            })()
+
+    class Selector:
+        def __init__(self):
+            self.calls = []
+
+        async def select(self, query, candidates):
+            self.calls.append((query, candidates))
+            return {
+                "success": True,
+                "supported": True,
+                "selected_title": "配送说明",
+                "evidence": "文档明确说明偏远地区时效",
+            }
+
+    selector = Selector()
+    spec = build_shared_rag_tools(RagManager(), evidence_selector=selector)["search_knowledge_base"]
+    req = make_request(
+        message="偏远地区配送要多几天",
+        intent=IntentCategory.LOGISTICS,
+        intent_confidence=0.6,
+    )
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert result["evidence_accepted"] is True
+    assert result["evidence_gate"] == "semantic_topk_selected"
+    assert result["evidence_selected_title"] == "配送说明"
+    assert [item["title"] for item in result["results"]] == ["配送说明"]
+    assert len(selector.calls) == 1
+
+
+def test_semantic_selector_rejection_and_failure_are_fail_closed():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {
+                "success": True,
+                "data": [{"title": "退款政策", "content": "7天无理由退款"}],
+                "reranked": False,
+            })()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("关键词结果不应回退")
+
+    class Rejector:
+        async def select(self, query, candidates):
+            return {
+                "success": True,
+                "supported": False,
+                "selected_title": None,
+                "evidence": "文档没有优惠券返还规则",
+            }
+
+    class BrokenSelector:
+        async def select(self, query, candidates):
+            raise TimeoutError("provider timeout")
+
+    req = make_request(message="退款后优惠券退吗", intent=IntentCategory.REFUND)
+    rejected = asyncio.run(
+        build_shared_rag_tools(RagManager(), Rejector())["search_knowledge_base"].handler(
+            req, {"query": req.message, "top_k": 3}
+        )
+    )
+    failed = asyncio.run(
+        build_shared_rag_tools(RagManager(), BrokenSelector())["search_knowledge_base"].handler(
+            req, {"query": req.message, "top_k": 3}
+        )
+    )
+
+    assert rejected["results"] == []
+    assert rejected["evidence_accepted"] is False
+    assert rejected["evidence_gate"] == "semantic_unsupported"
+    assert failed["results"] == []
+    assert failed["evidence_accepted"] is False
+    assert failed["evidence_gate"] == "semantic_selector_failed"
+    assert failed["evidence_selector_success"] is False
+
+
+def test_semantic_selector_can_handle_general_knowledge_query_without_title_mapping():
+    class RagManager:
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            return type("Result", (), {
+                "success": True,
+                "data": [
+                    {"title": "会员与积分", "content": "100积分等于1元"},
+                    {"title": "订单查询", "content": "用订单号查询"},
+                ],
+                "reranked": True,
+            })()
+
+    class Selector:
+        async def select(self, query, candidates):
+            assert [item["title"] for item in candidates] == ["会员与积分", "订单查询"]
+            return {
+                "success": True,
+                "supported": True,
+                "selected_title": "会员与积分",
+                "evidence": "积分换算规则明确",
+            }
+
+    req = make_request(
+        message="两百积分能抵几元",
+        intent=IntentCategory.QUERY,
+        intent_confidence=0.7,
+    )
+    spec = build_shared_rag_tools(RagManager(), Selector())["search_knowledge_base"]
+
+    result = asyncio.run(spec.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert result["evidence_accepted"] is True
+    assert result["evidence_gate"] == "semantic_topk_selected"
+    assert result["evidence_selected_title"] == "会员与积分"
+
+
 def test_duplicate_charge_does_not_accept_order_document_as_payment_evidence():
     class RagManager:
         async def call(self, tool_name, params, use_cache=True):
