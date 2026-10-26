@@ -252,24 +252,24 @@
     },
     {
       "id": "ground-v2-delivery-supported-002",
-      "query": "偏远地区选择加急配送，按文档合计大约需要几天",
+      "query": "住在偏远地区，即使选择加急配送还可能额外增加多久",
       "intended_intent": "logistics",
       "expected_supported": true,
       "expected_title": "配送说明",
-      "evidence_basis": "加急1-2个工作日，偏远地区额外2-3天，合计约3-5天",
-      "expected_answer_facts": ["约3-5天"],
-      "forbidden_claims": ["保证3天送达", "忽略偏远地区增加时间"],
+      "evidence_basis": "偏远地区可能额外增加2-3天",
+      "expected_answer_facts": ["可能额外增加2-3天"],
+      "forbidden_claims": ["保证增加2天", "给出确定送达日期"],
       "review": {"status": "pending", "reviewer": null, "notes": null}
     },
     {
       "id": "ground-v2-delivery-gap-001",
-      "query": "周六和周日是否照常在九点到十八点之间配送",
+      "query": "周六配送会不会额外收取周末服务费",
       "intended_intent": "logistics",
       "expected_supported": false,
       "expected_title": null,
-      "evidence_basis": "文档说明每日配送时间和节假日延迟，但没有明确周末是否照常",
-      "expected_answer_facts": ["知识库没有明确周末配送规则"],
-      "forbidden_claims": ["周末一定配送", "周末一定停运"],
+      "evidence_basis": "文档没有周末服务费规则",
+      "expected_answer_facts": ["知识库没有周末服务费规则"],
+      "forbidden_claims": ["周末一定加价", "周末一定不加价", "编造服务费金额"],
       "review": {"status": "pending", "reviewer": null, "notes": null}
     },
     {
