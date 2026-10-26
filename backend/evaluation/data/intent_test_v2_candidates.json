@@ -115,10 +115,10 @@
     {"id":"v2-human-handoff-004","message":"请安排人工现在给我回电","expected_intent":"human_handoff","split":"candidate","difficulty":"medium","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"},
     {"id":"v2-human-handoff-005","message":"不要自动回复，我要跟客服人员直接沟通","expected_intent":"human_handoff","split":"candidate","difficulty":"hard","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"},
 
-    {"id":"v2-other-001","message":"帮我算一下复利公式的结果","expected_intent":"other","split":"candidate","difficulty":"easy","source":"ai_drafted_for_blind_human_review","label_status":"draft"},
-    {"id":"v2-other-002","message":"广州周末会不会下雨","expected_intent":"other","split":"candidate","difficulty":"easy","source":"ai_drafted_for_blind_human_review","label_status":"draft"},
-    {"id":"v2-other-003","message":"推荐几本适合睡前看的小说","expected_intent":"other","split":"candidate","difficulty":"medium","source":"ai_drafted_for_blind_human_review","label_status":"draft"},
-    {"id":"v2-other-004","message":"日元最近为什么会贬值","expected_intent":"other","split":"candidate","difficulty":"hard","source":"ai_drafted_for_blind_human_review","label_status":"draft"},
-    {"id":"v2-other-005","message":"什么是概率论里的中心极限定理","expected_intent":"other","split":"candidate","difficulty":"hard","source":"ai_drafted_for_blind_human_review","label_status":"draft"}
+    {"id":"v2-other-001","message":"帮我算一下复利公式的结果","expected_intent":"other","split":"candidate","difficulty":"easy","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"v2-other-002","message":"广州周末会不会下雨","expected_intent":"other","split":"candidate","difficulty":"easy","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"v2-other-003","message":"推荐几本适合睡前看的小说","expected_intent":"other","split":"candidate","difficulty":"medium","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"v2-other-004","message":"日元最近为什么会贬值","expected_intent":"other","split":"candidate","difficulty":"hard","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"},
+    {"id":"v2-other-005","message":"什么是概率论里的中心极限定理","expected_intent":"other","split":"candidate","difficulty":"hard","source":"ai_drafted_for_blind_human_review","label_status":"verified","reviewer":"project_owner"}
   ]
 }
