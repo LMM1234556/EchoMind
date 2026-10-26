@@ -11,7 +11,7 @@
     "positive_cases": 36,
     "hard_negative_cases": 12,
     "out_of_domain_cases": 12,
-    "reviewed_cases": 20,
+    "reviewed_cases": 30,
     "scoreable_total": 0
   },
   "cases": [
@@ -181,7 +181,7 @@
       "expected_title": "技术故障排查",
       "case_type": "positive",
       "label_basis": "检查网络并尝试切换 WiFi 或移动数据",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-technical-004",
@@ -189,7 +189,7 @@
       "expected_title": "技术故障排查",
       "case_type": "positive",
       "label_basis": "检查是否开启网上支付功能",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-technical-005",
@@ -197,7 +197,7 @@
       "expected_title": "技术故障排查",
       "case_type": "positive",
       "label_basis": "500 是服务端问题",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-technical-006",
@@ -205,7 +205,7 @@
       "expected_title": "技术故障排查",
       "case_type": "positive",
       "label_basis": "持续出现应联系技术支持",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-member-001",
@@ -213,7 +213,7 @@
       "expected_title": "会员与积分",
       "case_type": "positive",
       "label_basis": "每消费 1 元积 1 分",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-member-002",
@@ -221,7 +221,7 @@
       "expected_title": "会员与积分",
       "case_type": "positive",
       "label_basis": "100 积分等于 1 元",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-member-003",
@@ -229,7 +229,7 @@
       "expected_title": "会员与积分",
       "case_type": "positive",
       "label_basis": "累计消费 5000 元为金卡会员",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-member-004",
@@ -237,7 +237,7 @@
       "expected_title": "会员与积分",
       "case_type": "positive",
       "label_basis": "银卡 95 折，金卡 9 折",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-member-005",
@@ -245,7 +245,7 @@
       "expected_title": "会员与积分",
       "case_type": "positive",
       "label_basis": "积分有效期 1 年，过期清零",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-member-006",
@@ -253,7 +253,7 @@
       "expected_title": "会员与积分",
       "case_type": "positive",
       "label_basis": "生日当月消费获得双倍积分",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-delivery-001",
