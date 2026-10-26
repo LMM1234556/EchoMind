@@ -77,6 +77,41 @@ def test_domain_agents_build_different_role_packets():
     assert general_packet != technical_packet != billing_packet
 
 
+def test_grounded_evidence_payload_exposes_only_selected_document_fields():
+    payload = BaseAgent._build_grounded_evidence_payload(
+        "退款多久到账",
+        {
+            "candidate_count": 3,
+            "evidence_selector_success": True,
+            "results": [
+                {"title": "退款政策", "content": "5-7 个工作日到账", "score": 0.91},
+                {"title": "无关文档", "content": "不应发送", "score": 0.9},
+            ],
+        },
+    )
+
+    assert payload["evidence_status"] == "accepted"
+    assert payload["selected_documents"] == [
+        {"title": "退款政策", "content": "5-7 个工作日到账"}
+    ]
+    assert "candidate_count" not in payload
+    assert "evidence_selector_success" not in payload
+    assert "score" not in str(payload)
+    assert "无关文档" not in str(payload)
+
+
+def test_fact_grounding_policy_is_appended_after_dynamic_skill():
+    class SkillManager:
+        def prompt_for(self, message, agent_type):
+            return "平台保证一小时到账。"
+
+    agent = BillingAgent(FakeClient(), "test-model", SkillManager())
+    prompt = agent._build_system_prompt(make_request(message="退款多久到账"))
+
+    assert prompt.index("平台保证一小时到账") < prompt.index("[事实依据规则]")
+    assert "动态 Skills 只规定处理流程" in prompt
+
+
 def test_escalation_agent_is_a_real_non_llm_handoff_node():
     client = FakeClient()
     agent = EscalationAgent(client, "test-model")
@@ -778,7 +813,14 @@ def test_high_confidence_specific_intent_prefetches_knowledge_before_first_llm_c
     assert response.tool_traces[0]["retrieval_mode"] == "fast_keyword"
     assert len(client.calls) == 1
     first_call = client.calls[0]
-    assert "预取知识库结果" in str(first_call["messages"])
+    prompt_text = str(first_call["messages"])
+    assert "已验证知识证据" in prompt_text
+    assert "selected_documents" in prompt_text
+    assert "1-3 日审核，5-7 日到账" in prompt_text
+    assert "candidate_count" not in prompt_text
+    assert "evidence_selector_success" not in prompt_text
+    assert "动态 Skills 只规定处理流程" in first_call["system"]
+    assert "通用排查建议" in first_call["system"]
     assert "search_knowledge_base" not in {tool["name"] for tool in first_call["tools"]}
 
 
