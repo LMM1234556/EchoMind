@@ -33,6 +33,13 @@
       "threshold": 0.46692987
     }
   },
-  "first_evaluation_run": false,
+  "first_evaluation_run": true,
+  "first_evaluation_completed_at": "2026-10-26T04:12:03.086798+00:00",
+  "first_evaluation_report": "backend/evaluation/reports/retrieval_test_v1_first_run_20261026.json",
+  "first_evaluation_report_sha256": "76cf191b531fdf4a34666c6a87f8ddd3e3aba2f8823695e4e92a361294e61186",
+  "baseline_decision_accuracy": 0.35,
+  "candidate_decision_accuracy": 0.7833,
+  "candidate_hit_at_1": 0.9722,
+  "candidate_correct_rejection_rate": 0.5,
   "restriction": "Do not tune embedding models, thresholds, corpus, chunking, or retrieval rules using this frozen test set."
 }

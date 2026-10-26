@@ -37,8 +37,9 @@ def validate_freeze_manifest(
     dataset_path: pathlib.Path,
     corpus_path: pathlib.Path,
     calibration_path: pathlib.Path,
+    allow_completed: bool = False,
 ) -> None:
-    if manifest.get("first_evaluation_run") is True:
+    if manifest.get("first_evaluation_run") is True and not allow_completed:
         raise RuntimeError("freeze manifest already records a completed first evaluation")
     expected = {
         "dataset_sha256": sha256(dataset_path),

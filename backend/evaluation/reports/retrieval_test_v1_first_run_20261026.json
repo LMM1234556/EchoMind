@@ -1,0 +1,3073 @@
+{
+  "name": "retrieval-test-v1-first-run",
+  "run_status": "complete",
+  "completed_at": "2026-10-26T04:12:03.086798+00:00",
+  "dataset": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\retrieval_test_v1.json",
+  "dataset_sha256": "f9f01eb23a9eb36231ea38bde812d545d5202aec7fb2356a8f640dce617885d5",
+  "corpus": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\data\\retrieval_corpus_v1.json",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "calibration_report": "E:\\EchoMind所有代码+详细文档+_简历8\\EchoMind-Reproduction\\backend\\evaluation\\reports\\retrieval_threshold_calibration_v1_20261026.json",
+  "calibration_report_sha256": "5a1bd7fe4ecd35edbec5a2756c57558da6f32ddc7319d23ee4cb3f268cc4bb10",
+  "evaluation_code_commit": "35ebe639aef61b82093b6c308fe84b5c9dea0aba",
+  "top_k": 6,
+  "models": {
+    "baseline_minilm": {
+      "embedding_model": "all-MiniLM-L6-v2",
+      "threshold": 0.46261191,
+      "evaluation_engine": "direct_local_embeddings",
+      "similarity": "cosine",
+      "metrics": {
+        "total": 60,
+        "positive_total": 36,
+        "negative_total": 24,
+        "threshold": 0.46261191,
+        "hit_at_1": 0.5556,
+        "hit_at_3": 0.8333,
+        "mrr_at_k": 0.7079,
+        "decision_accuracy": 0.35,
+        "answerable_precision": 0.6102,
+        "answerable_recall": 1.0,
+        "answerable_f1": 0.7579,
+        "correct_rejection_rate": 0.0417,
+        "hard_negative_rejection_rate": 0.0,
+        "latency_ms": {
+          "mean": 12.8,
+          "p50": 16.0,
+          "p95": 16.0,
+          "max": 16.0
+        }
+      },
+      "cases": [
+        {
+          "id": "rag-refund-001",
+          "query": "买了五天后不想要了，还能直接申请退款吗",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.71674526,
+            0.69061124,
+            0.64445877,
+            0.56746221,
+            0.52886873,
+            0.51550692
+          ],
+          "top_score": 0.71674526,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-refund-002",
+          "query": "退款请求交上去以后，平台通常要审多久",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 4,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.58692133,
+            0.56889617,
+            0.54915881,
+            0.54350185,
+            0.54269868,
+            0.4654083
+          ],
+          "top_score": 0.58692133,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-refund-003",
+          "query": "退款审核已经通过，钱大约什么时候回到付款账户",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 4,
+          "top_titles": [
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.55460399,
+            0.53991443,
+            0.51124543,
+            0.47924322,
+            0.47318986,
+            0.37692064
+          ],
+          "top_score": 0.55460399,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-refund-004",
+          "query": "货物已经寄出了，退款前是不是得先办理退货",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.5703783,
+            0.56252396,
+            0.54218018,
+            0.54182261,
+            0.4899756,
+            0.37171191
+          ],
+          "top_score": 0.5703783,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-refund-005",
+          "query": "不是质量问题却要退货，寄回去的运费谁承担",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.61195207,
+            0.57085371,
+            0.56091225,
+            0.45400372,
+            0.44311982,
+            0.41197982
+          ],
+          "top_score": 0.61195207,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-refund-006",
+          "query": "订单买了半个月才发现质量问题，还有退款资格吗",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.58008814,
+            0.56465787,
+            0.52998734,
+            0.52234226,
+            0.52210742,
+            0.491108
+          ],
+          "top_score": 0.58008814,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-order-001",
+          "query": "想让客服查一下订单进展，我需要先给什么编号",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.51598591,
+            0.48308444,
+            0.47991681,
+            0.44625139,
+            0.43970564,
+            0.38035548
+          ],
+          "top_score": 0.51598591,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-order-002",
+          "query": "订单页面一共会显示哪些处理状态",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.58253437,
+            0.56939304,
+            0.56097341,
+            0.54928446,
+            0.47514033,
+            0.46044421
+          ],
+          "top_score": 0.58253437,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-order-003",
+          "query": "商品显示发出八天了还没收到，可以请客服查件吗",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.71408743,
+            0.65253061,
+            0.65083933,
+            0.6462757,
+            0.55390513,
+            0.48520219
+          ],
+          "top_score": 0.71408743,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-order-004",
+          "query": "包裹发出以后，物流轨迹最晚多久会更新",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 4,
+          "top_titles": [
+            "退款政策",
+            "技术故障排查",
+            "配送说明",
+            "订单查询",
+            "会员与积分",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.57972288,
+            0.56109416,
+            0.52665544,
+            0.51882851,
+            0.49332815,
+            0.48718411
+          ],
+          "top_score": 0.57972288,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-order-005",
+          "query": "订单状态显示异常时，联系你们要准备哪项信息",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.66591263,
+            0.64554012,
+            0.54277438,
+            0.50720006,
+            0.47099558,
+            0.43588549
+          ],
+          "top_score": 0.66591263,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-order-006",
+          "query": "待支付、运输中和已签收是不是系统里的订单状态",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.64032638,
+            0.61277318,
+            0.54581445,
+            0.51816159,
+            0.51680726,
+            0.42459574
+          ],
+          "top_score": 0.64032638,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-001",
+          "query": "平台建议设置的密码至少需要多少位",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.56712925,
+            0.52234793,
+            0.50705034,
+            0.5020203,
+            0.48948002,
+            0.42280373
+          ],
+          "top_score": 0.56712925,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-security-002",
+          "query": "记不起密码时能不能用绑定邮箱重新设置",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.65594161,
+            0.61187744,
+            0.60914063,
+            0.55659276,
+            0.50835896,
+            0.42030257
+          ],
+          "top_score": 0.65594161,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-security-003",
+          "query": "系统检测到陌生地点登录后会采取什么措施",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.57780331,
+            0.53217125,
+            0.51899916,
+            0.45015576,
+            0.44222751,
+            0.42099205
+          ],
+          "top_score": 0.57780331,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-security-004",
+          "query": "我想给账号多加一道验证，应该在哪项设置里开启",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.53865731,
+            0.50329858,
+            0.49511051,
+            0.48988035,
+            0.48963714,
+            0.4034068
+          ],
+          "top_score": 0.53865731,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-security-005",
+          "query": "客服为了核实身份会要求我说出账户密码吗",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "技术故障排查",
+            "订单查询",
+            "会员与积分",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.59753841,
+            0.5556469,
+            0.51641095,
+            0.472996,
+            0.46180478,
+            0.43146157
+          ],
+          "top_score": 0.59753841,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-006",
+          "query": "怎样的密码组合符合平台给出的安全建议",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6138463,
+            0.48938665,
+            0.46607214,
+            0.43733278,
+            0.43137267,
+            0.36258954
+          ],
+          "top_score": 0.6138463,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-technical-001",
+          "query": "应用一打开就退出，按文档应该先做哪些排查",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.62897998,
+            0.52234387,
+            0.50814354,
+            0.49495956,
+            0.47861826,
+            0.36473984
+          ],
+          "top_score": 0.62897998,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-technical-002",
+          "query": "登录页面返回 401 代表哪类问题",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "账户安全",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.58408707,
+            0.46518543,
+            0.44798145,
+            0.44040668,
+            0.41770795,
+            0.41471979
+          ],
+          "top_score": 0.58408707,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-technical-003",
+          "query": "页面特别慢时，知识库建议先检查什么",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.61496472,
+            0.56919402,
+            0.56429946,
+            0.5225907,
+            0.49878803,
+            0.40381059
+          ],
+          "top_score": 0.61496472,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-technical-004",
+          "query": "银行卡付款失败，除了余额还应该确认哪个功能",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.67592615,
+            0.57635009,
+            0.57005823,
+            0.50933355,
+            0.48689103,
+            0.40039894
+          ],
+          "top_score": 0.67592615,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-technical-005",
+          "query": "网页出现 500 时是客户端问题还是服务端问题",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "会员与积分",
+            "配送说明",
+            "退款政策",
+            "订单查询",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.65489113,
+            0.44248736,
+            0.41656598,
+            0.39579973,
+            0.38921553,
+            0.35872298
+          ],
+          "top_score": 0.65489113,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-technical-006",
+          "query": "服务器错误反复出现，稍后重试仍没好该找谁",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.65450257,
+            0.5326072,
+            0.52209407,
+            0.50160766,
+            0.4649744,
+            0.36018926
+          ],
+          "top_score": 0.65450257,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-member-001",
+          "query": "平时消费一块钱可以累计几个积分",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 5,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.58339632,
+            0.56090403,
+            0.55436027,
+            0.54551256,
+            0.50514722,
+            0.49816567
+          ],
+          "top_score": 0.58339632,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-member-002",
+          "query": "手里的三百积分购物时能抵扣多少钱",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 6,
+          "top_titles": [
+            "账户安全",
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.57714874,
+            0.52291638,
+            0.51635516,
+            0.49910513,
+            0.48498642,
+            0.45765975
+          ],
+          "top_score": 0.57714874,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-member-003",
+          "query": "累计花费达到五千元会进入哪个会员等级",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "退款政策",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.68267429,
+            0.59759647,
+            0.59382278,
+            0.53878903,
+            0.51338649,
+            0.5080471
+          ],
+          "top_score": 0.68267429,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-member-004",
+          "query": "银卡和金卡结账时分别能享受多少折扣",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.64532721,
+            0.51338542,
+            0.44680712,
+            0.44580704,
+            0.43057349,
+            0.36199859
+          ],
+          "top_score": 0.64532721,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-member-005",
+          "query": "会员积分一直不用的话多久会被清零",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "退款政策",
+            "会员与积分",
+            "账户安全",
+            "配送说明",
+            "订单查询",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.59208143,
+            0.58588463,
+            0.56385934,
+            0.52166879,
+            0.50800353,
+            0.45215404
+          ],
+          "top_score": 0.59208143,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-member-006",
+          "query": "生日所在月份下单，积分会按几倍发放",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 3,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "会员与积分",
+            "订单查询",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.60979038,
+            0.60284352,
+            0.58387125,
+            0.55652779,
+            0.55517071,
+            0.46114352
+          ],
+          "top_score": 0.60979038,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-delivery-001",
+          "query": "普通配送一般需要几个工作日才能送达",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.64258456,
+            0.58514613,
+            0.52003521,
+            0.48589823,
+            0.46551076,
+            0.4439038
+          ],
+          "top_score": 0.64258456,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-delivery-002",
+          "query": "选择标准配送时订单满多少钱免运费",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 5,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.54063064,
+            0.50019366,
+            0.48937565,
+            0.42957288,
+            0.42148697,
+            0.3617225
+          ],
+          "top_score": 0.54063064,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-delivery-003",
+          "query": "加急寄送要收多少运费，大约几天到",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.63723868,
+            0.63133061,
+            0.60206932,
+            0.59963912,
+            0.5471285,
+            0.42271066
+          ],
+          "top_score": 0.63723868,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-delivery-004",
+          "query": "同城当天或第二天送到的服务收费多少",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.71929479,
+            0.64473814,
+            0.54954791,
+            0.53311485,
+            0.52385604,
+            0.46635789
+          ],
+          "top_score": 0.71929479,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-delivery-005",
+          "query": "收货地比较偏远，预计会比普通地区多等几天",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "账户安全",
+            "退款政策",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.67774582,
+            0.58835149,
+            0.53781629,
+            0.5363422,
+            0.45161816,
+            0.44552812
+          ],
+          "top_score": 0.67774582,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-delivery-006",
+          "query": "包裹还没发出时能否联系你们更改收货地址",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "技术故障排查",
+            "配送说明",
+            "订单查询",
+            "账户安全",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.59319097,
+            0.56031311,
+            0.52006036,
+            0.50386328,
+            0.42186004,
+            0.29690537
+          ],
+          "top_score": 0.59319097,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-hard-negative-001",
+          "query": "使用礼品卡购买的商品，退款会退回礼品卡还是现金",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.7546497,
+            0.45438421,
+            0.45423147,
+            0.44703367,
+            0.4127565,
+            0.41053519
+          ],
+          "top_score": 0.7546497,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-002",
+          "query": "申请退款时平台会不会额外收取手续费",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "配送说明",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.6178838,
+            0.55266762,
+            0.54473317,
+            0.53518599,
+            0.52136564,
+            0.43310779
+          ],
+          "top_score": 0.6178838,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-003",
+          "query": "还没发货的订单可以直接在页面取消吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.55175638,
+            0.5373255,
+            0.52739286,
+            0.50743103,
+            0.4678013,
+            0.38214409
+          ],
+          "top_score": 0.55175638,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-hard-negative-004",
+          "query": "同一个订单能不能拆成两张发票",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "账户安全",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.53350341,
+            0.5263468,
+            0.52028835,
+            0.44947132,
+            0.42017245,
+            0.37163174
+          ],
+          "top_score": 0.53350341,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-005",
+          "query": "换了手机号码以后怎样更新账户绑定信息",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.56158727,
+            0.51868457,
+            0.51404256,
+            0.48343724,
+            0.44310975,
+            0.39904925
+          ],
+          "top_score": 0.56158727,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-006",
+          "query": "我能删除账户里以前的登录记录吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "账户安全",
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.50919086,
+            0.50119191,
+            0.46720085,
+            0.44739223,
+            0.41681483,
+            0.36112827
+          ],
+          "top_score": 0.50919086,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-007",
+          "query": "系统支持哪些浏览器和最低版本",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "账户安全",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.4659844,
+            0.45228228,
+            0.3910374,
+            0.37320554,
+            0.35789981,
+            0.31403065
+          ],
+          "top_score": 0.4659844,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-hard-negative-008",
+          "query": "批量导出数据最多允许多少条记录",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.62900943,
+            0.50068176,
+            0.49179372,
+            0.47635677,
+            0.43913919,
+            0.32537097
+          ],
+          "top_score": 0.62900943,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-009",
+          "query": "会员积分可以转送到家人的账户吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "会员与积分",
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.65715784,
+            0.55853975,
+            0.55642486,
+            0.506805,
+            0.44309613,
+            0.43635958
+          ],
+          "top_score": 0.65715784,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-010",
+          "query": "金卡会员长期不消费会不会降级",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.70587003,
+            0.5793063,
+            0.48368606,
+            0.45991877,
+            0.45372003,
+            0.42519972
+          ],
+          "top_score": 0.70587003,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-hard-negative-011",
+          "query": "你们能把商品寄到国外的地址吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.53143322,
+            0.4525333,
+            0.42457217,
+            0.40066701,
+            0.39070266,
+            0.3240948
+          ],
+          "top_score": 0.53143322,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-012",
+          "query": "下单后可以改成到店自提吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.5292021,
+            0.48382503,
+            0.48298535,
+            0.45756623,
+            0.44190845,
+            0.3583968
+          ],
+          "top_score": 0.5292021,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-001",
+          "query": "杭州明天下午大概多少度",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.62202996,
+            0.57637852,
+            0.51570141,
+            0.49972093,
+            0.47740573,
+            0.37439179
+          ],
+          "top_score": 0.62202996,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-ood-002",
+          "query": "帮我写一句毕业祝福语",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "配送说明",
+            "订单查询",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.49538103,
+            0.44515774,
+            0.44059902,
+            0.4245863,
+            0.38821766,
+            0.37124956
+          ],
+          "top_score": 0.49538103,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-ood-003",
+          "query": "圆周率的小数点后十位是什么",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "订单查询",
+            "会员与积分",
+            "配送说明",
+            "账户安全",
+            "退款政策",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.51828587,
+            0.51086164,
+            0.49683401,
+            0.49509403,
+            0.48026183,
+            0.47349301
+          ],
+          "top_score": 0.51828587,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-ood-004",
+          "query": "推荐一部适合周末看的喜剧片",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.4784441,
+            0.413914,
+            0.39668795,
+            0.37341449,
+            0.33067599,
+            0.3019636
+          ],
+          "top_score": 0.4784441,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-ood-005",
+          "query": "番茄炒蛋怎样做口感更嫩",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "订单查询",
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.53557199,
+            0.52241659,
+            0.51524287,
+            0.43435511,
+            0.41517243,
+            0.35389838
+          ],
+          "top_score": 0.53557199,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-006",
+          "query": "人民币对欧元的汇率是多少",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "账户安全",
+            "会员与积分",
+            "订单查询",
+            "配送说明",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.59512252,
+            0.5659095,
+            0.56106794,
+            0.53345352,
+            0.52548248,
+            0.43231276
+          ],
+          "top_score": 0.59512252,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-ood-007",
+          "query": "解释一下什么叫线性回归",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.46166444,
+            0.44026944,
+            0.42823219,
+            0.42563257,
+            0.39849859,
+            0.32289284
+          ],
+          "top_score": 0.46166444,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-ood-008",
+          "query": "北京到上海坐高铁需要多久",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.61911762,
+            0.5023998,
+            0.46391067,
+            0.45881078,
+            0.45002291,
+            0.38031006
+          ],
+          "top_score": 0.61911762,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-ood-009",
+          "query": "给我列三个适合初学者的健身动作",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.53328192,
+            0.47511145,
+            0.44102612,
+            0.43725613,
+            0.41885778,
+            0.37325746
+          ],
+          "top_score": 0.53328192,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-ood-010",
+          "query": "太阳系里最大的行星是哪一个",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.46836868,
+            0.46319604,
+            0.42552608,
+            0.39975631,
+            0.37869507,
+            0.36569032
+          ],
+          "top_score": 0.46836868,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-011",
+          "query": "把这句话翻译成英语：今天阳光很好",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.56844193,
+            0.50554776,
+            0.4562901,
+            0.45230907,
+            0.41479081,
+            0.35522252
+          ],
+          "top_score": 0.56844193,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-ood-012",
+          "query": "最近有哪些值得关注的人工智能新闻",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.54197741,
+            0.51034909,
+            0.45872411,
+            0.4538289,
+            0.40335014,
+            0.33833912
+          ],
+          "top_score": 0.54197741,
+          "latency_ms": 16.0
+        }
+      ]
+    },
+    "candidate_bge": {
+      "embedding_model": "BAAI/bge-small-zh-v1.5",
+      "threshold": 0.46692987,
+      "evaluation_engine": "direct_local_embeddings",
+      "similarity": "cosine",
+      "metrics": {
+        "total": 60,
+        "positive_total": 36,
+        "negative_total": 24,
+        "threshold": 0.46692987,
+        "hit_at_1": 0.9722,
+        "hit_at_3": 1.0,
+        "mrr_at_k": 0.9861,
+        "decision_accuracy": 0.7833,
+        "answerable_precision": 0.75,
+        "answerable_recall": 1.0,
+        "answerable_f1": 0.8571,
+        "correct_rejection_rate": 0.5,
+        "hard_negative_rejection_rate": 0.0833,
+        "latency_ms": {
+          "mean": 2.6,
+          "p50": 0.0,
+          "p95": 16.0,
+          "max": 16.0
+        }
+      },
+      "cases": [
+        {
+          "id": "rag-refund-001",
+          "query": "买了五天后不想要了，还能直接申请退款吗",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "账户安全",
+            "配送说明",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.74798149,
+            0.46582311,
+            0.45602423,
+            0.45577016,
+            0.43469182,
+            0.41585448
+          ],
+          "top_score": 0.74798149,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-refund-002",
+          "query": "退款请求交上去以后，平台通常要审多久",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.77360064,
+            0.56724292,
+            0.50897551,
+            0.46025768,
+            0.45516917,
+            0.44137004
+          ],
+          "top_score": 0.77360064,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-refund-003",
+          "query": "退款审核已经通过，钱大约什么时候回到付款账户",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "会员与积分",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.71450394,
+            0.53627741,
+            0.44784468,
+            0.44236878,
+            0.43478367,
+            0.41332349
+          ],
+          "top_score": 0.71450394,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-refund-004",
+          "query": "货物已经寄出了，退款前是不是得先办理退货",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.7277264,
+            0.56732368,
+            0.50239694,
+            0.43781403,
+            0.43309018,
+            0.40349764
+          ],
+          "top_score": 0.7277264,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-refund-005",
+          "query": "不是质量问题却要退货，寄回去的运费谁承担",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "配送说明",
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.64598924,
+            0.53653616,
+            0.45898408,
+            0.42855552,
+            0.42218092,
+            0.37575498
+          ],
+          "top_score": 0.64598924,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-refund-006",
+          "query": "订单买了半个月才发现质量问题，还有退款资格吗",
+          "expected_title": "退款政策",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "技术故障排查",
+            "账户安全",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.74052632,
+            0.57428414,
+            0.51042604,
+            0.49549156,
+            0.47734204,
+            0.43107322
+          ],
+          "top_score": 0.74052632,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-order-001",
+          "query": "想让客服查一下订单进展，我需要先给什么编号",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "退款政策",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.70517933,
+            0.58169162,
+            0.53126436,
+            0.5263682,
+            0.48876891,
+            0.44721651
+          ],
+          "top_score": 0.70517933,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-order-002",
+          "query": "订单页面一共会显示哪些处理状态",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "技术故障排查",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6541723,
+            0.49891567,
+            0.46291533,
+            0.45456842,
+            0.44733712,
+            0.42094263
+          ],
+          "top_score": 0.6541723,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-order-003",
+          "query": "商品显示发出八天了还没收到，可以请客服查件吗",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6710794,
+            0.58965313,
+            0.54937851,
+            0.53191602,
+            0.52124882,
+            0.41802141
+          ],
+          "top_score": 0.6710794,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-order-004",
+          "query": "包裹发出以后，物流轨迹最晚多久会更新",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.61479986,
+            0.59000909,
+            0.52659917,
+            0.43177259,
+            0.42469907,
+            0.37519509
+          ],
+          "top_score": 0.61479986,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-order-005",
+          "query": "订单状态显示异常时，联系你们要准备哪项信息",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.77945966,
+            0.56583512,
+            0.55439305,
+            0.53609145,
+            0.52571899,
+            0.37658054
+          ],
+          "top_score": 0.77945966,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-order-006",
+          "query": "待支付、运输中和已签收是不是系统里的订单状态",
+          "expected_title": "订单查询",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.67433077,
+            0.53240192,
+            0.4993161,
+            0.4805488,
+            0.39595133,
+            0.36566764
+          ],
+          "top_score": 0.67433077,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-001",
+          "query": "平台建议设置的密码至少需要多少位",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.69521165,
+            0.59748471,
+            0.49839759,
+            0.44507545,
+            0.43675634,
+            0.41776383
+          ],
+          "top_score": 0.69521165,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-002",
+          "query": "记不起密码时能不能用绑定邮箱重新设置",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.7266162,
+            0.59350693,
+            0.41156551,
+            0.39304134,
+            0.38176146,
+            0.35161528
+          ],
+          "top_score": 0.7266162,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-security-003",
+          "query": "系统检测到陌生地点登录后会采取什么措施",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.56965065,
+            0.53243047,
+            0.45961183,
+            0.43569094,
+            0.4161517,
+            0.38776916
+          ],
+          "top_score": 0.56965065,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-004",
+          "query": "我想给账号多加一道验证，应该在哪项设置里开启",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.65235925,
+            0.6096223,
+            0.45883971,
+            0.4566595,
+            0.44076481,
+            0.43889573
+          ],
+          "top_score": 0.65235925,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-005",
+          "query": "客服为了核实身份会要求我说出账户密码吗",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.71921706,
+            0.54924303,
+            0.49065122,
+            0.45745903,
+            0.42781419,
+            0.3921566
+          ],
+          "top_score": 0.71921706,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-security-006",
+          "query": "怎样的密码组合符合平台给出的安全建议",
+          "expected_title": "账户安全",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.68944407,
+            0.52550191,
+            0.38346422,
+            0.37957913,
+            0.36990461,
+            0.33825633
+          ],
+          "top_score": 0.68944407,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-technical-001",
+          "query": "应用一打开就退出，按文档应该先做哪些排查",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6286546,
+            0.53040582,
+            0.51371479,
+            0.48156059,
+            0.41525269,
+            0.38101664
+          ],
+          "top_score": 0.6286546,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-technical-002",
+          "query": "登录页面返回 401 代表哪类问题",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.55524719,
+            0.54688561,
+            0.45702663,
+            0.43934399,
+            0.39960536,
+            0.38676727
+          ],
+          "top_score": 0.55524719,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-technical-003",
+          "query": "页面特别慢时，知识库建议先检查什么",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "账户安全",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.60126299,
+            0.51927215,
+            0.50529546,
+            0.46681824,
+            0.40378115,
+            0.35346761
+          ],
+          "top_score": 0.60126299,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-technical-004",
+          "query": "银行卡付款失败，除了余额还应该确认哪个功能",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "会员与积分",
+            "账户安全",
+            "退款政策",
+            "订单查询",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.63966525,
+            0.4931685,
+            0.46144515,
+            0.44525012,
+            0.42775017,
+            0.38478905
+          ],
+          "top_score": 0.63966525,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-technical-005",
+          "query": "网页出现 500 时是客户端问题还是服务端问题",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.73073506,
+            0.53070998,
+            0.51097322,
+            0.49258214,
+            0.44823638,
+            0.34690312
+          ],
+          "top_score": 0.73073506,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-technical-006",
+          "query": "服务器错误反复出现，稍后重试仍没好该找谁",
+          "expected_title": "技术故障排查",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "技术故障排查",
+            "订单查询",
+            "账户安全",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.69827598,
+            0.5023759,
+            0.49919286,
+            0.42300653,
+            0.39298585,
+            0.29781565
+          ],
+          "top_score": 0.69827598,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-member-001",
+          "query": "平时消费一块钱可以累计几个积分",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.75433499,
+            0.49632433,
+            0.40581447,
+            0.39080101,
+            0.37860161,
+            0.36111203
+          ],
+          "top_score": 0.75433499,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-member-002",
+          "query": "手里的三百积分购物时能抵扣多少钱",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "订单查询",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.6688394,
+            0.45481768,
+            0.3938897,
+            0.38042825,
+            0.37053138,
+            0.34616286
+          ],
+          "top_score": 0.6688394,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-member-003",
+          "query": "累计花费达到五千元会进入哪个会员等级",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.67112345,
+            0.50547969,
+            0.42717409,
+            0.37711605,
+            0.37321436,
+            0.36953178
+          ],
+          "top_score": 0.67112345,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-member-004",
+          "query": "银卡和金卡结账时分别能享受多少折扣",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "订单查询",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.67057198,
+            0.45719752,
+            0.43728033,
+            0.40293214,
+            0.39692467,
+            0.38996422
+          ],
+          "top_score": 0.67057198,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-member-005",
+          "query": "会员积分一直不用的话多久会被清零",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "退款政策",
+            "账户安全",
+            "配送说明",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.72000146,
+            0.53814721,
+            0.53453517,
+            0.49301064,
+            0.4861621,
+            0.43844634
+          ],
+          "top_score": 0.72000146,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-member-006",
+          "query": "生日所在月份下单，积分会按几倍发放",
+          "expected_title": "会员与积分",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "退款政策",
+            "订单查询",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.67686242,
+            0.48571315,
+            0.42547655,
+            0.41638455,
+            0.4149147,
+            0.33212051
+          ],
+          "top_score": 0.67686242,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-delivery-001",
+          "query": "普通配送一般需要几个工作日才能送达",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "技术故障排查",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.79906267,
+            0.53975672,
+            0.5103572,
+            0.47961241,
+            0.40240794,
+            0.38604951
+          ],
+          "top_score": 0.79906267,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-delivery-002",
+          "query": "选择标准配送时订单满多少钱免运费",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "技术故障排查",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.77557158,
+            0.54621094,
+            0.53414798,
+            0.49612546,
+            0.379623,
+            0.36924383
+          ],
+          "top_score": 0.77557158,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-delivery-003",
+          "query": "加急寄送要收多少运费，大约几天到",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "订单查询",
+            "会员与积分",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.78460163,
+            0.56592131,
+            0.5528475,
+            0.50455624,
+            0.41281494,
+            0.39242309
+          ],
+          "top_score": 0.78460163,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-delivery-004",
+          "query": "同城当天或第二天送到的服务收费多少",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.75133979,
+            0.53756815,
+            0.53077495,
+            0.5129419,
+            0.42364159,
+            0.38053393
+          ],
+          "top_score": 0.75133979,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-delivery-005",
+          "query": "收货地比较偏远，预计会比普通地区多等几天",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 1,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.61668825,
+            0.52118325,
+            0.49076122,
+            0.37662402,
+            0.36652213,
+            0.34476912
+          ],
+          "top_score": 0.61668825,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-delivery-006",
+          "query": "包裹还没发出时能否联系你们更改收货地址",
+          "expected_title": "配送说明",
+          "case_type": "positive",
+          "rank": 2,
+          "top_titles": [
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "账户安全",
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.6406343,
+            0.61578482,
+            0.5486064,
+            0.51830292,
+            0.50414217,
+            0.38157478
+          ],
+          "top_score": 0.6406343,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-001",
+          "query": "使用礼品卡购买的商品，退款会退回礼品卡还是现金",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "会员与积分",
+            "账户安全",
+            "订单查询",
+            "技术故障排查",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.60634542,
+            0.54966575,
+            0.45683029,
+            0.44649407,
+            0.43899295,
+            0.39810756
+          ],
+          "top_score": 0.60634542,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-002",
+          "query": "申请退款时平台会不会额外收取手续费",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "会员与积分",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.67684853,
+            0.50586838,
+            0.46863139,
+            0.46003383,
+            0.45180613,
+            0.41916144
+          ],
+          "top_score": 0.67684853,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-003",
+          "query": "还没发货的订单可以直接在页面取消吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.59630781,
+            0.59245408,
+            0.47944868,
+            0.46935946,
+            0.45982671,
+            0.39861488
+          ],
+          "top_score": 0.59630781,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-004",
+          "query": "同一个订单能不能拆成两张发票",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "订单查询",
+            "配送说明",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.48738995,
+            0.47089797,
+            0.46344972,
+            0.43550399,
+            0.43278456,
+            0.431099
+          ],
+          "top_score": 0.48738995,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-hard-negative-005",
+          "query": "换了手机号码以后怎样更新账户绑定信息",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.64875054,
+            0.50723916,
+            0.46608409,
+            0.44558138,
+            0.39636922,
+            0.38121369
+          ],
+          "top_score": 0.64875054,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-006",
+          "query": "我能删除账户里以前的登录记录吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "退款政策",
+            "订单查询",
+            "会员与积分",
+            "配送说明"
+          ],
+          "top_scores": [
+            0.58101547,
+            0.49000439,
+            0.4105967,
+            0.33522832,
+            0.32249954,
+            0.22977391
+          ],
+          "top_score": 0.58101547,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-007",
+          "query": "系统支持哪些浏览器和最低版本",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策",
+            "配送说明",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.51259786,
+            0.38375989,
+            0.33292085,
+            0.3010844,
+            0.29520881,
+            0.26013735
+          ],
+          "top_score": 0.51259786,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-008",
+          "query": "批量导出数据最多允许多少条记录",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "配送说明",
+            "退款政策",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.45576501,
+            0.44589803,
+            0.44458511,
+            0.37429857,
+            0.36161637,
+            0.35391247
+          ],
+          "top_score": 0.45576501,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-009",
+          "query": "会员积分可以转送到家人的账户吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "账户安全",
+            "退款政策",
+            "配送说明",
+            "技术故障排查",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.67695117,
+            0.48587528,
+            0.44907674,
+            0.4474003,
+            0.38312402,
+            0.3695606
+          ],
+          "top_score": 0.67695117,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-010",
+          "query": "金卡会员长期不消费会不会降级",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "技术故障排查",
+            "退款政策",
+            "配送说明",
+            "账户安全",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.62105322,
+            0.47806293,
+            0.4611662,
+            0.41251874,
+            0.39500555,
+            0.35112849
+          ],
+          "top_score": 0.62105322,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-hard-negative-011",
+          "query": "你们能把商品寄到国外的地址吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "退款政策",
+            "订单查询",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.48570916,
+            0.4854494,
+            0.47525185,
+            0.39007598,
+            0.33708096,
+            0.33062255
+          ],
+          "top_score": 0.48570916,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-hard-negative-012",
+          "query": "下单后可以改成到店自提吗",
+          "expected_title": null,
+          "case_type": "hard_negative",
+          "rank": null,
+          "top_titles": [
+            "退款政策",
+            "配送说明",
+            "订单查询",
+            "会员与积分",
+            "账户安全",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.5143038,
+            0.49747664,
+            0.47181427,
+            0.46987715,
+            0.43565837,
+            0.42366844
+          ],
+          "top_score": 0.5143038,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-001",
+          "query": "杭州明天下午大概多少度",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "会员与积分",
+            "退款政策",
+            "账户安全",
+            "订单查询",
+            "技术故障排查"
+          ],
+          "top_scores": [
+            0.44252092,
+            0.32619578,
+            0.3080669,
+            0.29366672,
+            0.28598121,
+            0.28166279
+          ],
+          "top_score": 0.44252092,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-002",
+          "query": "帮我写一句毕业祝福语",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.3320688,
+            0.31986585,
+            0.31625897,
+            0.30468369,
+            0.29110426,
+            0.24823549
+          ],
+          "top_score": 0.3320688,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-003",
+          "query": "圆周率的小数点后十位是什么",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "退款政策",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.38865665,
+            0.32897386,
+            0.30412319,
+            0.27049014,
+            0.26578847,
+            0.24550942
+          ],
+          "top_score": 0.38865665,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-004",
+          "query": "推荐一部适合周末看的喜剧片",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "会员与积分",
+            "账户安全",
+            "技术故障排查",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.31565914,
+            0.29058561,
+            0.2624805,
+            0.24631497,
+            0.21902397,
+            0.20869415
+          ],
+          "top_score": 0.31565914,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-005",
+          "query": "番茄炒蛋怎样做口感更嫩",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.23515098,
+            0.22533262,
+            0.21420212,
+            0.1921335,
+            0.17006205,
+            0.15405665
+          ],
+          "top_score": 0.23515098,
+          "latency_ms": 16.0
+        },
+        {
+          "id": "rag-ood-006",
+          "query": "人民币对欧元的汇率是多少",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "会员与积分",
+            "配送说明",
+            "技术故障排查",
+            "账户安全",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.40980011,
+            0.35566822,
+            0.28681263,
+            0.28137442,
+            0.23822075,
+            0.23368177
+          ],
+          "top_score": 0.40980011,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-007",
+          "query": "解释一下什么叫线性回归",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "技术故障排查",
+            "账户安全",
+            "会员与积分"
+          ],
+          "top_scores": [
+            0.32346466,
+            0.31805563,
+            0.31498462,
+            0.30467284,
+            0.29375285,
+            0.28573665
+          ],
+          "top_score": 0.32346466,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-008",
+          "query": "北京到上海坐高铁需要多久",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "订单查询",
+            "退款政策",
+            "会员与积分",
+            "技术故障排查",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.51050842,
+            0.37698871,
+            0.37507522,
+            0.33744785,
+            0.32808036,
+            0.27633071
+          ],
+          "top_score": 0.51050842,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-009",
+          "query": "给我列三个适合初学者的健身动作",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "账户安全",
+            "会员与积分",
+            "技术故障排查",
+            "退款政策",
+            "订单查询"
+          ],
+          "top_scores": [
+            0.31865519,
+            0.30682376,
+            0.3044802,
+            0.28146133,
+            0.24756187,
+            0.19461791
+          ],
+          "top_score": 0.31865519,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-010",
+          "query": "太阳系里最大的行星是哪一个",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "技术故障排查",
+            "账户安全",
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.19674101,
+            0.19222887,
+            0.17342538,
+            0.1501656,
+            0.12292976,
+            0.1131349
+          ],
+          "top_score": 0.19674101,
+          "latency_ms": 0.0
+        },
+        {
+          "id": "rag-ood-011",
+          "query": "把这句话翻译成英语：今天阳光很好",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "配送说明",
+            "会员与积分",
+            "订单查询",
+            "技术故障排查",
+            "退款政策",
+            "账户安全"
+          ],
+          "top_scores": [
+            0.31533092,
+            0.24842818,
+            0.24056886,
+            0.23701833,
+            0.23304835,
+            0.22924028
+          ],
+          "top_score": 0.31533092,
+          "latency_ms": 15.0
+        },
+        {
+          "id": "rag-ood-012",
+          "query": "最近有哪些值得关注的人工智能新闻",
+          "expected_title": null,
+          "case_type": "out_of_domain",
+          "rank": null,
+          "top_titles": [
+            "账户安全",
+            "技术故障排查",
+            "配送说明",
+            "订单查询",
+            "会员与积分",
+            "退款政策"
+          ],
+          "top_scores": [
+            0.3074457,
+            0.25338176,
+            0.24634276,
+            0.21711282,
+            0.16171756,
+            0.15211023
+          ],
+          "top_score": 0.3074457,
+          "latency_ms": 0.0
+        }
+      ]
+    }
+  }
+}

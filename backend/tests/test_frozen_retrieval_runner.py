@@ -60,9 +60,18 @@ def test_repository_retrieval_freeze_manifest_matches_files():
         (backend / "evaluation/data/retrieval_test_v1.freeze.json").read_text(encoding="utf-8")
     )
 
-    validate_freeze_manifest(manifest, dataset, corpus, calibration)
+    validate_freeze_manifest(
+        manifest,
+        dataset,
+        corpus,
+        calibration,
+        allow_completed=True,
+    )
     metadata, cases = load_test_dataset(dataset)
 
     assert metadata["baseline_commit"] == manifest["evaluation_code_commit"]
     assert len(cases) == manifest["total_cases"] == 60
     assert sum(case.expected_title is not None for case in cases) == 36
+    assert manifest["first_evaluation_run"] is True
+    first_report = backend.parent / manifest["first_evaluation_report"]
+    assert hashlib.sha256(first_report.read_bytes()).hexdigest() == manifest["first_evaluation_report_sha256"]
