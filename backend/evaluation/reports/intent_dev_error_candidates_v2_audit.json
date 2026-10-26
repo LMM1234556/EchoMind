@@ -5,10 +5,10 @@
   "baseline_commit": "",
   "total": 15,
   "status_counts": {
-    "draft": 15
+    "verified": 15
   },
   "split_counts": {
-    "candidate": 15
+    "dev": 15
   },
   "difficulty_counts": {
     "easy": 4,
@@ -24,8 +24,6 @@
   },
   "template_overlap_ids": [],
   "cross_dataset_overlaps": [],
-  "scoreable_total": 0,
-  "warnings": [
-    "no human-verified dev/test cases are available for scoring"
-  ]
+  "scoreable_total": 15,
+  "warnings": []
 }
