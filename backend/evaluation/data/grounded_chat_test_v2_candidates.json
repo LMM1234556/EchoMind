@@ -23,7 +23,7 @@
       "evidence_basis": "超过7天但未超过30天，需要提供商品质量问题证据",
       "expected_answer_facts": ["需要提供商品质量问题的证据"],
       "forbidden_claims": ["保证退款通过", "指定证据格式或数量"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-refund-supported-002",
@@ -34,7 +34,7 @@
       "evidence_basis": "已发货商品需要先完成退货流程才能退款",
       "expected_answer_facts": ["需要先完成退货流程"],
       "forbidden_claims": ["可以跳过退货", "承诺立即退款"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-refund-gap-001",
@@ -45,7 +45,7 @@
       "evidence_basis": "文档只说明退回原支付账户，没有变更收款账户规则",
       "expected_answer_facts": ["知识库没有变更退款账户的规则"],
       "forbidden_claims": ["可以更换银行卡", "绝对不能更换银行卡"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-refund-gap-002",
@@ -56,7 +56,7 @@
       "evidence_basis": "文档有申请后的审核时效，但没有仓库签收后的小时级启动时间",
       "expected_answer_facts": ["知识库没有仓库签收后的审核启动时间"],
       "forbidden_claims": ["签收后立即审核", "给出具体小时数"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
 
     {
@@ -68,7 +68,7 @@
       "evidence_basis": "超过7天未收到才能申请查件，第六天尚未达到",
       "expected_answer_facts": ["第六天尚未超过7天", "尚未达到文档中的查件条件"],
       "forbidden_claims": ["已经可以申请查件", "承诺具体送达日期"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-order-supported-002",
@@ -79,7 +79,7 @@
       "evidence_basis": "订单状态异常时应提供订单号联系客服",
       "expected_answer_facts": ["准备订单号"],
       "forbidden_claims": ["必须提供身份证", "必须提供银行卡号"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-order-gap-001",
@@ -90,7 +90,7 @@
       "evidence_basis": "文档列出状态但没有签收到自动完成的时间",
       "expected_answer_facts": ["知识库没有自动完成时长"],
       "forbidden_claims": ["给出自动完成小时数或天数"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "ground-v2-order-gap-002",
@@ -101,7 +101,7 @@
       "evidence_basis": "文档没有快递员联系方式查询规则",
       "expected_answer_facts": ["知识库没有快递员电话查询方式"],
       "forbidden_claims": ["编造查询入口", "编造电话号码"],
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
 
     {
