@@ -56,13 +56,13 @@ class UrgencyLevel(Enum):
 
 
 _INTENT_DEFINITIONS: Dict[IntentCategory, str] = {
-    IntentCategory.QUERY: "一般信息咨询，且不属于订单、物流等更具体类别",
+    IntentCategory.QUERY: "客服渠道、服务时间、平台功能或使用说明等一般服务信息；不包含价格计费、具体业务类别或客服范围外知识问答",
     IntentCategory.COMPLAINT: "表达不满或抱怨，但没有要求主管升级或转人工",
     IntentCategory.REQUEST: "泛化操作请求，且没有匹配到更具体业务类别",
     IntentCategory.GREETING: "问候、寒暄或确认是否在线",
     IntentCategory.ESCALATION: "要求主管、经理、负责人或更高级别介入",
     IntentCategory.TECHNICAL: "一般技术问题，不是登录认证或崩溃错误码问题",
-    IntentCategory.BILLING: "一般账单查询，不是退款、发票或支付扣款异常",
+    IntentCategory.BILLING: "套餐价格、收费计费规则、续费费用或一般账单查询；不是退款、发票或支付扣款异常",
     IntentCategory.ACCOUNT: "普通账户资料维护，如修改姓名、邮箱、绑定手机号或个人信息",
     IntentCategory.FEEDBACK: "正面评价、感谢或建议反馈",
     IntentCategory.ORDER_STATUS: "查询订单是否受理、处理或发货状态",
@@ -74,7 +74,7 @@ _INTENT_DEFINITIONS: Dict[IntentCategory, str] = {
     IntentCategory.TECHNICAL_LOGIN: "无法登录、认证失败、401 或验证码故障",
     IntentCategory.TECHNICAL_CRASH: "程序崩溃、闪退、500 或明确错误码故障",
     IntentCategory.HUMAN_HANDOFF: "明确要求人工、真人客服或人工坐席",
-    IntentCategory.OTHER: "不属于客服业务范围或无法判断",
+    IntentCategory.OTHER: "不属于客服业务范围的天气、汇率、影视推荐、通用知识等问题，或无法判断",
 }
 
 
@@ -98,7 +98,7 @@ _TEMPLATES: Dict[IntentCategory, List[str]] = {
     IntentCategory.GREETING:   ["你好", "嗨，有人吗", "早上好"],
     IntentCategory.ESCALATION: ["请升级给主管处理", "需要更高级别负责人介入", "找你们经理"],
     IntentCategory.TECHNICAL:  ["接口请求超时", "数据同步失败", "配置保存后未生效"],
-    IntentCategory.BILLING:    ["账单金额如何计算？", "套餐费用怎么收取？", "查看本月账单明细"],
+    IntentCategory.BILLING:    ["套餐价格和计费规则", "账单金额如何计算？", "续费怎么收费？"],
     IntentCategory.ACCOUNT:    ["修改邮箱", "注销账户", "更新个人信息"],
     IntentCategory.FEEDBACK:   ["服务很棒！", "非常满意", "给个好评"],
     IntentCategory.ORDER_STATUS: ["我的订单现在是什么状态？", "订单有没有发货？", "订单处理到哪一步了？"],
@@ -110,6 +110,7 @@ _TEMPLATES: Dict[IntentCategory, List[str]] = {
     IntentCategory.TECHNICAL_LOGIN: ["登录一直报401", "验证码收不到", "无法登录账号"],
     IntentCategory.TECHNICAL_CRASH: ["应用一直崩溃", "页面报500错误", "系统闪退"],
     IntentCategory.HUMAN_HANDOFF: ["转人工客服", "我要找人工", "请接真人坐席"],
+    IntentCategory.OTHER: ["查询外币汇率", "推荐旅游路线", "解释物理知识"],
 }
 
 _SPECIFIC_INTENTS = {

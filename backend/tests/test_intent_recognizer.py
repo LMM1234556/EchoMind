@@ -23,6 +23,9 @@ def test_intent_definitions_cover_the_ontology_and_account_boundary():
     assert set(_INTENT_DEFINITIONS) == set(IntentCategory)
     assert "绑定手机号" in _INTENT_DEFINITIONS[IntentCategory.ACCOUNT]
     assert "异常登录" in _INTENT_DEFINITIONS[IntentCategory.ACCOUNT_SECURITY]
+    assert "价格" in _INTENT_DEFINITIONS[IntentCategory.BILLING]
+    assert "汇率" in _INTENT_DEFINITIONS[IntentCategory.OTHER]
+    assert "不包含价格计费" in _INTENT_DEFINITIONS[IntentCategory.QUERY]
 
 
 def test_explicit_human_request_uses_handoff_intent():
@@ -48,10 +51,13 @@ def test_generic_few_shots_match_their_declared_boundaries():
         "客服服务时间是什么？", "平台支持哪些服务？", "在哪里查看使用说明？",
     ]
     assert _TEMPLATES[IntentCategory.BILLING] == [
-        "账单金额如何计算？", "套餐费用怎么收取？", "查看本月账单明细",
+        "套餐价格和计费规则", "账单金额如何计算？", "续费怎么收费？",
     ]
     assert _TEMPLATES[IntentCategory.TECHNICAL] == [
         "接口请求超时", "数据同步失败", "配置保存后未生效",
+    ]
+    assert _TEMPLATES[IntentCategory.OTHER] == [
+        "查询外币汇率", "推荐旅游路线", "解释物理知识",
     ]
 
 
