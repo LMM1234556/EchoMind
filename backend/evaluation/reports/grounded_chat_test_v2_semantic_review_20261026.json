@@ -1,12 +1,14 @@
 {
-  "name": "grounded-chat-test-v2-semantic-review-draft",
-  "status": "partially_confirmed_by_project_owner",
-  "reviewer": "codex_assisted_review",
-  "project_owner_confirmed": false,
-  "project_owner_confirmed_cases": 16,
+  "name": "grounded-chat-test-v2-semantic-review",
+  "status": "completed_and_confirmed_by_project_owner",
+  "reviewer": "codex_assisted_review_confirmed_by_project_owner",
+  "project_owner_confirmed": true,
+  "project_owner_confirmed_on": "2026-10-26",
+  "project_owner_confirmed_cases": 24,
   "project_owner_confirmed_ranges": [
     "1-8",
-    "9-16"
+    "9-16",
+    "17-24"
   ],
   "reviewed_on": "2026-10-26",
   "source_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
@@ -16,7 +18,7 @@
   "reviewed_cases": 24,
   "passed_cases": 20,
   "failed_cases": 4,
-  "provisional_pass_rate": 0.8333,
+  "confirmed_pass_rate": 0.8333,
   "cases": [
     {
       "case_id": "ground-v2-refund-supported-001",
@@ -117,43 +119,51 @@
     {
       "case_id": "ground-v2-member-supported-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly answered silver membership and a 5 percent discount."
     },
     {
       "case_id": "ground-v2-member-supported-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly performed the deterministic conversion to 4.5 yuan and did not claim cash withdrawal."
     },
     {
       "case_id": "ground-v2-member-gap-001",
       "verdict": "fail",
+      "project_owner_confirmed": true,
       "reason": "It did not assert transfer permission, but invented possible membership/activity-dependent rules and a specific UI path for transfer documentation."
     },
     {
       "case_id": "ground-v2-member-gap-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Did not assert either annual reset or permanent accumulation."
     },
     {
       "case_id": "ground-v2-delivery-supported-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly stated that 60 yuan does not meet the 99-yuan free-shipping threshold without inventing the shipping fee."
     },
     {
       "case_id": "ground-v2-delivery-supported-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly stated a possible additional two to three days without guaranteeing a delivery date."
     },
     {
       "case_id": "ground-v2-delivery-gap-001",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "The selector failed because of a provider connection error, but the final answer safely declined to invent a weekend surcharge rule."
     },
     {
       "case_id": "ground-v2-delivery-gap-002",
       "verdict": "pass",
+      "project_owner_confirmed": true,
       "reason": "Correctly rejected the unsupported default-carrier question without naming a carrier."
     }
   ],
-  "claim_boundary": "This is a Codex-assisted draft, not completed human review or a production accuracy estimate. The project owner must confirm every verdict before reporting answer-faithfulness as a final metric."
+  "claim_boundary": "All 24 Codex-assisted verdicts were confirmed by the project owner. The 0.8333 rate applies only to this frozen sample and is neither an independent third-party review nor a production accuracy estimate."
 }

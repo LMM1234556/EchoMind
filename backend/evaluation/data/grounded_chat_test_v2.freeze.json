@@ -59,7 +59,7 @@
   "first_evaluation_report": "backend/evaluation/reports/grounded_chat_test_v2_first_run.json",
   "first_evaluation_report_sha256": "6f5905f6e1b1b1ae5224218844d6d8156551f1ffb04b856f8779063667b89795",
   "first_evaluation_semantic_review_draft": "backend/evaluation/reports/grounded_chat_test_v2_semantic_review_20261026.json",
-  "first_evaluation_semantic_review_status": "pending_project_owner_confirmation",
-  "first_evaluation_provisional_faithfulness_rate": 0.8333,
+  "first_evaluation_semantic_review_status": "completed_and_confirmed_by_project_owner",
+  "first_evaluation_confirmed_faithfulness_rate": 0.8333,
   "restriction": "After freeze, do not modify labels, prompts, corpus, routing, selector, or thresholds based on first-run outcomes. Preserve failures and use a new development set plus v3 test set for later improvements."
 }
