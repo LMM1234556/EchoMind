@@ -11,7 +11,7 @@
     "positive_cases": 36,
     "hard_negative_cases": 12,
     "out_of_domain_cases": 12,
-    "reviewed_cases": 40,
+    "reviewed_cases": 50,
     "scoreable_total": 0
   },
   "cases": [
@@ -341,7 +341,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有修改绑定手机号流程",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-006",
@@ -349,7 +349,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有删除登录记录规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-007",
@@ -357,7 +357,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有浏览器兼容性信息",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-008",
@@ -365,7 +365,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有数据导出限制",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-009",
@@ -373,7 +373,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有积分转赠规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-010",
@@ -381,7 +381,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有会员降级规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-011",
@@ -389,7 +389,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有国际配送范围",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-hard-negative-012",
@@ -397,7 +397,7 @@
       "expected_title": null,
       "case_type": "hard_negative",
       "label_basis": "知识库没有到店自提规则",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-001",
@@ -405,7 +405,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "天气问题不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-002",
@@ -413,7 +413,7 @@
       "expected_title": null,
       "case_type": "out_of_domain",
       "label_basis": "文案创作不属于知识库",
-      "review": {"status": "pending", "reviewer": null, "notes": null}
+      "review": {"status": "verified", "reviewer": "project_owner", "notes": null}
     },
     {
       "id": "rag-ood-003",
