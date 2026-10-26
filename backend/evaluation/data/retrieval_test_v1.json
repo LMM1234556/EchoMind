@@ -1,10 +1,14 @@
 {
   "metadata": {
-    "name": "retrieval-test-v1-candidates",
-    "version": "1.0-candidate",
-    "frozen": false,
+    "name": "retrieval-test-v1",
+    "version": "1.0",
+    "frozen": true,
     "created_on": "2026-10-26",
-    "source": "ai_drafted_for_blind_human_review",
+    "frozen_on": "2026-10-26",
+    "source": "ai_drafted_then_human_reviewed",
+    "reviewer": "project_owner",
+    "human_review_completed_commit": "5140acfb20426c8f8d7f04255b6971903ac7c675",
+    "baseline_commit": "35ebe639aef61b82093b6c308fe84b5c9dea0aba",
     "purpose": "independent paired comparison of baseline and improved retrieval pipelines",
     "corpus_source": "backend/mcp/knowledge_base.py::_load_default_docs",
     "corpus_snapshot": "backend/evaluation/data/retrieval_corpus_v1.json",
@@ -14,7 +18,7 @@
     "hard_negative_cases": 12,
     "out_of_domain_cases": 12,
     "reviewed_cases": 60,
-    "scoreable_total": 0
+    "scoreable_total": 60
   },
   "cases": [
     {

@@ -1,0 +1,38 @@
+{
+  "name": "retrieval-test-v1-freeze",
+  "dataset_path": "backend/evaluation/data/retrieval_test_v1.json",
+  "dataset_sha256": "f9f01eb23a9eb36231ea38bde812d545d5202aec7fb2356a8f640dce617885d5",
+  "corpus_path": "backend/evaluation/data/retrieval_corpus_v1.json",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "calibration_report_path": "backend/evaluation/reports/retrieval_threshold_calibration_v1_20261026.json",
+  "calibration_report_sha256": "5a1bd7fe4ecd35edbec5a2756c57558da6f32ddc7319d23ee4cb3f268cc4bb10",
+  "frozen_on": "2026-10-26",
+  "human_review_completed_commit": "5140acfb20426c8f8d7f04255b6971903ac7c675",
+  "calibration_commit": "82e1e554cc5372fff5a9e98253a20d738113f532",
+  "evaluation_code_commit": "35ebe639aef61b82093b6c308fe84b5c9dea0aba",
+  "reviewer": "project_owner",
+  "total_cases": 60,
+  "positive_cases": 36,
+  "hard_negative_cases": 12,
+  "out_of_domain_cases": 12,
+  "old_development_exact_overlaps": 0,
+  "old_development_near_overlaps": 0,
+  "near_duplicate_threshold": 0.8,
+  "top_k": 6,
+  "evaluation_engine": "direct_local_embeddings",
+  "similarity": "cosine",
+  "models": {
+    "baseline_minilm": {
+      "embedding_model": "all-MiniLM-L6-v2",
+      "production_collection": "knowledge_base",
+      "threshold": 0.46261191
+    },
+    "candidate_bge": {
+      "embedding_model": "BAAI/bge-small-zh-v1.5",
+      "production_collection": "knowledge_base_bge_v1",
+      "threshold": 0.46692987
+    }
+  },
+  "first_evaluation_run": false,
+  "restriction": "Do not tune embedding models, thresholds, corpus, chunking, or retrieval rules using this frozen test set."
+}

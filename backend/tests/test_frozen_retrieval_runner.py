@@ -1,8 +1,10 @@
 import hashlib
 import json
+import pathlib
 
 import pytest
 
+from evaluation.retrieval_comparison import load_test_dataset
 from evaluation.run_frozen_retrieval_test import validate_freeze_manifest
 
 
@@ -47,3 +49,20 @@ def test_manifest_validation_refuses_completed_first_run(tmp_path):
 
     with pytest.raises(RuntimeError, match="completed first evaluation"):
         validate_freeze_manifest(manifest, *paths)
+
+
+def test_repository_retrieval_freeze_manifest_matches_files():
+    backend = pathlib.Path(__file__).resolve().parents[1]
+    dataset = backend / "evaluation/data/retrieval_test_v1.json"
+    corpus = backend / "evaluation/data/retrieval_corpus_v1.json"
+    calibration = backend / "evaluation/reports/retrieval_threshold_calibration_v1_20261026.json"
+    manifest = json.loads(
+        (backend / "evaluation/data/retrieval_test_v1.freeze.json").read_text(encoding="utf-8")
+    )
+
+    validate_freeze_manifest(manifest, dataset, corpus, calibration)
+    metadata, cases = load_test_dataset(dataset)
+
+    assert metadata["baseline_commit"] == manifest["evaluation_code_commit"]
+    assert len(cases) == manifest["total_cases"] == 60
+    assert sum(case.expected_title is not None for case in cases) == 36
