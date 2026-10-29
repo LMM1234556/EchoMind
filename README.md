@@ -2,9 +2,15 @@
 
 > 面向企业软件客服场景的 Multi-Agent AI 产品原型：通过意图路由、RAG 证据门控、分层记忆和评测闭环，减少跨领域漏处理与无依据业务回答。
 
-**作品集导航：** [AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md) · [静态产品演示](docs/PRODUCT_DEMO.md) · [工程案例](docs/PORTFOLIO_CASE_STUDY.md) · [当前评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md) · [系统架构](docs/架构图.md)
+**作品集导航：** [视频演示](#视频演示) · [AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md) · [静态产品演示](docs/PRODUCT_DEMO.md) · [工程案例](docs/PORTFOLIO_CASE_STUDY.md) · [当前评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md) · [系统架构](docs/架构图.md)
 
 ![EchoMind 调试工作台](docs/assets/portfolio/echomind-dashboard.png)
+
+## 视频演示
+
+[![播放 EchoMind 产品演示](docs/assets/portfolio/echomind-demo-cover.jpg)](docs/assets/portfolio/echomind-demo.mp4)
+
+点击封面观看约 88 秒的产品演示，内容包括意图路由、RAG 证据确认、技术故障处理、知识缺口识别、人工交接、产品架构和分层评测。
 
 ## 30 秒了解项目
 
