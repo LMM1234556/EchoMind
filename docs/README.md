@@ -2,6 +2,8 @@
 
 本目录收录经过整理的技术资料与可复核的工程记录：
 
+- `AI_PRODUCT_CASE_STUDY.md`：面向 AI 产品岗位的用户、问题、方案、指标、迭代与路线图
+- `PRODUCT_DEMO.md`：无需运行本地环境即可阅读的静态产品演示
 - `PORTFOLIO_CASE_STUDY.md`：工程问题、改进方案、验证方式和结论边界
 - `CHANGES.md`：本仓库的文件级工程变更摘要
 - `EMBEDDING_BENCHMARK.md`：中文 Embedding 小型离线对比
