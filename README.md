@@ -2,7 +2,7 @@
 
 # EchoMind
 
-**面向企业软件客服的 Multi-Agent AI 系统｜Agent 工程 × AI 产品实践**
+**面向企业软件客服的 Multi-Agent AI 系统**
 
 业务场景定义 · 意图识别 · 主辅 Agent 协作 · Grounded RAG · 分层记忆 · 工具治理 · 全链路评测
 
