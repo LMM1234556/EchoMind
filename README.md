@@ -2,9 +2,9 @@
 
 # EchoMind
 
-**面向企业软件客服场景的 Multi-Agent AI 客服系统**
+**面向企业软件客服的 Multi-Agent AI 系统｜Agent 工程 × AI 产品实践**
 
-意图识别 · 主辅 Agent 协作 · Grounded RAG · 分层记忆 · 工具治理 · 全链路评测
+业务场景定义 · 意图识别 · 主辅 Agent 协作 · Grounded RAG · 分层记忆 · 工具治理 · 全链路评测
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
@@ -15,16 +15,17 @@
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
 ![Tests](https://img.shields.io/badge/Tests-151%20passed-2EA44F)
 
-[▶ 观看产品演示](docs/assets/portfolio/echomind-demo.mp4) ·
+[▶ 查看 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
+[⬇ 直接播放 / 下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md) ·
 [评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md) ·
 [系统文档](docs/README.md)
 
 </div>
 
-[![EchoMind 产品演示](docs/assets/portfolio/echomind-demo-cover.jpg)](docs/assets/portfolio/echomind-demo.mp4)
+[![EchoMind 产品与 Agent 系统演示](docs/assets/portfolio/echomind-demo-cover.jpg)](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4)
 
-> 点击封面观看约 88 秒的产品演示：从退款咨询、401 技术故障和知识缺口识别，到人工交接、产品架构与分层评测。
+> 点击封面查看约 88 秒的产品与 Agent 系统演示：从退款咨询、401 技术故障和知识缺口识别，到人工交接、产品架构与分层评测；也可使用上方入口直接播放或下载 MP4。
 
 ## 目录
 
@@ -45,6 +46,11 @@
 ## 项目概览
 
 EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工服务的一线客服团队。系统将一条用户消息转化为结构化意图和路由决策，由专业 Agent 协作处理，并通过知识库证据、会话记忆与运行 Trace 支撑可追踪的回答链路。
+
+本项目同时从两个视角呈现个人能力：
+
+- **Agent 应用与工程视角**：展示意图融合、主辅路由、工具治理、RAG 证据门控、记忆隔离、可观测性和自动化回归；
+- **AI 产品视角**：展示用户问题拆解、Agent 职责设计、需求优先级、核心链路、指标体系、评测发现与迭代规划。
 
 | 项目要素 | 内容 |
 |---|---|
