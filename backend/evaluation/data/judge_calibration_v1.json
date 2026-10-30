@@ -337,11 +337,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确说明纯数字密码不符合要求，并完整覆盖至少8位且同时包含字母和数字的规则。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -375,11 +375,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 4,
+          "notes": "核心回答准确完整，明确说明自动锁定账户并发送通知；但补充的密码管理和账单核验信息与当前问题关联较弱。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -411,11 +411,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 4,
+          "notes": "正确识别知识库未提供恢复码数量，并给出进一步核验路径；但账单专家身份和账单业务介绍与问题关联较弱。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -447,11 +447,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "没有编造自动解锁时长，并建议联系人工核验；但未明确指出缺少的是自动解锁时长，且索取交易和金额信息与账户解锁无关。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -484,11 +484,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "直接给出更新到最新版本这一文档建议，补充排查信息均与闪退相关，并将通用建议与平台规则清楚区分。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -521,11 +521,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确指出应确认银行卡已开启网上支付功能，补充信息与支付故障核验相关，且未索取完整卡号或承诺支付成功。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -557,11 +557,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 2,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "虽说明无法确认平台上限，但仍列举3次、5次、10次以及24小时锁定、15至30分钟自动解锁等无知识库依据的具体数字，可能误导用户。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -594,11 +594,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确说明知识库没有500错误补偿政策，未承诺补偿或编造金额，并提供政策核验与故障排查路径；但技术排查部分相对问题较长。"
         },
         {
           "reviewer_id": "reviewer_2",
