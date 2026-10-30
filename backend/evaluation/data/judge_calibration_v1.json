@@ -632,11 +632,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确判断累计消费3200元属于银卡会员，并给出银卡95折权益，回答简洁且未混淆金卡规则。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -669,11 +669,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "按照100积分等于1元准确计算出450积分等值4.5元，且未增加积分提现等未经支持的规则。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -706,11 +706,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 4,
+          "notes": "没有擅自判断积分能否转赠，并给出规则查询和客服核验路径；但会员等级或活动差异的原因推测缺少依据，且暗示可直接转接客服。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -743,11 +743,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "没有武断判断累计消费金额是否清零，事实边界正确；但未明确指出缺少的是重置规则，且索取订单和交易信息与规则咨询关联不大。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -779,11 +779,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确说明标准配送满99元免运费，60元未达到门槛，且未编造未满门槛时的具体运费。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -816,11 +816,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确使用可能这一限定并给出偏远地区额外增加2至3天，没有作确定时效或送达日期承诺。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -854,11 +854,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "没有武断判断周六配送是否加收服务费，也未编造金额；但未明确指出缺少的是周末服务费规则，且索取交易信息对一般规则咨询并非必要。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -890,11 +890,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "没有编造默认承运快递公司，事实边界正确；但未明确指出文档缺少默认快递公司信息，且索取交易和金额信息与承运商查询无关。"
         },
         {
           "reviewer_id": "reviewer_2",
