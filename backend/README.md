@@ -1,6 +1,6 @@
 # EchoMind
 
-EchoMind 是一个面向客服/运营场景的多 Agent 智能系统。它不是单纯的聊天机器人，而是把以下能力串成闭环：
+EchoMind 是一个面向客服/运营场景的多 Agent 智能系统，将以下能力连接成完整闭环：
 
 - 细粒度意图识别
 - 路由驱动的多 Agent 编排
@@ -16,6 +16,8 @@ EchoMind 是一个面向客服/运营场景的多 Agent 智能系统。它不是
 - [工程变更摘要](../docs/CHANGES.md)
 - [业务流程说明](../docs/业务流程说明.md)
 - [完整使用指南](../docs/完整使用指南.md)
+- [LLM-as-Judge 人工校准方案](../docs/EVALUATION_CALIBRATION.md)
+- [产品验证方案](../docs/PRODUCT_VALIDATION_PLAN.md)
 
 ## 快速开始
 
@@ -28,8 +30,8 @@ EchoMind 是一个面向客服/运营场景的多 Agent 智能系统。它不是
 如果使用兼容 Anthropic 协议的第三方模型服务，也可以配置：
 
 ```env
-ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
-ANTHROPIC_MODEL=deepseek-v4-pro
+ANTHROPIC_BASE_URL=https://dashscope.aliyuncs.com/apps/anthropic
+ANTHROPIC_MODEL=qwen3.7-plus
 ANTHROPIC_API_KEY=your_key
 ```
 
@@ -48,7 +50,7 @@ ANTHROPIC_API_KEY=your_api_key
 REDIS_PASSWORD=echomind123
 ```
 
-RAG 语义证据选择器默认启用。它从最多 3 条候选中选择一条有依据的文档；无证据、超时或返回格式错误时会失败关闭，不把候选内容交给回复模型。该步骤会为需要 RAG 的请求增加一次模型调用：
+RAG 语义证据选择器默认启用。它从最多 3 条候选中选择一条证据充分的文档；知识缺口、超时或格式异常会进入核验引导流程。该步骤会为需要 RAG 的请求增加一次模型调用：
 
 ```env
 EVIDENCE_SELECTOR_ENABLED=true
@@ -134,6 +136,8 @@ mcp/tool_manager.py          工具层、缓存、熔断、重排
 mcp/knowledge_base.py        ChromaDB 知识库
 monitor/performance_monitor.py 在线监控
 evaluation/evaluator.py      端到端评测
+evaluation/judge_calibration.py  人工评分与 Judge 一致性分析
+evaluation/product_validation.py 产品可用性会话指标汇总
 evaluation/e2e_cases.json    固定人工标注试运行集
 evaluation/e2e_benchmark.py  真实 API 试运行与指标汇总
 evaluation/intent_dataset.py 可审计意图数据集校验与已复核样本加载

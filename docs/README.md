@@ -23,7 +23,9 @@
 2. [Embedding 迁移记录](EMBEDDING_MIGRATION.md)：模型、维度、Collection 与回滚策略；
 3. [RAG 评测协议](RAG评测协议.md)：数据口径、指标定义和复核流程；
 4. [意图评测数据规范](意图评测数据规范.md)：标签、冻结集和审核规则；
-5. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告。
+5. [LLM-as-Judge 人工校准方案](EVALUATION_CALIBRATION.md)：四维人工盲评、校准集与独立验证集；
+6. [产品验证方案](PRODUCT_VALIDATION_PLAN.md)：任务完成率、处理时间、可信度和质量护栏；
+7. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告。
 
 ## 文档清单
 
@@ -41,6 +43,8 @@
 | [EMBEDDING_MIGRATION.md](EMBEDDING_MIGRATION.md) | Embedding 迁移与回滚说明 |
 | [RAG评测协议.md](RAG评测协议.md) | RAG 指标与冻结评测流程 |
 | [意图评测数据规范.md](意图评测数据规范.md) | 意图数据集和标注规范 |
+| [EVALUATION_CALIBRATION.md](EVALUATION_CALIBRATION.md) | LLM-as-Judge 人工校准流程与指标 |
+| [PRODUCT_VALIDATION_PLAN.md](PRODUCT_VALIDATION_PLAN.md) | 小规模产品可用性测试与 KPI 口径 |
 
 ## 证据层级
 

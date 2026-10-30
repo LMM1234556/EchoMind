@@ -13,7 +13,7 @@
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-![Tests](https://img.shields.io/badge/Tests-151%20passed-2EA44F)
+![Tests](https://img.shields.io/badge/Tests-157%20passed-2EA44F)
 
 [▶ 查看 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [⬇ 直接播放 / 下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) ·
@@ -81,7 +81,7 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 | 知识缺口识别 | **91.67%** | 同一 24 条 Grounded Chat v2 冻结集 |
 | 回答事实忠实度 | **83.33%（20/24）** | 项目负责人逐条复核 |
 | 完整链路 | 严格端到端 **62.50%（5/8）** | 7 个场景、8 次单轮真实请求基线 |
-| 工程回归 | **151/151** 通过 | Mock 与本地依赖自动化测试 |
+| 工程回归 | **157/157** 通过 | Mock 与本地依赖自动化测试 |
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
@@ -204,7 +204,7 @@ EchoMind 将“模型是否理解”“能否找到文档”“证据是否足�
 | 证据门控 | 是否选对证据并识别知识缺口 | 24 条 Grounded Chat v2 |
 | 回答质量 | 回复是否忠于已选证据 | 24 条逐条事实复核 |
 | 完整链路 | 意图、路由、证据和回答是否同时满足契约 | 7 场景、8 次真实请求 |
-| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 151 项自动化测试 |
+| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 157 项自动化测试 |
 
 当前完整链路基线定位了三个明确的迭代方向：问候标签稳定性、复合领域路由，以及“保存信息”与“询问政策”的任务分流。完整分析见[AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md)和[当前评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md)。
 
@@ -318,6 +318,8 @@ EchoMind/
 | [完整使用指南](docs/完整使用指南.md) | 本地运行者 | 配置、启动、接口、数据和排障说明 |
 | [Embedding 对照](docs/EMBEDDING_BENCHMARK.md) | RAG/算法面试官 | MiniLM 与 BGE 的受控对比 |
 | [RAG 评测协议](docs/RAG评测协议.md) | 评测面试官 | 数据口径、指标定义和可复核流程 |
+| [Judge 校准方案](docs/EVALUATION_CALIBRATION.md) | AI 产品/评测面试官 | 人工盲评、校准集与独立验证集 |
+| [产品验证方案](docs/PRODUCT_VALIDATION_PLAN.md) | AI 产品面试官 | 可用性任务、KPI、观察字段与决策规则 |
 | [变更记录](docs/CHANGES.md) | 代码审阅者 | 主要工程改进与验证摘要 |
 
 ## 后续迭代
@@ -325,8 +327,8 @@ EchoMind/
 1. **复合意图召回**：增强技术与账单等跨领域诉求的多标签识别；
 2. **任务分流**：进一步区分记忆写入、事实查询和操作请求；
 3. **响应性能**：减少重复查询改写和重排调用，记录阶段 Token 与成本；
-4. **评测校准**：使用人工评分样本校准 LLM-as-Judge；
-5. **产品验证**：开展小规模可用性测试，补充任务完成率、处理时间和可信度评分；
+4. **评测校准**：已建立 24 条盲评工作表、校准/验证切分与一致性分析工具，下一步完成两位评分者的四维评分；
+5. **产品验证**：已建立 5 个固定任务、指标口径和会话汇总工具，下一步招募 5–8 位参与者开展首轮测试；
 6. **公网试点**：增加认证、授权、限流、日志脱敏、知识库审核和集中式密钥管理。
 
 ## 项目来源与展示说明

@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "name": "echomind-product-validation-v1",
+    "version": "1.0",
+    "status": "protocol_ready_awaiting_sessions",
+    "study_type": "formative_usability_test",
+    "minimum_participants": 5,
+    "recommended_participants": 8,
+    "target_participant_profile": "具备在线客服、SaaS 产品或智能助手使用经验的潜在用户",
+    "primary_kpis": [
+      "strict_task_completion_rate",
+      "median_successful_task_time_seconds",
+      "mean_trust_rating_1_to_5"
+    ],
+    "guardrails": [
+      "critical_error_rate",
+      "timeout_rate"
+    ],
+    "rating_scale": {
+      "min": 1,
+      "max": 5,
+      "anchors": {
+        "1": "非常低",
+        "3": "一般",
+        "5": "非常高"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "id": "refund_policy",
+      "name": "退款政策查询",
+      "task": "查询退款审核与到账时间，并判断回答是否给出了可核验依据。",
+      "starting_prompt": "退款审核需要多久，审核通过后多久能到账？",
+      "success_criteria": [
+        "获得审核和到账时效",
+        "能够从界面确认回答使用了退款政策证据",
+        "能够说出下一步需要提供的信息"
+      ],
+      "critical_errors": [
+        "回答给出知识库之外的确定性政策",
+        "界面把无关文档展示为已接受证据"
+      ],
+      "time_limit_seconds": 180
+    },
+    {
+      "id": "technical_401",
+      "name": "401 登录故障排查",
+      "task": "获取 401 登录问题的排查建议，并确认由哪个 Agent 处理。",
+      "starting_prompt": "登录时一直提示 401，应该怎么排查？",
+      "success_criteria": [
+        "获得可执行的排查步骤",
+        "能够确认 Technical Agent 参与处理",
+        "能够区分平台事实与通用建议"
+      ],
+      "critical_errors": [
+        "要求提供密码、验证码或完整 Token",
+        "把通用建议表述为平台确定规则"
+      ],
+      "time_limit_seconds": 180
+    },
+    {
+      "id": "knowledge_gap",
+      "name": "知识缺口识别",
+      "task": "询问知识库未覆盖的发票时效，并判断系统是否清楚说明依据范围。",
+      "starting_prompt": "电子发票通常多久能开出来？",
+      "success_criteria": [
+        "识别当前知识缺口",
+        "获得核验或人工处理建议",
+        "能够从 Trace 看出证据状态"
+      ],
+      "critical_errors": [
+        "系统编造具体开票时效",
+        "知识缺口被标记为已有充分证据"
+      ],
+      "time_limit_seconds": 180
+    },
+    {
+      "id": "human_handoff",
+      "name": "人工交接",
+      "task": "明确要求人工处理，并确认系统是否完成结构化升级。",
+      "starting_prompt": "我已经处理多次还没解决，请帮我转人工客服。",
+      "success_criteria": [
+        "系统确认人工升级",
+        "Trace 显示 escalated=true",
+        "获得清晰的后续处理说明"
+      ],
+      "critical_errors": [
+        "明确人工请求仍停留在普通问答",
+        "交接摘要包含未提供的敏感信息"
+      ],
+      "time_limit_seconds": 120
+    },
+    {
+      "id": "multi_intent",
+      "name": "技术与账单复合诉求",
+      "task": "同时提出登录故障和重复扣款，确认两个领域是否均获得处理。",
+      "starting_prompt": "账号登录一直报错，而且同一笔订单好像被扣了两次，应该怎么办？",
+      "success_criteria": [
+        "回答覆盖登录排障和重复扣款两个诉求",
+        "Trace 显示主 Agent 与辅助 Agent 或等价的复合路由",
+        "账单事实经过证据核验"
+      ],
+      "critical_errors": [
+        "遗漏其中一个诉求",
+        "未经证据确认承诺退款或赔付"
+      ],
+      "time_limit_seconds": 240
+    }
+  ],
+  "sessions": []
+}

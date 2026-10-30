@@ -1,0 +1,911 @@
+{
+  "metadata": {
+    "name": "llm-judge-calibration-v1",
+    "created_on": "2026-10-30",
+    "status": "awaiting_blind_human_ratings",
+    "source_report": "evaluation/reports/grounded_chat_test_v2_first_run.json",
+    "human_score_scale": {
+      "min": 1,
+      "max": 5
+    },
+    "pass_threshold": 0.7,
+    "minimum_completed_cases": 20,
+    "minimum_reviewers_per_case": 2,
+    "dimensions": [
+      "relevance",
+      "accuracy",
+      "completeness",
+      "helpfulness"
+    ],
+    "review_protocol": "Reviewers score independently before judge scores are generated."
+  },
+  "cases": [
+    {
+      "case_id": "ground-v2-refund-supported-001",
+      "split": "calibration",
+      "question": "下单第八天发现商品有质量问题，申请退款时要提交什么",
+      "response": "根据平台退款政策，针对您下单第八天发现商品有质量问题的情况，以下是具体的处理说明：\n\n**【当前说明】**\n由于您的订单已超过7天但未超过30天，申请退款时**需要提供商品质量问题的证据**。此外，如果商品已发货，需要先完成退货流程；因属于商品质量问题，退货运费无需由您承担。\n\n**【需要核验的信息】**\n为了协助您核实订单状态并推进退款流程，请您补充以下必要信息：\n- 订单号或交易号\n- 支付金额\n- 支付时间和支付渠道\n\n**【下一步处理】**\n1. **提交申请与证据**：请在退款页面提交申请，并上传商品质量问题的相关证据（如清晰的照片或视频）。\n2. **审核时效**：退款申请提交后，系统通常会在 1-3 个工作日内进行审核。\n3. **退款到账**：审核通过后，款项预计将在 5-7 个工作日内退回原支付账户（具体到账时间以支付渠道实际处理为准）。\n\n**【温馨提示】**\n退款是否最终可以通过，需要先核验您的订单状态和实际支付金额。请您保留好支付凭证以及商品质量问题的证据。如果您已准备好上述核验信息，可以提供给我，我会帮您进一步确认。涉及实际退款操作时，最终结果需以人工审核为准。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "退款政策",
+        "evidence_basis": "超过7天但未超过30天，需要提供商品质量问题证据",
+        "expected_answer_facts": [
+          "需要提供商品质量问题的证据"
+        ],
+        "forbidden_claims": [
+          "保证退款通过",
+          "指定证据格式或数量"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-refund-supported-002",
+      "split": "calibration",
+      "question": "商品已经发出了，可以不退货就直接拿到退款吗",
+      "response": "**当前说明**\n根据平台退款政策，如果商品已经发货，需要先完成退货流程才能退款，无法在不退货的情况下直接拿到退款。\n\n关于退款时效与运费，退款申请提交后，系统通常会在 1-3 个工作日内审核；审核通过后，款项预计在 5-7 个工作日内退回原支付账户。如果是购买后 7 天内的无理由退款，退货运费通常由用户承担；若为商品质量问题，则需根据具体情况判断。\n\n**需要核验的信息**\n为了协助您核实订单状态并说明具体的处理路径，请提供以下必要信息：\n- 订单号或交易号\n- 支付金额\n- 支付时间与支付渠道（如微信、支付宝、银行卡等）\n\n**下一步处理**\n收到上述信息后，我会协助核验您的订单状态及是否符合退款规则。请注意，最终退款是否可以通过，需要以实际核验结果和平台规则为准，无法直接承诺退款成功。建议您先保留好支付凭证，待信息补充完整后，我们将为您说明后续的退货与退款申请流程。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "退款政策",
+        "evidence_basis": "已发货商品需要先完成退货流程才能退款",
+        "expected_answer_facts": [
+          "需要先完成退货流程"
+        ],
+        "forbidden_claims": [
+          "可以跳过退货",
+          "承诺立即退款"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-refund-gap-001",
+      "split": "validation",
+      "question": "退款时能不能改成退到另一张银行卡",
+      "response": "**当前说明**\n根据平台退款政策，退款审核通过后，款项将退回至**原支付账户**。目前的政策说明中未提及可以更改退款账户至其他银行卡。\n\n**需要核验的信息**\n为了帮您核实具体的订单状态和退款资格，请提供以下必要信息：\n- 订单号或交易号\n- 支付金额\n- 支付时间和支付渠道\n\n**下一步处理**\n- **常规退款时效**：退款申请提交后，系统通常会在 1-3 个工作日内审核；审核通过后，款项预计在 5-7 个工作日内退回。\n- **通用排查建议**：如果您因为原支付账户已注销等特殊情况无法接收退款，这通常无法通过常规流程直接修改。此类情况一般需要转交人工或财务审核，您可能需要联系人工客服并提供相关证明材料（如原账户注销证明）以申请特殊处理。\n\n请先提供您的订单号和支付信息，以便我为您做进一步的判断。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档只说明退回原支付账户，没有变更收款账户规则",
+        "expected_answer_facts": [
+          "知识库没有变更退款账户的规则"
+        ],
+        "forbidden_claims": [
+          "可以更换银行卡",
+          "绝对不能更换银行卡"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-refund-gap-002",
+      "split": "calibration",
+      "question": "退货仓库签收后几个小时会开始退款审核",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档有申请后的审核时效，但没有仓库签收后的小时级启动时间",
+        "expected_answer_facts": [
+          "知识库没有仓库签收后的审核启动时间"
+        ],
+        "forbidden_claims": [
+          "签收后立即审核",
+          "给出具体小时数"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-order-supported-001",
+      "split": "calibration",
+      "question": "订单显示发货第六天还没收到，现在是否已经达到申请查件的条件",
+      "response": "您好！根据平台规定，订单显示已发货但**超过 7 天**未收到，才可以联系客服申请查件。您目前处于发货第六天，暂时还未达到申请查件的条件。\n\n建议您先通过订单号查看一下最新的物流轨迹（物流信息通常在发货后 24 小时内更新）。如果超过 7 天后仍未收到，您可以随时提供订单号联系我们申请查件。另外，如果订单状态显示异常，请提供订单号，我们会直接为您处理。\n\n请问还有其他可以帮您的吗？",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "订单查询",
+        "evidence_basis": "超过7天未收到才能申请查件，第六天尚未达到",
+        "expected_answer_facts": [
+          "第六天尚未超过7天",
+          "尚未达到文档中的查件条件"
+        ],
+        "forbidden_claims": [
+          "已经可以申请查件",
+          "承诺具体送达日期"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-order-supported-002",
+      "split": "validation",
+      "question": "订单页面显示状态异常，联系处理时最少要准备哪个编号",
+      "response": "您好！如果订单页面显示状态异常，联系客服处理时最少需要准备**订单号**。\n\n您可以在订单详情页找到这个编号。提供订单号后，客服就能为您核实具体的异常情况并协助处理。\n\n请问您现在是否遇到了订单异常的情况？如果有需要，您可以提供订单号，我来帮您进一步确认。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "订单查询",
+        "evidence_basis": "订单状态异常时应提供订单号联系客服",
+        "expected_answer_facts": [
+          "准备订单号"
+        ],
+        "forbidden_claims": [
+          "必须提供身份证",
+          "必须提供银行卡号"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-order-gap-001",
+      "split": "calibration",
+      "question": "订单签收以后会在多少小时后自动变成已完成",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档列出状态但没有签收到自动完成的时间",
+        "expected_answer_facts": [
+          "知识库没有自动完成时长"
+        ],
+        "forbidden_claims": [
+          "给出自动完成小时数或天数"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-order-gap-002",
+      "split": "calibration",
+      "question": "在哪里能查到负责配送这个订单的快递员电话号码",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档没有快递员联系方式查询规则",
+        "expected_answer_facts": [
+          "知识库没有快递员电话查询方式"
+        ],
+        "forbidden_claims": [
+          "编造查询入口",
+          "编造电话号码"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-account-supported-001",
+      "split": "validation",
+      "question": "密码只写八个数字，是否符合平台文档的密码要求",
+      "response": "您好！根据平台文档的要求，只写八个数字是**不符合**密码要求的。\n\n平台规定密码长度至少需要 8 位，并且必须**同时包含字母和数字**。因此，纯数字的密码无法满足当前的安全设置要求。建议您在设置密码时加入字母以符合规范。\n\n如果还有其他问题，欢迎随时告诉我！",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "账户安全",
+        "evidence_basis": "密码至少8位且必须包含字母和数字，纯数字不符合",
+        "expected_answer_facts": [
+          "纯数字不符合",
+          "至少8位并包含字母和数字"
+        ],
+        "forbidden_claims": [
+          "要求特殊符号",
+          "要求大小写字母同时存在"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-account-supported-002",
+      "split": "calibration",
+      "question": "平台检测到账户被异常登录时会采取什么动作",
+      "response": "根据平台账户安全说明，当检测到账户被异常登录时，**系统会自动锁定账户并发送通知**。\n\n为了保障您的账户与资金安全，平台提供以下安全建议与说明：\n1. **提升安全性**：您可以在安全设置中开启两步验证。\n2. **密码管理**：建议定期修改密码，密码长度至少8位，包含字母和数字。如果忘记密码，可以通过绑定的手机号或邮箱重置。\n3. **防骗提醒**：请勿将密码分享给他人，客服人员不会向您索要密码。\n\n如果您在账户异常期间涉及订单、扣款或退款等账单问题需要核验，请提供具体的**订单号或交易号**以及**支付金额**，以便我们为您进一步核实资金状态。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "账户安全",
+        "evidence_basis": "系统会自动锁定账户并发送通知",
+        "expected_answer_facts": [
+          "自动锁定账户",
+          "发送通知"
+        ],
+        "forbidden_claims": [
+          "自动报警",
+          "自动冻结银行卡"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-account-gap-001",
+      "split": "calibration",
+      "question": "两步验证的备用恢复码一共会生成几组",
+      "response": "您好！我是账单服务专家，主要负责账单查询、退款申请、发票问题和订阅管理等资金相关的服务。\n\n关于您询问的“两步验证的备用恢复码一共会生成几组”，这属于账户安全设置的范畴，超出了我的职责范围，且我目前没有相关的平台规则证据来为您提供准确的答案。\n\n建议您查阅平台的账户安全帮助文档，或联系负责账户安全的客服团队获取准确信息。如果您有账单、退款或发票相关的问题，我将很乐意为您解答。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档只说明可以开启两步验证，没有恢复码数量",
+        "expected_answer_facts": [
+          "知识库没有恢复码数量"
+        ],
+        "forbidden_claims": [
+          "给出恢复码数量"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-account-gap-002",
+      "split": "validation",
+      "question": "账户因为异常登录被锁后多久会自动解锁",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档说明会锁定账户，但没有自动解锁时长",
+        "expected_answer_facts": [
+          "知识库没有自动解锁时长"
+        ],
+        "forbidden_claims": [
+          "给出解锁分钟数或天数"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-technical-supported-001",
+      "split": "calibration",
+      "question": "App清理缓存并重新启动后还是不断闪退，文档建议接着做什么",
+      "response": "根据文档建议，App 清理缓存并重启后仍然闪退，下一步应该**更新到最新版本**。\n\n---\n\n**需要补充的信息（如果更新后仍无法解决）：**\n\n为了进一步帮你排查，请补充以下信息：\n1. 当前 App 版本号是多少？是否已是最新版本？\n2. 设备型号和操作系统版本（如 iOS 16 / Android 13）？\n3. 闪退是启动时立刻发生，还是使用某个功能时发生？\n4. 是否有具体的错误提示或弹窗？\n\n---\n\n**通用排查建议（非平台规则，仅供参考）：**\n- 检查手机系统版本是否过旧，部分 App 新版本可能要求更高的系统版本。\n- 确认手机存储空间是否充足，空间不足可能导致应用运行异常。\n- 如果更新后仍闪退，可尝试卸载后重新安装（注意提前备份应用内重要数据）。\n\n如果以上步骤仍无法解决，建议联系技术支持并提供设备信息、App 版本和闪退发生的具体场景，以便进一步定位。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "技术故障排查",
+        "evidence_basis": "清缓存重启后仍持续，应更新到最新版本",
+        "expected_answer_facts": [
+          "更新到最新版本"
+        ],
+        "forbidden_claims": [
+          "删除全部用户数据",
+          "重装操作系统"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-technical-supported-002",
+      "split": "calibration",
+      "question": "银行卡余额足够但付款失败，按排查文档还应确认银行卡开了什么功能",
+      "response": "根据平台的排查文档，如果银行卡余额充足但付款失败，还需要确认该银行卡是否开启了**网上支付功能**。\n\n如果您确认已开启网上支付功能但依然无法完成付款，为了协助您进一步核实，请提供以下信息：\n- **订单号或交易号**\n- **支付时间和支付渠道**（如微信、支付宝、银行卡等）\n- **具体的错误提示或页面截图**（如有）\n\n收到您的信息后，我会根据具体情况进行判断。如果涉及系统异常或需要进一步核实，我会为您说明后续的处理路径。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "技术故障排查",
+        "evidence_basis": "应检查银行卡是否开启网上支付功能",
+        "expected_answer_facts": [
+          "确认开启网上支付功能"
+        ],
+        "forbidden_claims": [
+          "保证开启后支付成功",
+          "要求提供完整银行卡号"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-technical-gap-001",
+      "split": "validation",
+      "question": "登录连续报401时，最多允许重试多少次",
+      "response": "您在登录时连续遇到 401 错误，想了解触发系统限制的最大重试次数。\n\n**关于重试次数的说明：**\n由于您未提供具体的平台或系统名称，且不同系统的安全风控策略差异很大（常见的有连续错误 3次、5次或 10次后锁定账号、要求输入验证码或封禁 IP），**在没有具体平台信息的情况下，我无法给出确切的“最多允许重试次数”。**\n\n**401 错误初步分析：**\nHTTP 401 代表“未授权/认证失败”。在登录场景下，通常意味着凭证错误（如密码错误）、Token/Session 过期、或签名校验失败。\n\n**建议的应对与排查步骤：**\n\n1. **立即停止盲目重试**\n   - **原因**：在未知具体风控策略的情况下，继续重试极易触发更严格的安全机制（如账号被锁定 24 小时，或当前 IP 被临时封禁）。\n2. **检查 401 的具体响应体（Response Body）**\n   - **操作**：查看返回的错误信息。如果提示中包含 `Account locked`（账号已锁定）、`Too many attempts`（尝试次数过多）或 `Captcha required`（需要验证码），说明您已经触发了重试限制。\n3. **核对凭证与输入环境**\n   - **如果是密码登录**：确认账号密码是否正确，注意大小写、全半角字符，检查键盘是否误触了 Caps Lock。\n   - **如果是 API/Token 登录**：确认 Token 是否已过期，请求头中的认证格式是否正确（例如 `Authorization: Bearer <your_token>`），以及时间戳是否同步。\n4. **等待或重置**\n   - 如果怀疑账号已被临时风控锁定，通常等待 15-30 分钟后会自动解锁；或者您可以直接通过“忘记密码”或“重置密钥”流程重新获取凭证。\n\n**为了帮您更精准地定位问题，请补充以下信息：**\n1. 您使用的是哪个具体的平台或系统？\n2. 401 错误返回的具体响应体内容是什么？（**注意：请勿在回复中粘贴完整的密码、Token 或 API Key，可只展示前后几位或脱敏处理**）。\n3. 您的登录方式是什么（网页/App 密码登录、第三方授权、还是 API 接口调用）？",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "技术文档说明401含义和排查方式，没有登录重试次数上限",
+        "expected_answer_facts": [
+          "知识库没有401重试次数上限"
+        ],
+        "forbidden_claims": [
+          "给出允许重试的具体次数"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-technical-gap-002",
+      "split": "calibration",
+      "question": "页面出现500以后平台会自动发放多少补偿金",
+      "response": "关于您提到的“500错误后平台自动发放补偿金”的问题，我需要向您说明：\n\n**关于补偿金政策：**\n作为技术故障诊断专家，我主要负责系统故障排查和技术问题定位。关于平台是否会自动发放补偿金以及具体的发放金额，属于**平台业务运营政策和财务规则**。目前我这边没有相关的业务政策依据，无法为您提供准确的金额或发放规则。建议您直接联系平台的**业务客服或运营团队**进行确认，或查阅平台的相关公告。\n\n**关于 500 错误的技术排查：**\nHTTP 500 表示**服务端处理异常**，这意味着服务器在处理您的请求时遇到了内部错误。为了帮您定位并解决这个技术问题，我们需要先收集一些关键信息。\n\n**请先确认以下三点关键信息：**\n1. **发生环境与时间**：问题是在什么环境下发生的（如：App、特定浏览器、PC端网页）？具体发生的时间点是什么时候？\n2. **影响范围与具体页面**：是只有您自己遇到，还是其他用户也遇到了？具体是在访问哪个页面或调用哪个接口时出现的 500？\n3. **请求标识**：如果页面有显示 `request_id`（请求ID）或错误追踪码，请提供该 ID（这有助于后台快速定位日志）。\n\n**初步排查建议（通用排查方向）：**\n*   **如果是偶发 500**：可能是服务端瞬时负载过高或依赖服务抖动。您可以尝试刷新页面或稍后重试。\n*   **如果是稳定复现 500**：请避免频繁重试。请提供上述收集到的信息（尤其是 `request_id` 和具体操作路径），以便进一步分析是参数格式问题、依赖服务异常还是服务端代码逻辑异常。\n\n*注：如果该 500 错误导致生产环境大面积不可用或核心业务（如支付、数据写入）中断，建议立即升级至二线技术团队处理。* \n\n请补充上述信息，我将为您制定具体的诊断计划。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档只有500排查建议，没有补偿政策",
+        "expected_answer_facts": [
+          "知识库没有500错误补偿规则"
+        ],
+        "forbidden_claims": [
+          "承诺补偿",
+          "给出补偿金额"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-member-supported-001",
+      "split": "calibration",
+      "question": "累计消费3200元属于哪个会员等级，购物时能打几折",
+      "response": "您好！根据平台的会员规则，累计消费3200元属于**银卡会员**（银卡会员门槛为累计消费满1000元），在购物时可以享受**95折**优惠。\n\n如果您还有其他关于会员权益或订单的问题，欢迎随时告诉我。",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "会员与积分",
+        "evidence_basis": "3200元达到银卡但未达到金卡，银卡享受95折",
+        "expected_answer_facts": [
+          "银卡会员",
+          "95折"
+        ],
+        "forbidden_claims": [
+          "金卡会员",
+          "9折"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-member-supported-002",
+      "split": "validation",
+      "question": "账户里有450积分，按100积分等于1元的规则换算价值是多少",
+      "response": "您好！按照100积分等于1元的规则，您账户里的450积分换算后的价值是 **4.5元**。\n\n如果您还有其他关于积分使用或账户的问题，欢迎随时告诉我！",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "会员与积分",
+        "evidence_basis": "100积分等于1元，450积分等值4.5元",
+        "expected_answer_facts": [
+          "4.5元"
+        ],
+        "forbidden_claims": [
+          "450元",
+          "积分可以提现"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-member-gap-001",
+      "split": "calibration",
+      "question": "我的积分能不能转给另一个会员账户",
+      "response": "您好！关于积分是否能转给其他会员账户，由于具体的积分规则可能会因会员等级或活动类型有所不同，我目前无法直接为您确认最终的转移政策。\n\n为了给您最准确的答复，建议您：\n1. 您可以在App或网站的“我的 - 积分规则”或“帮助中心”查看是否有积分转赠的相关说明。\n2. 如果您需要进一步核实您的账户是否支持该操作，我可以帮您转接专业的账户客服进行详细确认。\n\n请问需要我为您转接专业客服核实吗？",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档没有积分转赠规则",
+        "expected_answer_facts": [
+          "知识库没有积分转赠规则"
+        ],
+        "forbidden_claims": [
+          "允许转赠",
+          "禁止转赠"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-member-gap-002",
+      "split": "calibration",
+      "question": "会员累计消费金额会在每年一月一日重新清零吗",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档没有会员累计消费金额重置规则",
+        "expected_answer_facts": [
+          "知识库没有累计消费金额重置规则"
+        ],
+        "forbidden_claims": [
+          "每年清零",
+          "永久不清零"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-delivery-supported-001",
+      "split": "validation",
+      "question": "订单金额60元选择标准配送，是否符合免运费条件",
+      "response": "您好！根据平台的配送说明，标准配送需要订单满 99 元才能享受免运费服务。您的订单金额为 60 元，未达到免邮门槛，因此不符合免运费条件。\n\n请问还有其他关于订单或配送的问题需要我帮您解答吗？",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "配送说明",
+        "evidence_basis": "标准配送订单满99元免运费，60元未达到条件",
+        "expected_answer_facts": [
+          "不符合满99元免运费条件"
+        ],
+        "forbidden_claims": [
+          "给出未满99元的具体运费"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-delivery-supported-002",
+      "split": "calibration",
+      "question": "住在偏远地区，即使选择加急配送还可能额外增加多久",
+      "response": "您好！根据平台的配送说明，如果您住在偏远地区，即使选择加急配送，可能还需要额外增加 2-3 天的时间。\n\n请问还有其他我可以帮您的吗？",
+      "reference_context": {
+        "expected_supported": true,
+        "expected_title": "配送说明",
+        "evidence_basis": "偏远地区可能额外增加2-3天",
+        "expected_answer_facts": [
+          "可能额外增加2-3天"
+        ],
+        "forbidden_claims": [
+          "保证增加2天",
+          "给出确定送达日期"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-001",
+      "split": "calibration",
+      "question": "周六配送会不会额外收取周末服务费",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档没有周末服务费规则",
+        "expected_answer_facts": [
+          "知识库没有周末服务费规则"
+        ],
+        "forbidden_claims": [
+          "周末一定加价",
+          "周末一定不加价",
+          "编造服务费金额"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-002",
+      "split": "validation",
+      "question": "平台默认会把包裹交给哪一家快递公司",
+      "response": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "reference_context": {
+        "expected_supported": false,
+        "expected_title": null,
+        "evidence_basis": "文档没有指定承运快递公司",
+        "expected_answer_facts": [
+          "知识库没有默认快递公司信息"
+        ],
+        "forbidden_claims": [
+          "编造快递公司名称"
+        ]
+      },
+      "human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        },
+        {
+          "reviewer_id": "reviewer_2",
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null,
+          "notes": ""
+        }
+      ],
+      "judge_scores": null
+    }
+  ]
+}
