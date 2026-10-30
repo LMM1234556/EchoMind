@@ -40,11 +40,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "核心退款证据要求正确，但回答自行增加了照片或视频这一证据形式。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -77,11 +77,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "核心结论与审核、到账和运费补充均来自冻结退款政策，且未作退款成功承诺。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -114,11 +114,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 4,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "正确说明当前政策仅支持退回原支付账户，银行卡注销场景转人工具有合理性；但财务审核和注销证明属于知识库未确认的具体流程。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -151,11 +151,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确识别仓库签收后审核启动时间的知识缺口，没有给出具体小时数，并提供了核验路径。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -189,11 +189,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "查件条件、物流更新时间和订单异常处理方式均与冻结订单查询文档一致。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -226,11 +226,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "直接给出订单号这一最小必要编号，符合冻结依据且未额外索取敏感信息。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -262,11 +262,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确识别自动完成时长的知识缺口，没有编造小时数或天数，并提供了安全核验路径。"
         },
         {
           "reviewer_id": "reviewer_2",
@@ -299,11 +299,11 @@
       "human_ratings": [
         {
           "reviewer_id": "reviewer_1",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "安全识别了知识缺口且未编造联系方式，但回答较模板化，并索取了与快递员电话查询关系不大的时间和金额信息。"
         },
         {
           "reviewer_id": "reviewer_2",
