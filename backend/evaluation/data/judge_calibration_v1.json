@@ -2,7 +2,7 @@
   "metadata": {
     "name": "llm-judge-calibration-v1",
     "created_on": "2026-10-30",
-    "status": "awaiting_blind_human_ratings",
+    "status": "awaiting_human_adjudication",
     "source_report": "evaluation/reports/grounded_chat_test_v2_first_run.json",
     "human_score_scale": {
       "min": 1,
@@ -17,7 +17,7 @@
       "completeness",
       "helpfulness"
     ],
-    "review_protocol": "Reviewers score independently before judge scores are generated."
+    "review_protocol": "Reviewers score independently before judge scores are generated; material disagreements are rechecked against the same frozen evidence before calibration."
   },
   "cases": [
     {
@@ -48,11 +48,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 2,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "命中“下单第八天需提供质量问题证据”；但补充退货流程、运费承担、审核/到账时效及必填支付信息，均超出冻结依据。"
         }
       ],
       "judge_scores": null
@@ -85,11 +85,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 2,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "准确说明已发货需先完成退货；但审核/到账时效、运费规则及核验资料要求缺少冻结依据支持。"
         }
       ],
       "judge_scores": null
@@ -122,11 +122,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 3,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "准确说明退款退回原支付账户，且文档未说明能否变更；特殊账户处理、财务审核及注销证明要求无依据。"
         }
       ],
       "judge_scores": null
@@ -159,11 +159,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 3,
+          "notes": "未编造小时数并承认依据不足；但未明确指出缺少的是仓库签收后审核启动时点，索要金额等信息与问题关联较弱。"
         }
       ],
       "judge_scores": null
@@ -197,11 +197,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 3,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "正确判断第六天尚未达到超过7天的查件门槛；物流24小时更新及异常订单直接处理的说法无冻结依据。"
         }
       ],
       "judge_scores": null
@@ -234,11 +234,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "明确给出订单号，准确覆盖最少准备的编号；“在订单详情页找到”这一入口未见冻结依据支持。"
         }
       ],
       "judge_scores": null
@@ -270,11 +270,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "没有编造自动完成时长，但未明确说明文档缺少该时长；要求订单号、支付金额等信息与该规则问题无关。"
         }
       ],
       "judge_scores": null
@@ -307,11 +307,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "没有编造快递员电话或查询入口，但未明确说明文档没有联系方式查询方式；索要订单及支付信息不能解决一般规则查询。"
         }
       ],
       "judge_scores": null
@@ -345,11 +345,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确说明密码至少8位且必须同时包含字母和数字，明确纯数字不符合要求，未添加禁止项。"
         }
       ],
       "judge_scores": null
@@ -383,11 +383,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 3,
+          "completeness": 5,
+          "helpfulness": 4,
+          "notes": "准确覆盖异常登录后自动锁定账户并发送通知；两步验证、手机号/邮箱重置及资金核验等扩展内容未由冻结依据支持。"
         }
       ],
       "judge_scores": null
@@ -419,11 +419,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "未编造恢复码数量，指出缺少规则并建议查账户安全文档；以账单服务专家解释职责范围，与问题关联不强。"
         }
       ],
       "judge_scores": null
@@ -455,11 +455,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "未编造自动解锁时长，但未明确指出文档没有自动解锁时长；要求订单号及支付信息与问题无关。"
         }
       ],
       "judge_scores": null
@@ -492,11 +492,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确给出更新到最新版本这一下一步；后续通用排查建议已标注为非平台规则，但超出当前问题及冻结依据。"
         }
       ],
       "judge_scores": null
@@ -529,11 +529,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 4,
+          "notes": "准确指出还需确认银行卡是否开启网上支付功能；追加订单号、支付时间及截图等资料要求未见冻结依据。"
         }
       ],
       "judge_scores": null
@@ -565,11 +565,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 2,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "虽说明无法确认确切上限，却列出3/5/10次、24小时、15–30分钟等冻结依据外数字及风控流程，可能误导。"
         }
       ],
       "judge_scores": null
@@ -602,11 +602,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 4,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "正确说明没有补偿政策依据并建议向业务客服核实；后半段HTTP 500通用诊断及升级流程偏离补偿金额问题。"
         }
       ],
       "judge_scores": null
@@ -640,11 +640,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "正确判断累计消费3200元属于银卡会员，并给出95折优惠，覆盖关键事实且无明显无依据扩展。"
         }
       ],
       "judge_scores": null
@@ -677,11 +677,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "换算正确：450积分按100积分=1元计算为4.5元，未声称积分可以提现。"
         }
       ],
       "judge_scores": null
@@ -714,11 +714,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 4,
+          "accuracy": 3,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "未武断判断能否转赠，说明知识库没有明确规则；积分规则入口、等级/活动差异及转接客服承诺缺少冻结依据。"
         }
       ],
       "judge_scores": null
@@ -751,11 +751,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "没有编造年度清零或永久不清零规则，但未明确指出文档缺少年度重置规则；索要订单及支付信息无关。"
         }
       ],
       "judge_scores": null
@@ -787,11 +787,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "正确应用标准配送满99元免邮门槛，判断60元未达到条件，未编造具体运费。"
         }
       ],
       "judge_scores": null
@@ -824,11 +824,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 5,
+          "accuracy": 5,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确复述偏远地区加急配送可能额外增加2–3天，保留“可能”的不确定语气，未承诺确定送达时间。"
         }
       ],
       "judge_scores": null
@@ -862,11 +862,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "没有编造周末服务费规则，但未明确指出文档没有周末服务费说明；索要订单及支付信息无助于回答政策规则。"
         }
       ],
       "judge_scores": null
@@ -898,11 +898,11 @@
         },
         {
           "reviewer_id": "reviewer_2",
-          "relevance": null,
-          "accuracy": null,
-          "completeness": null,
-          "helpfulness": null,
-          "notes": ""
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 3,
+          "helpfulness": 2,
+          "notes": "没有编造默认快递公司，但未明确指出文档没有指定承运公司；索要订单及支付信息与问题关联较弱。"
         }
       ],
       "judge_scores": null
