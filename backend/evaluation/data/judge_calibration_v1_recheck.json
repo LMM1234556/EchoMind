@@ -2,7 +2,7 @@
   "metadata": {
     "name": "llm-judge-calibration-v1-evidence-aligned-recheck",
     "created_on": "2026-11-02",
-    "status": "human_recheck_complete_pending_disagreement_resolution",
+    "status": "adjudicated_reference_ready_judge_pending",
     "source_calibration": "backend/evaluation/data/judge_calibration_v1.json",
     "evidence_source": "backend/evaluation/data/retrieval_corpus_v1.json",
     "evidence_version": "retrieval-corpus-v1",
@@ -19,11 +19,13 @@
     "updated_on": "2026-11-03",
     "reviewer_1_source_workbook": "EchoMind_reviewer_1_Evidence_Aligned_Recheck_已完成.xlsx",
     "reviewer_1_source_workbook_sha256": "7EC38ADCE8B48850FC1A571D6DB77DC429E45BC95EA0A3F5B2541A746C508F9B",
-    "remaining_material_disagreement_ids": [
+    "remaining_material_disagreement_ids": [],
+    "independent_material_disagreement_ids": [
       "ground-v2-refund-supported-002",
       "ground-v2-order-gap-002",
       "ground-v2-delivery-gap-002"
-    ]
+    ],
+    "adjudication_record": "backend/evaluation/data/judge_calibration_v1_adjudication.json"
   },
   "cases": [
     {

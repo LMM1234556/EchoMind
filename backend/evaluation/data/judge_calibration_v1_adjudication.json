@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "name": "llm-judge-calibration-v1-relevance-adjudication",
+    "confirmed_on": "2026-11-03",
+    "status": "confirmed",
+    "basis": "Existing 1-5 relevance rubric, frozen questions/answers, and independent round-two review notes.",
+    "source_recheck": "backend/evaluation/data/judge_calibration_v1_recheck.json",
+    "scope": "Three relevance scores; independent reviewer ratings and agreement metrics retained."
+  },
+  "decisions": [
+    {
+      "case_id": "ground-v2-refund-supported-002",
+      "score": 3,
+      "reason": "明确回答已发货须先退货再退款，但追加大量支付资料要求，符合主要相关但冗余明显。",
+      "dimension": "relevance",
+      "status": "confirmed",
+      "confirmed_by": "project_owner",
+      "confirmed_on": "2026-11-03",
+      "method": "assistant_proposed_owner_confirmed_adjudication"
+    },
+    {
+      "case_id": "ground-v2-order-gap-002",
+      "score": 2,
+      "reason": "问题询问快递员电话查询方式，回答主体转为时效、费用与金额核验，未针对联系方式作出清晰说明。",
+      "dimension": "relevance",
+      "status": "confirmed",
+      "confirmed_by": "project_owner",
+      "confirmed_on": "2026-11-03",
+      "method": "assistant_proposed_owner_confirmed_adjudication"
+    },
+    {
+      "case_id": "ground-v2-delivery-gap-002",
+      "score": 2,
+      "reason": "问题询问默认承运商，回答使用通用时效费用核验话术，未针对承运商说明知识缺口，明显偏离问题。",
+      "dimension": "relevance",
+      "status": "confirmed",
+      "confirmed_by": "project_owner",
+      "confirmed_on": "2026-11-03",
+      "method": "assistant_proposed_owner_confirmed_adjudication"
+    }
+  ]
+}

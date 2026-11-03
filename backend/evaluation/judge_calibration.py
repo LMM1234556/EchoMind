@@ -123,6 +123,24 @@ def _paired_rows(payload: Dict[str, Any]) -> List[Dict[str, Any]]:
             )
             for dimension in DIMENSIONS
         }
+        # 裁定分仅改变校准参考；独立评审原分继续用于评审一致性计算。
+        overrides = case.get("human_reference_overrides") or {}
+        if not isinstance(overrides, dict):
+            raise ValueError("human_reference_overrides must be a dimension mapping")
+        for dimension, decision in overrides.items():
+            if dimension not in DIMENSIONS:
+                raise ValueError(f"unknown adjudicated dimension: {dimension}")
+            if (
+                not isinstance(decision, dict)
+                or not _is_number(decision.get("score"))
+                or decision.get("status") != "confirmed"
+                or not decision.get("confirmed_by")
+                or not decision.get("reason")
+            ):
+                raise ValueError(f"unconfirmed or invalid adjudication: {dimension}")
+            human_scores[dimension] = _normalise_human_score(
+                float(decision["score"]), scale_min, scale_max
+            )
         rows.append(
             {
                 "case_id": case.get("case_id"),
@@ -288,6 +306,13 @@ def analyse_calibration(payload: Dict[str, Any]) -> Dict[str, Any]:
             "decision": _decision_metrics(rows, threshold),
         },
         "inter_reviewer": _inter_reviewer_metrics(rows, scale_min, scale_max),
+        "human_reference": {
+            "method": "mean of independent ratings with explicitly confirmed dimension overrides",
+            "adjudicated_case_count": sum(
+                bool(case.get("human_reference_overrides")) for case in payload.get("cases") or []
+            ),
+            "independent_ratings_preserved": True,
+        },
         "calibration_fit": {
             "method": "per-dimension affine transform fitted on calibration split",
             "parameters": transforms,
@@ -314,6 +339,7 @@ def render_markdown(report: Dict[str, Any]) -> str:
         f"- 状态：`{report['status']}`",
         f"- 完成配对评分：{sample['completed_paired_cases']} / {sample['total_cases']}",
         f"- 校准集：{sample['calibration_cases']}；独立验证集：{sample['validation_cases']}",
+        f"- 人工参考：独立评分均值，含 {report['human_reference']['adjudicated_case_count']} 条明确确认的维度裁定；评审间差异使用原分计算。",
         "",
         "## 独立验证集结果",
         "",

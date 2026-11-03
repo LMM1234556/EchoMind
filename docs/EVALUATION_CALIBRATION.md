@@ -8,6 +8,12 @@ EchoMind 已具备四维 LLM-as-Judge 评分框架，也完成了 24 条 Grounde
 
 ## 样本与切分
 
+### 2026-11-03 人工参考准备结果
+
+两位评审已完成 11 条证据对齐复核。同一子集的通过判断一致率为 10/11（90.91%），Cohen's kappa 为 0.744。项目负责人确认 3 条相关性裁定分，分别为 3、2、2；裁定记录为 `backend/evaluation/data/judge_calibration_v1_adjudication.json`。
+
+待执行输入为 `backend/evaluation/data/judge_calibration_v1_ready.json`，保留原定 16/8 切分，包含每题完整冻结文档及统一量表。11 条使用第二轮独立评分，其余 13 条使用第一轮评分；常规维度取两位评审均值，3 个已裁定的相关性维度使用单独参考分。独立评审原分用于计算评分者间差异，裁定来源另行记录。该输入用于本轮探索性校准基线，详细人工一致性结果见 `backend/evaluation/reports/human_rating_recheck_v1_20261103.md`。
+
 - 样本来源：`grounded_chat_test_v2_first_run.json` 中的 24 条真实模型回答；
 - 16 条用于拟合每个维度的仿射校准参数；
 - 8 条作为独立验证集，用于比较原始 Judge 与校准后 Judge；
@@ -59,7 +65,7 @@ python -m evaluation.prepare_judge_calibration `
 
 ```powershell
 python -m evaluation.run_judge_calibration `
-  evaluation/data/judge_calibration_v1.json `
+  evaluation/data/judge_calibration_v1_ready.json `
   evaluation/data/judge_calibration_v1_scored.json `
   --max-cases 24 --execute
 ```

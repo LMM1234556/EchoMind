@@ -1,6 +1,32 @@
 import pytest
 
-from evaluation.judge_calibration import analyse_calibration
+from evaluation.judge_calibration import _paired_rows, analyse_calibration
+
+
+def test_adjudicated_reference_keeps_independent_reviewer_scores():
+    case = _case("resolved", "calibration", [3, 4, 4, 4], [0.5, 0.75, 0.75, 0.75], [5, 4, 4, 4])
+    case["human_reference_overrides"] = {"relevance": {
+        "score": 3, "status": "confirmed", "confirmed_by": "project_owner",
+        "reason": "Core response relevant with substantial redundant requests.",
+    }}
+    rows = _paired_rows({"cases": [case]})
+    assert rows[0]["human"]["relevance"] == 0.5
+    assert rows[0]["human"]["accuracy"] == 0.75
+    assert [r["relevance"] for r in rows[0]["human_ratings"]] == [3, 5]
+    report = analyse_calibration({"cases": [case]})
+    assert report["inter_reviewer"]["mean_absolute_difference"] == 0.125
+
+
+@pytest.mark.parametrize("override", [
+    {"score": 6, "status": "confirmed", "confirmed_by": "project_owner", "reason": "outside scale"},
+    {"score": 3, "status": "draft", "confirmed_by": "project_owner", "reason": "pending"},
+    {"score": True, "status": "confirmed", "confirmed_by": "project_owner", "reason": "not numeric"},
+])
+def test_invalid_adjudicated_reference_is_rejected(override):
+    case = _case("invalid", "calibration", [3, 4, 4, 4], [0.5, 0.75, 0.75, 0.75])
+    case["human_reference_overrides"] = {"relevance": override}
+    with pytest.raises(ValueError):
+        _paired_rows({"cases": [case]})
 
 
 def _case(case_id, split, human_values, judge_values, second_reviewer=None):
