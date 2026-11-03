@@ -2,7 +2,7 @@
   "metadata": {
     "name": "llm-judge-calibration-v1-evidence-aligned-recheck",
     "created_on": "2026-11-02",
-    "status": "awaiting_reviewer_1_round2",
+    "status": "human_recheck_complete_pending_disagreement_resolution",
     "source_calibration": "backend/evaluation/data/judge_calibration_v1.json",
     "evidence_source": "backend/evaluation/data/retrieval_corpus_v1.json",
     "evidence_version": "retrieval-corpus-v1",
@@ -10,13 +10,20 @@
     "selection_rule": "Cases whose maximum first-round dimension gap was at least 2 points.",
     "protocol": "Both reviewers rescore independently against the same complete frozen document. Round-two ratings are stored separately and do not overwrite first-round ratings.",
     "imported_reviewers": [
+      "reviewer_1",
       "reviewer_2"
     ],
-    "pending_reviewers": [
-      "reviewer_1"
-    ],
+    "pending_reviewers": [],
     "source_workbook": "EchoMind_reviewer_2_Evidence_Aligned_Recheck_Completed.xlsx",
-    "source_workbook_sha256": "F37FF90024D30366C8020567DFF437EDC44A76944755EA6246E5F6F202AF2F4D"
+    "source_workbook_sha256": "F37FF90024D30366C8020567DFF437EDC44A76944755EA6246E5F6F202AF2F4D",
+    "updated_on": "2026-11-03",
+    "reviewer_1_source_workbook": "EchoMind_reviewer_1_Evidence_Aligned_Recheck_已完成.xlsx",
+    "reviewer_1_source_workbook_sha256": "7EC38ADCE8B48850FC1A571D6DB77DC429E45BC95EA0A3F5B2541A746C508F9B",
+    "remaining_material_disagreement_ids": [
+      "ground-v2-refund-supported-002",
+      "ground-v2-order-gap-002",
+      "ground-v2-delivery-gap-002"
+    ]
   },
   "cases": [
     {
@@ -42,6 +49,14 @@
         }
       ],
       "round2_human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 3,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "准确说明第8天质量问题须提供证据、已发货先退货及政策时效；但将照片/视频作为证据示例、要求额外支付信息及提及人工审核，均未见冻结文档明确规定，且超出提问重点。"
+        },
         {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
@@ -76,6 +91,14 @@
       ],
       "round2_human_ratings": [
         {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 4,
+          "completeness": 4,
+          "helpfulness": 4,
+          "notes": "正确回应已发货须先完成退货才能退款，审核和到账时效亦有依据；但追加订单/支付资料要求较多，质量问题运费例外表达不够直接。"
+        },
+        {
           "reviewer_id": "reviewer_2",
           "relevance": 5,
           "accuracy": 4,
@@ -108,6 +131,14 @@
         }
       ],
       "round2_human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "冻结文档仅规定退款申请提交后1—3个工作日审核，未规定仓库签收后的小时级启动时间；拒绝编造具体小时数准确，但通用费用说明和补充金额要求偏离本题。"
+        },
         {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
@@ -142,6 +173,14 @@
       ],
       "round2_human_ratings": [
         {
+          "reviewer_id": "reviewer_1",
+          "relevance": 5,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 5,
+          "notes": "准确区分发货第6天与超过7天未收到的查件条件，物流更新和异常订单处理建议有据；“我们会直接为您处理”较原文“联系客服处理”略显承诺过度。"
+        },
+        {
           "reviewer_id": "reviewer_2",
           "relevance": 5,
           "accuracy": 4,
@@ -174,6 +213,14 @@
         }
       ],
       "round2_human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "冻结文档虽列出“已签收”“已完成”，但没有自动转为已完成的时长；不提供小时数正确，转人工查询可行；索要支付金额等通用信息缺乏针对性。"
+        },
         {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
@@ -208,6 +255,14 @@
       ],
       "round2_human_ratings": [
         {
+          "reviewer_id": "reviewer_1",
+          "relevance": 2,
+          "accuracy": 5,
+          "completeness": 3,
+          "helpfulness": 3,
+          "notes": "冻结文档未提供快递员电话或查询入口，未编造联系方式；但回答主要谈时效、费用及通用订单核验，未直说“暂无快递员联系方式查询依据”，相关性与完整性较弱。"
+        },
+        {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
           "accuracy": 5,
@@ -240,6 +295,14 @@
         }
       ],
       "round2_human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": 4,
+          "accuracy": 4,
+          "completeness": 5,
+          "helpfulness": 4,
+          "notes": "准确列出系统自动锁定账户并发送通知，两步验证、密码规则等均有依据；订单、扣款与支付金额核验内容不属于问题核心，造成一定偏离。"
+        },
         {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
@@ -274,6 +337,14 @@
       ],
       "round2_human_ratings": [
         {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "账户安全文档明确异常登录会锁定并通知，但未给出自动解锁时长；拒绝给出具体时间正确。转人工可作为后续路径，但通用费用、订单号和金额要求不够贴题。"
+        },
+        {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
           "accuracy": 5,
@@ -306,6 +377,14 @@
         }
       ],
       "round2_human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "会员文档只规定积分有效期1年及等级累计消费门槛，未说明累计消费金额是否每年1月1日重置；未擅自判断清零规则正确，但未明确区分积分与累计消费。"
+        },
         {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
@@ -340,6 +419,14 @@
       ],
       "round2_human_ratings": [
         {
+          "reviewer_id": "reviewer_1",
+          "relevance": 3,
+          "accuracy": 5,
+          "completeness": 4,
+          "helpfulness": 3,
+          "notes": "配送文档规定标准、加急和同城运费，但未规定周六或周末附加费；拒绝确认收费情况正确。建议人工核实可行，附加订单金额及支付核验内容冗余。"
+        },
+        {
           "reviewer_id": "reviewer_2",
           "relevance": 4,
           "accuracy": 5,
@@ -372,6 +459,14 @@
         }
       ],
       "round2_human_ratings": [
+        {
+          "reviewer_id": "reviewer_1",
+          "relevance": 2,
+          "accuracy": 5,
+          "completeness": 3,
+          "helpfulness": 3,
+          "notes": "冻结配送文档未指定默认承运快递公司，未编造公司名称；但回答聚焦“时效、费用或处理规则”，未明确指出缺少默认承运商信息，联系人工的建议较笼统。"
+        },
         {
           "reviewer_id": "reviewer_2",
           "relevance": 4,

@@ -1,0 +1,238 @@
+{
+  "date": "2026-11-03",
+  "status": "human_recheck_complete_pending_disagreement_resolution",
+  "validation": {
+    "case_count": 11,
+    "score_count": 44,
+    "notes_count": 11,
+    "question_answer_evidence_unchanged": true
+  },
+  "original_24": {
+    "n": 24,
+    "dimensions": {
+      "relevance": {
+        "reviewer_1_mean": 4.541666666666667,
+        "reviewer_2_mean": 4.083333333333333,
+        "mae": 0.625,
+        "exact_count": 10,
+        "within_one_count": 23
+      },
+      "accuracy": {
+        "reviewer_1_mean": 4.75,
+        "reviewer_2_mean": 3.7916666666666665,
+        "mae": 0.9583333333333334,
+        "exact_count": 6,
+        "within_one_count": 20
+      },
+      "completeness": {
+        "reviewer_1_mean": 4.666666666666667,
+        "reviewer_2_mean": 4.041666666666667,
+        "mae": 0.625,
+        "exact_count": 11,
+        "within_one_count": 22
+      },
+      "helpfulness": {
+        "reviewer_1_mean": 4.5,
+        "reviewer_2_mean": 3.4166666666666665,
+        "mae": 1.0833333333333333,
+        "exact_count": 9,
+        "within_one_count": 14
+      }
+    },
+    "pass_rule": "raw four-dimension mean >=3.8; integer score sum >=16",
+    "reviewer_1_pass_count": 23,
+    "reviewer_2_pass_count": 10,
+    "decision_agreement_count": 11,
+    "decision_agreement_rate": 0.4583333333333333,
+    "cohen_kappa": 0.06024096385542167,
+    "material_disagreement_ids": [
+      "ground-v2-refund-supported-001",
+      "ground-v2-refund-supported-002",
+      "ground-v2-refund-gap-002",
+      "ground-v2-order-supported-001",
+      "ground-v2-order-gap-001",
+      "ground-v2-order-gap-002",
+      "ground-v2-account-supported-002",
+      "ground-v2-account-gap-002",
+      "ground-v2-member-gap-002",
+      "ground-v2-delivery-gap-001",
+      "ground-v2-delivery-gap-002"
+    ],
+    "decision_disagreement_ids": [
+      "ground-v2-refund-supported-001",
+      "ground-v2-refund-supported-002",
+      "ground-v2-refund-gap-001",
+      "ground-v2-refund-gap-002",
+      "ground-v2-order-supported-001",
+      "ground-v2-order-gap-001",
+      "ground-v2-order-gap-002",
+      "ground-v2-account-gap-001",
+      "ground-v2-account-gap-002",
+      "ground-v2-member-gap-001",
+      "ground-v2-member-gap-002",
+      "ground-v2-delivery-gap-001",
+      "ground-v2-delivery-gap-002"
+    ]
+  },
+  "selected_11_round1": {
+    "n": 11,
+    "dimensions": {
+      "relevance": {
+        "reviewer_1_mean": 4.454545454545454,
+        "reviewer_2_mean": 3.4545454545454546,
+        "mae": 1,
+        "exact_count": 1,
+        "within_one_count": 10
+      },
+      "accuracy": {
+        "reviewer_1_mean": 4.909090909090909,
+        "reviewer_2_mean": 3.4545454545454546,
+        "mae": 1.4545454545454546,
+        "exact_count": 0,
+        "within_one_count": 7
+      },
+      "completeness": {
+        "reviewer_1_mean": 4.545454545454546,
+        "reviewer_2_mean": 3.4545454545454546,
+        "mae": 1.0909090909090908,
+        "exact_count": 1,
+        "within_one_count": 9
+      },
+      "helpfulness": {
+        "reviewer_1_mean": 4.454545454545454,
+        "reviewer_2_mean": 2.5454545454545454,
+        "mae": 1.9090909090909092,
+        "exact_count": 1,
+        "within_one_count": 1
+      }
+    },
+    "pass_rule": "raw four-dimension mean >=3.8; integer score sum >=16",
+    "reviewer_1_pass_count": 11,
+    "reviewer_2_pass_count": 1,
+    "decision_agreement_count": 1,
+    "decision_agreement_rate": 0.09090909090909091,
+    "cohen_kappa": 0,
+    "material_disagreement_ids": [
+      "ground-v2-refund-supported-001",
+      "ground-v2-refund-supported-002",
+      "ground-v2-refund-gap-002",
+      "ground-v2-order-supported-001",
+      "ground-v2-order-gap-001",
+      "ground-v2-order-gap-002",
+      "ground-v2-account-supported-002",
+      "ground-v2-account-gap-002",
+      "ground-v2-member-gap-002",
+      "ground-v2-delivery-gap-001",
+      "ground-v2-delivery-gap-002"
+    ],
+    "decision_disagreement_ids": [
+      "ground-v2-refund-supported-001",
+      "ground-v2-refund-supported-002",
+      "ground-v2-refund-gap-002",
+      "ground-v2-order-supported-001",
+      "ground-v2-order-gap-001",
+      "ground-v2-order-gap-002",
+      "ground-v2-account-gap-002",
+      "ground-v2-member-gap-002",
+      "ground-v2-delivery-gap-001",
+      "ground-v2-delivery-gap-002"
+    ]
+  },
+  "selected_11_round2": {
+    "n": 11,
+    "dimensions": {
+      "relevance": {
+        "reviewer_1_mean": 3.090909090909091,
+        "reviewer_2_mean": 4.181818181818182,
+        "mae": 1.0909090909090908,
+        "exact_count": 2,
+        "within_one_count": 8
+      },
+      "accuracy": {
+        "reviewer_1_mean": 4.545454545454546,
+        "reviewer_2_mean": 4.636363636363637,
+        "mae": 0.09090909090909091,
+        "exact_count": 10,
+        "within_one_count": 11
+      },
+      "completeness": {
+        "reviewer_1_mean": 4,
+        "reviewer_2_mean": 3.5454545454545454,
+        "mae": 0.45454545454545453,
+        "exact_count": 6,
+        "within_one_count": 11
+      },
+      "helpfulness": {
+        "reviewer_1_mean": 3.4545454545454546,
+        "reviewer_2_mean": 3.3636363636363638,
+        "mae": 0.09090909090909091,
+        "exact_count": 10,
+        "within_one_count": 11
+      }
+    },
+    "pass_rule": "raw four-dimension mean >=3.8; integer score sum >=16",
+    "reviewer_1_pass_count": 2,
+    "reviewer_2_pass_count": 3,
+    "decision_agreement_count": 10,
+    "decision_agreement_rate": 0.9090909090909091,
+    "cohen_kappa": 0.7441860465116279,
+    "material_disagreement_ids": [
+      "ground-v2-refund-supported-002",
+      "ground-v2-order-gap-002",
+      "ground-v2-delivery-gap-002"
+    ],
+    "decision_disagreement_ids": [
+      "ground-v2-refund-supported-002"
+    ]
+  },
+  "mixed_latest_24": {
+    "n": 24,
+    "dimensions": {
+      "relevance": {
+        "reviewer_1_mean": 3.9166666666666665,
+        "reviewer_2_mean": 4.416666666666667,
+        "mae": 0.6666666666666666,
+        "exact_count": 11,
+        "within_one_count": 21
+      },
+      "accuracy": {
+        "reviewer_1_mean": 4.583333333333333,
+        "reviewer_2_mean": 4.333333333333333,
+        "mae": 0.3333333333333333,
+        "exact_count": 16,
+        "within_one_count": 24
+      },
+      "completeness": {
+        "reviewer_1_mean": 4.416666666666667,
+        "reviewer_2_mean": 4.083333333333333,
+        "mae": 0.3333333333333333,
+        "exact_count": 16,
+        "within_one_count": 24
+      },
+      "helpfulness": {
+        "reviewer_1_mean": 4.041666666666667,
+        "reviewer_2_mean": 3.7916666666666665,
+        "mae": 0.25,
+        "exact_count": 18,
+        "within_one_count": 24
+      }
+    },
+    "pass_rule": "raw four-dimension mean >=3.8; integer score sum >=16",
+    "reviewer_1_pass_count": 14,
+    "reviewer_2_pass_count": 12,
+    "decision_agreement_count": 20,
+    "decision_agreement_rate": 0.8333333333333334,
+    "cohen_kappa": 0.6666666666666667,
+    "material_disagreement_ids": [
+      "ground-v2-refund-supported-002",
+      "ground-v2-order-gap-002",
+      "ground-v2-delivery-gap-002"
+    ],
+    "decision_disagreement_ids": [
+      "ground-v2-refund-supported-002",
+      "ground-v2-refund-gap-001",
+      "ground-v2-account-gap-001",
+      "ground-v2-member-gap-001"
+    ]
+  }
+}
