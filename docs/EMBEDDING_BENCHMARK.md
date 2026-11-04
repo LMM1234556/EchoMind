@@ -1,5 +1,7 @@
 # Chinese Embedding Candidate Benchmark
 
+This is the early development experiment (32 queries). For the frozen 60-query comparison shown in the project overview, see [RAG retrieval test v1](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md). Hit@1 and Hit@3 in that report are computed on its 36 answerable queries.
+
 Evaluation date: 2026-10-18  
 Status: controlled runtime migration completed with rollback collection retained
 

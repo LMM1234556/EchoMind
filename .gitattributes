@@ -16,6 +16,17 @@ backend/evaluation/data/retrieval_test_v1_candidates.json text eol=lf
 backend/evaluation/data/retrieval_test_v1.json text eol=lf
 backend/evaluation/data/retrieval_test_v1.freeze.json text eol=lf
 Dockerfile text eol=lf
+# Preserve the exact bytes recorded by frozen evaluation manifests.
+backend/evaluation/data/evidence_gate_dev_v1.json text eol=lf
+backend/evaluation/data/evidence_gate_test_v1.json text eol=lf
+backend/evaluation/data/grounded_chat_test_v2.json text eol=lf
+backend/evaluation/reports/evidence_gate_dev_v1_20261026.json text eol=crlf
+backend/evaluation/reports/evidence_gate_test_v1_first_run_20261026.json text eol=crlf
+backend/evaluation/reports/grounded_chat_test_v2_first_run.json text eol=crlf
+backend/evaluation/reports/intent_test_v1_first_run_20261026.json text eol=crlf
+backend/evaluation/reports/intent_test_v2_first_run_20261026.json text eol=crlf
+backend/evaluation/reports/retrieval_test_v1_first_run_20261026.json text eol=crlf
+backend/evaluation/reports/retrieval_threshold_calibration_v1_20261026.json text eol=crlf
 
 *.png binary
 *.jpg binary

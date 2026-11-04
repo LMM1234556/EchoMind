@@ -6,14 +6,14 @@
 
 业务场景定义 · 意图识别 · 主辅 Agent 协作 · Grounded RAG · 分层记忆 · 工具治理 · 全链路评测
 
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12_Docker-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?logo=vuedotjs&logoColor=white)
 ![Qwen](https://img.shields.io/badge/Model-Qwen_API-6C63FF)
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-![Tests](https://img.shields.io/badge/Tests-157%20passed-2EA44F)
+[![Tests](https://img.shields.io/badge/Tests-163%20passed%20%7C%202026--11--04-2EA44F)](docs/REPOSITORY_VERIFICATION_20261104.md)
 
 [▶ 查看 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [⬇ 直接播放 / 下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) ·
@@ -66,22 +66,23 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 
 - 梳理产品咨询、技术故障、账单售后和人工交接四类业务职责，完善主 Agent 与辅助 Agent 的协作路径；
 - 接入 Qwen API，并将中文检索模型从 MiniLM 迁移至 BGE，建立同一冻结集上的前后对照；
-- 将 RAG 接入真实 `/chat` 链路，引入 Top-3 Evidence Selector 和知识缺口识别；
-- 修复复合意图路由、工具调用、会话隔离和记忆指令分流，完善组件异常时的连续服务策略；
+- 在 `/chat` 检索链路引入 Top-3 Evidence Selector 和知识缺口识别；
+- 完善工具调用、会话隔离和异常降级，通过综合回归定位复合意图路由与记忆指令分流的改进方向；
 - 建设意图、检索、证据选择、完整链路与自动化回归的分层评测体系；
-- 设计产品调试工作台、运行 Trace、评测报告和作品集演示材料。
+- 完善产品调试工作台、运行 Trace、评测报告和作品集演示材料。
 
 ## 核心成果
 
 | 能力层 | 已验证结果 | 样本与口径 |
 |---|---:|---|
 | 意图识别 | Accuracy **98.95%**，Macro-F1 **98.94%** | 95 条、19 类冻结合成样本 |
-| 中文检索 | Hit@1 **55.56% → 97.22%**，BGE Hit@3 **100%** | 同一 60 条冻结检索集上的 MiniLM/BGE 对照 |
+| 中文检索 | Hit@1 **55.56% → 97.22%**，BGE Hit@3 **100%** | 同一 60 条冻结集；排序指标统计其中 36 条有答案查询 |
 | 证据选择 | 严格证据选择 **87.50%** | 24 条 Grounded Chat v2 冻结集 |
 | 知识缺口识别 | **91.67%** | 同一 24 条 Grounded Chat v2 冻结集 |
 | 回答事实忠实度 | **83.33%（20/24）** | 项目负责人逐条复核 |
-| 完整链路 | 严格端到端 **62.50%（5/8）** | 7 个场景、8 次单轮真实请求基线 |
-| 工程回归 | **157/157** 通过 | Mock 与本地依赖自动化测试 |
+| 完整链路 | 严格端到端 **62.50%（5/8）** | 7 个场景、8 次真实请求，包含多轮会话 |
+| Judge 校准实验 | 完成 **24 条**双人评分与模型评分对比 | 16 条校准、8 条留出验证；结果与采用决策见[校准分析](backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
+| 工程回归 | **163/163** 通过 | 2026-11-04 隔离检出回归，详见[验证记录](docs/REPOSITORY_VERIFICATION_20261104.md) |
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
@@ -139,7 +140,7 @@ flowchart LR
 | 分层记忆 | Redis 工作记忆与摘要；ChromaDB 情景记忆和用户画像；用户/会话隔离 | 支持多轮对话、历史信息召回和可控的上下文压缩 |
 | 可观测与评测 | Tool Trace、阶段耗时、Prometheus-compatible Metrics、冻结集和 LLM-as-Judge 框架 | 将问题定位到意图、路由、检索、证据选择或生成阶段 |
 
-> `MCPToolManager` 是项目内部的工具治理抽象，负责统一调用、缓存、熔断、降级和重排；后续可继续扩展标准 MCP Server/Client 协议。
+> 沿用原项目的 `MCPToolManager` 名称，统一管理项目内工具的调用、缓存、超时、熔断、降级和检索重排。
 
 ## Agent 职责与产品场景
 
@@ -204,7 +205,7 @@ EchoMind 将“模型是否理解”“能否找到文档”“证据是否足�
 | 证据门控 | 是否选对证据并识别知识缺口 | 24 条 Grounded Chat v2 |
 | 回答质量 | 回复是否忠于已选证据 | 24 条逐条事实复核 |
 | 完整链路 | 意图、路由、证据和回答是否同时满足契约 | 7 场景、8 次真实请求 |
-| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 157 项自动化测试 |
+| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 163 项自动化测试，验证日期 2026-11-04 |
 
 当前完整链路基线定位了三个明确的迭代方向：问候标签稳定性、复合领域路由，以及“保存信息”与“询问政策”的任务分流。完整分析见[AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md)和[当前评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md)。
 
@@ -226,28 +227,36 @@ EchoMind 将“模型是否理解”“能否找到文档”“证据是否足�
 ### 环境要求
 
 - Docker Desktop
-- Node.js 20+
+- Node.js 22.12+（前端 Vite 7）
 - 阿里云百炼 API Key，并已授权所选 Qwen 模型
 
 ### 1. 配置后端
 
+在目标磁盘目录打开 PowerShell，首次使用先获取代码：
+
 ```powershell
-Set-Location backend
-Copy-Item .env.example .env.local
+git clone https://github.com/LMM1234556/EchoMind.git
+Set-Location EchoMind
 ```
 
-在本地 `backend/.env.local` 中填写模型密钥。当前兼容层沿用以下变量名：
+```powershell
+Set-Location backend
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+```
+
+在 `backend/.env` 中填写模型密钥。Docker Compose 从此文件读取模型和服务配置，当前兼容层沿用以下变量名：
 
 ```env
 ANTHROPIC_API_KEY=your_api_key
 ```
 
-真实密钥保存在本地 `.env.local`；该文件已由 Git 忽略。
+`.env` 与 `.env.local` 均已由 Git 忽略。首次启动按本节配置 `.env` 即可；本地运行 Python 评测脚本时另见[配置说明](docs/完整使用指南.md#22-配置-env)。
 
 ### 2. 启动 Redis、ChromaDB 与后端
 
 ```powershell
-Set-Location backend
+# 继续在 backend 目录执行
+docker compose config --quiet
 docker compose up -d --build redis chromadb echomind
 Invoke-RestMethod http://127.0.0.1:8000/health
 ```
@@ -255,19 +264,21 @@ Invoke-RestMethod http://127.0.0.1:8000/health
 ### 3. 启动前端
 
 ```powershell
-Set-Location frontend
-npm ci
+# 从 backend 进入前端目录
+Set-Location ..\frontend
+# 若依赖尚未安装，再执行 npm ci
 npm run dev -- --port 5174
 ```
 
-访问 <http://127.0.0.1:5174/>，选择 Python 后端。
+访问 <http://127.0.0.1:5174/>，选择 Python 后端。首次安装依赖时使用 `npm ci`。
 
 ### 4. 运行自动化测试
 
 ```powershell
-Set-Location backend
+# 从 frontend 返回后端目录
+Set-Location ..\backend
 python -m venv venv
-.\venv\Scripts\python.exe -m pip install -r requirements.txt
+.\venv\Scripts\python.exe -m pip install -r requirements.txt pytest
 .\venv\Scripts\python.exe -m pytest -q
 ```
 
@@ -316,11 +327,12 @@ EchoMind/
 | [工程案例](docs/PORTFOLIO_CASE_STUDY.md) | 技术面试官 | 工程问题、改进方案、验证方式和结果 |
 | [系统架构](docs/架构图.md) | 架构/后端面试官 | 服务、Agent、工具、记忆、存储与部署结构 |
 | [完整使用指南](docs/完整使用指南.md) | 本地运行者 | 配置、启动、接口、数据和排障说明 |
-| [Embedding 对照](docs/EMBEDDING_BENCHMARK.md) | RAG/算法面试官 | MiniLM 与 BGE 的受控对比 |
+| [Embedding 正式对照](backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) | RAG/算法面试官 | 60 条冻结集上的 MiniLM/BGE 对照 |
 | [RAG 评测协议](docs/RAG评测协议.md) | 评测面试官 | 数据口径、指标定义和可复核流程 |
 | [Judge 校准方案](docs/EVALUATION_CALIBRATION.md) | AI 产品/评测面试官 | 双人评分、证据对齐复核与同批样本内留出验证 |
 | [产品验证方案](docs/PRODUCT_VALIDATION_PLAN.md) | AI 产品面试官 | 可用性任务、KPI、观察字段与决策规则 |
 | [变更记录](docs/CHANGES.md) | 代码审阅者 | 主要工程改进与验证摘要 |
+| [仓库验证记录](docs/REPOSITORY_VERIFICATION_20261104.md) | 本地运行者、代码审阅者 | 隔离回归、配置与文档检查范围 |
 
 ## 后续迭代
 

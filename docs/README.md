@@ -19,13 +19,14 @@
 
 ### RAG / 评测方向
 
-1. [Embedding 对照实验](EMBEDDING_BENCHMARK.md)：MiniLM 与 BGE 的同集对比；
+1. [Embedding 正式对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md)：60 条冻结集上的 MiniLM/BGE 对照；
 2. [Embedding 迁移记录](EMBEDDING_MIGRATION.md)：模型、维度、Collection 与回滚策略；
 3. [RAG 评测协议](RAG评测协议.md)：数据口径、指标定义和复核流程；
 4. [意图评测数据规范](意图评测数据规范.md)：标签、冻结集和审核规则；
 5. [LLM-as-Judge 人工校准方案](EVALUATION_CALIBRATION.md)：四维人工评分、证据对齐复核与同批样本内留出验证结果；
 6. [产品验证方案](PRODUCT_VALIDATION_PLAN.md)：任务完成率、处理时间、可信度和质量护栏；
-7. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告。
+7. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告；
+8. [仓库验证记录](REPOSITORY_VERIFICATION_20261104.md)：当前版本回归、配置和文档检查。
 
 ## 文档清单
 
@@ -39,12 +40,14 @@
 | [业务流程说明.md](业务流程说明.md) | 端到端业务和 Agent 处理流程 |
 | [完整使用指南.md](完整使用指南.md) | 本地运行、接口和运维说明 |
 | [CHANGES.md](CHANGES.md) | 文件级工程变更摘要 |
-| [EMBEDDING_BENCHMARK.md](EMBEDDING_BENCHMARK.md) | 中文 Embedding 小型离线对比 |
+| [正式检索对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) | 60 条冻结集；排序指标统计 36 条有答案查询 |
+| [EMBEDDING_BENCHMARK.md](EMBEDDING_BENCHMARK.md) | 早期中文 Embedding 开发探索 |
 | [EMBEDDING_MIGRATION.md](EMBEDDING_MIGRATION.md) | Embedding 迁移与回滚说明 |
 | [RAG评测协议.md](RAG评测协议.md) | RAG 指标与冻结评测流程 |
 | [意图评测数据规范.md](意图评测数据规范.md) | 意图数据集和标注规范 |
 | [EVALUATION_CALIBRATION.md](EVALUATION_CALIBRATION.md) | LLM-as-Judge 人工校准流程与指标 |
 | [PRODUCT_VALIDATION_PLAN.md](PRODUCT_VALIDATION_PLAN.md) | 小规模产品可用性测试与 KPI 口径 |
+| [REPOSITORY_VERIFICATION_20261104.md](REPOSITORY_VERIFICATION_20261104.md) | 2026-11-04 版本验证范围与结果 |
 
 ## 证据层级
 

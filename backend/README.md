@@ -43,6 +43,8 @@ ANTHROPIC_API_KEY=your_key
 cp .env.example .env
 ```
 
+Docker Compose 使用 `.env`。在主机直接运行 Python 评测时使用 `.env.local`，模型和密钥保持一致，Redis/ChromaDB 则使用宿主机映射地址；详见[配置说明](../docs/完整使用指南.md#22-配置-env)。
+
 最少确认这些变量可用：
 
 ```env
@@ -61,10 +63,11 @@ EVIDENCE_SELECTOR_TIMEOUT_SECONDS=45
 
 ### 3. 启动服务
 
-推荐直接启动全栈：
+从后端目录先检查配置，再启动 API、Redis 和 ChromaDB：
 
 ```bash
-docker compose up -d --build
+docker compose config --quiet
+docker compose up -d --build redis chromadb echomind
 ```
 
 查看状态：
