@@ -288,6 +288,12 @@ def analyse_calibration(payload: Dict[str, Any]) -> Dict[str, Any]:
     else:
         status = "calibration_evaluated"
 
+    raw_validation = _dimension_metrics(validation_rows)
+    calibrated_validation = _dimension_metrics(validation_rows, transforms)
+    raw_mean_mae = _mean([m["mae"] for m in raw_validation.values() if m["mae"] is not None])
+    calibrated_mean_mae = _mean([m["mae"] for m in calibrated_validation.values() if m["mae"] is not None])
+    scored_cases = [c for c in payload.get("cases") or [] if c.get("judge_scores") is not None]
+
     result: Dict[str, Any] = {
         "name": "llm-judge-calibration-report",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -318,14 +324,32 @@ def analyse_calibration(payload: Dict[str, Any]) -> Dict[str, Any]:
             "parameters": transforms,
         },
         "validation": {
-            "raw_dimensions": _dimension_metrics(validation_rows),
-            "calibrated_dimensions": _dimension_metrics(validation_rows, transforms),
+            "raw_dimensions": raw_validation,
+            "calibrated_dimensions": calibrated_validation,
             "raw_decision": _decision_metrics(validation_rows, threshold),
             "calibrated_decision": _decision_metrics(validation_rows, threshold, transforms),
         },
+        "validation_summary": {
+            "raw_mean_dimension_mae": _round(raw_mean_mae),
+            "calibrated_mean_dimension_mae": _round(calibrated_mean_mae),
+            "mae_delta_calibrated_minus_raw": _round(calibrated_mean_mae - raw_mean_mae)
+            if raw_mean_mae is not None and calibrated_mean_mae is not None else None,
+        },
+        "execution": {
+            "model": metadata.get("judge_model"),
+            "input_sha256": metadata.get("judge_input_sha256"),
+            "prompt_sha256": metadata.get("judge_prompt_sha256"),
+            "sdk_max_retries": metadata.get("sdk_max_retries"),
+            "recorded_attempts": len(scored_cases) + sum(
+                len(c.get("judge_failed_attempts") or []) for c in payload.get("cases") or []
+            ),
+            "successful_cases": sum(not bool(c["judge_scores"].get("judge_failed")) for c in scored_cases),
+            "archived_failed_attempts": sum(len(c.get("judge_failed_attempts") or []) for c in payload.get("cases") or []),
+        },
         "interpretation": (
             "Calibration and validation splits are reported separately. "
-            "Validation metrics are the decision basis; all-case metrics are descriptive."
+            "Held-out validation metrics are the decision basis; all-case metrics are descriptive. "
+            "These splits come from the same synthetic question batch."
         ),
     }
     return result
@@ -338,10 +362,10 @@ def render_markdown(report: Dict[str, Any]) -> str:
         "",
         f"- 状态：`{report['status']}`",
         f"- 完成配对评分：{sample['completed_paired_cases']} / {sample['total_cases']}",
-        f"- 校准集：{sample['calibration_cases']}；独立验证集：{sample['validation_cases']}",
+        f"- 校准集：{sample['calibration_cases']}；同批样本内留出验证集：{sample['validation_cases']}",
         f"- 人工参考：独立评分均值，含 {report['human_reference']['adjudicated_case_count']} 条明确确认的维度裁定；评审间差异使用原分计算。",
         "",
-        "## 独立验证集结果",
+        "## 同批样本内留出验证结果",
         "",
         "| 维度 | 原始 MAE | 校准后 MAE | 原始 Spearman | 校准后 Spearman |",
         "|---|---:|---:|---:|---:|",
@@ -351,7 +375,8 @@ def render_markdown(report: Dict[str, Any]) -> str:
     for dimension in DIMENSIONS:
         lines.append(
             f"| {dimension} | {raw[dimension]['mae']} | {calibrated[dimension]['mae']} | "
-            f"{raw[dimension]['spearman_rho']} | {calibrated[dimension]['spearman_rho']} |"
+            f"{raw[dimension]['spearman_rho'] if raw[dimension]['spearman_rho'] is not None else '未定义'} | "
+            f"{calibrated[dimension]['spearman_rho'] if calibrated[dimension]['spearman_rho'] is not None else '未定义'} |"
         )
     lines.extend(
         [
@@ -361,8 +386,14 @@ def render_markdown(report: Dict[str, Any]) -> str:
             f"- 原始一致率：{report['validation']['raw_decision']['agreement_rate']}",
             f"- 校准后一致率：{report['validation']['calibrated_decision']['agreement_rate']}",
             f"- 校准后 Cohen's kappa：{report['validation']['calibrated_decision']['cohen_kappa']}",
+            f"- 四维平均 MAE：{report['validation_summary']['raw_mean_dimension_mae']} → {report['validation_summary']['calibrated_mean_dimension_mae']}（越低越好）",
             "",
-            "> 独立验证集结果用于判断校准效果；样本不足时报告保持试运行状态。",
+            "## 执行记录",
+            "",
+            f"- 模型：{report['execution']['model']}",
+            f"- 成功案例：{report['execution']['successful_cases']}；记录的调用尝试：{report['execution']['recorded_attempts']}；已归档失败尝试：{report['execution']['archived_failed_attempts']}",
+            "",
+            "> 本轮为小样本探索性校准；同批样本内留出结果用于观察评分偏差。",
             "",
         ]
     )

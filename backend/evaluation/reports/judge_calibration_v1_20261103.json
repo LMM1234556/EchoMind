@@ -1,0 +1,227 @@
+{
+  "name": "llm-judge-calibration-report",
+  "generated_at": "2026-11-04T09:05:37.765059+00:00",
+  "status": "calibration_evaluated",
+  "sample": {
+    "total_cases": 24,
+    "completed_with_one_or_more_reviewers": 24,
+    "completed_paired_cases": 24,
+    "calibration_cases": 16,
+    "validation_cases": 8,
+    "minimum_completed_cases": 20,
+    "minimum_reviewers_per_case": 2
+  },
+  "raw_all_cases": {
+    "dimensions": {
+      "relevance": {
+        "n": 24,
+        "human_mean": 0.7604,
+        "judge_mean": 0.9375,
+        "mean_bias": 0.1771,
+        "mae": 0.1771,
+        "rmse": 0.2613,
+        "pearson_r": 0.5549,
+        "spearman_rho": 0.503,
+        "within_0_20_rate": 0.5833
+      },
+      "accuracy": {
+        "n": 24,
+        "human_mean": 0.8646,
+        "judge_mean": 0.9896,
+        "mean_bias": 0.125,
+        "mae": 0.125,
+        "rmse": 0.2165,
+        "pearson_r": 0.2719,
+        "spearman_rho": 0.308,
+        "within_0_20_rate": 0.75
+      },
+      "completeness": {
+        "n": 24,
+        "human_mean": 0.8125,
+        "judge_mean": 0.9146,
+        "mean_bias": 0.1021,
+        "mae": 0.1229,
+        "rmse": 0.1826,
+        "pearson_r": 0.5904,
+        "spearman_rho": 0.6419,
+        "within_0_20_rate": 0.75
+      },
+      "helpfulness": {
+        "n": 24,
+        "human_mean": 0.7292,
+        "judge_mean": 0.9187,
+        "mean_bias": 0.1896,
+        "mae": 0.1896,
+        "rmse": 0.2597,
+        "pearson_r": 0.6664,
+        "spearman_rho": 0.7145,
+        "within_0_20_rate": 0.4583
+      }
+    },
+    "decision": {
+      "n": 24,
+      "threshold": 0.7,
+      "agreement_rate": 0.5833,
+      "cohen_kappa": 0.0,
+      "human_pass_rate": 0.5833,
+      "judge_pass_rate": 1.0
+    }
+  },
+  "inter_reviewer": {
+    "comparable_cases": 24,
+    "pairwise_dimension_comparisons": 96,
+    "mean_absolute_difference": 0.099,
+    "within_0_25_rate": 0.9688
+  },
+  "human_reference": {
+    "method": "mean of independent ratings with explicitly confirmed dimension overrides",
+    "adjudicated_case_count": 3,
+    "independent_ratings_preserved": true
+  },
+  "calibration_fit": {
+    "method": "per-dimension affine transform fitted on calibration split",
+    "parameters": {
+      "relevance": {
+        "intercept": -0.07363,
+        "slope": 0.887965
+      },
+      "accuracy": {
+        "intercept": -0.175,
+        "slope": 1.066667
+      },
+      "completeness": {
+        "intercept": -0.088333,
+        "slope": 1.016667
+      },
+      "helpfulness": {
+        "intercept": -0.581577,
+        "slope": 1.453488
+      }
+    }
+  },
+  "validation": {
+    "raw_dimensions": {
+      "relevance": {
+        "n": 8,
+        "human_mean": 0.7969,
+        "judge_mean": 0.975,
+        "mean_bias": 0.1781,
+        "mae": 0.1781,
+        "rmse": 0.286,
+        "pearson_r": 0.8066,
+        "spearman_rho": 0.7433,
+        "within_0_20_rate": 0.625
+      },
+      "accuracy": {
+        "n": 8,
+        "human_mean": 0.8438,
+        "judge_mean": 1.0,
+        "mean_bias": 0.1562,
+        "mae": 0.1562,
+        "rmse": 0.2997,
+        "pearson_r": null,
+        "spearman_rho": null,
+        "within_0_20_rate": 0.75
+      },
+      "completeness": {
+        "n": 8,
+        "human_mean": 0.7969,
+        "judge_mean": 0.9563,
+        "mean_bias": 0.1594,
+        "mae": 0.1594,
+        "rmse": 0.247,
+        "pearson_r": 0.4974,
+        "spearman_rho": 0.5768,
+        "within_0_20_rate": 0.625
+      },
+      "helpfulness": {
+        "n": 8,
+        "human_mean": 0.7344,
+        "judge_mean": 0.9563,
+        "mean_bias": 0.2219,
+        "mae": 0.2219,
+        "rmse": 0.3383,
+        "pearson_r": 0.4725,
+        "spearman_rho": 0.535,
+        "within_0_20_rate": 0.5
+      }
+    },
+    "calibrated_dimensions": {
+      "relevance": {
+        "n": 8,
+        "human_mean": 0.7969,
+        "judge_mean": 0.7921,
+        "mean_bias": -0.0047,
+        "mae": 0.1961,
+        "rmse": 0.2274,
+        "pearson_r": 0.8066,
+        "spearman_rho": 0.7433,
+        "within_0_20_rate": 0.875
+      },
+      "accuracy": {
+        "n": 8,
+        "human_mean": 0.8438,
+        "judge_mean": 0.8917,
+        "mean_bias": 0.0479,
+        "mae": 0.1833,
+        "rmse": 0.2602,
+        "pearson_r": null,
+        "spearman_rho": null,
+        "within_0_20_rate": 0.75
+      },
+      "completeness": {
+        "n": 8,
+        "human_mean": 0.7969,
+        "judge_mean": 0.8839,
+        "mean_bias": 0.087,
+        "mae": 0.1586,
+        "rmse": 0.2076,
+        "pearson_r": 0.4974,
+        "spearman_rho": 0.5768,
+        "within_0_20_rate": 0.75
+      },
+      "helpfulness": {
+        "n": 8,
+        "human_mean": 0.7344,
+        "judge_mean": 0.8083,
+        "mean_bias": 0.0739,
+        "mae": 0.202,
+        "rmse": 0.2607,
+        "pearson_r": 0.4725,
+        "spearman_rho": 0.535,
+        "within_0_20_rate": 0.75
+      }
+    },
+    "raw_decision": {
+      "n": 8,
+      "threshold": 0.7,
+      "agreement_rate": 0.625,
+      "cohen_kappa": 0.0,
+      "human_pass_rate": 0.625,
+      "judge_pass_rate": 1.0
+    },
+    "calibrated_decision": {
+      "n": 8,
+      "threshold": 0.7,
+      "agreement_rate": 0.625,
+      "cohen_kappa": 0.0,
+      "human_pass_rate": 0.625,
+      "judge_pass_rate": 1.0
+    }
+  },
+  "validation_summary": {
+    "raw_mean_dimension_mae": 0.1789,
+    "calibrated_mean_dimension_mae": 0.185,
+    "mae_delta_calibrated_minus_raw": 0.0061
+  },
+  "execution": {
+    "model": "qwen3.7-plus",
+    "input_sha256": "8b026325af173a57f2c60ddb799ddba0a15a94806bde57d3bec9a5d02397e187",
+    "prompt_sha256": "b1fd0d6ad142239323be4be64e79afe049052b3a9c9a0659f615ed5b2cbb3264",
+    "sdk_max_retries": 0,
+    "recorded_attempts": 25,
+    "successful_cases": 24,
+    "archived_failed_attempts": 1
+  },
+  "interpretation": "Calibration and validation splits are reported separately. Held-out validation metrics are the decision basis; all-case metrics are descriptive. These splits come from the same synthetic question batch."
+}

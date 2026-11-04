@@ -23,7 +23,7 @@
 2. [Embedding 迁移记录](EMBEDDING_MIGRATION.md)：模型、维度、Collection 与回滚策略；
 3. [RAG 评测协议](RAG评测协议.md)：数据口径、指标定义和复核流程；
 4. [意图评测数据规范](意图评测数据规范.md)：标签、冻结集和审核规则；
-5. [LLM-as-Judge 人工校准方案](EVALUATION_CALIBRATION.md)：四维人工盲评、校准集与独立验证集；
+5. [LLM-as-Judge 人工校准方案](EVALUATION_CALIBRATION.md)：四维人工评分、证据对齐复核与同批样本内留出验证结果；
 6. [产品验证方案](PRODUCT_VALIDATION_PLAN.md)：任务完成率、处理时间、可信度和质量护栏；
 7. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告。
 
