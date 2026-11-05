@@ -34,7 +34,7 @@ EchoMind 是一个面向客服/运营场景的多 Agent 智能系统，将以下
 
 ```env
 ANTHROPIC_BASE_URL=https://dashscope.aliyuncs.com/apps/anthropic
-ANTHROPIC_MODEL=qwen3.7-plus
+ANTHROPIC_MODEL=qwen3.6-plus
 ANTHROPIC_API_KEY=your_key
 ```
 
