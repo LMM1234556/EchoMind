@@ -28,6 +28,8 @@
 6. [产品验证方案](PRODUCT_VALIDATION_PLAN.md)：任务完成率、处理时间、可信度和质量护栏；
 7. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告；
 8. [仓库验证记录](REPOSITORY_VERIFICATION_20261104.md)：当前版本回归、配置和文档检查。
+9. [任务分流验证](TASK_ROUTING_VERIFICATION_20261105.md)：显式订单号记录与 198 项完整回归。
+10. [评测覆盖计划](EVALUATION_COVERAGE.md)：现有样本覆盖、缺口及一轮集中补强安排。
 
 ## 文档清单
 
@@ -50,6 +52,8 @@
 | [EVALUATION_CALIBRATION.md](EVALUATION_CALIBRATION.md) | LLM-as-Judge 人工校准流程与指标 |
 | [PRODUCT_VALIDATION_PLAN.md](PRODUCT_VALIDATION_PLAN.md) | 小规模产品可用性测试与 KPI 口径 |
 | [REPOSITORY_VERIFICATION_20261104.md](REPOSITORY_VERIFICATION_20261104.md) | 2026-11-04 版本验证范围与结果 |
+| [TASK_ROUTING_VERIFICATION_20261105.md](TASK_ROUTING_VERIFICATION_20261105.md) | 2026-11-05 任务分流修复与 198 项回归结果 |
+| [EVALUATION_COVERAGE.md](EVALUATION_COVERAGE.md) | 评测覆盖、开发回归和集中补强计划 |
 
 ## 证据层级
 

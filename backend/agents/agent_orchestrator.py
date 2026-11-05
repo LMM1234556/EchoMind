@@ -49,6 +49,7 @@ from agents.tools import (
 from core.intent_recognizer import IntentCategory, IntentRecognizer, UrgencyLevel
 from core.knowledge_routing import scope_knowledge_query, should_use_knowledge
 from core.llm_utils import extract_text_content, tracked_messages_create
+from core.task_routing import parse_order_context_update
 
 logger = logging.getLogger(__name__)
 
@@ -989,6 +990,7 @@ class AgentOrchestrator:
             "intent": result.intent.value if result.intent else None,
             "primary_agent": result.primary_agent.value if result.primary_agent else None,
             "supporting_agents": [agent.value for agent in result.supporting_agents],
+            "routing_reason": result.routing_reason,
             "tools_used": list(result.tools_used),
             "tool_calls": list(result.tool_traces),
             "escalated": result.escalated,
@@ -1036,6 +1038,26 @@ class AgentOrchestrator:
             req.intent_group = intent_result.intent_group
             req.urgency = intent_result.urgency
             req.intent_confidence = intent_result.confidence
+
+        # 提供订单号与查询退款政策是不同任务。只对完整匹配的显式记录请求
+        # 直接确认收到；混合问题仍由原 Agent / 证据门控处理，升级路由优先。
+        order_id = parse_order_context_update(req.message)
+        if order_id is not None:
+            decision = self._route_decision(req)
+            if decision.primary_agent != AgentType.ESCALATION:
+                result = OrchestratorResult(
+                    request_id=req.request_id,
+                    response=f"收到你提供的订单号：{order_id}。请继续说明这笔订单需要处理的问题。",
+                    agent_type=decision.primary_agent,
+                    intent=req.intent,
+                    latency_ms=(time.monotonic() - t0) * 1000,
+                    agent_types=[decision.primary_agent],
+                    primary_agent=decision.primary_agent,
+                    routing_reason=f"task=context_update, field=order_id; {decision.reason}",
+                    routing_confidence=decision.confidence,
+                )
+                self._record_tool_trace(result)
+                return result
 
         if self._needs_clarification(req):
             result = OrchestratorResult(

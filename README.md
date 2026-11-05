@@ -13,7 +13,7 @@
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-[![Tests](https://img.shields.io/badge/Tests-163%20passed%20%7C%202026--11--04-2EA44F)](docs/REPOSITORY_VERIFICATION_20261104.md)
+[![Tests](https://img.shields.io/badge/Tests-198%20passed%20%7C%202026--11--05-2EA44F)](docs/TASK_ROUTING_VERIFICATION_20261105.md)
 
 [▶ 查看 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [⬇ 直接播放 / 下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) ·
@@ -82,9 +82,9 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 | 证据选择 | 严格证据选择 **87.50%** | 24 条 Grounded Chat v2 冻结集 |
 | 知识缺口识别 | **91.67%** | 同一 24 条 Grounded Chat v2 冻结集 |
 | 回答事实忠实度 | **83.33%（20/24）** | 项目负责人逐条复核 |
-| 完整链路 | 严格端到端 **62.50%（5/8）** | 7 个场景、8 次真实请求，包含多轮会话 |
+| 完整链路基线 | 严格端到端 **62.50%（5/8）** | 2026-10-26：7 个场景、8 次真实请求，包含多轮会话 |
 | Judge 校准实验 | 完成 **24 条**双人评分与模型评分对比 | 16 条校准、8 条留出验证；结果与采用决策见[校准分析](backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
-| 工程回归 | **163/163** 通过 | 2026-11-04 隔离检出回归，详见[验证记录](docs/REPOSITORY_VERIFICATION_20261104.md) |
+| 工程回归 | **198/198** 通过 | 2026-11-05 独立源码快照回归，详见[验证记录](docs/TASK_ROUTING_VERIFICATION_20261105.md) |
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
@@ -207,9 +207,9 @@ EchoMind 将“模型是否理解”“能否找到文档”“证据是否足�
 | 证据门控 | 是否选对证据并识别知识缺口 | 24 条 Grounded Chat v2 |
 | 回答质量 | 回复是否忠于已选证据 | 24 条逐条事实复核 |
 | 完整链路 | 意图、路由、证据和回答是否同时满足契约 | 7 场景、8 次真实请求 |
-| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 163 项自动化测试，验证日期 2026-11-04 |
+| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 198 项自动化测试，验证日期 2026-11-05 |
 
-当前完整链路基线定位了三个明确的迭代方向：问候标签稳定性、复合领域路由，以及“保存信息”与“询问政策”的任务分流。完整分析见[AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md)和[当前评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md)。
+2026-10-26 完整链路基线定位了问候标签、复合领域路由和任务分流问题。2026-11-05 已补充显式订单号记录分流并通过自动化回归，真实模型结果继续保留修复前基线。后续按[评测覆盖计划](docs/EVALUATION_COVERAGE.md)集中补充验证。
 
 ## 技术栈
 
@@ -336,11 +336,13 @@ EchoMind/
 | [产品验证方案](docs/PRODUCT_VALIDATION_PLAN.md) | AI 产品面试官 | 可用性任务、KPI、观察字段与决策规则 |
 | [变更记录](docs/CHANGES.md) | 代码审阅者 | 主要工程改进与验证摘要 |
 | [仓库验证记录](docs/REPOSITORY_VERIFICATION_20261104.md) | 本地运行者、代码审阅者 | 隔离回归、配置与文档检查范围 |
+| [任务分流验证](docs/TASK_ROUTING_VERIFICATION_20261105.md) | 代码审阅者 | 订单信息分流、35 项新增检查与 198 项完整回归 |
+| [评测覆盖计划](docs/EVALUATION_COVERAGE.md) | 产品与评测人员 | 现有样本覆盖、场景缺口和一轮集中补强安排 |
 
 ## 后续迭代
 
 1. **复合请求分工**：明确技术与账单等跨领域诉求的主辅分配，并按领域呈现证据状态；
-2. **任务分流**：进一步区分记忆写入、事实查询和操作请求；
+2. **任务分流**：已完成显式订单号记录分流，继续扩展信息补充、事实查询与操作请求的边界；
 3. **响应性能**：减少重复查询改写和重排调用，记录阶段 Token 与成本；
 4. **评测校准**：已完成 24 条双人评分、证据对齐复核与 Judge 校准基线；留出 8 条上的平均 MAE 为 0.1789 → 0.1850，一致率保持 62.50%，后续优先强化 Judge 的证据核验与评分区分能力；
 5. **产品验证**：已建立 5 个固定任务、指标口径和会话汇总工具，下一步招募 5–8 位参与者开展首轮测试；
