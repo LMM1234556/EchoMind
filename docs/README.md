@@ -16,6 +16,7 @@
 2. [工程案例](PORTFOLIO_CASE_STUDY.md)：关键工程问题、实现方案和验证方式；
 3. [完整使用指南](完整使用指南.md)：配置、启动、接口、数据和排障说明；
 4. [业务流程说明](业务流程说明.md)：意图、路由、工具、Skills、记忆与回复生成流程。
+5. [实现范围与版本对照](IMPLEMENTATION_SCOPE.md)：基础能力、个人改进与上游新版扩展。
 
 ### RAG / 评测方向
 
@@ -35,6 +36,7 @@
 | [AI_PRODUCT_CASE_STUDY.md](AI_PRODUCT_CASE_STUDY.md) | 面向 AI 产品岗位的完整案例复盘 |
 | [PRODUCT_DEMO.md](PRODUCT_DEMO.md) | 产品界面和四类核心场景 |
 | [PORTFOLIO_CASE_STUDY.md](PORTFOLIO_CASE_STUDY.md) | 工程改进、验证结果和下一阶段计划 |
+| [IMPLEMENTATION_SCOPE.md](IMPLEMENTATION_SCOPE.md) | 当前分支实现、贡献范围和上游能力对照 |
 | [EchoMind定位与技术亮点.md](EchoMind定位与技术亮点.md) | 项目定位与整体技术能力 |
 | [架构图.md](架构图.md) | 六张系统架构图入口 |
 | [业务流程说明.md](业务流程说明.md) | 端到端业务和 Agent 处理流程 |

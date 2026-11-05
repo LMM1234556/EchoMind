@@ -12,6 +12,7 @@ EchoMind 是一个面向客服/运营场景的多 Agent 智能系统，将以下
 
 ## 推荐阅读
 
+- [实现范围与版本对照](../docs/IMPLEMENTATION_SCOPE.md)
 - [工程案例](../docs/PORTFOLIO_CASE_STUDY.md)
 - [工程变更摘要](../docs/CHANGES.md)
 - [业务流程说明](../docs/业务流程说明.md)
