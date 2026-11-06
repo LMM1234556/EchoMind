@@ -1,0 +1,859 @@
+{
+  "name": "answer-coverage-60-v1-batch05",
+  "reviewed_on": "2026-11-06",
+  "status": "fifth_batch_reviewed",
+  "code_commit": "c1e074ea97527b49be69a8b3352a43d2988e3627",
+  "model": "qwen3.6-plus",
+  "model_version_kind": "provider_alias",
+  "freeze_sha256": "8eafd34e3b505986d38c15ab1e4b1d3529b6f70fa23aa99a92dda8da0354ca02",
+  "dataset_sha256": "43a4ba1170fa4db4e21d20333d292b01e64089ee94eca30f770457fe26a0a1f4",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "scope": {
+    "planned_target_answers": 60,
+    "case_range": [
+      41,
+      50
+    ],
+    "batch_target_http_records": 10,
+    "batch_setup_requests": 4,
+    "primary_chat_requests": 14,
+    "supplemental_direct_endpoint_executions": 1,
+    "group_counts": {
+      "多轮任务与信息补充": 4,
+      "复合诉求": 6
+    },
+    "remaining_cases_not_executed": 10
+  },
+  "review_method": "assistant evidence-based review confirmed by project owner",
+  "verdict_counts": {
+    "pass": 3,
+    "fail": 4,
+    "partial": 3
+  },
+  "nonpass_breakdown": {
+    "answer_or_task_failure": 3,
+    "budget_control_noncompletion": 1
+  },
+  "strict_answer_pass_rate": 0.3,
+  "metric_scope": "First target HTTP contract completion, including separately labelled control noncompletion; not a normal-model-only accuracy estimate.",
+  "cumulative_reviewed_answers": 50,
+  "cumulative_verdict_counts": {
+    "pass": 24,
+    "fail": 14,
+    "partial": 12
+  },
+  "cumulative_budget_control_noncompletions": 1,
+  "cumulative_strict_answer_pass_rate": 0.48,
+  "provider_attempts": 49,
+  "reported_input_tokens": 36799,
+  "reported_output_tokens": 57659,
+  "reported_token_subtotal": 94458,
+  "unknown_usage_calls": 2,
+  "actual_total_tokens": null,
+  "primary_http_provider_attempts": 47,
+  "primary_http_reported_tokens": 89754,
+  "supplemental_provider_attempts": 2,
+  "supplemental_reported_tokens": 4704,
+  "automatic_retries": 0,
+  "operator_recoveries": 3,
+  "judge_calls": 0,
+  "cumulative_provider_attempts": 235,
+  "cumulative_reported_token_subtotal": 411046,
+  "cumulative_unknown_usage_calls": 9,
+  "cumulative_actual_total_tokens": null,
+  "budget_control": {
+    "original_batch_stop": 100000,
+    "documented_effective_batch_stop": 140000,
+    "additional_control_budget": 40000,
+    "extension_applies_only_to_cases": [
+      48,
+      50
+    ],
+    "unknown_usage_reserve": 20000,
+    "control_total_including_reserve": 114458,
+    "reserve_is_measured_consumption": false,
+    "batch_provider_attempt_cap_unchanged": 80,
+    "full_run_token_stop_unchanged": 700000,
+    "original_freeze_manifest_preserved": true,
+    "operator_control_offline_checks_passed": 39
+  },
+  "runtime_incidents": [
+    {
+      "case_id": "answer-candidate-042",
+      "step_kind": "target",
+      "component": "memory.profile",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "latency_ms": 46385.7
+    },
+    {
+      "case_id": "answer-candidate-043",
+      "step_kind": "target",
+      "component": "memory.profile",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "latency_ms": 46317.3
+    }
+  ],
+  "budget_events": [
+    {
+      "case_id": "answer-candidate-048",
+      "original_http_provider_calls": 0,
+      "first_result_preserved": true,
+      "category": "budget_control_noncompletion"
+    }
+  ],
+  "memory_checks": [
+    {
+      "case": 41,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": 42,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": false,
+      "note": "Target profile timeout; setup profile may exist."
+    },
+    {
+      "case": 43,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": false,
+      "note": "Target profile timeout; setup profile may exist."
+    },
+    {
+      "case": 44,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": 45,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": 46,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": 47,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": 48,
+      "redis_message_count": 2,
+      "profile_exists": false,
+      "target_profile_provider_call_completed_successfully": false,
+      "note": "Original HTTP is budget-control return; no provider call."
+    },
+    {
+      "case": 49,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": 50,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "note": "Target profile call succeeded."
+    },
+    {
+      "case": "048-supplement-1",
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "profile_provider_call_completed_successfully": true,
+      "separate_isolated_session": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "answer-candidate-041",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我的订单DEMO-M309正在申请退款。",
+          "assistant_answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "现在先只帮我排查登录401，刚才的退款问题稍后再说。",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "按用户新指定的技术任务排查401，避免旧退款任务覆盖当前诉求。",
+      "answer": "您好！已按您的要求优先为您排查登录 401 问题，退款事宜我们稍后再跟进处理。\n\n关于登录提示 **401 错误**，该状态码通常代表**身份认证失败**，多数情况是由于账号或密码输入有误导致。请您按以下步骤操作：\n1. **核对账号密码**：请仔细检查输入的用户名和密码，注意区分大小写及特殊字符，避免首尾多余空格。\n2. **重置密码**：如无法确认密码是否正确，请使用登录页面的“忘记密码”功能重新设置。\n3. **检查网络与客户端**：请确认设备网络连接正常（可尝试切换 WiFi 或移动数据）；若使用 App，建议清除应用缓存或更新至最新版本。\n\n完成上述步骤后，请再次尝试登录。若仍提示 401 错误，为便于我们进一步为您深入排查，请补充以下信息：\n* 您使用的是 **App 端** 还是 **网页端**？\n* 您的 **设备型号** 及 **操作系统版本**（如 iOS 16.0、Android 13、Windows 10 等）。\n\n收到信息后我们将立即为您核实处理。如有其他问题，请随时告知。",
+      "intent": "technical_login",
+      "primary_agent": "technical",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 9,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 96191.0,
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "现在先只帮我排查登录401",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 21659.1,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "技术故障排查",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        },
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "刚才的退款问题稍后再说",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 18057.1,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "按用户最新要求集中处理登录401，给出认证失败及检查/重置密码建议；退款只在开头注明稍后处理，未覆盖当前诉求。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-042",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "请记住我的订单号是 DEMO-M310，我正在申请退款。",
+          "assistant_answer": "收到你提供的订单号：DEMO-M310。请继续说明这笔订单需要处理的问题。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "请把已有信息整理成摘要，我现在要转人工客服。",
+      "reference_titles": [],
+      "expected_behavior": "优先人工升级，交接摘要保留DEMO-M310及用户提供的退款背景，不声称真人已接通。",
+      "answer": "我已将这个问题标记为人工升级处理。\n\n升级原因：意图=human_handoff，紧急度=HIGH\n已记录信息：{\"order_id\": [], \"product\": [], \"date\": [], \"amount\": [], \"error_code\": []}\n请不要发送密码、短信验证码或完整支付凭证；人工客服会根据会话记录继续核验。",
+      "intent": "human_handoff",
+      "primary_agent": "escalation",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 4,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 20108.3,
+      "tool_trace": [],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "已标记人工升级且未宣称真人接通，但摘要order_id为空，遗漏前文DEMO-M310和退款背景。任务摘要未完成，后台画像超时另记运行故障。",
+        "issue_category": "handoff_context_with_background_runtime"
+      }
+    },
+    {
+      "id": "answer-candidate-043",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我忘记了登录密码，但绑定手机号还可以使用。",
+          "assistant_answer": "根据平台账户安全说明，忘记密码时可直接通过当前可用的绑定手机号进行重置。重置后的新密码需满足**至少8位且包含字母和数字**的要求。\n\n为保障账户安全，平台建议您在重置后前往安全设置中开启两步验证，且请勿将密码分享给他人（客服人员不会索要用户密码）。您可在登录页面选择“忘记密码”，按系统提示通过手机验证码完成身份验证并设置新密码。\n\n如操作中遇到具体报错或验证码接收异常，请提供页面提示内容。若后续涉及账单查询、支付异常、发票或订阅管理，请提供订单号或交易金额，我将为您进一步核验。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "我需要把原密码发给你，你才能指导我处理吗？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "明确客服不索要密码，可按绑定手机或邮箱途径重置，不要求用户发送秘密凭据。",
+      "answer": "不需要，也**绝对不要**将原密码或新密码发送给我或任何客服渠道。\n\n平台安全规范明确规定：客服人员不会索要、查看或存储用户密码。密码重置全程由系统自动处理，您只需在官方登录页面点击“忘记密码”，通过绑定手机号接收验证码完成身份验证，即可自行设置新密码。整个过程无需向我提供任何密码信息。\n\n您可直接按系统提示操作。如遇到页面报错、验证码未收到等具体问题，请提供错误提示内容，我将为您排查。若后续涉及账单查询、支付异常、发票或订阅管理，请提供订单号或交易金额，我将按流程为您核验。",
+      "intent": "account_security",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 7,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 65331.4,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "我需要把原密码发给你，你才能指导我处理吗？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 6.2,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "intent_title_mismatch",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": false,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "安全核心要求满足：明确不发送密码并给出绑定手机重置途径。但将“客服不查看或存储密码、重置全程系统自动处理”等额外内容归为平台明确规范，现有文档只支持不索要密码和手机/邮箱重置，归因与流程细节缺少依据。这是证据不足，不等于已证明平台真实做法相反。后台画像超时另列。",
+        "issue_category": "unsupported_policy_detail_with_background_runtime"
+      }
+    },
+    {
+      "id": "answer-candidate-044",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我刚才在查看配送服务说明。",
+          "assistant_answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "刚才说的是物流，我现在问退款申请通常需要几个工作日完成审核。",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "切换到退款政策，说明1–3个工作日完成审核，区分物流时效。",
+      "answer": "根据退款政策，退款申请提交后，系统会在 **1-3 个工作日** 内完成审核。\n\n审核通过后，款项将在 5-7 个工作日内退回原支付账户。如果您需要查询具体订单的退款进度，请提供订单号。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 7,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 44519.5,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "刚才说的是物流，我现在问退款申请通常需要几个工作日完成审核。",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 10508.2,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "退款政策",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "切换到退款语境，准确说明提交后1–3个工作日审核，并区分审核通过后5–7个工作日回款。末尾提供订单号的询问未明确宣称已查单，保留为措辞优化项。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-045",
+      "group": "复合诉求",
+      "setup_turns": [],
+      "question": "这边登录报401，另外同一订单扣了两笔钱，请分别给我处理建议。",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "覆盖登录与扣款两个诉求；技术建议有据，重复扣款需核验，不宣称已查账或已退款；分别呈现证据状态。",
+      "answer": "关于您反馈的两个问题，我分别给出处理建议：\n\n### 1. 登录报 401 错误\n*   **现象确认**：您在登录时收到 401 错误提示。\n*   **处理建议**：根据平台规则，401 错误表示认证失败。请优先检查您输入的用户名和密码是否正确。如果确认无误，建议您尝试**重置密码**后再次登录。\n*   **通用排查建议**：如果重置密码后仍无法登录，请检查网络连接是否正常，或尝试清除应用缓存后重启。若问题持续，请提供您的设备类型、系统版本及报错截图，以便进一步排查。\n\n### 2. 同一订单扣了两笔钱\n*   **现象确认**：您发现同一笔订单产生了两次扣款。\n*   **处理建议**：当前知识库未包含重复扣款的具体处理流程。由于涉及资金安全与支付异常，建议您**立即联系人工客服或二线技术支持**进行核实与处理。\n*   **需要补充的信息**：为了加快处理进度，请准备好以下信息提供给客服人员：\n    *   订单编号（Order ID）\n    *   两次扣款的具体时间与金额\n    *   支付渠道及扣款凭证截图\n\n请注意，在任何情况下都不要向他人提供您的完整密码或验证码。如有其他技术问题，请随时告知。",
+      "intent": "technical_login",
+      "primary_agent": "technical",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 4,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 79484.4,
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "这边登录报401",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 12629.7,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "技术故障排查",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "分别处理401和两笔扣款；401建议由文档支持，重复扣款流程明确缺资料并建议人工核验，没有宣称已查账或退款。建议后续补充凭证脱敏提示，但不新加为本题强制条件。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-046",
+      "group": "复合诉求",
+      "setup_turns": [],
+      "question": "发货八天还没收到货；我也想了解退款申请通常审核多久，两个问题分别说。",
+      "reference_titles": [
+        "订单查询",
+        "退款政策"
+      ],
+      "expected_behavior": "分别说明超过7天未收到可申请查件、退款审核1–3个工作日；缺少某部分证据时明确该部分需核实。",
+      "answer": "关于您咨询的两个问题，分别回复如下：\n\n1. **发货八天未收到货**：目前暂未获取到该包裹的实时物流轨迹与具体配送时效。为准确核实包裹当前位置及是否出现异常滞留，需您提供订单号或交易号、发货时间。\n2. **退款申请审核时效**：当前未查询到统一的审核时长标准，实际时效会因订单类型、支付方式及处理方进度有所不同。如需精准查询您的申请进度，同样需提供相关订单号/交易号及申请时间。\n\n为尽快为您核实并推进处理，请补充以下核验信息：**订单号或交易号、发生时间（发货/申请退款时间）及相关金额**。收到信息后我们将立即为您查询具体状态。若情况紧急或需加急处理，您也可直接联系人工客服介入。\n\n温馨提示：为保障您的账户与资金安全，沟通时请勿提供登录密码、短信验证码或完整的支付凭证。",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 5,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 104364.6,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "发货八天还没收到货；我也想了解退款申请通常审核多久，两个问题分别说。",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 20454.6,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        },
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "发货八天还没收到货；我也想了解退款申请通常审核多久，两个问题分别说。",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 19042.9,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": false,
+        "request_coverage": false,
+        "action_truthfulness": false,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "未说明查件或1–3个工作日审核规则；又新增订单类型、支付方式等审核差异解释，并承诺收到信息立即查询具体状态，超出当前工具能力。安全核实引导可保留，但不足以完成两项任务。",
+        "issue_category": "composite_coverage_and_action"
+      }
+    },
+    {
+      "id": "answer-candidate-047",
+      "group": "复合诉求",
+      "setup_turns": [],
+      "question": "我想比较银卡和金卡的折扣，同时应用出现500错误应该怎么办？",
+      "reference_titles": [
+        "会员与积分",
+        "技术故障排查"
+      ],
+      "expected_behavior": "覆盖会员折扣与500排查，金额折扣和技术建议各自对应来源，不混合规则。",
+      "answer": "您好！针对您提到的两个问题，我分别为您解答：\n\n### 1. 关于银卡和金卡的折扣对比\n由于我无法直接访问当前的会员权益实时数据，**无法为您提供准确的银卡与金卡折扣对比**。\n建议您通过以下官方渠道获取最新、最准确的信息：\n- 查看 App 内的“会员中心”或“权益说明”页面。\n- 访问官方网站的帮助文档或 FAQ。\n- 联系官方客服获取详细的权益对比表。\n\n---\n\n### 2. 应用出现 500 错误的排查建议\n**500 错误（Internal Server Error）** 通常表示服务端在处理您的请求时发生了内部异常。这不一定代表您的操作有误，可能是服务端临时故障、依赖服务异常或参数触发了服务端未处理的逻辑。\n\n为了尽快定位问题，建议您按以下步骤进行低风险排查：\n\n#### 第一步：基础确认与重试\n- **偶发还是持续？** 如果是第一次出现，请尝试刷新页面或重新进入应用，稍等几分钟后重试。网络抖动或服务端瞬时负载过高可能导致偶发 500。\n- **检查网络环境：** 切换 Wi-Fi/4G/5G 网络，排除本地网络代理或防火墙拦截导致的请求异常。\n\n#### 第二步：检查操作与输入\n- **参数是否合规？** 如果您是在提交表单或调用特定功能时出现 500，请检查输入内容是否包含特殊字符、超长文本或格式错误（如日期格式、金额格式）。\n- **版本是否最新？** 确保您的 App 或浏览器是最新版本，旧版本可能使用了已废弃的接口导致服务端报错。\n\n#### 第三步：收集关键信息（用于进一步诊断）\n如果问题**稳定复现**或**影响核心业务**，请收集以下信息，以便技术人员快速定位：\n1. **Request ID**：通常在错误页面底部、响应头（`X-Request-Id`）或日志中。\n2. **发生时间**：精确到分钟。\n3. **操作路径**：例如“点击支付按钮后”、“上传头像时”。\n4. **环境信息**：使用的是 App 还是浏览器？操作系统版本？App 版本号？\n\n#### 何时需要升级处理？\n- 如果该错误导致**大面积用户无法使用**核心功能（如登录、支付、下单）。\n- 如果错误持续超过 10 分钟且重试无效。\n- 如果您已按上述步骤排查仍无法解决，建议将收集到的 Request ID 和时间点反馈给技术支持团队或二线工程师进行服务端日志排查。\n\n如果您能补充说明**具体的操作场景**（例如是在哪个页面、执行什么操作时报错）以及**使用环境**，我可以为您提供更针对性的排查建议。",
+      "intent": "technical_crash",
+      "primary_agent": "technical",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 5,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 88869.6,
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "我想比较银卡和金卡的折扣，同时应用出现500错误应该怎么办？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 18919.0,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        },
+        {
+          "agent_type": "technical",
+          "tool_name": "lookup_error_code",
+          "input": {
+            "error_code": "500"
+          },
+          "success": true,
+          "result_success": null,
+          "latency_ms": 0.1,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "",
+          "candidate_count": 0,
+          "evidence_gate": "",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "model_tool_call",
+          "prefetched": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": null,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "500建议包含稍后重试和技术支持，保留正确部分；银卡/金卡折扣完全缺失。新增10分钟升级阈值作为排查建议的适用性未单独核验，不直接判为已证明错误的平台承诺。",
+        "issue_category": "composite_partial"
+      }
+    },
+    {
+      "id": "answer-candidate-048",
+      "group": "复合诉求",
+      "setup_turns": [],
+      "question": "密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "密码问题可给绑定手机或邮箱重置指引；发票时限缺少资料，应核实，不编造统一时限。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "invoice",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 0,
+      "execution_category": "budget_control_return_zero_provider_calls",
+      "external_latency_ms": 71.3,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 5.2,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "knowledge_gap",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": null,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "首次HTTP返回发生在预算规则拦截后，没有任何provider调用，主要任务未完成，归为预算控制未完成，不作正常模型质量判断。独立会话补充执行只作另列观察，不能替换首次结果。",
+        "issue_category": "budget_control_no_provider"
+      }
+    },
+    {
+      "id": "answer-candidate-049",
+      "group": "复合诉求",
+      "setup_turns": [],
+      "question": "加急配送要付多少运费，退款审核通过后又需要多久到账？",
+      "reference_titles": [
+        "配送说明",
+        "退款政策"
+      ],
+      "expected_behavior": "两部分分别对应15元及审核通过后5–7个工作日；无法取得某部分充分证据时明确说明。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 3,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 63009.3,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "加急配送要付多少运费，退款审核通过后又需要多久到账？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 26848.8,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "没有编造费用或时效，但两项事实均未回答，也未逐项解释哪部分证据不足，仅给通用模板；加急15元和审核通过后5–7个工作日的目标任务未完成。",
+        "issue_category": "composite_coverage"
+      }
+    },
+    {
+      "id": "answer-candidate-050",
+      "group": "复合诉求",
+      "setup_turns": [],
+      "question": "付款银行卡已经注销，我想知道常规审核多久，也想核实这种情况能怎么收退款。",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "常规审核可依据1–3个工作日说明；银行卡注销的收款安排建议人工核实，不把一般规则当作特殊方案。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "primary_provider_attempts_including_setup_background": 3,
+      "execution_category": "primary_http_case",
+      "external_latency_ms": 41919.6,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "付款银行卡已经注销，我想知道常规审核多久，也想核实这种情况能怎么收退款。",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 21910.2,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "对银行卡注销未给收款保证并建议核实，安全部分保留；漏掉可依据文档回答的常规审核1–3个工作日，也未具体说明特殊收款安排的核实边界。",
+        "issue_category": "supported_part_omitted"
+      }
+    }
+  ],
+  "supplemental_observations": [
+    {
+      "case_id": "answer-candidate-048",
+      "execution_kind": "isolated_frozen_chat_endpoint_supplement",
+      "http_request_sent": false,
+      "isolated_new_conversation": true,
+      "same_frozen_business_endpoint": true,
+      "primary_first_attempt_replaced": false,
+      "counts_in_primary_denominator": false,
+      "separately_scored": false,
+      "question": "密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "provider_attempts_from_ledger": 2,
+      "reported_tokens_from_ledger": 4704,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 5.9,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "knowledge_gap",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "observation": "未编造发票办理天数并给出核实途径，仍缺少绑定手机号重置密码指引。该观察单列，不替换首次控制返回。",
+      "accounting_note": "Direct endpoint execution skips HTTP statistics middleware; ledger records both provider calls and usage."
+    }
+  ]
+}
