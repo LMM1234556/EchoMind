@@ -7,6 +7,11 @@ regression at commit `b01c7ce6140a817a00ab933f8dbb7a32841b3812`.
 The run used `qwen3.6-plus`, zero retries, zero model switches and zero Judge
 calls. All 19 provider calls returned usage data.
 
+Retrospective validation found that case 048 reused a conversation namespace
+from an earlier failed attempt, so this component profile is observational and
+must not be presented as a clean isolated benchmark. A formal A/B run requires
+fresh, non-overlapping conversation namespaces for both groups.
+
 ## Observed breakdown
 
 | Component | Calls | Tokens | Share | Average call latency |
