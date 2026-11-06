@@ -48,3 +48,52 @@ def test_llm_call_scope_counts_failed_attempts():
             assert meter["by_component"] == {"intent": 1}
 
     asyncio.run(run())
+
+
+def test_structured_qwen_calls_disable_thinking(monkeypatch):
+    monkeypatch.delenv("ECHOMIND_DISABLE_THINKING_COMPONENTS", raising=False)
+
+    async def run():
+        client = _Client()
+        result = await tracked_messages_create(
+            client,
+            "intent_recognizer",
+            model="qwen3.6-plus",
+            max_tokens=256,
+        )
+        assert result["extra_body"] == {"thinking": {"type": "disabled"}}
+
+    asyncio.run(run())
+
+
+def test_generation_policy_preserves_explicit_override(monkeypatch):
+    monkeypatch.delenv("ECHOMIND_DISABLE_THINKING_COMPONENTS", raising=False)
+
+    async def run():
+        client = _Client()
+        result = await tracked_messages_create(
+            client,
+            "evidence_selector",
+            model="qwen3.6-plus",
+            extra_body={"thinking": {"type": "enabled", "budget_tokens": 256}},
+        )
+        assert result["extra_body"]["thinking"]["type"] == "enabled"
+
+    asyncio.run(run())
+
+
+def test_final_agent_and_non_qwen_keep_provider_default(monkeypatch):
+    monkeypatch.delenv("ECHOMIND_DISABLE_THINKING_COMPONENTS", raising=False)
+
+    async def run():
+        client = _Client()
+        final_agent = await tracked_messages_create(
+            client, "agent.billing", model="qwen3.6-plus"
+        )
+        other_model = await tracked_messages_create(
+            client, "intent_recognizer", model="claude-demo"
+        )
+        assert "extra_body" not in final_agent
+        assert "extra_body" not in other_model
+
+    asyncio.run(run())

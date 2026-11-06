@@ -6,6 +6,7 @@ inside one invocation are not observable here and are therefore not counted.
 """
 from contextlib import contextmanager
 from contextvars import ContextVar
+import os
 from typing import Any, Dict, Iterable, Iterator, List, Optional
 
 
@@ -13,6 +14,36 @@ _active_call_meter: ContextVar[Optional[Dict[str, Any]]] = ContextVar(
     "echomind_llm_call_meter",
     default=None,
 )
+
+_DEFAULT_NON_THINKING_COMPONENTS = (
+    "intent_recognizer,evidence_selector,memory.profile"
+)
+
+
+def _apply_generation_policy(component: str, kwargs: Dict[str, Any]) -> Dict[str, Any]:
+    """Apply provider-compatible generation controls for structured Qwen tasks.
+
+    Qwen 3.6 uses thinking mode by default on Alibaba Cloud.  Intent routing,
+    evidence selection and profile extraction are bounded JSON tasks, so their
+    reasoning tokens add latency and cost without being part of the product
+    response.  Keep the policy component-scoped and preserve any explicit
+    caller override in ``extra_body``.
+    """
+    model = str(kwargs.get("model", "")).strip().lower()
+    configured = os.getenv(
+        "ECHOMIND_DISABLE_THINKING_COMPONENTS",
+        _DEFAULT_NON_THINKING_COMPONENTS,
+    )
+    disabled_components = {
+        item.strip() for item in configured.split(",") if item.strip()
+    }
+    if not model.startswith("qwen") or component not in disabled_components:
+        return kwargs
+
+    extra_body = dict(kwargs.get("extra_body") or {})
+    extra_body.setdefault("thinking", {"type": "disabled"})
+    kwargs["extra_body"] = extra_body
+    return kwargs
 
 
 @contextmanager
@@ -33,7 +64,7 @@ async def tracked_messages_create(client: Any, component: str, **kwargs: Any) ->
         meter["total"] += 1
         by_component = meter["by_component"]
         by_component[component] = by_component.get(component, 0) + 1
-    return await client.messages.create(**kwargs)
+    return await client.messages.create(**_apply_generation_policy(component, kwargs))
 
 
 def current_llm_call_stats() -> Dict[str, Any]:
