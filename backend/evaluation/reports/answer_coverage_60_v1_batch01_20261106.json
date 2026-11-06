@@ -1,0 +1,561 @@
+{
+  "name": "answer-coverage-60-v1-batch01",
+  "reviewed_on": "2026-11-06",
+  "status": "first_batch_reviewed",
+  "code_commit": "c1e074ea97527b49be69a8b3352a43d2988e3627",
+  "model": "qwen3.6-plus",
+  "model_version_kind": "provider_alias",
+  "freeze_sha256": "8eafd34e3b505986d38c15ab1e4b1d3529b6f70fa23aa99a92dda8da0354ca02",
+  "dataset_sha256": "43a4ba1170fa4db4e21d20333d292b01e64089ee94eca30f770457fe26a0a1f4",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "scope": {
+    "planned_target_answers": 60,
+    "batch_target_answers": 10,
+    "batch_group": "单轮有证据",
+    "remaining_cases_not_executed": 50
+  },
+  "review_method": "assistant evidence-based review confirmed by project owner",
+  "verdict_counts": {
+    "pass": 8,
+    "fail": 1,
+    "partial": 1
+  },
+  "strict_answer_pass_rate": 0.8,
+  "provider_attempts": 45,
+  "reported_input_tokens": 35323,
+  "reported_output_tokens": 42474,
+  "reported_token_subtotal": 77797,
+  "unknown_usage_calls": 2,
+  "actual_total_tokens": null,
+  "automatic_retries": 0,
+  "operator_recoveries": 2,
+  "judge_calls": 0,
+  "incidents": [
+    {
+      "call_id": 4,
+      "case_id": "answer-candidate-001",
+      "component": "memory.profile",
+      "error_type": "APITimeoutError",
+      "latency_ms": 45201.2
+    },
+    {
+      "call_id": 23,
+      "case_id": "answer-candidate-006",
+      "component": "rag.rerank",
+      "error_type": "APITimeoutError",
+      "latency_ms": 45003.4
+    }
+  ],
+  "cases": [
+    {
+      "id": "answer-candidate-001",
+      "question": "我只想了解通用规定：退款审核窗口和审核通过后的回款窗口分别是什么？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "分别说明提交后1–3个工作日审核、审核通过后5–7个工作日退回原支付账户；区分完成审核与审核通过。",
+      "answer": "根据当前退款政策，您询问的时效规定如下：\n\n*   **退款审核窗口**：退款申请提交后，系统会在 **1-3 个工作日内** 完成审核。\n*   **审核通过后的回款窗口**：审核通过后，款项将在 **5-7 个工作日内** 退回原支付账户。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_7c75f344",
+          "input": {
+            "query": "我只想了解通用规定：退款审核窗口和审核通过后的回款窗口分别是什么？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 10594.0,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "退款政策",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "明确区分审核与审核通过后的到账阶段，两个时效与文档一致。后台画像超时另记运行问题。"
+      }
+    },
+    {
+      "id": "answer-candidate-002",
+      "question": "包裹已经寄出，按通用退款规则，我需要先完成哪一步？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "说明已发货需要先完成退货流程；不宣称已执行退款或已核实实际订单。",
+      "answer": "根据当前退款政策，如果商品已发货，您需要**先完成退货流程**才能进行退款。\n\n此外，退货运费通常由用户承担，除非是商品质量问题。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_8ca6da9d",
+          "input": {
+            "query": "包裹已经寄出，按通用退款规则，我需要先完成哪一步？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 7774.5,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "退款政策",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "说明已发货先退货再退款；补充的运费一般规则及质量例外来自同篇文档，未宣称已办理。"
+      }
+    },
+    {
+      "id": "answer-candidate-003",
+      "question": "普通原因退货与商品质量问题退货，运费规则有什么区别？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "一般退货运费由用户承担，质量问题为例外；文档没有明确例外中的具体承担方，不自行补写为商家必付。",
+      "answer": "根据您提供的《退款政策》文档，两者的运费规则区别如下：\n\n* **普通原因退货**：退货运费由用户承担。\n* **商品质量问题退货**：退货运费不由用户承担。\n\n该结论直接依据文档中“退货运费由用户承担，除非是商品质量问题”的明确说明。\n\n如您需针对具体订单办理退货退款，请提供**订单号**与**支付金额**，我将为您进行账单字段核验，并说明审核与退款时效。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_72e85a61",
+          "input": {
+            "query": "普通原因退货与商品质量问题退货，运费规则有什么区别？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 25645.4,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "退款政策",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "项目负责人认可按原标准通过：将质量问题理解为用户承担规则的例外，且未指定商家必付；保留表述可更谨慎的备注。"
+      }
+    },
+    {
+      "id": "answer-candidate-004",
+      "question": "购买已过7天但没超过30天，政策要求提供什么材料才能申请退款？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "说明此范围需要提供商品质量问题的证据，保留时间和适用条件。",
+      "answer": "根据当前退款政策，购买超过 7 天但未超过 30 天的订单，需要提供**商品质量问题的证据**才能申请退款。\n\n此外，如果商品已发货，需要先完成退货流程才能进行退款。如有具体订单需要办理或核实，可提供订单号以便进一步协助。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_7232884f",
+          "input": {
+            "query": "购买已过7天但没超过30天，政策要求提供什么材料才能申请退款？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 23947.3,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "退款政策",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "保留超过7天且未超过30天的范围，并要求质量问题证据。"
+      }
+    },
+    {
+      "id": "answer-candidate-005",
+      "question": "订单显示发货已有八天仍未收到，按指南应该联系谁、申请什么处理？",
+      "reference_titles": [
+        "订单查询"
+      ],
+      "expected_behavior": "按已发货超过7天未收到的规则，联系客户服务申请查件；不编造包裹位置。",
+      "answer": "根据平台指南，订单发货超过7天仍未收到，您可以联系**客服**，申请**物流查件**处理。\n\n为尽快为您核实并跟进，请提供您的**订单号**。收到后我将立即为您提交查件申请。\n\n请问您的订单号是多少？",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_ca766bdc",
+          "input": {
+            "query": "订单显示发货已有八天仍未收到，按指南应该联系谁、申请什么处理？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 18469.9,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "订单查询",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": false,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "联系客户服务申请查件的政策说明正确；随后承诺收到订单号就立即提交查件，超出当前工具能力，操作真实性不满足。"
+      }
+    },
+    {
+      "id": "answer-candidate-006",
+      "question": "订单页面状态出现异常，联系客服前需要准备哪项订单信息？",
+      "reference_titles": [
+        "订单查询"
+      ],
+      "expected_behavior": "准备订单号并联系客服处理；不虚构后台查单成功。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "query",
+      "primary_agent": "general",
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_9425f729",
+          "input": {
+            "query": "订单页面状态出现异常，联系客服前需要准备哪项订单信息？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 81831.7,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_selector_failed",
+          "evidence_selector_used": true,
+          "evidence_selector_success": false,
+          "evidence_selected_title": "",
+          "evidence_selector_error": "StopRun: provider_error",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": null,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "项目负责人认可安全降级、部分完成，不计严格通过。回复虽提到订单号和人工客服，但未按已有指南直接回应；取证超时单列运行故障。事实依据维度未单独裁定，保留 null。"
+      }
+    },
+    {
+      "id": "answer-candidate-007",
+      "question": "忘记登录密码时，现有指南列出了哪两种找回渠道？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "通过绑定手机号或邮箱重置；不索要用户密码或验证码。",
+      "answer": "根据现有指南，忘记登录密码时可通过以下两种渠道进行重置：\n1. **绑定的手机号**\n2. **绑定的邮箱**\n\n如需操作指引或有其他问题，请随时告诉我。",
+      "intent": "query",
+      "primary_agent": "general",
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "toolu_68f7905f96594b6fa89fe0aa",
+          "input": {
+            "query": "忘记登录密码 找回渠道",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 68404.2,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "账户安全",
+          "evidence_selector_error": "",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "绑定手机号、绑定邮箱两种渠道均与文档一致，没有索要密码或验证码。"
+      }
+    },
+    {
+      "id": "answer-candidate-008",
+      "question": "想启用两步验证，指南要求到哪个设置区域开启？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "在安全设置开启两步验证；不编造更细的界面按钮路径。",
+      "answer": "根据指南，您需要在**安全设置**中开启两步验证。",
+      "intent": "account_security",
+      "primary_agent": "billing",
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_b729b2dc",
+          "input": {
+            "query": "想启用两步验证，指南要求到哪个设置区域开启？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 18788.4,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "账户安全",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "准确回答安全设置，没有编造更细界面路径。"
+      }
+    },
+    {
+      "id": "answer-candidate-009",
+      "question": "指南对密码的最低长度和字符组成分别有什么要求？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "至少8位，包含字母和数字；不额外捏造平台强制特殊字符规则。",
+      "answer": "根据平台账户安全指南，密码要求如下：\n- **最低长度**：至少 8 位。\n- **字符组成**：需同时包含字母和数字。\n\n如需修改或重置密码，您可通过绑定的手机号或邮箱自助操作。如有其他账户安全问题，请随时告诉我。",
+      "intent": "query",
+      "primary_agent": "general",
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "toolu_70568aadb5dc4ffca3c49571",
+          "input": {
+            "query": "密码 最低长度 字符组成 要求",
+            "top_k": 5
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 65185.5,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 5,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "账户安全",
+          "evidence_selector_error": "",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "至少8位、字母和数字均正确；补充的手机/邮箱重置渠道也由文档支持，没有添加强制特殊字符要求。"
+      }
+    },
+    {
+      "id": "answer-candidate-010",
+      "question": "客户端反复闪退，按排查文档，清除缓存并重启后仍无效，应尝试什么？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "建议更新到最新版本；不保证某项措施必然解决故障。",
+      "answer": "根据已验证的排查文档，清除缓存并重启后问题仍持续，下一步应**更新应用到最新版本**。\n\n若更新后依然闪退，建议补充以下信息以便进一步定位（通用排查建议）：\n- 设备型号与操作系统版本\n- 客户端当前版本号\n- 闪退前的具体操作路径或发生时间\n- 如有系统崩溃日志或错误提示截图，请一并提供",
+      "intent": "technical_crash",
+      "primary_agent": "technical",
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_9ed13b02",
+          "input": {
+            "query": "客户端反复闪退，按排查文档，清除缓存并重启后仍无效，应尝试什么？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 11936.0,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "技术故障排查",
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "给出更新最新版本这一文档步骤，额外排查信息明确标注为通用建议，没有保证一定解决。"
+      }
+    }
+  ]
+}

@@ -50,7 +50,7 @@
 | 异步评测 | HTTP 202、任务 ID 与状态轮询 | 待接入；需同步适配评测接口与前端 |
 | 性能与权限 | 阶段 Token 记录、调用节流和可选身份映射 | 按场景分项引入 |
 
-上游协议测试和运行报告用于核查相应上游实现；本仓库最新回归见[2026-11-05 任务分流验证](TASK_ROUTING_VERIFICATION_20261105.md)，先前配置及构建记录见[2026-11-04 验证记录](REPOSITORY_VERIFICATION_20261104.md)。
+上游协议测试和运行报告用于核查相应上游实现；本仓库最新回归见[2026-11-06 事实约束验证](EVIDENCE_CONSTRAINTS_20261106.md)，[2026-11-05 任务分流验证](TASK_ROUTING_VERIFICATION_20261105.md)保留分项记录，先前配置及构建记录见[2026-11-04 验证记录](REPOSITORY_VERIFICATION_20261104.md)。
 
 ## 4. 当前评测资料
 
@@ -59,8 +59,9 @@
 | 意图识别 | 95 条、19 类合成冻结样本 | [意图 v2 首次结果](../backend/evaluation/reports/intent_test_v2_first_run_20261026.md) |
 | 知识库检索 | 60 条冻结查询，其中 36 条有答案 | [MiniLM／BGE 正式对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) |
 | 证据与回答 | 24 条 Grounded Chat v2 | [首次结果](../backend/evaluation/reports/grounded_chat_test_v2_first_run_20261026.md) |
+| 回答覆盖补强 | 60 条已复核问题，已执行首批 10 条单轮有证据场景 | [首批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md) |
 | Judge 校准 | 复用同一批 24 条回答，16 条校准、8 条同批留出验证 | [校准结果与采用决策](../backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
 | 综合链路 | 7 个场景、8 次真实请求 | [Top-3 综合回归](../backend/evaluation/reports/e2e_current_top3_20261026.md) |
-| 工程回归 | 2026-11-05 独立源码快照，198 项通过 | [任务分流验证记录](TASK_ROUTING_VERIFICATION_20261105.md) |
+| 工程回归 | 2026-11-06 独立源码快照，198 项通过 | [事实约束验证](EVIDENCE_CONSTRAINTS_20261106.md)与[任务分流分项记录](TASK_ROUTING_VERIFICATION_20261105.md) |
 
 样本扩充围绕类别覆盖、难例和真实业务场景开展。每轮固定数据、模型配置和评价规则，按对应任务报告指标；当前规范见[意图数据规范](意图评测数据规范.md)和[RAG 评测协议](RAG评测协议.md)。

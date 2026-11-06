@@ -88,6 +88,8 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
+新一轮 60 条回答覆盖评测已完成[首批 10 条执行与验收](backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)：8 条通过、1 条不通过、1 条部分完成；严格通过为本批 8/10。运行故障与回答质量分别记录，其余 50 条按同一冻结版本继续评测。
+
 ## 系统架构
 
 ```mermaid
