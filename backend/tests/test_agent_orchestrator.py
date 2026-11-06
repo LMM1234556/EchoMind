@@ -867,6 +867,89 @@ def test_prefetch_scopes_composite_query_for_each_domain_agent():
     assert traces == manager.queries
 
 
+def test_composite_policy_search_collects_one_verified_document_per_subquery():
+    class RagManager:
+        def __init__(self):
+            self.queries = []
+
+        async def call(self, tool_name, params, use_cache=True):
+            query = params["query"]
+            self.queries.append(query)
+            if "标准配送" in query:
+                data = [{"title": "配送说明", "content": "标准配送3-5个工作日。"}]
+            elif "订单异常" in query:
+                data = [{"title": "订单查询", "content": "订单异常时提供订单号联系客服。"}]
+            else:
+                data = []
+            return type("Result", (), {"success": True, "data": data, "reranked": False})()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("明确主题的关键词检索命中后不应调用完整 RAG")
+
+    class Selector:
+        async def select(self, query, candidates):
+            return {
+                "success": True,
+                "supported": True,
+                "selected_title": candidates[0]["title"],
+                "evidence": "候选文档直接回答当前子问题",
+            }
+
+    manager = RagManager()
+    tool = build_shared_rag_tools(manager, Selector())["search_knowledge_base"]
+    req = make_request(
+        message="标准配送什么时候到，另外订单异常时应提供什么信息？",
+        intent=IntentCategory.LOGISTICS,
+        intent_group="general",
+        intent_confidence=0.93,
+    )
+
+    result = asyncio.run(tool.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert manager.queries == ["标准配送什么时候到", "订单异常时应提供什么信息"]
+    assert result["evidence_gate"] == "composite_complete"
+    assert result["evidence_complete"] is True
+    assert [item["title"] for item in result["results"]] == ["配送说明", "订单查询"]
+    assert all(item["supported"] for item in result["subquery_results"])
+
+
+def test_composite_policy_search_keeps_supported_part_and_marks_known_gap():
+    class RagManager:
+        async def call(self, tool_name, params, use_cache=True):
+            return type("Result", (), {
+                "success": True,
+                "data": [{"title": "账户安全", "content": "可通过绑定手机号或邮箱重置密码。"}],
+                "reranked": False,
+            })()
+
+        async def search_with_rewrite(self, tool_name, query, top_k=5):
+            raise AssertionError("账户安全关键词已命中；发票属于已知知识缺口")
+
+    class Selector:
+        async def select(self, query, candidates):
+            return {
+                "success": True,
+                "supported": True,
+                "selected_title": "账户安全",
+                "evidence": "文档包含密码重置路径",
+            }
+
+    tool = build_shared_rag_tools(RagManager(), Selector())["search_knowledge_base"]
+    req = make_request(
+        message="密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+        intent=IntentCategory.INVOICE,
+        intent_group="billing",
+        intent_confidence=0.93,
+    )
+
+    result = asyncio.run(tool.handler(req, {"query": req.message, "top_k": 3}))
+
+    assert result["evidence_gate"] == "composite_partial"
+    assert result["evidence_complete"] is False
+    assert [item["title"] for item in result["results"]] == ["账户安全"]
+    assert [item["supported"] for item in result["subquery_results"]] == [True, False]
+
+
 def test_empty_policy_prefetch_returns_grounded_fallback_without_calling_model():
     class EmptyRagManager:
         async def call(self, tool_name, params, use_cache=True):

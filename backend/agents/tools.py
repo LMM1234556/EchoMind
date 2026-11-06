@@ -17,10 +17,13 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 from dataclasses import dataclass
 from typing import Any, Awaitable, Callable, Dict, List, Optional, TYPE_CHECKING, Union
+
+from core.knowledge_routing import infer_knowledge_scope, split_knowledge_queries
 
 if TYPE_CHECKING:
     from agents.agent_orchestrator import Request
@@ -72,6 +75,7 @@ def filter_grounded_results(
     intent_value: str,
     retrieval_mode: str,
     results: Any,
+    allowed_titles_override: Optional[set[str]] = None,
 ) -> tuple[List[Dict[str, Any]], str]:
     """把“召回候选”转换成可以交给生成模型的证据。
 
@@ -83,7 +87,11 @@ def filter_grounded_results(
 
     dict_results = [item for item in results if isinstance(item, dict)]
     if retrieval_mode == "fast_keyword":
-        allowed_titles = _KEYWORD_TITLES_BY_INTENT.get(str(intent_value or ""))
+        allowed_titles = (
+            allowed_titles_override
+            if allowed_titles_override is not None
+            else _KEYWORD_TITLES_BY_INTENT.get(str(intent_value or ""))
+        )
         if allowed_titles is None:
             return [], "intent_not_specific_enough"
         if not allowed_titles:
@@ -96,7 +104,11 @@ def filter_grounded_results(
             return [], "intent_title_mismatch"
         return accepted, "lexical_intent_title_match"
 
-    allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
+    allowed_titles = (
+        allowed_titles_override
+        if allowed_titles_override is not None
+        else _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
+    )
     if allowed_titles is None:
         return [], "intent_not_specific_enough"
     if not allowed_titles:
@@ -283,7 +295,102 @@ def build_shared_rag_tools(
         if tool_manager is None:
             return {"success": False, "error": "RAG 工具未初始化", "results": []}
 
+        sub_queries = split_knowledge_queries(query)
+        if len(sub_queries) > 1:
+            raw_parts = await asyncio.gather(*[
+                search_knowledge_base(
+                    req,
+                    {"query": sub_query, "top_k": top_k, "_composite_part": True},
+                )
+                for sub_query in sub_queries
+            ], return_exceptions=True)
+            parts = [
+                part if isinstance(part, dict) else {
+                    "success": False,
+                    "results": [],
+                    "evidence_accepted": False,
+                    "evidence_gate": "retrieval_failed",
+                    "retrieval_mode": "composite_subquery_error",
+                }
+                for part in raw_parts
+            ]
+            documents: List[Dict[str, Any]] = []
+            seen_titles = set()
+            subquery_results = []
+            for sub_query, part in zip(sub_queries, parts):
+                part_documents = part.get("results") if isinstance(part, dict) else []
+                supported = bool(
+                    isinstance(part, dict)
+                    and part.get("success")
+                    and part.get("evidence_accepted")
+                    and isinstance(part_documents, list)
+                    and part_documents
+                )
+                selected_titles = []
+                if isinstance(part_documents, list):
+                    for item in part_documents:
+                        if not isinstance(item, dict):
+                            continue
+                        title = str(item.get("title", "") or "").strip()
+                        if title:
+                            selected_titles.append(title)
+                        if title and title not in seen_titles:
+                            documents.append(item)
+                            seen_titles.add(title)
+                subquery_results.append({
+                    "query": sub_query,
+                    "supported": supported,
+                    "selected_titles": selected_titles,
+                    "evidence_gate": str(part.get("evidence_gate", "")) if isinstance(part, dict) else "",
+                    "retrieval_mode": str(part.get("retrieval_mode", "")) if isinstance(part, dict) else "",
+                })
+
+            supported_count = sum(1 for item in subquery_results if item["supported"])
+            if supported_count == len(subquery_results):
+                evidence_gate = "composite_complete"
+            elif supported_count:
+                evidence_gate = "composite_partial"
+            else:
+                evidence_gate = "composite_unsupported"
+            selector_flags = [
+                part.get("evidence_selector_success")
+                for part in parts
+                if isinstance(part, dict) and part.get("evidence_selector_used")
+            ]
+            return {
+                "success": any(bool(part.get("success")) for part in parts if isinstance(part, dict)),
+                "query": query,
+                "top_k": top_k,
+                "results": documents[:3],
+                "candidate_count": sum(int(part.get("candidate_count", 0)) for part in parts if isinstance(part, dict)),
+                "evidence_accepted": bool(documents),
+                "evidence_complete": supported_count == len(subquery_results),
+                "evidence_gate": evidence_gate,
+                "evidence_selector_used": any(bool(part.get("evidence_selector_used")) for part in parts if isinstance(part, dict)),
+                "evidence_selector_success": all(flag is True for flag in selector_flags) if selector_flags else None,
+                "evidence_selected_title": documents[0].get("title") if documents else None,
+                "evidence_selected_titles": [str(item.get("title", "")) for item in documents],
+                "evidence_selection_reason": "Each explicit subquery passed its own evidence gate.",
+                "evidence_selector_error": "",
+                "reranked": any(bool(part.get("reranked")) for part in parts if isinstance(part, dict)),
+                "retrieval_mode": "composite_subqueries",
+                "subquery_results": subquery_results,
+            }
+
         intent_value = getattr(req.intent, "value", req.intent)
+        inferred_topic, inferred_titles = infer_knowledge_scope(query)
+        intent_allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
+        is_composite_part = bool(args.get("_composite_part"))
+        allowed_titles_override = (
+            inferred_titles
+            if is_composite_part and inferred_topic is not None
+            else None
+        )
+        allowed_titles = (
+            allowed_titles_override
+            if allowed_titles_override is not None
+            else intent_allowed_titles
+        )
         retrieval_mode = "full_rag"
         result = None
 
@@ -306,7 +413,6 @@ def build_shared_rag_tools(
         # 关键词没有命中时，高置信度具体意图先走一次本地向量检索。
         # 只有结果通过既有的“意图-文档标题”证据门控才采用；否则仍回退
         # 到查询改写 + 多路召回 + LLM 重排，不能因提速而放宽证据标准。
-        allowed_titles = _FULL_RAG_TITLES_BY_INTENT.get(str(intent_value or ""))
         # 如果关键词路径没有命中，而且当前意图在内置知识库中明确没有
         # 对应文档，就直接报告知识缺口。继续做查询改写和重排只会消耗
         # 两次远程模型调用，也不可能产生可接受证据。
@@ -342,6 +448,7 @@ def build_shared_rag_tools(
                 str(intent_value or ""),
                 "fast_vector",
                 vector_candidates,
+                allowed_titles_override,
             )
             if grounded_vector:
                 result = vector_result
@@ -370,17 +477,21 @@ def build_shared_rag_tools(
             str(intent_value or ""),
             retrieval_mode,
             candidate_results,
+            allowed_titles_override,
         )
         # 旧规则对没有专属意图标签的知识查询默认拒绝。启用语义选择器后，
         # 这类查询可以把召回候选交给 Judge；具体业务意图仍保留标题白名单，
         # 明确为空的 invoice/payment 等知识缺口也不会被放宽。
         if evidence_selector is not None and candidate_results:
-            title_map = (
-                _KEYWORD_TITLES_BY_INTENT
-                if retrieval_mode == "fast_keyword"
-                else _FULL_RAG_TITLES_BY_INTENT
-            )
-            semantic_allowed_titles = title_map.get(str(intent_value or ""))
+            if allowed_titles_override is not None:
+                semantic_allowed_titles = allowed_titles_override
+            else:
+                title_map = (
+                    _KEYWORD_TITLES_BY_INTENT
+                    if retrieval_mode == "fast_keyword"
+                    else _FULL_RAG_TITLES_BY_INTENT
+                )
+                semantic_allowed_titles = title_map.get(str(intent_value or ""))
             if semantic_allowed_titles is None:
                 accepted_results = [
                     item for item in candidate_results

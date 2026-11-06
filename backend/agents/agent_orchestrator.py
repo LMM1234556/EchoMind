@@ -354,6 +354,9 @@ class BaseAgent:
                 "evidence_selector_used": bool(prefetched.get("evidence_selector_used")) if isinstance(prefetched, dict) else False,
                 "evidence_selector_success": prefetched.get("evidence_selector_success") if isinstance(prefetched, dict) else None,
                 "evidence_selected_title": str(prefetched.get("evidence_selected_title", "") or "") if isinstance(prefetched, dict) else "",
+                "evidence_selected_titles": list(prefetched.get("evidence_selected_titles") or []) if isinstance(prefetched, dict) else [],
+                "evidence_complete": prefetched.get("evidence_complete") if isinstance(prefetched, dict) else None,
+                "subquery_results": list(prefetched.get("subquery_results") or []) if isinstance(prefetched, dict) else [],
                 "evidence_selector_error": str(prefetched.get("evidence_selector_error", "") or "") if isinstance(prefetched, dict) else "",
                 "invocation_source": "deterministic_prefetch",
                 "prefetched": True,
@@ -477,6 +480,9 @@ class BaseAgent:
                     "evidence_selector_used": bool(result.get("evidence_selector_used")) if isinstance(result, dict) else False,
                     "evidence_selector_success": result.get("evidence_selector_success") if isinstance(result, dict) else None,
                     "evidence_selected_title": str(result.get("evidence_selected_title", "") or "") if isinstance(result, dict) else "",
+                    "evidence_selected_titles": list(result.get("evidence_selected_titles") or []) if isinstance(result, dict) else [],
+                    "evidence_complete": result.get("evidence_complete") if isinstance(result, dict) else None,
+                    "subquery_results": list(result.get("subquery_results") or []) if isinstance(result, dict) else [],
                     "evidence_selector_error": str(result.get("evidence_selector_error", "") or "") if isinstance(result, dict) else "",
                     "invocation_source": "model_tool_call",
                     "prefetched": False,
@@ -566,13 +572,26 @@ class BaseAgent:
                 content = str(item.get("content", "") or "").strip()
                 if title and content:
                     documents.append({"title": title, "content": content})
+        subquery_evidence = []
+        if isinstance(result, dict):
+            for item in result.get("subquery_results") or []:
+                if not isinstance(item, dict):
+                    continue
+                subquery_evidence.append({
+                    "question": str(item.get("query", "") or "").strip(),
+                    "evidence_status": "accepted" if item.get("supported") else "insufficient",
+                    "selected_titles": list(item.get("selected_titles") or []),
+                })
+        document_limit = 3 if subquery_evidence else 1
         return {
             "question": str(query or "").strip(),
             "evidence_status": "accepted" if documents else "insufficient",
-            "selected_documents": documents[:1],
+            "selected_documents": documents[:document_limit],
+            "subquery_evidence": subquery_evidence,
             "answer_constraints": [
                 "平台业务事实只能来自 selected_documents",
                 "只回答证据明确支持的内容",
+                "复合问题必须逐项回答；subquery_evidence 标为 insufficient 的部分要明确说明缺少依据",
                 "通用建议必须明确标注，且不得表述为平台规则",
                 "流程先后关系和新增办理条件也必须有 selected_documents 的直接依据",
                 "围绕当前问题作答；通用政策咨询无需先收集订单等办理信息",

@@ -1,7 +1,12 @@
 from agents.agent_orchestrator import GeneralAgent, Request
 from agents.tools import build_shared_rag_tools
 from core.intent_recognizer import IntentCategory
-from core.knowledge_routing import scope_knowledge_query, should_use_knowledge
+from core.knowledge_routing import (
+    infer_knowledge_scope,
+    scope_knowledge_query,
+    should_use_knowledge,
+    split_knowledge_queries,
+)
 
 
 class FakeClient:
@@ -77,3 +82,24 @@ def test_query_scope_keeps_single_domain_and_unsplittable_messages_intact():
     assert scope_knowledge_query(unsplittable, "technical") == unsplittable
     assert scope_knowledge_query(unsplittable, "billing") == unsplittable
     assert scope_knowledge_query("今天天气怎么样", "general") == "今天天气怎么样"
+
+
+def test_composite_knowledge_queries_split_only_across_distinct_explicit_topics():
+    assert split_knowledge_queries("登录401该如何排查，另外100积分能抵扣多少钱？") == [
+        "登录401该如何排查",
+        "100积分能抵扣多少钱",
+    ]
+    assert split_knowledge_queries("标准配送什么时候到，订单异常要提供什么？") == [
+        "标准配送什么时候到",
+        "订单异常要提供什么",
+    ]
+    assert split_knowledge_queries("退款审核需要多久，审核通过后多久能到账？") == [
+        "退款审核需要多久，审核通过后多久能到账？"
+    ]
+    assert split_knowledge_queries("登录401订单重复扣款99元") == ["登录401订单重复扣款99元"]
+
+
+def test_knowledge_scope_distinguishes_supported_topics_and_known_gaps():
+    assert infer_knowledge_scope("100积分能抵多少钱") == ("membership", {"会员与积分"})
+    assert infer_knowledge_scope("电子发票最晚几天开好") == ("invoice", set())
+    assert infer_knowledge_scope("同一订单重复扣款") == ("payment_gap", set())

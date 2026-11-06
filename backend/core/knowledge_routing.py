@@ -6,7 +6,7 @@
 """
 
 import re
-from typing import Any
+from typing import Any, Optional
 
 
 _DIRECT_KNOWLEDGE_INTENTS = {
@@ -87,6 +87,76 @@ _CLAUSE_SEPARATOR = re.compile(
     r"(?:[，,；;。！？!?]+|而且|并且|同时|另外|此外|以及|\b(?:and|also|while)\b)",
     re.IGNORECASE,
 )
+
+
+# 复合问题只有在每个子句都能确定映射到一个知识主题时才拆分。
+# 主题映射同时提供可审计的文档标题边界；空集合表示已知知识缺口，
+# 例如当前演示知识库没有电子发票办理时限。
+_KNOWLEDGE_TOPIC_TITLES = {
+    "technical": {"技术故障排查"},
+    "account_security": {"账户安全"},
+    "membership": {"会员与积分"},
+    "delivery": {"配送说明"},
+    "order": {"订单查询"},
+    "refund": {"退款政策"},
+    "invoice": set(),
+    "payment_gap": set(),
+}
+
+
+def infer_knowledge_scope(message: str) -> tuple[Optional[str], Optional[set[str]]]:
+    """从一个明确子问题推断知识主题和允许引用的文档标题。
+
+    返回 ``(None, None)`` 表示无法安全确定主题，应继续使用既有意图门控。
+    规则按更具体的业务词优先，避免“订单被重复扣款”误用订单状态文档。
+    """
+    text = (message or "").strip().lower()
+    if not text:
+        return None, None
+
+    if any(keyword in text for keyword in ("发票", "invoice")):
+        topic = "invoice"
+    elif any(keyword in text for keyword in ("积分", "银卡", "金卡", "会员等级", "折扣")):
+        topic = "membership"
+    elif any(keyword in text for keyword in ("加急配送", "标准配送", "同城配送", "运费", "收货地址", "偏远地区", "配送时间")):
+        topic = "delivery"
+    elif any(keyword in text for keyword in ("退款", "退货", "退款审核", "退款到账", "原支付账户")):
+        topic = "refund"
+    elif any(keyword in text for keyword in ("重复扣款", "扣了两次", "多扣", "扣费异常")):
+        topic = "payment_gap"
+    elif any(keyword in text for keyword in ("401", "403", "404", "500", "崩溃", "闪退", "错误码", "报错", "接口", "网络超时")):
+        topic = "technical"
+    elif any(keyword in text for keyword in ("忘记密码", "密码忘了", "重置密码", "两步验证", "异常登录", "账户安全", "账号安全")):
+        topic = "account_security"
+    elif any(keyword in text for keyword in ("订单异常", "订单状态", "物流位置", "物流信息", "已发货", "未收到", "查件")):
+        topic = "order"
+    else:
+        return None, None
+    return topic, set(_KNOWLEDGE_TOPIC_TITLES[topic])
+
+
+def split_knowledge_queries(message: str) -> list[str]:
+    """保守拆分需要不同知识文档的显式复合问题。
+
+    单一主题、多义子句或没有明确分隔符时保持原文。这样既支持逐项取证，
+    又不会把“登录401订单重复扣款99元”等不可可靠划界的文本强行拆开。
+    """
+    original = (message or "").strip()
+    if not original:
+        return []
+    clauses = [part.strip() for part in _CLAUSE_SEPARATOR.split(original) if part.strip()]
+    if not 2 <= len(clauses) <= 3:
+        return [original]
+
+    topics = []
+    for clause in clauses:
+        topic, _ = infer_knowledge_scope(clause)
+        if topic is None:
+            return [original]
+        topics.append(topic)
+    if len(set(topics)) < 2:
+        return [original]
+    return clauses
 
 
 def should_use_knowledge(message: str, intent: Any = None) -> bool:
