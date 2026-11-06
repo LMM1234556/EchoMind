@@ -13,7 +13,7 @@
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-[![Tests](https://img.shields.io/badge/Tests-198%20passed%20%7C%202026--11--05-2EA44F)](docs/TASK_ROUTING_VERIFICATION_20261105.md)
+[![Tests](https://img.shields.io/badge/Tests-198%20passed%20%7C%202026--11--06-2EA44F)](docs/EVIDENCE_CONSTRAINTS_20261106.md)
 
 [▶ 查看 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [⬇ 直接播放 / 下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) ·
@@ -84,7 +84,7 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 | 回答事实忠实度 | **83.33%（20/24）** | 项目负责人逐条复核 |
 | 完整链路基线 | 严格端到端 **62.50%（5/8）** | 2026-10-26：7 个场景、8 次真实请求，包含多轮会话 |
 | Judge 校准实验 | 完成 **24 条**双人评分与模型评分对比 | 16 条校准、8 条留出验证；结果与采用决策见[校准分析](backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
-| 工程回归 | **198/198** 通过 | 2026-11-05 独立源码快照回归，详见[验证记录](docs/TASK_ROUTING_VERIFICATION_20261105.md) |
+| 工程回归 | **198/198** 通过 | 2026-11-06 独立源码快照回归，详见[事实约束验证](docs/EVIDENCE_CONSTRAINTS_20261106.md)；[任务分流验证](docs/TASK_ROUTING_VERIFICATION_20261105.md)保留分项记录 |
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
