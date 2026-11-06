@@ -88,7 +88,7 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
-新一轮 60 条回答覆盖评测已完成前 20 条执行与验收：[首批](backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)严格通过 8/10，[第二批](backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)严格通过 4/10。当前已执行子集累计通过 12 条、部分完成 6 条、不通过 2 条，严格通过为 12/20（60%）。运行故障与回答质量分别记录，其余 40 条按同一冻结版本继续评测，整体结论在全部场景完成后汇总。
+新一轮 60 条回答覆盖评测已完成前 30 条首次执行与验收：[首批](backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)严格通过 8/10，[第二批](backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)严格通过 4/10，[第三批](backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md)严格通过 3/10。当前已执行子集累计通过 15 条、部分完成 7 条、不通过 8 条，严格通过为 15/30（50%）。第三批将 4 条内容问题与 2 条运行故障分别记录，运行故障保留在端到端分母中。其余 30 条按同一冻结版本继续评测，整体结论在全部场景完成后汇总。
 
 ## 系统架构
 

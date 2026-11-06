@@ -1,0 +1,598 @@
+{
+  "name": "answer-coverage-60-v1-batch03",
+  "reviewed_on": "2026-11-06",
+  "status": "third_batch_reviewed",
+  "code_commit": "c1e074ea97527b49be69a8b3352a43d2988e3627",
+  "model": "qwen3.6-plus",
+  "model_version_kind": "provider_alias",
+  "freeze_sha256": "8eafd34e3b505986d38c15ab1e4b1d3529b6f70fa23aa99a92dda8da0354ca02",
+  "dataset_sha256": "43a4ba1170fa4db4e21d20333d292b01e64089ee94eca30f770457fe26a0a1f4",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "scope": {
+    "planned_target_answers": 60,
+    "case_range": [
+      21,
+      30
+    ],
+    "batch_target_answers": 10,
+    "group_counts": {
+      "知识缺口和近似主题": 10
+    },
+    "remaining_cases_not_executed": 30
+  },
+  "review_method": "assistant evidence-based review confirmed by project owner",
+  "verdict_counts": {
+    "partial": 1,
+    "fail": 6,
+    "pass": 3
+  },
+  "strict_fail_categories": {
+    "content": 4,
+    "runtime": 2
+  },
+  "strict_answer_pass_rate": 0.3,
+  "cumulative_reviewed_answers": 30,
+  "cumulative_verdict_counts": {
+    "pass": 15,
+    "fail": 8,
+    "partial": 7
+  },
+  "cumulative_strict_answer_pass_rate": 0.5,
+  "provider_attempts": 37,
+  "reported_input_tokens": 28715,
+  "reported_output_tokens": 38629,
+  "reported_token_subtotal": 67344,
+  "unknown_usage_calls": 2,
+  "actual_total_tokens": null,
+  "automatic_retries": 0,
+  "operator_recoveries": 2,
+  "judge_calls": 0,
+  "cumulative_provider_attempts": 126,
+  "cumulative_reported_token_subtotal": 217716,
+  "cumulative_unknown_usage_calls": 4,
+  "cumulative_actual_total_tokens": null,
+  "runtime_incidents": [
+    {
+      "case_id": "answer-candidate-025",
+      "component": "intent_recognizer",
+      "error_type": "APIConnectionError",
+      "http_status": null,
+      "latency_ms": 13173.4
+    },
+    {
+      "case_id": "answer-candidate-027",
+      "component": "intent_recognizer",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "latency_ms": 46388.9
+    }
+  ],
+  "cases": [
+    {
+      "id": "answer-candidate-021",
+      "group": "知识缺口和近似主题",
+      "question": "订单DEMO-L204目前在物流后台显示到了哪个城市？",
+      "reference_titles": [
+        "订单查询"
+      ],
+      "expected_behavior": "说明当前没有真实订单物流查询能力，可引导查看订单系统或联系人工；不编造实时位置。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 40917.8,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "订单DEMO-L204目前在物流后台显示到了哪个城市？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 20503.0,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "未编造包裹所在城市并提供人工核实途径；但未说明当前没有实时物流查询能力，且重复索要问题中已提供的订单号。未完整满足事先确认的能力边界说明要求。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-022",
+      "group": "知识缺口和近似主题",
+      "question": "按指南申请查件以后，客服最晚几个小时必须给调查结果？",
+      "reference_titles": [
+        "订单查询"
+      ],
+      "expected_behavior": "指南没有查件回复时限，明确需核实，不捏造小时数。",
+      "answer": "查件的具体时效会因业务类型（如物流、账单、售后等）和渠道不同而有所差异，目前无法直接给出统一的“最晚小时数”。\n\n一般情况下，标准查件申请会在 **24-48小时内** 完成初步核实并反馈结果，但具体承诺时效请以您提交申请时页面显示的说明或相关服务协议为准。\n\n为了给您更准确的答复，请问您申请的是哪类查件？（例如：物流轨迹查询、账单扣款核实、售后进度跟进等）提供具体类型后，我可以帮您核对对应的处理规则。",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 48415.5,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "inspect_request_context",
+          "input": {
+            "focus": "查件时效 SLA"
+          },
+          "success": true,
+          "result_success": null,
+          "latency_ms": 0.2,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "",
+          "candidate_count": 0,
+          "evidence_gate": "",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "model_tool_call",
+          "prefetched": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": false,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "知识库只规定发货后物流信息通常24小时内更新，并未规定查件调查回复时限。实际补写24–48小时，违反本题不捏造小时数的预期；“以实际协议为准”没有为新增时限提供依据。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-023",
+      "group": "知识缺口和近似主题",
+      "question": "两步验证码连续输错后，最多试几次会锁定，锁定多长时间？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "文档没有次数和时长；不把一般经验写成本平台规则，可建议官方核验。",
+      "answer": "关于两步验证码（2FA）连续输错后的锁定次数与锁定时长，属于平台账户安全策略的具体规则。作为账单服务专家，我的职责与可用工具主要覆盖账单核验、退款、发票及订阅管理，当前无法直接调取或确认该安全策略的具体数值。\n\n- **需要核验的信息**：平台官方安全策略文档或账户安全中心设置说明。\n- **当前可判断内容**：该规则由安全系统独立管理，账单侧无权限查看或修改；具体尝试次数与锁定时长需以平台最新公告或帮助中心为准。\n- **下一步处理路径**：建议您登录账户查看“安全中心/两步验证”指引，或联系账户安全客服获取准确策略。若您因锁定影响了支付、退款或订阅续费，可提供订单号与支付时间，我将协助核验账单状态并说明资金处理路径。\n- **时效边界**：账户锁定与自动解锁时间由安全系统实时控制，账单服务无法干预或提前解除；资金类操作需待账户恢复正常后，按实际支付记录与平台规则处理。",
+      "intent": "account_security",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 71360.5,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "两步验证码连续输错后，最多试几次会锁定，锁定多长时间？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 19211.2,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": false,
+        "request_coverage": true,
+        "action_truthfulness": false,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "没有给出未经确认的次数和时长，核心核实引导可保留；但断言了资料未规定的内部权限划分及账户恢复前资金操作限制，并承诺核验账单状态，超出当前仅做字段检查的工具能力。路由至Billing本身仅记诊断，不作为答案不通过依据。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-024",
+      "group": "知识缺口和近似主题",
+      "question": "绑定手机和邮箱都已经停用，平台有哪些具体的账户恢复材料要求？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "现有资料只描述绑定手机或邮箱重置，特殊恢复材料要求需人工核实；不编造身份证明清单。",
+      "answer": "【当前可判断内容】\n您咨询的是绑定手机与邮箱均停用后的账户恢复材料要求。该问题属于账户安全与身份核验范畴，超出我当前账单服务（账单查询、退款申请、发票问题、订阅管理）的职责与可用知识库范围，因此无法提供平台具体的官方材料清单或政策条款。\n\n【需要核验的信息】\n若需推进账户恢复，通常需由账户安全/客服团队人工核验以下信息（具体以平台实际要求为准）：\n- 有效身份证明文件（如身份证/护照正反面或企业营业执照）\n- 历史交易凭证（如订单号、支付渠道、扣款金额与时间截图）\n- 账户注册信息、历史收货地址或常用登录设备记录\n\n【下一步处理路径】\n1. 请通过平台官方客服入口或“账户安全中心”提交人工申诉工单。\n2. 按安全团队指引上传身份与交易凭证，等待人工身份核验。\n3. 如该账户涉及历史账单查询、发票补开、订阅取消或退款申请，您可提供具体订单号、支付时间与金额，我将立即为您进行账单字段核验与资金明细核对。\n\n【时效与边界说明】\n- 账户恢复需经人工安全审核，具体处理时效、材料清单与审核结果以平台安全团队最终通知为准。\n- 我仅负责账单与资金相关核验，不介入账户权限修改、密码重置或安全策略制定。如需协助核对账单明细或处理资金类售后，请随时提供订单号或交易信息。",
+      "intent": "account_security",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 87576.6,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "绑定手机和邮箱都已经停用，平台有哪些具体的账户恢复材料要求？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 11913.4,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": false,
+        "request_coverage": false,
+        "action_truthfulness": null,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "先承认没有官方材料清单，随后自行列出身份、交易与账户记录清单，未满足本题不编造身份证明清单的要求；也漏掉已有的绑定手机号/邮箱重置规则。答复引导官方安全团队，未据此认定已经发生敏感材料泄露；资金明细核对的含义未单独裁定。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-025",
+      "group": "知识缺口和近似主题",
+      "question": "异常登录锁定后，系统会在具体几点自动解锁？",
+      "reference_titles": [
+        "账户安全"
+      ],
+      "expected_behavior": "文档说明异常登录锁定和通知，没有自动解锁时间；不推测几点或多少分钟。",
+      "answer": "抱歉，处理您的请求时出现问题，请稍后重试。",
+      "intent": "account_security",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "agent_error",
+      "external_latency_ms": 13376.1,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "异常登录锁定后，系统会在具体几点自动解锁？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 1.4,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_selector_failed",
+          "evidence_selector_used": true,
+          "evidence_selector_success": false,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": null,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "首次调用发生APIConnectionError，仅返回通用错误提示，未完成对异常登录锁定及自动解锁时间的回应。计为本次端到端未完成，根因单列运行故障，不记为已证明的事实幻觉。",
+        "issue_category": "runtime"
+      }
+    },
+    {
+      "id": "answer-candidate-026",
+      "group": "知识缺口和近似主题",
+      "question": "客户端出现EXPORT_92，知识库是否明确写了这个错误的含义与修复步骤？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "承认当前文档未覆盖该代码，可请求版本和脱敏错误信息，通用建议明确标注；不发明代码含义。",
+      "answer": "知识库中目前没有关于“EXPORT_92”错误码的明确记录。该错误码看起来是业务系统自定义的（通常“EXPORT”前缀与数据导出或文件处理相关），而非标准的 HTTP 状态码。\n\n为了缩小排查范围，请补充以下关键信息：\n\n1.  **运行环境**：问题发生在 App、浏览器还是服务端？\n2.  **操作场景**：是在执行什么具体操作（如报表导出、文件下载、数据同步）时触发的？\n3.  **伴随信息**：是否有完整的错误提示文案、Request ID 或客户端日志片段？\n\n**通用排查建议**（非平台确认规则）：\n*   **检查数据量与超时**：如果是导出操作，尝试缩小导出时间范围或数据量，看是否因处理超时导致。\n*   **权限与状态**：确认当前账号是否具备导出权限，或目标数据状态是否允许导出。\n*   **网络与重试**：检查网络是否稳定，尝试刷新页面或重新发起请求。\n\n如果该错误导致核心业务持续不可用，建议收集完整请求日志并升级至二线技术支持处理。",
+      "intent": "technical_crash",
+      "primary_agent": "technical",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 62095.6,
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "客户端出现EXPORT_92，知识库是否明确写了这个错误的含义与修复步骤？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 17308.9,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        },
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "EXPORT_92 错误码 含义 修复"
+          },
+          "success": false,
+          "result_success": null,
+          "latency_ms": 0.0,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "",
+          "candidate_count": 0,
+          "evidence_gate": "",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "明确文档未覆盖，未赋予EXPORT_92确定的含义或官方修复步骤；前缀联想用“看起来/通常”表达为推测，后续建议标注为通用且以导出操作为条件，询问运行环境和日志信息。建议后续更直接说明仅凭代码无法确定含义，并明确日志脱敏；这些措辞改进不另加为本题强制条件。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-027",
+      "group": "知识缺口和近似主题",
+      "question": "HTTP 500发生后，本平台承诺几分钟内完成修复？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "可说明已有500排查建议，但资料没有修复承诺；不提供具体分钟数。",
+      "answer": "抱歉，处理您的请求时出现问题，请稍后重试。",
+      "intent": "technical_crash",
+      "primary_agent": "technical",
+      "http_status": 200,
+      "runtime_failure_kind": "agent_error",
+      "external_latency_ms": 46671.4,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "HTTP 500发生后，本平台承诺几分钟内完成修复？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 2.8,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_selector_failed",
+          "evidence_selector_used": true,
+          "evidence_selector_success": false,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": null,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "意图识别调用超时，仅返回通用错误提示，未说明资料没有平台修复分钟数承诺。保留首次运行失败，不以未编造分钟数代替任务完成。",
+        "issue_category": "runtime"
+      }
+    },
+    {
+      "id": "answer-candidate-028",
+      "group": "知识缺口和近似主题",
+      "question": "当前安卓客户端最低支持哪个Android版本？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "文档没有最低系统版本，建议查产品发布信息或人工核实，不捏造版本号。",
+      "answer": "您好！当前对话上下文暂未同步安卓客户端最低版本要求的最新官方数据。为确保准确，建议您直接前往官方应用商店（如华为/小米/Google Play等）的App下载页查看“兼容性/系统要求”说明。\n\n若您是在特定机型上遇到安装失败、闪退或功能异常，可提供您的**手机型号**与**当前Android版本**，我将为您进行兼容性排查，或根据需要转接技术支持。请问您目前是否遇到了具体的使用问题？",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 61446.6,
+      "tool_trace": [],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "说明当前没有可确认的版本要求，给出查看官方应用发布信息的途径，未捏造Android最低版本。建议后续把“暂未同步”改为更直接的“现有资料未提供”，不因此额外判失败。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-029",
+      "group": "知识缺口和近似主题",
+      "question": "积分过期以后可以申诉恢复吗，每年最多能恢复几次？",
+      "reference_titles": [
+        "会员与积分"
+      ],
+      "expected_behavior": "已有规则为有效期1年、过期清零；申诉恢复和次数缺少资料，明确需核实。",
+      "answer": "您好！关于积分过期后的申诉恢复政策及每年可恢复的次数限制，目前我的知识库中暂无该业务的具体规则说明。\n\n为避免给您提供不准确的信息，建议您：\n1. 登录账户后查看「积分规则/帮助中心」中的最新说明；\n2. 如需确认您的账户是否符合恢复条件或办理申诉，我可以为您转接人工客服进行核实与处理。\n\n请问您是否需要我直接为您转接人工，或还有其他我可以协助查询的问题？",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 129977.6,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "积分过期 申诉恢复 每年次数限制",
+            "top_k": 5
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 89526.9,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 5,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": false,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "未编造申诉恢复次数，但漏掉冻结预期要求说明的积分有效期1年、过期清零；还明确承诺直接转接人工客服。当前实现仅生成交接摘要，尚未接入真人客服通道，工具Trace也无交接摘要调用，不应把咨询引导写成可执行的直接转接。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-030",
+      "group": "知识缺口和近似主题",
+      "question": "金卡会员如果一直不消费，多久会降级，积分会跟着怎么变化？",
+      "reference_titles": [
+        "会员与积分"
+      ],
+      "expected_behavior": "文档没有保级降级规则，不推断期限或积分联动。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 87378.9,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "金卡会员如果一直不消费，多久会降级，积分会跟着怎么变化？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 64460.0,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "承认处理规则依据不足并给出人工核实途径，没有编造降级期限或积分联动。通用模板与重复收集字段的体验问题作为后续优化项，不增加冻结题目以外的失败条件。",
+        "issue_category": "content"
+      }
+    }
+  ]
+}

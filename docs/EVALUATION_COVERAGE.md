@@ -65,4 +65,4 @@
 5. 集中执行一次，保留每条结果、失败及实际调用记录；出现基础设施故障时先记录和排查。
 6. 人工复核回答与证据，按场景报告结果及后续决策。
 
-已完成任务分流、Skills 与证据的事实约束调整，以及 198 项自动化回归；[两条旧开发题的模型验证](EVIDENCE_CONSTRAINTS_20261106.md)用于检查事实约束修改。正式覆盖集已完成前 20 条执行与验收：[首批](../backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)通过 8 条、部分完成 1 条、不通过 1 条；[第二批](../backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)通过 4 条、部分完成 5 条、不通过 1 条。当前已执行子集累计严格通过 12/20（60%），其余 40 条待按同一冻结版本执行；现有 [2026-10-26 综合结果](../backend/evaluation/reports/e2e_current_top3_20261026.md)继续作为较早的修复前基线。
+已完成任务分流、Skills 与证据的事实约束调整，以及 198 项自动化回归；[两条旧开发题的模型验证](EVIDENCE_CONSTRAINTS_20261106.md)用于检查事实约束修改。正式覆盖集已完成前 30 条首次执行与验收：[首批](../backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)通过 8 条、部分完成 1 条、不通过 1 条；[第二批](../backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)通过 4 条、部分完成 5 条、不通过 1 条；[第三批](../backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md)通过 3 条、部分完成 1 条、不通过 6 条，其中 4 条为内容问题、2 条为运行故障。当前已执行子集累计严格通过 15/30（50%），运行故障保留在端到端分母中；其余 30 条待按同一冻结版本执行。现有 [2026-10-26 综合结果](../backend/evaluation/reports/e2e_current_top3_20261026.md)继续作为较早的修复前基线。
