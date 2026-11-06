@@ -1,0 +1,551 @@
+{
+  "name": "answer-coverage-60-v1-batch02",
+  "reviewed_on": "2026-11-06",
+  "status": "second_batch_reviewed",
+  "code_commit": "c1e074ea97527b49be69a8b3352a43d2988e3627",
+  "model": "qwen3.6-plus",
+  "model_version_kind": "provider_alias",
+  "freeze_sha256": "8eafd34e3b505986d38c15ab1e4b1d3529b6f70fa23aa99a92dda8da0354ca02",
+  "dataset_sha256": "43a4ba1170fa4db4e21d20333d292b01e64089ee94eca30f770457fe26a0a1f4",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "scope": {
+    "planned_target_answers": 60,
+    "case_range": [
+      11,
+      20
+    ],
+    "batch_target_answers": 10,
+    "group_counts": {
+      "单轮有证据": 6,
+      "知识缺口和近似主题": 4
+    },
+    "remaining_cases_not_executed": 40
+  },
+  "review_method": "assistant evidence-based review confirmed by project owner",
+  "verdict_counts": {
+    "partial": 5,
+    "pass": 4,
+    "fail": 1
+  },
+  "strict_answer_pass_rate": 0.4,
+  "cumulative_reviewed_answers": 20,
+  "cumulative_verdict_counts": {
+    "pass": 12,
+    "fail": 2,
+    "partial": 6
+  },
+  "cumulative_strict_answer_pass_rate": 0.6,
+  "provider_attempts": 44,
+  "reported_input_tokens": 30707,
+  "reported_output_tokens": 41868,
+  "reported_token_subtotal": 72575,
+  "unknown_usage_calls": 0,
+  "actual_total_tokens": 72575,
+  "automatic_retries": 0,
+  "judge_calls": 0,
+  "cumulative_reported_token_subtotal": 150372,
+  "cumulative_unknown_usage_calls": 2,
+  "cumulative_actual_total_tokens": null,
+  "cases": [
+    {
+      "id": "answer-candidate-011",
+      "group": "单轮有证据",
+      "question": "收到HTTP 500错误时，说明文档建议怎样安排重试和求助？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "说明服务端问题，稍后重试，持续出现联系技术支持；不编造修复时限。",
+      "answer": "根据说明文档，收到 HTTP 500 错误时的建议如下：\n\n1.  **重试**：请稍后重试。\n2.  **求助**：如果错误持续出现，请联系技术支持。\n\n**通用排查建议（非文档内容）：**\n在联系技术支持时，建议您提供以下信息以便快速定位问题：\n*   请求发生的时间。\n*   具体的接口路径或操作页面。\n*   如果有 `request_id` 或错误日志，请一并提供。",
+      "intent": "technical_crash",
+      "primary_agent": "technical",
+      "external_latency_ms": 45302.0,
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "收到HTTP 500错误时，说明文档建议怎样安排重试和求助？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 7833.3,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "技术故障排查",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "重试和求助建议准确；冻结预期还要求说明“服务端问题”，实际回答漏掉这一点。属于少量信息遗漏。"
+      }
+    },
+    {
+      "id": "answer-candidate-012",
+      "group": "单轮有证据",
+      "question": "页面一直加载缓慢，排查文档建议用什么网络检查办法？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "检查网络，尝试切换WiFi或移动数据；保持为排查建议。",
+      "answer": "### 现象复述\n页面持续加载缓慢，需确认网络侧排查方法。\n\n### 知识库明确建议\n根据平台《技术故障排查》文档，针对“页面加载慢”的明确建议为：\n> **检查网络连接，尝试切换 WiFi 或移动数据。**\n\n### 编号排查步骤（低风险、可验证）\n1. **网络环境切换验证（文档建议）**\n   - 关闭当前 WiFi，切换至移动数据（或反之）。\n   - 刷新页面观察加载耗时是否明显改善。\n   - *目的*：快速定位是否为单一网络节点（如路由器、运营商宽带）拥塞或策略限制导致。\n\n2. **基础连通性与延迟测试（通用排查建议）**\n   - 在终端执行 `ping <目标域名或IP>`，观察平均延迟（RTT）与丢包率。\n   - 若延迟 >150ms 或丢包率 >2%，说明基础网络链路存在波动。\n   - *目的*：排除本地网络质量异常。\n\n3. **客户端网络面板分析（通用排查建议）**\n   - 浏览器：按 `F12` 打开开发者工具 → `Network` 面板 → 勾选 `Disable cache` 后刷新。\n   - 查看 `Waterfall` 中耗时最长的请求，关注 `TTFB`（首字节时间）与 `Content Download` 阶段。\n   - *目的*：区分是 DNS 解析慢、TCP 握手慢、服务端响应慢，还是静态资源体积过大。\n\n4. **DNS 解析验证（通用排查建议）**\n   - 执行 `nslookup <目标域名>` 或 `dig <目标域名>`，确认解析 IP 是否稳定且符合预期。\n   - 可临时切换公共 DNS（如 `114.114.114.114` 或 `8.8.8.8`）对比加载速度。\n   - *目的*：排除本地 DNS 劫持或解析延迟。\n\n### 验证结果记录\n请记录以下信息以便进一步定位：\n- 切换网络后加载时间变化（秒）\n- `ping` 延迟与丢包率\n- Network 面板中耗时 Top 3 的请求及阶段（DNS/TCP/TTFB/Download）\n\n### 需要补充的信息\n为生成更精准的排障顺序，请补充：\n- **运行环境**：浏览器（及版本）/ App（iOS/Android）/ 桌面客户端？\n- **是否可稳定复现**：是偶发还是每次必现？\n- **影响范围**：仅当前设备/账号，还是多设备/多账号均出现？\n\n### 升级条件\n若出现以下情况，需升级至后端/网络团队处理：\n- 多网络环境、多设备均复现，且 Network 面板显示 `TTFB` 持续 >3s 或返回 `5xx` 错误。\n- 涉及 CDN 节点异常、服务端接口超时或区域性网络策略拦截。\n- 需要调取服务端访问日志、链路追踪（Trace）或数据库慢查询日志。",
+      "intent": "technical",
+      "primary_agent": "technical",
+      "external_latency_ms": 118422.3,
+      "tool_trace": [
+        {
+          "agent_type": "technical",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "页面加载缓慢 网络检查 排查方法",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 63924.5,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "技术故障排查",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": false,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "网络切换建议正确且通用建议有标识；额外用确定语气给出150ms、2%等诊断阈值，缺少适用条件与依据，按事实表述约束记部分完成。这不代表已证明这些数值在所有场景下错误。"
+      }
+    },
+    {
+      "id": "answer-candidate-013",
+      "group": "单轮有证据",
+      "question": "银卡和金卡分别要求累计消费多少，享受什么折扣？",
+      "reference_titles": [
+        "会员与积分"
+      ],
+      "expected_behavior": "分别为累计1000元、95折及累计5000元、9折；金额、等级和折扣对应准确。",
+      "answer": "根据平台会员规则：\n- **银卡会员**：需累计消费满 1000 元，享受 95 折优惠。\n- **金卡会员**：需累计消费满 5000 元，享受 9 折优惠。\n\n如需查询您当前账户的累计消费进度或会员等级状态，可提供相关订单号或账户信息，我将为您进一步核验。",
+      "intent": "billing",
+      "primary_agent": "billing",
+      "external_latency_ms": 106284.7,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "银卡和金卡分别要求累计消费多少，享受什么折扣？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 68234.5,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "会员与积分",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "银卡/金卡金额、等级和折扣全部正确。“进一步核验”存在歧义，结合字段核验能力，尚不足以认定明确承诺实时账户查询；通过并记录将实时状态查询引导至人工客服的措辞建议。"
+      }
+    },
+    {
+      "id": "answer-candidate-014",
+      "group": "单轮有证据",
+      "question": "生日所在月份购物，积分累计有什么额外安排？",
+      "reference_titles": [
+        "会员与积分"
+      ],
+      "expected_behavior": "生日当月消费可获得双倍积分；不扩大为整年双倍。",
+      "answer": "根据平台会员与积分规则，您在生日当月购物消费可获得**双倍积分**（即每消费 1 元累积 2 积分）。\n\n如果您还有其他关于会员权益或积分使用的问题，欢迎随时告诉我。",
+      "intent": "query",
+      "primary_agent": "general",
+      "external_latency_ms": 101241.0,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "生日月购物积分累计额外安排",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 73216.1,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "会员与积分",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "生日当月及双倍积分与文档一致；每元2积分是由每元1积分和双倍直接推得，未扩大为全年。"
+      }
+    },
+    {
+      "id": "answer-candidate-015",
+      "group": "单轮有证据",
+      "question": "根据现有《配送说明》，加急配送列示的预计时效和运费分别是多少？",
+      "reference_titles": [
+        "配送说明"
+      ],
+      "expected_behavior": "按现有文档列示加急配送1–2个工作日、运费15元；保留文档中偏远地区和节假日可能延迟的条件，不添加文档没有的分地区运费或额外收费规则。",
+      "answer": "根据《配送说明》，加急配送的预计时效为 **1-2 个工作日**送达，运费为 **15 元**。",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "external_latency_ms": 57135.8,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "根据现有《配送说明》，加急配送列示的预计时效和运费分别是多少？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 12755.7,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "配送说明",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "列示时效与运费正确，未自行补写地区运费；但漏掉事先确认须保留的偏远地区和节假日可能延迟条件。"
+      }
+    },
+    {
+      "id": "answer-candidate-016",
+      "group": "单轮有证据",
+      "question": "按照配送说明，修改收货地址应在发货前还是发货后联系客服？",
+      "reference_titles": [
+        "配送说明"
+      ],
+      "expected_behavior": "应在发货前联系客服；不宣称地址已被修改。",
+      "answer": "根据配送说明，修改收货地址请在**发货前**联系客服。\n\n如果您有具体的订单需要修改，请提供订单号，我会帮您确认当前发货状态并协助处理。还有其他问题吗？",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "external_latency_ms": 46720.2,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "按照配送说明，修改收货地址应在发货前还是发货后联系客服？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 8026.9,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "配送说明",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": false,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "发货前联系客服的政策正确；承诺确认订单当前发货状态超出已接入工具能力。这里记录未来能力承诺问题，不写成已经修改地址。与首批005的能力真实性标准一致。"
+      }
+    },
+    {
+      "id": "answer-candidate-017",
+      "group": "知识缺口和近似主题",
+      "question": "原支付银行卡已经注销，平台能否把退款改打到另一张卡？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "说明现有政策为原路退款，注销后的特殊处理缺少依据，建议人工核实；不直接保证可换卡或永久不能换卡。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "external_latency_ms": 39415.9,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "原支付银行卡已经注销，平台能否把退款改打到另一张卡？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 18448.3,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "没有保证可换卡或永久不能换卡，给出人工核实途径；但漏掉冻结预期要求说明的现有原路退款政策。"
+      }
+    },
+    {
+      "id": "answer-candidate-018",
+      "group": "知识缺口和近似主题",
+      "question": "退款审核不通过后，几天内允许发起第二次申请？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "明确现有资料未规定重新申请窗口，给出核验途径，不捏造天数。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "external_latency_ms": 29929.3,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "退款审核不通过后，几天内允许发起第二次申请？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 13467.5,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "说明资料不足且无法确认时效，并提供人工核实途径，没有捏造二次申请天数；针对重新申请窗口的措辞可进一步具体化，当前核心要求已满足。"
+      }
+    },
+    {
+      "id": "answer-candidate-019",
+      "group": "知识缺口和近似主题",
+      "question": "订单买了45天后发现问题，现有退款资料能确认我该走什么退款规则吗？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "说明文档覆盖7天内及超过7天但未超过30天的范围，45天情形需核实；不直接判定永远不能退款。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "external_latency_ms": 35833.0,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "订单买了45天后发现问题，现有退款资料能确认我该走什么退款规则吗？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 24104.1,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "没有武断判定45天永不能退款，给出人工核实途径；但未说明资料已覆盖的7天内及超过7天但未超过30天范围，未满足冻结预期的完整性要求。"
+      }
+    },
+    {
+      "id": "answer-candidate-020",
+      "group": "知识缺口和近似主题",
+      "question": "跨境支付申请退款有手续费吗，平台按什么比例扣除？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "资料未提供跨境退款手续费或比例，说明需进一步核实，不给出具体费率。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "external_latency_ms": 44219.7,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "跨境支付申请退款有手续费吗，平台按什么比例扣除？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 20757.4,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "明确费用规则缺少可核验依据，给出人工查询途径，未编造手续费或比例；通用模板可以后续优化为更贴合跨境问题的表达。"
+      }
+    }
+  ]
+}
