@@ -88,7 +88,7 @@ EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工�
 
 各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
 
-新一轮 60 条回答覆盖评测已完成前 50 条首次 HTTP 记录的验收：[首批](backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)严格通过 8/10，[第二批](backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)为 4/10，[第三批](backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md)为 3/10，[第四批](backend/evaluation/reports/answer_coverage_60_v1_batch04_20261106.md)为 6/10，[第五批](backend/evaluation/reports/answer_coverage_60_v1_batch05_20261106.md)为 3/10。当前累计 24 条通过、12 条部分完成、13 条未通过、1 条预算控制未完成，首次目标严格通过为 24/50（48%）。回答质量、运行故障和预算控制分别记录；048 的首次拦截与独立补充观察单列，首次结果保持原样。其余 10 条按同一业务冻结版本继续评测，整轮结论在全部场景完成后汇总。
+新一轮 60 条回答覆盖评测已完成全部首次 HTTP 记录的验收：[首批](backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)严格通过 8/10，[第二批](backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)为 4/10，[第三批](backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md)为 3/10，[第四批](backend/evaluation/reports/answer_coverage_60_v1_batch04_20261106.md)为 6/10，[第五批](backend/evaluation/reports/answer_coverage_60_v1_batch05_20261106.md)为 3/10，[第六批](backend/evaluation/reports/answer_coverage_60_v1_batch06_20261106.md)为 3/10。整轮共 27 条通过、19 条部分完成、13 条未通过、1 条预算控制未完成，首次目标严格通过为 27/60（45%）。该比例衡量冻结场景下的首次请求契约完成情况，不等同于系统总准确率或生产 SLA；回答质量、运行故障和预算控制分别记录。完整方法、分组结果和改进优先级见[60 条汇总报告](backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md)。
 
 ## 系统架构
 

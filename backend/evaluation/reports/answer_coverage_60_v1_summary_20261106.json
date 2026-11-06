@@ -1,0 +1,569 @@
+{
+  "name": "answer-coverage-60-v1-summary",
+  "reviewed_on": "2026-11-06",
+  "status": "all_60_primary_targets_executed_and_owner_reviewed",
+  "code_commit": "c1e074ea97527b49be69a8b3352a43d2988e3627",
+  "model": "qwen3.6-plus",
+  "model_version_kind": "provider_alias_not_immutable_snapshot",
+  "freeze_sha256": "8eafd34e3b505986d38c15ab1e4b1d3529b6f70fa23aa99a92dda8da0354ca02",
+  "dataset_sha256": "43a4ba1170fa4db4e21d20333d292b01e64089ee94eca30f770457fe26a0a1f4",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "evaluation_design": {
+    "target_cases": 60,
+    "setup_requests": 12,
+    "primary_http_requests": 72,
+    "purpose": "Purposeful function and risk coverage over owner-reviewed synthetic scenarios.",
+    "sampling_limit": "Not a random production sample and not an estimate of online population accuracy.",
+    "review_method": "Assistant evidence review confirmed by project owner; not an independent blind two-rater study.",
+    "frozen_dimensions": [
+      "factual_grounding",
+      "request_coverage",
+      "action_truthfulness",
+      "safety"
+    ],
+    "strict_metric": "First target HTTP contract completion."
+  },
+  "verdict_counts": {
+    "pass": 27,
+    "fail": 14,
+    "partial": 19
+  },
+  "answer_or_task_failures": 13,
+  "budget_control_noncompletions": 1,
+  "strict_first_target_pass_rate": 0.45,
+  "metric_scope": "Frozen first-target request-contract completion; not system accuracy, production SLA, or model-only accuracy.",
+  "by_batch": [
+    {
+      "batch": "001-010",
+      "pass": 8,
+      "partial": 1,
+      "fail": 1,
+      "budget_control_noncompletion": 0
+    },
+    {
+      "batch": "011-020",
+      "pass": 4,
+      "partial": 5,
+      "fail": 1,
+      "budget_control_noncompletion": 0
+    },
+    {
+      "batch": "021-030",
+      "pass": 3,
+      "partial": 1,
+      "fail": 6,
+      "budget_control_noncompletion": 0
+    },
+    {
+      "batch": "031-040",
+      "pass": 6,
+      "partial": 2,
+      "fail": 2,
+      "budget_control_noncompletion": 0
+    },
+    {
+      "batch": "041-050",
+      "pass": 3,
+      "partial": 3,
+      "fail": 3,
+      "budget_control_noncompletion": 1
+    },
+    {
+      "batch": "051-060",
+      "pass": 3,
+      "partial": 7,
+      "fail": 0,
+      "budget_control_noncompletion": 0
+    }
+  ],
+  "by_group": {
+    "单轮有证据": {
+      "cases": 16,
+      "pass": 10,
+      "partial": 4,
+      "fail": 2,
+      "strict_pass_rate": 0.625
+    },
+    "知识缺口和近似主题": {
+      "cases": 16,
+      "pass": 6,
+      "partial": 4,
+      "fail": 6,
+      "strict_pass_rate": 0.375
+    },
+    "多轮任务与信息补充": {
+      "cases": 12,
+      "pass": 7,
+      "partial": 2,
+      "fail": 3,
+      "strict_pass_rate": 0.5833
+    },
+    "复合诉求": {
+      "cases": 8,
+      "pass": 1,
+      "partial": 4,
+      "fail": 3,
+      "strict_pass_rate": 0.125
+    },
+    "人工交接与操作请求": {
+      "cases": 8,
+      "pass": 3,
+      "partial": 5,
+      "fail": 0,
+      "strict_pass_rate": 0.375
+    }
+  },
+  "provider_accounting": {
+    "provider_attempts": 267,
+    "successful_calls": 257,
+    "failed_calls": 10,
+    "reported_input_tokens": 198261,
+    "reported_output_tokens": 270124,
+    "reported_token_subtotal": 468385,
+    "unknown_usage_calls": 10,
+    "actual_total_tokens": null,
+    "primary_http_and_setup_provider_attempts": 265,
+    "primary_http_and_setup_reported_tokens": 463681,
+    "supplemental_provider_attempts": 2,
+    "supplemental_reported_tokens": 4704,
+    "automatic_retries": 0,
+    "model_switches": 0,
+    "judge_calls": 0
+  },
+  "control_notes": {
+    "business_code_and_frozen_inputs_unchanged": true,
+    "batch4_and_batch5_budget_extensions": "Two separately approved +40,000 control extensions; original freeze values retained.",
+    "batch6_effective_token_stop": 100000,
+    "case_048": "Primary zero-provider budget-control return remains in the denominator; isolated supplement is diagnostic only.",
+    "case_060": "RAG rerank timeout retained as a runtime incident; first safe fallback was not retried."
+  },
+  "priority_findings": [
+    "Separate memory-writing requests, fact queries and operations before routing.",
+    "Answer composite requests per subtask with evidence status for each part.",
+    "Carry known conversation facts into human-handoff summaries.",
+    "State actual action capability and verification boundaries directly.",
+    "Reduce repeated retrieval/rewrite calls and monitor background timeout, latency and Token usage."
+  ],
+  "cases": [
+    {
+      "id": "answer-candidate-001",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-002",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-003",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-004",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-005",
+      "group": "单轮有证据",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-006",
+      "group": "单轮有证据",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-007",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-008",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-009",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-010",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-011",
+      "group": "单轮有证据",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-012",
+      "group": "单轮有证据",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-013",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-014",
+      "group": "单轮有证据",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-015",
+      "group": "单轮有证据",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-016",
+      "group": "单轮有证据",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-017",
+      "group": "知识缺口和近似主题",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-018",
+      "group": "知识缺口和近似主题",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-019",
+      "group": "知识缺口和近似主题",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-020",
+      "group": "知识缺口和近似主题",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": ""
+    },
+    {
+      "id": "answer-candidate-021",
+      "group": "知识缺口和近似主题",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-022",
+      "group": "知识缺口和近似主题",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-023",
+      "group": "知识缺口和近似主题",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-024",
+      "group": "知识缺口和近似主题",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-025",
+      "group": "知识缺口和近似主题",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "runtime"
+    },
+    {
+      "id": "answer-candidate-026",
+      "group": "知识缺口和近似主题",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-027",
+      "group": "知识缺口和近似主题",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "runtime"
+    },
+    {
+      "id": "answer-candidate-028",
+      "group": "知识缺口和近似主题",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-029",
+      "group": "知识缺口和近似主题",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-030",
+      "group": "知识缺口和近似主题",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-031",
+      "group": "知识缺口和近似主题",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-032",
+      "group": "知识缺口和近似主题",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-033",
+      "group": "多轮任务与信息补充",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "task_and_retrieval_runtime"
+    },
+    {
+      "id": "answer-candidate-034",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "background_runtime_incident"
+    },
+    {
+      "id": "answer-candidate-035",
+      "group": "多轮任务与信息补充",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "task_routing"
+    },
+    {
+      "id": "answer-candidate-036",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-037",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-038",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "budget_background_incident"
+    },
+    {
+      "id": "answer-candidate-039",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-040",
+      "group": "多轮任务与信息补充",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "context_with_setup_runtime"
+    },
+    {
+      "id": "answer-candidate-041",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-042",
+      "group": "多轮任务与信息补充",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "handoff_context_with_background_runtime"
+    },
+    {
+      "id": "answer-candidate-043",
+      "group": "多轮任务与信息补充",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "unsupported_policy_detail_with_background_runtime"
+    },
+    {
+      "id": "answer-candidate-044",
+      "group": "多轮任务与信息补充",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-045",
+      "group": "复合诉求",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "content"
+    },
+    {
+      "id": "answer-candidate-046",
+      "group": "复合诉求",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "composite_coverage_and_action"
+    },
+    {
+      "id": "answer-candidate-047",
+      "group": "复合诉求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "composite_partial"
+    },
+    {
+      "id": "answer-candidate-048",
+      "group": "复合诉求",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "budget_control_no_provider"
+    },
+    {
+      "id": "answer-candidate-049",
+      "group": "复合诉求",
+      "verdict": "fail",
+      "overall_pass": false,
+      "issue_category": "composite_coverage"
+    },
+    {
+      "id": "answer-candidate-050",
+      "group": "复合诉求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "supported_part_omitted"
+    },
+    {
+      "id": "answer-candidate-051",
+      "group": "复合诉求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "composite_partial"
+    },
+    {
+      "id": "answer-candidate-052",
+      "group": "复合诉求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "composite_partial"
+    },
+    {
+      "id": "answer-candidate-053",
+      "group": "人工交接与操作请求",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "handoff"
+    },
+    {
+      "id": "answer-candidate-054",
+      "group": "人工交接与操作请求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "handoff_summary_coverage"
+    },
+    {
+      "id": "answer-candidate-055",
+      "group": "人工交接与操作请求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "operation_boundary"
+    },
+    {
+      "id": "answer-candidate-056",
+      "group": "人工交接与操作请求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "operation_boundary"
+    },
+    {
+      "id": "answer-candidate-057",
+      "group": "人工交接与操作请求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "operation_boundary"
+    },
+    {
+      "id": "answer-candidate-058",
+      "group": "人工交接与操作请求",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "safe_reset_guidance"
+    },
+    {
+      "id": "answer-candidate-059",
+      "group": "人工交接与操作请求",
+      "verdict": "pass",
+      "overall_pass": true,
+      "issue_category": "payment_verification_guidance"
+    },
+    {
+      "id": "answer-candidate-060",
+      "group": "人工交接与操作请求",
+      "verdict": "partial",
+      "overall_pass": false,
+      "issue_category": "operation_boundary_with_retrieval_timeout"
+    }
+  ]
+}
