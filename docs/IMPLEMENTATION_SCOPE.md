@@ -59,7 +59,7 @@
 | 意图识别 | 95 条、19 类合成冻结样本 | [意图 v2 首次结果](../backend/evaluation/reports/intent_test_v2_first_run_20261026.md) |
 | 知识库检索 | 60 条冻结查询，其中 36 条有答案 | [MiniLM／BGE 正式对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) |
 | 证据与回答 | 24 条 Grounded Chat v2 | [首次结果](../backend/evaluation/reports/grounded_chat_test_v2_first_run_20261026.md) |
-| 回答覆盖补强 | 60 条已复核问题，前 30 条已首次执行并验收：15 条通过、7 条部分完成、8 条不通过；内容问题与运行故障分别记录 | [首批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)、[第二批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)、[第三批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md) |
+| 回答覆盖补强 | 60 条已复核问题，前 40 条已首次执行并验收：21 条通过、9 条部分完成、10 条不通过；目标回答与前置、检索及后台故障分别记录 | [首批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)、[第二批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)、[第三批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md)、[第四批实际回答与验收](../backend/evaluation/reports/answer_coverage_60_v1_batch04_20261106.md) |
 | Judge 校准 | 复用同一批 24 条回答，16 条校准、8 条同批留出验证 | [校准结果与采用决策](../backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
 | 综合链路 | 7 个场景、8 次真实请求 | [Top-3 综合回归](../backend/evaluation/reports/e2e_current_top3_20261026.md) |
 | 工程回归 | 2026-11-06 独立源码快照，198 项通过 | [事实约束验证](EVIDENCE_CONSTRAINTS_20261106.md)与[任务分流分项记录](TASK_ROUTING_VERIFICATION_20261105.md) |

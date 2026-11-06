@@ -1,0 +1,721 @@
+{
+  "name": "answer-coverage-60-v1-batch04",
+  "reviewed_on": "2026-11-06",
+  "status": "fourth_batch_reviewed",
+  "code_commit": "c1e074ea97527b49be69a8b3352a43d2988e3627",
+  "model": "qwen3.6-plus",
+  "model_version_kind": "provider_alias",
+  "freeze_sha256": "8eafd34e3b505986d38c15ab1e4b1d3529b6f70fa23aa99a92dda8da0354ca02",
+  "dataset_sha256": "43a4ba1170fa4db4e21d20333d292b01e64089ee94eca30f770457fe26a0a1f4",
+  "corpus_sha256": "b44d5f61b4d9680a1dbe5b272e76280a78a099fb85cce457c166944822907a7b",
+  "scope": {
+    "planned_target_answers": 60,
+    "case_range": [
+      31,
+      40
+    ],
+    "batch_target_answers": 10,
+    "batch_setup_requests": 8,
+    "batch_chat_requests": 18,
+    "group_counts": {
+      "知识缺口和近似主题": 2,
+      "多轮任务与信息补充": 8
+    },
+    "remaining_cases_not_executed": 20
+  },
+  "review_method": "assistant evidence-based review confirmed by project owner",
+  "verdict_counts": {
+    "pass": 6,
+    "partial": 2,
+    "fail": 2
+  },
+  "strict_answer_pass_rate": 0.6,
+  "cumulative_reviewed_answers": 40,
+  "cumulative_verdict_counts": {
+    "pass": 21,
+    "fail": 10,
+    "partial": 9
+  },
+  "cumulative_strict_answer_pass_rate": 0.525,
+  "provider_attempts": 60,
+  "reported_input_tokens": 45800,
+  "reported_output_tokens": 53072,
+  "reported_token_subtotal": 98872,
+  "unknown_usage_calls": 3,
+  "actual_total_tokens": null,
+  "automatic_retries": 0,
+  "operator_recoveries": 4,
+  "judge_calls": 0,
+  "cumulative_provider_attempts": 186,
+  "cumulative_reported_token_subtotal": 316588,
+  "cumulative_unknown_usage_calls": 7,
+  "cumulative_actual_total_tokens": null,
+  "budget_control": {
+    "original_frozen_batch_stop": 100000,
+    "documented_effective_batch_stop": 140000,
+    "additional_control_budget": 40000,
+    "extension_applies_only_to_cases": [
+      39,
+      40
+    ],
+    "unknown_usage_reserve": 30000,
+    "control_total_including_reserve": 128872,
+    "reserve_is_measured_consumption": false,
+    "provider_attempt_cap_unchanged": 80,
+    "full_run_token_stop_unchanged": 700000,
+    "original_freeze_manifest_preserved": true,
+    "operator_adapter_offline_checks_passed": 27
+  },
+  "runtime_incidents": [
+    {
+      "case_id": "answer-candidate-033",
+      "step_kind": "target",
+      "component": "rag.rerank",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "latency_ms": 45002.6
+    },
+    {
+      "case_id": "answer-candidate-034",
+      "step_kind": "target",
+      "component": "memory.profile",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "latency_ms": 46414.9
+    },
+    {
+      "case_id": "answer-candidate-040",
+      "step_kind": "setup-0",
+      "component": "intent_recognizer",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "latency_ms": 46804.7
+    }
+  ],
+  "budget_events": [
+    {
+      "case_id": "answer-candidate-038",
+      "phase": "target background profile",
+      "event": "blocked_by_original_budget_control",
+      "target_answer_saved": true
+    }
+  ],
+  "memory_checks": [
+    {
+      "case": 31,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    },
+    {
+      "case": 32,
+      "redis_message_count": 2,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    },
+    {
+      "case": 33,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": false,
+      "target_profile_note": "Only setup profile confirmed; target profile not completed."
+    },
+    {
+      "case": 34,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": false,
+      "target_profile_note": "Only setup profile confirmed; target profile not completed."
+    },
+    {
+      "case": 35,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    },
+    {
+      "case": 36,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    },
+    {
+      "case": 37,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    },
+    {
+      "case": 38,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": false,
+      "target_profile_note": "Only setup profile confirmed; target profile not completed."
+    },
+    {
+      "case": 39,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    },
+    {
+      "case": 40,
+      "redis_message_count": 4,
+      "profile_exists": true,
+      "target_profile_provider_call_completed_successfully": true,
+      "target_profile_note": "Target profile call succeeded."
+    }
+  ],
+  "cases": [
+    {
+      "id": "answer-candidate-031",
+      "group": "知识缺口和近似主题",
+      "setup_turns": [],
+      "question": "配送承诺超时后，平台每晚一小时赔偿多少元？",
+      "reference_titles": [
+        "配送说明"
+      ],
+      "expected_behavior": "文档没有配送超时赔付规则或金额，说明需核实，不自行计算赔偿。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 38883.9,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "配送承诺超时后，平台每晚一小时赔偿多少元？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 10588.6,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "未编造超时赔付金额，说明依据不足并提供人工核实途径。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-032",
+      "group": "知识缺口和近似主题",
+      "setup_turns": [],
+      "question": "标准配送的订单没有满99元，具体运费收多少？",
+      "reference_titles": [
+        "配送说明"
+      ],
+      "expected_behavior": "文档只说明满99元免邮，没有未满99元标准配送运费；不得借用加急或同城运费。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 35698.0,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "标准配送的订单没有满99元，具体运费收多少？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 10108.0,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "未借用加急或同城运费，未编造具体金额；但未说明已有的满99元免邮条件及未满门槛的标准运费未载明，回复停留在通用模板。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-033",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "请记住我的订单号是 DEMO-M301，我正在申请退款。",
+          "assistant_answer": "收到你提供的订单号：DEMO-M301。请继续说明这笔订单需要处理的问题。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "我刚才让你记录的是哪一个订单号？",
+      "reference_titles": [],
+      "expected_behavior": "依据本次会话历史回答DEMO-M301；不另造号码、不索要已提供的信息。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 129893.1,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "我刚才让你记录的是哪一个订单号？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 91007.7,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_selector_failed",
+          "evidence_selector_used": true,
+          "evidence_selector_success": false,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": null,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "没有按会话历史回答DEMO-M301，并再次要求提供订单号。目标请求不必要地进入知识库链路，重排超时后返回通用资料不足模板；任务未完成，运行故障单列。",
+        "issue_category": "task_and_retrieval_runtime"
+      }
+    },
+    {
+      "id": "answer-candidate-034",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "请记住我的订单号是 DEMO-M302，我正在申请退款。",
+          "assistant_answer": "收到你提供的订单号：DEMO-M302。请继续说明这笔订单需要处理的问题。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "那么审核通过后，一般多少个工作日能退回原账户？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "结合前文退款语境检索政策，说明审核通过后5–7个工作日原路退款。",
+      "answer": "根据平台退款政策，审核通过后，款项将在 **5-7 个工作日** 内退回原支付账户。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 38311.8,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "那么审核通过后，一般多少个工作日能退回原账户？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 13465.3,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "退款政策",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "准确回答审核通过后5–7个工作日退回原支付账户。目标后台画像超时作为运行问题单列，不把正确回答直接判为内容失败。",
+        "issue_category": "background_runtime_incident"
+      }
+    },
+    {
+      "id": "answer-candidate-035",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我正在申请退款，想先把订单信息提供给你。",
+          "assistant_answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "我的订单号是 DEMO-M303。",
+      "reference_titles": [],
+      "expected_behavior": "确认用户补充的信息，并结合历史继续推进；不把单纯提供号码视为必须查询政策。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 38150.0,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "我的订单号是 DEMO-M303。",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 20202.1,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "semantic_unsupported",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "fail",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "未确认用户补充的DEMO-M303，也未衔接前文退款申请，仍索要订单号并给出资料不足模板。冻结预期要求确认信息并继续推进，未满足。",
+        "issue_category": "task_routing"
+      }
+    },
+    {
+      "id": "answer-candidate-036",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "请记住订单号 DEMO-M304A。",
+          "assistant_answer": "收到你提供的订单号：DEMO-M304A。请继续说明这笔订单需要处理的问题。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "刚才号码说错了，请改为DEMO-M304B，随后告诉我现在应以哪个号码为准。",
+      "reference_titles": [],
+      "expected_behavior": "以用户最新明确更正为准，回答DEMO-M304B，不混用旧号码。",
+      "answer": "收到，已将订单号更新为 **DEMO-M304B**。\n\n现在请以 **DEMO-M304B** 为准。请问您需要针对这笔订单处理什么问题？（例如查询进度、修改信息或售后申请）",
+      "intent": "request",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 39810.1,
+      "tool_trace": [],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "准确以最新更正DEMO-M304B为准，没有混用旧号码。结合用户正在更正会话中号码的语境，将“更新”理解为记录更正；未据此认定实际业务订单已被修改。建议后续明确写“会话记录中的订单号”。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-037",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我想了解购物获得的积分规则。",
+          "assistant_answer": "您好！关于购物积分的获取和使用规则如下：\n\n**积分获取：**\n*   **基础规则**：每消费 1 元累积 1 积分。\n*   **生日特权**：生日当月消费可获得双倍积分。\n\n**积分使用与有效期：**\n*   **抵扣比例**：100 积分 = 1 元，可在下次购物时抵扣。\n*   **有效期**：积分有效期为 1 年，过期将自动清零。\n\n此外，累计消费达到一定金额还可升级会员（银卡 1000 元享 95 折，金卡 5000 元享 9 折）。如果您有其他疑问，随时告诉我！",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "这些积分大概能用多长时间，到期后会怎样？",
+      "reference_titles": [
+        "会员与积分"
+      ],
+      "expected_behavior": "结合前文积分语境，依据文档说明有效期1年、到期清零；不编造起算日期。",
+      "answer": "您好！关于积分的有效期和到期处理规则如下：\n\n*   **有效期时长**：积分有效期为 **1 年**。\n*   **到期处理**：积分一旦过期，将 **自动清零**，无法继续使用。\n\n建议您在有效期内及时使用积分抵扣购物金额（100 积分 = 1 元）。如果您还有其他疑问，随时告诉我！",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 110675.9,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "积分有效期 到期处理",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 73681.8,
+          "cached": false,
+          "reranked": true,
+          "retrieval_mode": "full_rag",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "会员与积分",
+          "invocation_source": "model_tool_call",
+          "prefetched": false,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "积分有效期1年、过期自动清零与文档一致；补充100积分抵1元也有依据，未编造起算日期。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-038",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我打开应用时出现HTTP 500错误。",
+          "assistant_answer": "### 现象确认\n您在打开应用时遇到 **HTTP 500** 错误，导致应用无法正常加载或进入主界面。\n\n### 可能原因\n- **平台事实依据**：根据当前说明，HTTP 500 属于服务端内部异常，通常由服务端临时波动或处理逻辑异常引起。建议先稍后重试，若持续出现需联系技术支持。\n- **技术侧补充**：500 表示服务端在处理请求时遇到未预期的错误，可能涉及后端服务依赖异常、数据库连接超时、或特定请求参数触发了未捕获的异常。\n\n### 低风险排查步骤（建议按顺序执行）\n1. **确认复现频率**：尝试关闭应用后重新打开 2~3 次，观察是每次必现，还是偶发出现。\n2. **网络与环境切换**：切换网络环境（如从 WiFi 切至移动数据，或反之），排除本地网络节点或运营商路由异常。\n3. **清理缓存与版本检查**：在系统设置中清除该应用的缓存数据（非清除账号数据），并确认应用是否为最新版本。旧版本可能因接口变更导致服务端返回 500。\n4. **记录关键信息**：若问题持续，请记录发生时间、设备型号、操作系统版本、App 版本号。如有弹窗提示或抓包日志，请保留 `request_id` 或完整错误截图。\n\n### 需要补充的信息\n为缩小排查范围，请补充以下内容：\n- 该问题是 **稳定复现** 还是 **偶发**？\n- 您的 **设备类型、系统版本、App 版本号** 是什么？\n- 错误出现的具体 **时间点** 及是否伴随其他提示文案？\n\n### 验证与升级说明\n- **验证方式**：完成上述步骤后，若应用可正常打开且后续请求不再返回 500，通常为服务端临时波动或本地缓存/网络问题。\n- **升级条件**：若问题持续超过 30 分钟、影响核心业务流程（如无法登录/无法加载首页），或涉及生产环境大面积用户，请提供上述补充信息，我将为您提交二线技术团队进行服务端日志与依赖链路排查。\n\n> 注：以上网络切换、清缓存、版本检查为通用排查建议，不改变您的账号数据与业务配置。平台业务处理规则以当前已验证说明为准。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "如果这个错误持续发生，说明文档建议联系哪一类支持？",
+      "reference_titles": [
+        "技术故障排查"
+      ],
+      "expected_behavior": "识别前文HTTP500，建议联系技术支持，不误答为退款处理。",
+      "answer": "根据说明，如果该错误持续发生，建议联系**技术支持**（或二线技术团队）。\n\n因为 HTTP 500 属于服务端内部异常，通常需要技术团队介入查看服务端日志和依赖链路才能准确定位。如果您准备提交排查申请，我可以帮您整理所需的设备型号、系统版本、App 版本号及报错时间，以便加快处理进度。需要我协助吗？",
+      "intent": "query",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 47139.9,
+      "tool_trace": [],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "结合前文HTTP500建议联系技术支持，未误答为退款。后续排查解释和整理信息建议未承诺执行真实业务操作；目标画像因预算被阻止单列记录。",
+        "issue_category": "budget_background_incident"
+      }
+    },
+    {
+      "id": "answer-candidate-039",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我这次想选择标准配送。",
+          "assistant_answer": "好的，标准配送的时效为 **3-5 个工作日**，且订单金额满 **99 元** 即可免运费。\n\n请问您是想将此配送方式应用到某个具体订单吗？如果是，请提供**订单号**，我将为您核实并协助处理。另外提醒，如需修改收货地址，请在发货前联系我们。",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "这种配送一般几个工作日，满足什么订单金额条件能免运费？",
+      "reference_titles": [
+        "配送说明"
+      ],
+      "expected_behavior": "识别前文标准配送，说明3–5个工作日、订单满99元免邮。",
+      "answer": "标准配送的时效为 **3-5 个工作日**。当您的订单金额满 **99 元** 时，即可享受免运费服务。",
+      "intent": "logistics",
+      "primary_agent": "general",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 62887.1,
+      "tool_trace": [
+        {
+          "agent_type": "general",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "这种配送一般几个工作日，满足什么订单金额条件能免运费？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 11979.3,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 3,
+          "evidence_gate": "semantic_topk_selected",
+          "evidence_selector_used": true,
+          "evidence_selector_success": true,
+          "evidence_selected_title": "配送说明",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": true
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "pass",
+        "factual_grounding": true,
+        "request_coverage": true,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": true,
+        "notes": "沿用前文标准配送语境，准确给出3–5个工作日、订单满99元免邮。",
+        "issue_category": "content"
+      }
+    },
+    {
+      "id": "answer-candidate-040",
+      "group": "多轮任务与信息补充",
+      "setup_turns": [
+        {
+          "user_message": "我原来付款用的银行卡已经注销了。",
+          "assistant_answer": "我还不能确定您要处理的是哪类问题。请补充一下是订单物流、退款账单、账户资料，还是技术故障？",
+          "http_status": 200,
+          "response_failure_kind": ""
+        }
+      ],
+      "question": "那你现在能保证一定会退到我的新银行卡吗？",
+      "reference_titles": [
+        "退款政策"
+      ],
+      "expected_behavior": "保留前文银行卡注销的特殊情况，不作新卡到账保证，建议人工核实。",
+      "answer": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+      "intent": "refund",
+      "primary_agent": "billing",
+      "http_status": 200,
+      "runtime_failure_kind": "",
+      "external_latency_ms": 19267.0,
+      "tool_trace": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "input": {
+            "query": "那你现在能保证一定会退到我的新银行卡吗？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 5.5,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 1,
+          "evidence_gate": "intent_title_mismatch",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "evidence_found": false
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewer": "project_owner",
+        "reviewed_on": "2026-11-06",
+        "method": "assistant_evidence_review_confirmed_by_project_owner",
+        "verdict": "partial",
+        "factual_grounding": true,
+        "request_coverage": false,
+        "action_truthfulness": true,
+        "safety": true,
+        "overall_pass": false,
+        "notes": "没有保证一定退到新卡，也提供人工核实途径；但未明确衔接前文银行卡注销情形及新卡到账问题，仅回复通用时效/费用/规则模板。前置意图识别超时保留为运行故障，不重问前置消息。",
+        "issue_category": "context_with_setup_runtime"
+      }
+    }
+  ]
+}
