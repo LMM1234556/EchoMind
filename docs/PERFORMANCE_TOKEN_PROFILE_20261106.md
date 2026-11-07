@@ -46,5 +46,33 @@ the policy through `extra_body`, and deployments may set
 ## Claim boundary
 
 The 58.4% figure is the share of tokens in components affected by the change,
-not a measured saving. Actual Token reduction, latency change and answer quality
-must be established with a controlled rerun of the same four frozen cases.
+not a measured saving from the exploratory profile.
+
+## Verified isolated A/B (confirmed 2026-11-07)
+
+A subsequent paired run used commit
+`d097b2bd6b55679f5058ea66a0ffd73ca815a626`, fresh non-overlapping Redis
+conversation namespaces, the same four questions, corpus and
+`qwen3.6-plus` alias, zero retries, zero model switches and zero Judge calls.
+The only treatment change was disabling thinking for the three structured
+components listed above. Final Agent generation retained the provider default.
+
+| Metric | Control | Treatment | Change |
+|---|---:|---:|---:|
+| Provider calls | 19 | 19 | 0 |
+| Input tokens | 16,913 | 17,049 | +0.8% |
+| Output tokens | 19,904 | 5,050 | -74.6% |
+| Total tokens | 36,817 | 22,099 | **-40.0%** |
+| Mean end-to-end latency | 82.22 s | 34.77 s | **-57.7%** |
+| Median end-to-end latency | 77.37 s | 36.96 s | **-52.2%** |
+
+The adjusted structured components fell from 22,460 to 7,617 tokens
+(-66.1%), while Final Agent usage remained effectively unchanged (14,357 vs
+14,482 tokens). The project owner reviewed both variants and confirmed that all
+four paired target tasks passed.
+
+These are four fixed composite-request cases, not full-set accuracy, a
+production SLA, or a guaranteed saving on unseen traffic. The fixed execution
+order (control before treatment) also means provider load may contribute to the
+latency difference; the Token attribution is more direct than the latency
+estimate.

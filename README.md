@@ -302,6 +302,17 @@ Evidence Selector 接收最多 3 条候选文档的标题与正文，将完成�
 
 </details>
 
+<details>
+<summary><strong>Qwen 结构化任务 Token 控制</strong></summary>
+
+```env
+ECHOMIND_DISABLE_THINKING_COMPONENTS=intent_recognizer,evidence_selector,memory.profile
+```
+
+对于 Qwen 模型，意图识别、证据选择和画像提取属于短 JSON 结构化任务，默认关闭思考；最终 Agent 回复仍保留提供商默认配置。四条固定复合诉求的隔离配对 A/B 中，目标任务均经人工确认通过，观测 Token 从 36,817 降至 22,099。该结果只适用于本次固定样本，不代表全量准确率或生产 SLA。完整设计与边界见[性能与 Token 报告](docs/PERFORMANCE_TOKEN_PROFILE_20261106.md)。
+
+</details>
+
 ## 仓库结构
 
 ```text
