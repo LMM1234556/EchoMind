@@ -1,78 +1,62 @@
-# Performance and Token profile (2026-11-06)
+# EchoMind 性能与 Token 优化
 
-## Evidence source
+执行日期：2026-11-06；人工复核确认：2026-11-07。
 
-This profile uses the independently frozen four-case composite-request
-regression at commit `b01c7ce6140a817a00ab933f8dbb7a32841b3812`.
-The run used `qwen3.6-plus`, zero retries, zero model switches and zero Judge
-calls. All 19 provider calls returned usage data.
+## 1. 优化问题
 
-Retrospective validation found that case 048 reused a conversation namespace
-from an earlier failed attempt, so this component profile is observational and
-must not be presented as a clean isolated benchmark. A formal A/B run requires
-fresh, non-overlapping conversation namespaces for both groups.
+一次请求通常包含意图识别、证据选择、回复生成和后台画像提取。组件记录显示，前三类结构化处理中的意图、选证和画像只需输出短 JSON，却产生了较多思考 Token，增加总消耗和前台等待。
 
-## Observed breakdown
+本轮采用按组件设置思考模式的方案：
 
-| Component | Calls | Tokens | Share | Average call latency |
-|---|---:|---:|---:|---:|
-| Intent recognizer | 4 | 11,452 | 29.5% | 36.37 s |
-| Evidence selector | 7 | 6,657 | 17.2% | 14.05 s |
-| Profile extraction | 4 | 4,554 | 11.7% | 18.10 s |
-| Final Agent generation | 4 | 16,116 | 41.6% | 29.11 s |
-| **Total** | **19** | **38,779** | **100%** | — |
+| 组件 | 输出任务 | 优化策略 |
+|---|---|---|
+| 意图识别 | 意图标签、置信度及简短原因 | 关闭思考 |
+| 证据选择 | 候选文档判定和选中来源 | 关闭思考 |
+| 画像提取 | 偏好和实体 JSON | 关闭思考 |
+| 最终 Agent | 根据证据组织面向用户的回答 | 保留提供商默认配置 |
 
-The structured subtasks (intent, evidence selection and profile extraction)
-accounted for 22,663 tokens, or 58.4% of observed usage. The intent calls asked
-for at most 256 response tokens but reported 7,914 output tokens in total. This
-is consistent with Qwen 3.6's provider-default thinking mode, where reasoning
-tokens are billed as output tokens and are not necessarily constrained by the
-legacy `max_tokens` behavior.
+## 2. 实现方式
 
-## First optimization
+[LLM 调用入口](../backend/core/llm_utils.py)根据模型和组件决定请求参数。Qwen 结构化任务通过 Anthropic 兼容 SDK 的扩展请求体设置：
 
-For Qwen models, `tracked_messages_create` now sends
-`thinking: {"type": "disabled"}` only for:
+~~~python
+extra_body={"thinking": {"type": "disabled"}}
+~~~
 
-- `intent_recognizer`
-- `evidence_selector`
-- `memory.profile`
+配置项：
 
-Final Agent generation retains the provider default so that this first change
-does not simultaneously alter response-generation quality. Callers may override
-the policy through `extra_body`, and deployments may set
-`ECHOMIND_DISABLE_THINKING_COMPONENTS` to a different comma-separated list.
+~~~env
+ECHOMIND_DISABLE_THINKING_COMPONENTS=intent_recognizer,evidence_selector,memory.profile
+~~~
 
-## Claim boundary
+显式调用参数优先，组件列表可按任务调整。参数语义参考[百炼 Anthropic Messages 文档](https://help.aliyun.com/zh/model-studio/anthropic-api-messages)。本轮仅调整上述组件，其他功能与最终回复配置一致。
 
-The 58.4% figure is the share of tokens in components affected by the change,
-not a measured saving from the exploratory profile.
+## 3. 隔离配对设计
 
-## Verified isolated A/B (confirmed 2026-11-07)
+代码固定为 d097b2bd6b55679f5058ea66a0ffd73ca815a626，模型为 qwen3.6-plus 提供商别名，知识库为同一冻结内容。四条问题涵盖双文档问答、技术与积分复合诉求，以及有依据与缺口并存的情况。
 
-A subsequent paired run used commit
-`d097b2bd6b55679f5058ea66a0ffd73ca815a626`, fresh non-overlapping Redis
-conversation namespaces, the same four questions, corpus and
-`qwen3.6-plus` alias, zero retries, zero model switches and zero Judge calls.
-The only treatment change was disabling thinking for the three structured
-components listed above. Final Agent generation retained the provider default.
+控制组与实验组使用不同的全新用户和会话，运行前 Redis 键数均为 0；运行后各会话消息数均为 2。每组 19 次调用，usage 全部返回，自动重试、换模和 Judge 均为 0。
 
-| Metric | Control | Treatment | Change |
+## 4. 实测结果
+
+| 指标 | 控制组 | 优化组 | 变化 |
 |---|---:|---:|---:|
-| Provider calls | 19 | 19 | 0 |
-| Input tokens | 16,913 | 17,049 | +0.8% |
-| Output tokens | 19,904 | 5,050 | -74.6% |
-| Total tokens | 36,817 | 22,099 | **-40.0%** |
-| Mean end-to-end latency | 82.22 s | 34.77 s | **-57.7%** |
-| Median end-to-end latency | 77.37 s | 36.96 s | **-52.2%** |
+| 人工任务验收 | 4/4 | 4/4 | 目标均完成 |
+| 供应商调用 | 19 | 19 | 相同 |
+| 输入 Token | 16,913 | 17,049 | +0.8% |
+| 输出 Token | 19,904 | 5,050 | -74.6% |
+| 总 Token | 36,817 | 22,099 | **-40.0%** |
+| 平均端到端耗时 | 82.22 秒 | 34.77 秒 | **-57.7%** |
+| 中位端到端耗时 | 77.37 秒 | 36.96 秒 | -52.2% |
 
-The adjusted structured components fell from 22,460 to 7,617 tokens
-(-66.1%), while Final Agent usage remained effectively unchanged (14,357 vs
-14,482 tokens). The project owner reviewed both variants and confirmed that all
-four paired target tasks passed.
+三个结构化组件合计从 22,460 降至 7,617 Token，减少 66.1%；最终 Agent 用量为 14,357 与 14,482 Token，基本保持一致。主要节省来自单次结构化调用的输出减少，调用次数保持相同。
 
-These are four fixed composite-request cases, not full-set accuracy, a
-production SLA, or a guaranteed saving on unseen traffic. The fixed execution
-order (control before treatment) also means provider load may contribute to the
-latency difference; the Token attribution is more direct than the latency
-estimate.
+## 5. 结果解释与采用
+
+本轮四条固定复合诉求的目标质量均经人工确认，组件级策略进入当前实现。Token 按供应商返回的前台和后台 usage 汇总；费用可结合对应输入、输出及缓存价格另行计算。
+
+控制组先于实验组运行，供应商时段负载可能影响延迟。下一轮将增加请求类型、重复运行与交错顺序，以检查更广范围的表现。
+
+早期性能探索曾复用会话历史，正式配对改用全新独立命名空间。上述表格采用正式隔离运行的数据。
+
+[逐题报告](../backend/evaluation/reports/performance_ab_4cases_20261106.md) · [配对回答、调用与来源哈希](../backend/evaluation/reports/performance_ab_4cases_20261106.json)

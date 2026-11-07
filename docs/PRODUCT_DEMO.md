@@ -1,74 +1,53 @@
-# EchoMind 静态产品演示
+# EchoMind 演示与场景
 
-本页通过真实界面和典型场景，帮助招聘方快速了解产品。当前采用静态演示形式，兼顾访问效率、模型调用成本和本地原型的安全性。
+[![EchoMind 演示封面](assets/portfolio/echomind-demo-cover.jpg)](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4)
 
-![EchoMind 调试工作台](assets/portfolio/echomind-dashboard.png)
+[查看 88 秒视频](assets/portfolio/echomind-demo.mp4) · [播放或下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4)
 
-## 界面应该看什么
+视频展示退款咨询、401 排障、知识缺口、人工交接及运行轨迹。后续复合取证与 Token 优化的定量结果见[正式配对报告](../backend/evaluation/reports/performance_ab_4cases_20261106.md)。
 
-- 左侧：用户与 Agent 的对话内容；
-- 右侧 Session：用户与会话标识；
-- Connection：当前 Python 后端连接状态；
-- Last Trace：意图、主/辅 Agent、证据是否使用、工具调用和耗时；
-- Runtime：Agent 请求量、运行状态和当前告警。
+## 工作台
 
-## 四个核心场景
+![EchoMind 工作台](assets/portfolio/echomind-dashboard.png)
 
-### 场景一：有证据的退款时效
+| 区域 | 作用 |
+|---|---|
+| 对话区 | 输入问题并查看回答 |
+| Session | 查看用户与会话标识 |
+| Connection | 选择 Python 后端并检查连接 |
+| Last Trace | 查看意图、Agent 职责、工具、证据和耗时 |
+| Runtime | 查看请求量、Agent 状态与告警 |
+| 知识库 | 添加业务文档并查看片段统计 |
+| 评测 | 运行固定样例并查看评分与结果 |
 
-**输入**
+## 场景与观察重点
+
+### 1. 退款时效
 
 > 退款审核需要多久，审核通过后多久能到账？
 
-**预期产品行为**
+系统识别退款诉求，进入 Billing 并确认退款政策。观察回答是否分别保留审核与到账的起算条件，以及“工作日”单位。
 
-1. 识别为退款类意图；
-2. 路由至 Billing Agent；
-3. 检索退款政策并运行 Evidence Selector；
-4. 仅依据被接受的退款文档回答审核和到账时效；
-5. Trace 标记知识库已使用、证据已接受。
-
-### 场景二：技术故障排查
-
-**输入**
+### 2. 技术排障
 
 > 登录时一直提示 401，应该怎么排查？
 
-**预期产品行为**
+Technical 依据技术知识说明认证失败，提供账号密码检查和重置路径。观察平台事实与扩展通用建议是否清楚区分。
 
-1. 识别为 `technical_login`；
-2. 路由至 Technical Agent；
-3. 使用错误码和诊断工具；
-4. 区分知识库事实与低风险通用排障建议。
+### 3. 复合诉求与知识缺口
 
-### 场景三：知识缺口识别与核验引导
+> 密码忘了但手机号还在，另外电子发票最晚几天能开好？
 
-**输入**
+两个子问题分别取证。密码重置依据账户安全文档回答，开票时限说明资料需要核实。观察两项诉求是否均得到回应，以及 Trace 中的分项证据状态。
 
-> 电子发票通常多久能开出来？
-
-**预期产品行为**
-
-1. 识别为发票类意图并进入 Billing Agent；
-2. 检索后识别当前知识库的时效证据缺口；
-3. 明确说明当前依据范围；
-4. 引导用户进一步核验或转人工。
-
-### 场景四：明确要求人工
-
-**输入**
+### 4. 人工交接
 
 > 我已经处理多次还没解决，请帮我转人工客服。
 
-**预期产品行为**
+系统进入 Escalation，生成结构化交接摘要。观察升级标记、用户目标和已知信息。当前交付为交接摘要，工单系统连接列为后续接口集成。
 
-1. 识别明确人工意图；
-2. 路由至 Escalation Agent；
-3. 生成交接摘要；
-4. `escalated=true`，不依赖回答中是否出现“人工”关键词。
+## 本地体验
 
-## 演示口径
+按[首页启动步骤](../README.md#本地运行)运行服务后，访问 http://127.0.0.1:5174/。新会话中输入上述问题，再查看 Last Trace 与知识库状态。
 
-- 上述场景基于当前实现和固定评测协议，外部模型生成的具体措辞会随请求略有变化；
-- 当前最终综合回归已完成 8 次真实请求，并定位问候标签、复合领域路由和记忆指令分流三个优化方向；
-- 原始结果与完整分析见[当前 Top-3 综合回归](../backend/evaluation/reports/e2e_current_top3_20261026.md)。
+[产品方案](AI_PRODUCT_CASE_STUDY.md) · [需求与验收](PRODUCT_REQUIREMENTS.md) · [评测总览](EVALUATION_COVERAGE.md)

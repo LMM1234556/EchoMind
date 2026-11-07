@@ -2,365 +2,184 @@
 
 # EchoMind
 
-**面向企业软件客服的 Multi-Agent AI 系统**
+**多 Agent 智能客服系统**
 
-业务场景定义 · 意图识别 · 主辅 Agent 协作 · Grounded RAG · 分层记忆 · 工具治理 · 全链路评测
+场景拆解 · Agent 工作流 · 知识库证据回答 · 质量评测 · Token 与响应优化
 
-![Python](https://img.shields.io/badge/Python-3.12_Docker-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?logo=vuedotjs&logoColor=white)
 ![Qwen](https://img.shields.io/badge/Model-Qwen_API-6C63FF)
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-[![Tests](https://img.shields.io/badge/Tests-198%20passed%20%7C%202026--11--06-2EA44F)](docs/EVIDENCE_CONSTRAINTS_20261106.md)
+[![Tests](https://img.shields.io/badge/Tests-205_passed_2026--11--07-2EA44F)](docs/EVALUATION_COVERAGE.md)
 
-[▶ 查看 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
-[⬇ 直接播放 / 下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) ·
-[AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md) ·
-[评测报告](backend/evaluation/reports/e2e_current_top3_20261026.md) ·
-[系统文档](docs/README.md)
+[▶ 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
+[产品方案](docs/AI_PRODUCT_CASE_STUDY.md) ·
+[需求与验收](docs/PRODUCT_REQUIREMENTS.md) ·
+[评测与优化](docs/EVALUATION_COVERAGE.md) ·
+[技术实现](docs/PORTFOLIO_CASE_STUDY.md)
 
 </div>
 
-[![EchoMind 产品与 Agent 系统演示](docs/assets/portfolio/echomind-demo-cover.jpg)](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4)
+[![EchoMind 演示视频](docs/assets/portfolio/echomind-demo-cover.jpg)](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4)
 
-> 点击封面查看约 88 秒的产品与 Agent 系统演示：从退款咨询、401 技术故障和知识缺口识别，到人工交接、产品架构与分层评测；也可使用上方入口直接播放或下载 MP4。
-
-## 目录
-
-- [项目概览](#项目概览)
-- [个人工作](#个人工作)
-- [核心成果](#核心成果)
-- [系统架构](#系统架构)
-- [核心能力](#核心能力)
-- [Agent 职责与产品场景](#agent-职责与产品场景)
-- [可靠性与可观测性](#可靠性与可观测性)
-- [分层评测](#分层评测)
-- [技术栈](#技术栈)
-- [快速启动](#快速启动)
-- [仓库结构](#仓库结构)
-- [文档导航](#文档导航)
-- [后续迭代](#后续迭代)
+视频展示退款咨询、401 排障、知识缺口处理、人工交接与运行轨迹。[播放或下载 MP4](https://raw.githubusercontent.com/LMM1234556/EchoMind/main/docs/assets/portfolio/echomind-demo.mp4) · [查看演示说明](docs/PRODUCT_DEMO.md)
 
 ## 项目概览
 
-EchoMind 面向同时处理产品咨询、技术故障、账单售后和人工服务的一线客服团队。系统将一条用户消息转化为结构化意图和路由决策，由专业 Agent 协作处理，并通过知识库证据、会话记忆与运行 Trace 支撑可追踪的回答链路。
+EchoMind 面向同时处理产品咨询、技术问题和账单售后的客服场景，将用户请求组织成“理解诉求 → 分配职责 → 查证知识 → 生成回复 → 评测改进”的工作流。
 
-本项目同时从两个视角呈现个人能力：
+产品重点解决三类问题：一条消息中的多个诉求容易漏答；相关文档未必足以支持具体政策结论；多次模型调用会增加等待时间和 Token 消耗。系统通过多 Agent 分工、分项证据选择和组件级调用策略处理这些问题，并在调试工作台中展示决策依据。
 
-- **Agent 应用与工程视角**：展示意图融合、主辅路由、工具治理、RAG 证据门控、记忆隔离、可观测性和自动化回归；
-- **AI 产品视角**：展示用户问题拆解、Agent 职责设计、需求优先级、核心链路、指标体系、评测发现与迭代规划。
-
-| 项目要素 | 内容 |
-|---|---|
-| 目标用户 | 企业软件客服团队，以及需要统一处理产品、技术和账单问题的一线客服 |
-| 产品目标 | 提升复合诉求覆盖率、平台业务事实的证据完整性，以及问题定位和评测效率 |
-| 核心方案 | 细粒度意图识别 + 主辅 Agent 路由 + Grounded RAG + 分层记忆 + Trace/Evaluation |
-| 当前形态 | 本地可运行的产品原型、公开代码仓库、产品演示视频和可复核评测报告 |
-| 核心链路 | `用户请求 → 意图识别 → Agent 路由 → 工具/知识/记忆 → 回复合成 → Trace 与评测` |
-
-## 个人工作
-
-本仓库在已有 EchoMind 项目基础上完成产品化改进与工程验证，个人工作集中在以下方面：
-
-- 梳理产品咨询、技术故障、账单售后和人工交接四类业务职责，完善主 Agent 与辅助 Agent 的协作路径；
-- 接入 Qwen API，并将中文检索模型从 MiniLM 迁移至 BGE，建立同一冻结集上的前后对照；
-- 在 `/chat` 检索链路引入 Top-3 Evidence Selector 和知识缺口识别；
-- 完善工具调用、会话隔离和异常降级，通过综合回归定位复合意图路由与记忆指令分流的改进方向；
-- 建设意图、检索、证据选择、完整链路与自动化回归的分层评测体系；
-- 完善产品调试工作台、运行 Trace、评测报告和作品集演示材料。
-
-基础架构、个人改进和上游扩展分别列于[实现范围与版本对照](docs/IMPLEMENTATION_SCOPE.md)。当前分支聚焦中文 Grounded RAG 与评测，上游新版的标准 MCP、在线意图向量和异步评测列入后续分项接入范围。
-
-## 核心成果
-
-| 能力层 | 已验证结果 | 样本与口径 |
-|---|---:|---|
-| 意图识别 | Accuracy **98.95%**，Macro-F1 **98.94%** | 95 条、19 类冻结合成样本 |
-| 中文检索 | Hit@1 **55.56% → 97.22%**，BGE Hit@3 **100%** | 同一 60 条冻结集；排序指标统计其中 36 条有答案查询 |
-| 证据选择 | 严格证据选择 **87.50%** | 24 条 Grounded Chat v2 冻结集 |
-| 知识缺口识别 | **91.67%** | 同一 24 条 Grounded Chat v2 冻结集 |
-| 回答事实忠实度 | **83.33%（20/24）** | 项目负责人逐条复核 |
-| 完整链路基线 | 严格端到端 **62.50%（5/8）** | 2026-10-26：7 个场景、8 次真实请求，包含多轮会话 |
-| Judge 校准实验 | 完成 **24 条**双人评分与模型评分对比 | 16 条校准、8 条留出验证；结果与采用决策见[校准分析](backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
-| 工程回归 | **198/198** 通过 | 2026-11-06 独立源码快照回归，详见[事实约束验证](docs/EVIDENCE_CONSTRAINTS_20261106.md)；[任务分流验证](docs/TASK_ROUTING_VERIFICATION_20261105.md)保留分项记录 |
-
-各项指标分别衡量意图、检索、证据门控、回答质量和完整链路，并按对应样本范围独立解读。原始证据见[当前 Top-3 综合回归](backend/evaluation/reports/e2e_current_top3_20261026.md)与[评测资料](backend/evaluation/reports/)。
-
-新一轮 60 条回答覆盖评测已完成全部首次 HTTP 记录的验收：[首批](backend/evaluation/reports/answer_coverage_60_v1_batch01_20261106.md)严格通过 8/10，[第二批](backend/evaluation/reports/answer_coverage_60_v1_batch02_20261106.md)为 4/10，[第三批](backend/evaluation/reports/answer_coverage_60_v1_batch03_20261106.md)为 3/10，[第四批](backend/evaluation/reports/answer_coverage_60_v1_batch04_20261106.md)为 6/10，[第五批](backend/evaluation/reports/answer_coverage_60_v1_batch05_20261106.md)为 3/10，[第六批](backend/evaluation/reports/answer_coverage_60_v1_batch06_20261106.md)为 3/10。整轮共 27 条通过、19 条部分完成、13 条未通过、1 条预算控制未完成，首次目标严格通过为 27/60（45%）。该比例衡量冻结场景下的首次请求契约完成情况，不等同于系统总准确率或生产 SLA；回答质量、运行故障和预算控制分别记录。完整方法、分组结果和改进优先级见[60 条汇总报告](backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md)。
-
-## 系统架构
-
-```mermaid
-flowchart LR
-    U[用户请求] --> API[FastAPI /chat]
-    API --> INTENT[意图识别<br/>LLM + Embedding + Pattern]
-    INTENT --> ORCH[Orchestrator<br/>结构化路由]
-
-    ORCH --> GENERAL[General Agent]
-    ORCH --> TECH[Technical Agent]
-    ORCH --> BILLING[Billing Agent]
-    ORCH --> ESC[Escalation Agent]
-
-    ORCH --> RAG[Grounded RAG<br/>检索 + Evidence Selector]
-    RAG --> KB[(ChromaDB<br/>Knowledge Base)]
-
-    ORCH --> TOOLS[工具治理与 Skills]
-    ORCH --> MEMORY[分层记忆]
-    MEMORY --> REDIS[(Redis<br/>Working Memory)]
-    MEMORY --> HISTORY[(ChromaDB<br/>Episodic Memory / Profile)]
-
-    GENERAL --> COMPOSE[结果合成]
-    TECH --> COMPOSE
-    BILLING --> COMPOSE
-    ESC --> COMPOSE
-    RAG --> COMPOSE
-    TOOLS --> COMPOSE
-    MEMORY --> COMPOSE
-
-    COMPOSE --> RESPONSE[客服回复]
-    RESPONSE --> OBS[Trace / Metrics / Evaluation]
-```
-
-### 请求处理流程
-
-1. **接收请求**：`/chat` 校验用户、会话和消息，加载当前会话上下文；
-2. **识别意图**：融合 LLM 语义判断、Embedding 相似度和关键词 Pattern，输出结构化意图与置信度；
-3. **生成路由**：Orchestrator 选择主 Agent，并为复合诉求补充辅助 Agent；
-4. **获取上下文**：按需要并行调用工具、Skills、知识库和会话记忆；
-5. **确认业务证据**：从候选文档中选择能够支持当前问题的证据；
-6. **合成回复**：保留主辅 Agent 的职责信息，生成面向用户的统一回答；
-7. **记录与评测**：保存意图、路由、工具、证据和阶段耗时，供调试与回归使用。
-
-## 核心能力
-
-| 能力 | 技术实现 | 产品价值 |
+| 角色 | 需求 | 对应能力 |
 |---|---|---|
-| 多 Agent 编排 | General、Technical、Billing、Escalation 四类 Agent；结构化主辅路由；异步并行执行 | 让不同业务职责独立演进，并覆盖技术与账单等复合诉求 |
-| 细粒度意图识别 | LLM + Embedding + Pattern 加权融合；19 类业务意图；结构化置信度与来源分数 | 为 Agent 路由、知识检索和人工交接提供统一决策入口 |
-| Grounded RAG | 快速关键词/向量检索、查询改写、Top-K 召回、LLM 重排、Evidence Selector | 将“找到相关文档”和“文档足以回答”分成两个可评测阶段 |
-| 工具与 Skills | 参数校验、超时、TTL 缓存、熔断、Fallback；Markdown/JSON 规则热加载 | 让业务规则与代码解耦，并提升外部组件波动下的服务连续性 |
-| 分层记忆 | Redis 工作记忆与摘要；ChromaDB 情景记忆和用户画像；用户/会话隔离 | 支持多轮对话、历史信息召回和可控的上下文压缩 |
-| 可观测与评测 | Tool Trace、阶段耗时、Prometheus-compatible Metrics、冻结集和 LLM-as-Judge 框架 | 将问题定位到意图、路由、检索、证据选择或生成阶段 |
+| 咨询用户 | 获得完整回答和清楚的下一步 | 逐项回应、政策说明、核实与人工交接 |
+| 一线客服 | 区分产品、技术、账单等处理职责 | 意图识别、专业 Agent 路由、交接摘要 |
+| 知识维护与运营人员 | 了解缺少哪些政策、哪些回答需要改进 | 文档管理、知识缺口状态、案例复盘 |
+| 产品与研发人员 | 定位质量问题并权衡效果与成本 | Trace、分层评测、隔离配对对照 |
 
-> 当前分支沿用 `MCPToolManager` 管理项目内工具。上游新版已提供标准 MCP 客户端／服务端，列入本分支后续协议接入范围，详见[版本对照](docs/IMPLEMENTATION_SCOPE.md#2-当前分支的关键实现)。
+当前提供 Python 后端、Vue 调试工作台、演示知识库、评测数据和可复核报告。
 
-## Agent 职责与产品场景
+## 主要工作与交付
 
-### Agent 职责矩阵
+在 EchoMind 原有架构上，维护者负责场景拆解、方案设计、开发任务拆分、代码审阅、样本复核和评测分析，并使用 Codex 辅助实现与迭代。
 
-| Agent | 主要职责 | 典型工具/上下文 | 输出重点 |
+- **产品方案**：整理四类客服职责、核心用户流程、需求优先级与验收条件。
+- **模型与检索**：接入 Qwen API，迁移中文 BGE Embedding，并建立同一冻结集上的检索对照。
+- **回答质量**：接入 Top-3 Evidence Selector，对复合诉求分别检索和确认依据，逐项组织回复。
+- **评测迭代**：完成意图、检索、回答覆盖、双人评分与 Judge 校准，将失败案例转化为改进项。
+- **效率优化**：根据组件 Token 与耗时关闭结构化任务的思考模式，完成隔离配对对照。
+- **交付体验**：提供演示视频、产品工作台、运行 Trace、Docker 启动方式和文档导航。
+
+[实现与贡献范围](docs/IMPLEMENTATION_SCOPE.md) · [变更记录](docs/CHANGES.md) · [项目来源](NOTICE.md)
+
+## 关键迭代与结果
+
+| 问题 | 方案与决策 | 已验证结果 | 样本 |
 |---|---|---|---|
-| General | 接待、范围澄清、一般咨询 | 通用 Skills、知识检索 | 理解需求并给出下一步 |
-| Technical | 登录、错误码、配置和技术排障 | 错误码查询、技术知识库 | 区分平台事实与通用排障建议 |
-| Billing | 支付、退款、发票和账单问题 | 账单 Skills、政策证据 | 基于已确认依据说明规则与时效 |
-| Escalation | 人工服务和高优先级交接 | 结构化意图、会话摘要 | 生成可继续处理的交接信息 |
+| 中文口语查询召回不足 | 将知识库 Embedding 从 MiniLM 迁移至中文 BGE | Hit@1：55.56% → 97.22% | 同一 60 条冻结检索集，其中 36 条有答案查询 |
+| 复合请求只回答一部分 | 拆分子问题、并行取证，按子问题保留证据状态 | 定向回归 4/4 完成目标，经人工复核 | 048、049、051、052 四条已知问题 |
+| 结构化任务产生较多思考 Token | 对意图识别、证据选择和画像提取关闭思考，最终回复保留原配置 | 总 Token 下降 40.0%；平均响应 82.22 → 34.77 秒 | 4 题配对、两组各 4 次请求，均为全新会话 |
+| 自动评分偏宽 | 双人评分、证据对齐复核与 Judge 校准 | 完成 24 条四维配对评分，采用人工复核进行质量验收 | 16 条校准、8 条同批留出验证 |
+| 迭代后功能稳定性 | 持续维护工具、记忆、路由和证据门控回归 | 205/205 自动化检查通过 | 2026-11-07 验证 |
 
-### 典型产品场景
+效果按对应样本和版本报告。性能对照固定先运行控制组、再运行实验组；延迟结果同时受到供应商运行状态影响。详见[性能报告](docs/PERFORMANCE_TOKEN_PROFILE_20261106.md)与[评测总览](docs/EVALUATION_COVERAGE.md)。
 
-| 用户请求 | 系统行为 | 可观察结果 |
-|---|---|---|
-| “退款审核需要多久？” | 识别 `refund`，路由 Billing，检索并选择退款政策证据 | 展示 Agent、意图、证据和工具耗时 |
-| “登录一直提示 401” | 路由 Technical，结合错误码工具和技术知识生成排障建议 | 展示技术 Agent 与工具 Trace |
-| “电子发票多久开出来？” | 检索后识别当前知识库的时效证据缺口 | 说明依据范围并引导进一步核验 |
-| “请转人工客服” | 进入 Escalation，生成结构化人工交接摘要 | 展示升级意图和交接结果 |
+## 从问题到产品决策
 
-更多界面字段和操作步骤见[静态产品演示](docs/PRODUCT_DEMO.md)。
+**相关文档还需要进一步查证。** 用户询问电子发票时效时，退款或订单文档可能在主题上相关，但具体开票天数需要直接政策依据。系统单独判断“是否足以回答”，依据充分时生成事实，资料缺口进入核实路径。
 
-## 可靠性与可观测性
+**复合诉求按项处理。** 用户同时询问密码重置和发票时效时，系统可以回答有依据的密码问题，并说明发票时效需要核实。单个子问题的资料状态会保留在 Trace 中。
 
-### 工具治理
+**按任务分配模型计算量。** 意图识别、证据选择、画像提取的目标是短 JSON；最终回复需要整合证据并解释。组件级思考策略在固定配对样本上验证质量与 Token 的变化。
 
-- **参数校验**：工具调用前验证必填参数和类型；
-- **TTL 缓存**：相同参数复用结果，降低重复检索与模型调用；
-- **超时与熔断**：限制单次调用时长，并依据近期成功率维护熔断状态；
-- **Fallback**：知识库或工具异常时返回结构化降级结果；
-- **并行协作**：主辅 Agent 并行执行，单个辅助结果异常时保留成功结果；
-- **结果 Trace**：记录调用来源、输入、成功状态、耗时、检索模式和证据选择结果。
+**评测用于决定下一次改动。** 60 条覆盖评测形成首次请求基线：27 条通过、19 条部分完成、13 条未通过、1 条预算控制未完成。复合诉求漏答由此进入优先级较高的改进项，后续定向结果与该基线分别记录。
 
-### 记忆与数据隔离
+[完整产品案例](docs/AI_PRODUCT_CASE_STUDY.md) · [需求与验收说明](docs/PRODUCT_REQUIREMENTS.md)
 
-- Redis 保存当前工作记忆和会话摘要，默认 TTL 为 24 小时；
-- ChromaDB 保存情景记忆和用户画像；
-- 数据键与向量元数据同时包含 `user_id` 和 `conversation_id`；
-- 摘要压缩保留关键历史信息，控制上下文长度；
-- Redis 或 ChromaDB 状态变化时，主对话链路继续提供清晰响应。
+## 工作流与技术实现
 
-### 可观测接口
+~~~mermaid
+flowchart LR
+    U[用户请求] --> I[意图与实体识别]
+    I --> O[主辅 Agent 路由]
+    O --> E[按需检索与分项证据选择]
+    M[Redis 工作记忆<br/>ChromaDB 历史与画像] --> O
+    S[工具与动态 Skills] --> O
+    K[中文 BGE / ChromaDB 知识库] --> E
+    E --> A[Agent 生成与回复整合]
+    O --> A
+    A --> R[回答与核实路径]
+    R --> T[Trace / 运行监控 / 评测]
+~~~
 
-| 接口 | 作用 |
+| 能力 | 实现要点 |
 |---|---|
-| `GET /health` | 查看服务健康状态 |
-| `GET /metrics` | 输出 Prometheus-compatible 指标文本 |
-| `GET /monitor/summary` | 查看 Agent、工具与延迟摘要 |
-| `GET /trace/tool/{request_id}` | 查询单次请求工具 Trace |
-| `GET /trace/tools` | 查看近期工具调用记录 |
-| `POST /skills/reload` | 热加载 Skills 规则 |
+| 意图识别 | LLM 语义判断、字符 n-gram 相似度、关键词 Pattern 加权融合；19 类意图及置信度、实体、紧急度 |
+| Agent 编排 | General、Technical、Billing、Escalation；主辅路由、并行执行和结果整合 |
+| Grounded RAG | 中文 BGE 召回、候选去重、Top-3 Evidence Selector、选中来源校验、复合诉求分项取证 |
+| 工具治理 | 项目内 MCPToolManager；参数校验、TTL 缓存、超时、熔断与降级 |
+| 动态 Skills | 从 Markdown/JSON 加载业务规范，按 Agent 职责注入，支持运行时重载 |
+| 分层记忆 | Redis 工作记忆与摘要；ChromaDB 历史摘要和用户画像；用户与会话标识参与过滤 |
+| 可观测性 | 记录意图、路由、工具、证据、阶段耗时和模型调用；支持 Metrics 与评测报告 |
+| 开发与部署 | Python 3.12、FastAPI、Qwen API、Anthropic-compatible SDK、Vue 3、Vite 7、Docker Compose |
 
-## 分层评测
+[工程案例](docs/PORTFOLIO_CASE_STUDY.md) · [架构图](docs/架构图.md) · [业务流程](docs/业务流程说明.md)
 
-EchoMind 将“模型是否理解”“能否找到文档”“证据是否足够”“完整回答是否符合契约”分开评测，使每个结果都能映射到具体产品能力。
+## 演示场景
 
-| 评测层 | 关注问题 | 当前证据 |
+| 输入 | 处理方式 | 可查看信息 |
 |---|---|---|
-| 意图 | 是否识别正确业务场景和细粒度意图 | 95 条、19 类冻结集 |
-| 检索 | 正确文档是否进入 Top-1/Top-3 | 60 条 MiniLM/BGE 对照集 |
-| 证据门控 | 是否选对证据并识别知识缺口 | 24 条 Grounded Chat v2 |
-| 回答质量 | 回复是否忠于已选证据 | 24 条逐条事实复核 |
-| 完整链路 | 意图、路由、证据和回答是否同时满足契约 | 7 场景、8 次真实请求 |
-| 工程回归 | 关键机制在版本迭代后是否持续稳定 | 198 项自动化测试，验证日期 2026-11-05 |
+| 退款审核需要多久，审核通过后多久能到账？ | Billing 检索并确认退款政策 | 时效、证据与调用轨迹 |
+| 登录时一直提示 401，应该怎么排查？ | Technical 提供认证失败排查 | 平台依据与通用建议 |
+| 密码忘了但手机号还在，电子发票最晚几天开好？ | 两项诉求分别取证和回答 | 已确认依据与资料缺口 |
+| 我已经处理多次还没解决，请转人工客服 | Escalation 整理交接信息 | 升级状态与摘要 |
 
-2026-10-26 完整链路基线定位了问候标签、复合领域路由和任务分流问题。2026-11-05 已补充显式订单号记录分流并通过自动化回归，真实模型结果继续保留修复前基线。后续按[评测覆盖计划](docs/EVALUATION_COVERAGE.md)集中补充验证。
+## 评测资料
 
-## 技术栈
+| 评测 | 数据与方法 | 报告 |
+|---|---|---|
+| 意图识别 | 95 条、19 类人工审核的冻结合成样本；Accuracy 98.95%，Macro-F1 98.94% | [首次结果](backend/evaluation/reports/intent_test_v2_first_run_20261026.md) |
+| 中文检索 | 60 条冻结查询；Hit@1 统计 36 条有答案查询，另含 24 条负例 | [MiniLM/BGE 对照](backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) |
+| 证据与回答 | 24 条 Grounded Chat v2；严格选证 21/24，事实忠实度复核 20/24 | [证据与回答报告](backend/evaluation/reports/grounded_chat_test_v2_first_run_20261026.md) |
+| 完整回答覆盖 | 60 条目标回答；事实、覆盖、操作真实性和安全四项验收 | [分组结果](backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md) |
+| Judge 校准 | 同一批 24 条回答、双人四维评分、16/8 切分 | [校准分析](backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
+| 定向性能对照 | 4 题配对，两组各 19 次模型调用，目标质量均经人工确认 | [正式 A/B 记录](backend/evaluation/reports/performance_ab_4cases_20261106.md) |
 
-| 层级 | 技术 |
-|---|---|
-| Backend | Python 3.11、FastAPI、Pydantic、asyncio |
-| Model | Qwen API、Anthropic-compatible SDK |
-| Retrieval | BGE Chinese Embedding、ChromaDB、关键词/向量检索、LLM Rerank |
-| Memory | Redis、ChromaDB |
-| Frontend | Vue 3、Vite 7 |
-| Runtime | Docker、Docker Compose |
-| Observability | prometheus-client、structured trace、performance monitor |
-| Evaluation | pytest、冻结评测集、人工事实复核、LLM-as-Judge 框架 |
+上述评测覆盖不同层级，阅读时以对应报告中的样本、版本和验收标准为准。真实参与者可用性测试采用单独的[产品验证方案](docs/PRODUCT_VALIDATION_PLAN.md)。
 
-## 快速启动
+## 本地运行
 
-### 环境要求
+环境：Docker Desktop、Node.js 22.12+、已授权所选模型的百炼 API Key。
 
-- Docker Desktop
-- Node.js 22.12+（前端 Vite 7）
-- 阿里云百炼 API Key，并已授权所选 Qwen 模型
-
-### 1. 配置后端
-
-在目标磁盘目录打开 PowerShell，首次使用先获取代码：
-
-```powershell
+~~~powershell
 git clone https://github.com/LMM1234556/EchoMind.git
-Set-Location EchoMind
-```
+Set-Location EchoMind\backend
+Copy-Item .env.example .env
+~~~
 
-```powershell
-Set-Location backend
-if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-```
+在 backend/.env 中填写 ANTHROPIC_API_KEY，并确认 ANTHROPIC_MODEL 和 ANTHROPIC_BASE_URL 对应账号地域。该文件由 Git 忽略。
 
-在 `backend/.env` 中填写模型密钥。Docker Compose 从此文件读取模型和服务配置，当前兼容层沿用以下变量名：
-
-```env
-ANTHROPIC_API_KEY=your_api_key
-```
-
-`.env` 与 `.env.local` 均已由 Git 忽略。首次启动按本节配置 `.env` 即可；本地运行 Python 评测脚本时另见[配置说明](docs/完整使用指南.md#22-配置-env)。
-
-### 2. 启动 Redis、ChromaDB 与后端
-
-```powershell
-# 继续在 backend 目录执行
+~~~powershell
 docker compose config --quiet
 docker compose up -d --build redis chromadb echomind
 Invoke-RestMethod http://127.0.0.1:8000/health
-```
 
-### 3. 启动前端
-
-```powershell
-# 从 backend 进入前端目录
 Set-Location ..\frontend
-# 若依赖尚未安装，再执行 npm ci
+npm ci
 npm run dev -- --port 5174
-```
+~~~
 
-访问 <http://127.0.0.1:5174/>，选择 Python 后端。首次安装依赖时使用 `npm ci`。
+访问 <http://127.0.0.1:5174/>，选择 Python 后端。[完整使用指南](docs/完整使用指南.md)提供本地 Python 环境、模型缓存、接口和排障说明。
 
-### 4. 运行自动化测试
+自动化回归在 backend 目录执行：
 
-```powershell
-# 从 frontend 返回后端目录
-Set-Location ..\backend
-python -m venv venv
-.\venv\Scripts\python.exe -m pip install -r requirements.txt pytest
-.\venv\Scripts\python.exe -m pytest -q
-```
+~~~powershell
+python -m pytest tests -q
+~~~
 
-真实模型评测与 Mock/本地依赖测试分别运行，便于独立统计模型效果、API 用量和响应耗时。
-
-<details>
-<summary><strong>Evidence Selector 配置</strong></summary>
-
-```env
-EVIDENCE_SELECTOR_ENABLED=true
-EVIDENCE_SELECTOR_TOP_K=3
-EVIDENCE_SELECTOR_MAX_TOKENS=512
-EVIDENCE_SELECTOR_TIMEOUT_SECONDS=45
-```
-
-Evidence Selector 接收最多 3 条候选文档的标题与正文，将完成证据确认的文档传递给回复模型。
-
-</details>
-
-<details>
-<summary><strong>Qwen 结构化任务 Token 控制</strong></summary>
-
-```env
-ECHOMIND_DISABLE_THINKING_COMPONENTS=intent_recognizer,evidence_selector,memory.profile
-```
-
-对于 Qwen 模型，意图识别、证据选择和画像提取属于短 JSON 结构化任务，默认关闭思考；最终 Agent 回复仍保留提供商默认配置。四条固定复合诉求的隔离配对 A/B 中，目标任务均经人工确认通过，观测 Token 从 36,817 降至 22,099。该结果只适用于本次固定样本，不代表全量准确率或生产 SLA。完整设计与边界见[性能与 Token 报告](docs/PERFORMANCE_TOKEN_PROFILE_20261106.md)。
-
-</details>
-
-## 仓库结构
-
-```text
-EchoMind/
-├── backend/
-│   ├── agents/        # General / Technical / Billing / Escalation Agent
-│   ├── api/           # FastAPI 路由、健康检查、Trace 与 Metrics
-│   ├── core/          # 意图、数据模型与 Orchestrator
-│   ├── mcp/           # 项目内部工具治理与 ChromaDB 知识库
-│   ├── memory/        # Redis + ChromaDB 分层记忆
-│   ├── monitor/       # 性能监控、告警与路由惩罚
-│   ├── skills/        # Markdown / JSON 动态业务规则
-│   ├── evaluation/    # 冻结数据、评测脚本与报告
-│   └── tests/         # 自动化回归测试
-├── frontend/          # Vue + Vite 产品调试工作台
-├── docs/              # 产品案例、架构、运行指南和评测协议
-├── NOTICE.md          # 项目来源与展示说明
-└── SECURITY.md        # 密钥与部署安全说明
-```
+模型参数、Evidence Selector 与结构化任务思考策略见 backend/.env.example 和[性能报告](docs/PERFORMANCE_TOKEN_PROFILE_20261106.md)。
 
 ## 文档导航
 
-| 文档 | 适合阅读的人 | 内容 |
-|---|---|---|
-| [AI 产品案例](docs/AI_PRODUCT_CASE_STUDY.md) | HR、AI 产品面试官 | 用户、问题、方案、优先级、指标和迭代 |
-| [静态产品演示](docs/PRODUCT_DEMO.md) | 首次查看项目的人 | 四类核心场景和界面观察重点 |
-| [工程案例](docs/PORTFOLIO_CASE_STUDY.md) | 技术面试官 | 工程问题、改进方案、验证方式和结果 |
-| [实现范围与版本对照](docs/IMPLEMENTATION_SCOPE.md) | 技术面试官、代码审阅者 | 基础能力、个人改进、上游扩展与当前验证范围 |
-| [系统架构](docs/架构图.md) | 架构/后端面试官 | 服务、Agent、工具、记忆、存储与部署结构 |
-| [完整使用指南](docs/完整使用指南.md) | 本地运行者 | 配置、启动、接口、数据和排障说明 |
-| [Embedding 正式对照](backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) | RAG/算法面试官 | 60 条冻结集上的 MiniLM/BGE 对照 |
-| [RAG 评测协议](docs/RAG评测协议.md) | 评测面试官 | 数据口径、指标定义和可复核流程 |
-| [Judge 校准方案](docs/EVALUATION_CALIBRATION.md) | AI 产品/评测面试官 | 双人评分、证据对齐复核与同批样本内留出验证 |
-| [产品验证方案](docs/PRODUCT_VALIDATION_PLAN.md) | AI 产品面试官 | 可用性任务、KPI、观察字段与决策规则 |
-| [变更记录](docs/CHANGES.md) | 代码审阅者 | 主要工程改进与验证摘要 |
-| [仓库验证记录](docs/REPOSITORY_VERIFICATION_20261104.md) | 本地运行者、代码审阅者 | 隔离回归、配置与文档检查范围 |
-| [任务分流验证](docs/TASK_ROUTING_VERIFICATION_20261105.md) | 代码审阅者 | 订单信息分流、35 项新增检查与 198 项完整回归 |
-| [评测覆盖计划](docs/EVALUATION_COVERAGE.md) | 产品与评测人员 | 现有样本覆盖、场景缺口和一轮集中补强安排 |
+| 阅读目标 | 入口 |
+|---|---|
+| 理解用户、需求与产品决策 | [产品案例](docs/AI_PRODUCT_CASE_STUDY.md) · [需求与验收](docs/PRODUCT_REQUIREMENTS.md) |
+| 查看产品操作与演示 | [演示视频](docs/assets/portfolio/echomind-demo.mp4) · [场景说明](docs/PRODUCT_DEMO.md) |
+| 核对效果与优化证据 | [评测总览](docs/EVALUATION_COVERAGE.md) · [性能 A/B](backend/evaluation/reports/performance_ab_4cases_20261106.md) |
+| 理解代码与架构 | [工程案例](docs/PORTFOLIO_CASE_STUDY.md) · [实现范围](docs/IMPLEMENTATION_SCOPE.md) · [架构](docs/架构图.md) |
+| 配置与运行 | [使用指南](docs/完整使用指南.md) · [安全配置](SECURITY.md) |
+| 查看全部文档 | [文档中心](docs/README.md) |
 
 ## 后续迭代
 
-1. **复合请求分工**：明确技术与账单等跨领域诉求的主辅分配，并按领域呈现证据状态；
-2. **任务分流**：已完成显式订单号记录分流，继续扩展信息补充、事实查询与操作请求的边界；
-3. **响应性能**：减少重复查询改写和重排调用，记录阶段 Token 与成本；
-4. **评测校准**：已完成 24 条双人评分、证据对齐复核与 Judge 校准基线；留出 8 条上的平均 MAE 为 0.1789 → 0.1850，一致率保持 62.50%，后续优先强化 Judge 的证据核验与评分区分能力；
-5. **产品验证**：已建立 5 个固定任务、指标口径和会话汇总工具，下一步招募 5–8 位参与者开展首轮测试；
-6. **公网试点**：增加认证、授权、限流、日志脱敏、知识库审核和集中式密钥管理。
+- **用户体验**：按五个固定任务开展小规模参与者测试，记录任务完成率、用时和可信度。
+- **回答质量**：完善事实查询、信息补充和操作请求的分流，增强交接摘要。
+- **响应效率**：在更多请求类型上验证思考策略、调用合并和上下文压缩。
+- **应用集成**：按业务需要扩展订单、工单及标准 MCP 适配。
 
-## 项目来源与展示说明
+## 项目来源
 
-本仓库基于原 EchoMind Python 后端和 Vue 前端开展产品化与工程改进，重点呈现 Qwen 接入、中文 Embedding 迁移、Grounded RAG、多 Agent 路由、分层记忆、可靠性治理和分层评测。项目提供方已授权将该项目用于实习求职和公开作品展示，具体说明见 [NOTICE.md](NOTICE.md)。
+本仓库在 EchoMind Python 后端和 Vue 前端基础上开展产品与工程改进。来源、署名和展示授权说明见 [NOTICE.md](NOTICE.md)。

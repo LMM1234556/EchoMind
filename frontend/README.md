@@ -5,7 +5,7 @@
 项目目录：
 
 ```text
-./EchoMindFrontend
+EchoMind/frontend
 ```
 
 ## 功能
@@ -38,19 +38,19 @@ Docker 模式下，Nginx 会通过运行时注入的地址访问后端。默认�
 安装依赖：
 
 ```bash
-npm install
+npm ci
 ```
 
 启动：
 
 ```bash
-npm run dev
+npm run dev -- --port 5174
 ```
 
 访问：
 
 ```text
-http://localhost:5173
+http://localhost:5174
 ```
 
 如果后端端口不是默认值，可以启动时覆盖：

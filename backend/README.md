@@ -13,7 +13,7 @@ EchoMind 是一个面向客服/运营场景的多 Agent 智能系统，将以下
 ## 推荐阅读
 
 - [实现范围与版本对照](../docs/IMPLEMENTATION_SCOPE.md)
-- [任务分流与最新回归](../docs/TASK_ROUTING_VERIFICATION_20261105.md)
+- [评测与当前回归](../docs/EVALUATION_COVERAGE.md)
 - [评测覆盖与扩充计划](../docs/EVALUATION_COVERAGE.md)
 - [工程案例](../docs/PORTFOLIO_CASE_STUDY.md)
 - [工程变更摘要](../docs/CHANGES.md)
@@ -55,7 +55,7 @@ ANTHROPIC_API_KEY=your_api_key
 REDIS_PASSWORD=echomind123
 ```
 
-RAG 语义证据选择器默认启用。它从最多 3 条候选中选择一条证据充分的文档；知识缺口、超时或格式异常会进入核验引导流程。该步骤会为需要 RAG 的请求增加一次模型调用：
+RAG 语义证据选择器默认启用，每个子查询从最多 3 条候选中选择充分证据；复合请求分别取证后整合。知识缺口、超时或格式异常进入核验引导流程。意图识别、证据选择与画像提取默认关闭 Qwen 思考，最终回复保留原配置，详见[性能配对报告](evaluation/reports/performance_ab_4cases_20261106.md)。
 
 ```env
 EVIDENCE_SELECTOR_ENABLED=true

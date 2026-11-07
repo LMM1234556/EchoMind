@@ -1,67 +1,52 @@
 # EchoMind 文档中心
 
-本目录汇总产品设计、系统架构、工程实现与评测证据。建议根据阅读目标选择以下路径。
+按“了解产品 → 查看方案 → 核对效果 → 运行代码”的顺序阅读。
 
-## 推荐阅读路径
+## 快速入口
 
-### HR / AI 产品面试官
+| 阅读目标 | 文档 | 重点 |
+|---|---|---|
+| 看产品如何使用 | [演示与场景](PRODUCT_DEMO.md) | 视频、界面、输入和输出 |
+| 理解产品决策 | [产品案例](AI_PRODUCT_CASE_STUDY.md) | 场景、需求、取舍与迭代 |
+| 查看功能定义 | [需求与验收](PRODUCT_REQUIREMENTS.md) | 用户故事、流程、异常行为与指标 |
+| 核对实验结果 | [评测总览](EVALUATION_COVERAGE.md) | 数据、版本与各层验证 |
+| 理解工程实现 | [工程案例](PORTFOLIO_CASE_STUDY.md) | 路由、证据、记忆、工具与性能 |
+| 本地运行 | [完整使用指南](完整使用指南.md) | 配置、启动、接口和排障 |
 
-1. [AI 产品案例](AI_PRODUCT_CASE_STUDY.md)：用户、场景、产品目标、方案、优先级、指标与迭代；
-2. [静态产品演示](PRODUCT_DEMO.md)：无需启动环境即可了解四类核心场景；
-3. [当前完整链路报告](../backend/evaluation/reports/e2e_current_top3_20261026.md)：真实请求、路由、证据和回答契约结果。
+## 产品方案
 
-### 技术 / 架构面试官
+- [产品案例](AI_PRODUCT_CASE_STUDY.md)：从场景问题到方案、评测与产品决策。
+- [需求与验收说明](PRODUCT_REQUIREMENTS.md)：功能、用户流程、异常状态与验收条件。
+- [演示说明](PRODUCT_DEMO.md)：88 秒视频及典型操作。
+- [产品验证方案](PRODUCT_VALIDATION_PLAN.md)：五个固定任务、参与者观察与指标。
 
-1. [系统架构](架构图.md)：服务、Agent、工具、记忆、存储与部署关系；
-2. [工程案例](PORTFOLIO_CASE_STUDY.md)：关键工程问题、实现方案和验证方式；
-3. [完整使用指南](完整使用指南.md)：配置、启动、接口、数据和排障说明；
-4. [业务流程说明](业务流程说明.md)：意图、路由、工具、Skills、记忆与回复生成流程。
-5. [实现范围与版本对照](IMPLEMENTATION_SCOPE.md)：基础能力、个人改进与上游新版扩展。
+## 工程实现
 
-### RAG / 评测方向
+- [实现与贡献范围](IMPLEMENTATION_SCOPE.md)：原有模块、本仓库改进与源码对应。
+- [工程案例](PORTFOLIO_CASE_STUDY.md)：关键机制与验证。
+- [系统架构](架构图.md)：服务、Agent、工具、记忆、存储与部署关系。
+- [业务流程](业务流程说明.md)：请求、路由和回复生成。
+- [技术能力](EchoMind定位与技术亮点.md)：各模块用途与入口。
+- [完整使用指南](完整使用指南.md)：本地环境、模型配置与排障。
+- [变更记录](CHANGES.md)：按时间记录主要交付。
 
-1. [Embedding 正式对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md)：60 条冻结集上的 MiniLM/BGE 对照；
-2. [Embedding 迁移记录](EMBEDDING_MIGRATION.md)：模型、维度、Collection 与回滚策略；
-3. [RAG 评测协议](RAG评测协议.md)：数据口径、指标定义和复核流程；
-4. [意图评测数据规范](意图评测数据规范.md)：标签、冻结集和审核规则；
-5. [LLM-as-Judge 人工校准方案](EVALUATION_CALIBRATION.md)：四维人工评分、证据对齐复核与同批样本内留出验证结果；
-6. [产品验证方案](PRODUCT_VALIDATION_PLAN.md)：任务完成率、处理时间、可信度和质量护栏；
-7. [评测报告目录](../backend/evaluation/reports/)：意图、检索、证据门控与完整链路报告；
-8. [仓库验证记录](REPOSITORY_VERIFICATION_20261104.md)：当前版本回归、配置和文档检查。
-9. [任务分流验证](TASK_ROUTING_VERIFICATION_20261105.md)：显式订单号记录与 198 项完整回归。
-10. [评测覆盖计划](EVALUATION_COVERAGE.md)：现有样本覆盖、缺口及一轮集中补强安排。
+## 评测与优化
 
-## 文档清单
+| 主题 | 入口 | 数据或范围 |
+|---|---|---|
+| 意图识别 | [v2 首次结果](../backend/evaluation/reports/intent_test_v2_first_run_20261026.md) | 95 条、19 类冻结合成样本 |
+| 中文检索 | [MiniLM/BGE 对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) | 60 条查询，36 条有答案 |
+| 证据与回答 | [Grounded Chat v2](../backend/evaluation/reports/grounded_chat_test_v2_first_run_20261026.md) | 24 条支持与缺口样本 |
+| 完整回答覆盖 | [60 条汇总](../backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md) | 五类场景首次目标回答 |
+| 复合诉求 | [分项取证](COMPOSITE_EVIDENCE_ROUTING_20261106.md) | 四条已知问题定向回归 |
+| 性能与 Token | [组件分析](PERFORMANCE_TOKEN_PROFILE_20261106.md) · [正式配对报告](../backend/evaluation/reports/performance_ab_4cases_20261106.md) | 四题、两组隔离对照 |
+| 评分校准 | [方案](EVALUATION_CALIBRATION.md) · [结果分析](../backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) | 双人评分，16/8 切分 |
+| 历史综合链路 | [2026-10-26 结果](../backend/evaluation/reports/e2e_current_top3_20261026.md) | 7 场景、8 次请求 |
+| 数据规则 | [意图规范](意图评测数据规范.md) · [RAG 协议](RAG评测协议.md) | 标注、冻结与复核 |
+| 向量迁移 | [迁移说明](EMBEDDING_MIGRATION.md) · [早期开发实验](EMBEDDING_BENCHMARK.md) | 模型、collection 与回退 |
+| 运行检查 | [2026-11-04](REPOSITORY_VERIFICATION_20261104.md) · [任务分流](TASK_ROUTING_VERIFICATION_20261105.md) | 历史配置与分项回归 |
 
-| 文档 | 内容 |
-|---|---|
-| [AI_PRODUCT_CASE_STUDY.md](AI_PRODUCT_CASE_STUDY.md) | 面向 AI 产品岗位的完整案例复盘 |
-| [PRODUCT_DEMO.md](PRODUCT_DEMO.md) | 产品界面和四类核心场景 |
-| [PORTFOLIO_CASE_STUDY.md](PORTFOLIO_CASE_STUDY.md) | 工程改进、验证结果和下一阶段计划 |
-| [IMPLEMENTATION_SCOPE.md](IMPLEMENTATION_SCOPE.md) | 当前分支实现、贡献范围和上游能力对照 |
-| [EchoMind定位与技术亮点.md](EchoMind定位与技术亮点.md) | 项目定位与整体技术能力 |
-| [架构图.md](架构图.md) | 六张系统架构图入口 |
-| [业务流程说明.md](业务流程说明.md) | 端到端业务和 Agent 处理流程 |
-| [完整使用指南.md](完整使用指南.md) | 本地运行、接口和运维说明 |
-| [CHANGES.md](CHANGES.md) | 文件级工程变更摘要 |
-| [正式检索对照](../backend/evaluation/reports/retrieval_test_v1_first_run_20261026.md) | 60 条冻结集；排序指标统计 36 条有答案查询 |
-| [EMBEDDING_BENCHMARK.md](EMBEDDING_BENCHMARK.md) | 早期中文 Embedding 开发探索 |
-| [EMBEDDING_MIGRATION.md](EMBEDDING_MIGRATION.md) | Embedding 迁移与回滚说明 |
-| [RAG评测协议.md](RAG评测协议.md) | RAG 指标与冻结评测流程 |
-| [意图评测数据规范.md](意图评测数据规范.md) | 意图数据集和标注规范 |
-| [EVALUATION_CALIBRATION.md](EVALUATION_CALIBRATION.md) | LLM-as-Judge 人工校准流程与指标 |
-| [PRODUCT_VALIDATION_PLAN.md](PRODUCT_VALIDATION_PLAN.md) | 小规模产品可用性测试与 KPI 口径 |
-| [REPOSITORY_VERIFICATION_20261104.md](REPOSITORY_VERIFICATION_20261104.md) | 2026-11-04 版本验证范围与结果 |
-| [TASK_ROUTING_VERIFICATION_20261105.md](TASK_ROUTING_VERIFICATION_20261105.md) | 2026-11-05 任务分流修复与 198 项回归结果 |
-| [EVALUATION_COVERAGE.md](EVALUATION_COVERAGE.md) | 评测覆盖、开发回归和集中补强计划 |
+完整历史报告保留在[评测报告目录](../backend/evaluation/reports/)。每份报告注明对应的任务、代码和样本，便于对照版本变化。
 
-## 证据层级
-
-功能与效果结论按以下顺序复核：
-
-1. 当前代码与配置；
-2. 自动化测试；
-3. 固定开发集与冻结集报告；
-4. 真实请求的完整链路记录；
-5. 产品与工程文档中的设计说明。
+[返回项目首页](../README.md)
 

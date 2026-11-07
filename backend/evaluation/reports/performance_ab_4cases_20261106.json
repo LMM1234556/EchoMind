@@ -1,0 +1,1053 @@
+{
+  "experiment": "EchoMind structured-task thinking paired comparison",
+  "run_date": "2026-11-06",
+  "review_date": "2026-11-07",
+  "sample_size_per_group": 4,
+  "order": [
+    "control",
+    "treatment"
+  ],
+  "preflight_redis_keys_per_group": 0,
+  "post_run_messages_per_conversation": 2,
+  "groups": {
+    "control": {
+      "code_commit": "d097b2bd6b55679f5058ea66a0ffd73ca815a626",
+      "model": "qwen3.6-plus",
+      "corpus_sha256": "470cfaa0596674faaf8891b9eed5896a211fd7e502743ec3c63fb7d7f2e4a466",
+      "runtime_source_hashes": {
+        "agents/agent_orchestrator.py": "adcdd2f1dbc35f0c44258739389ac43bf509c0830fdf6c9aff413358d9eaa7da",
+        "agents/tools.py": "71efaf0b56dc6068c2a5e8bf89dee8172e9ddfd4dbd83b3daa3c3db92d27f5df",
+        "core/knowledge_routing.py": "80e407238b461a5e685fab07fe2fcd1da84646f02129e740e2d7a8cb84b3d84e",
+        "core/evidence_selector.py": "d2271e6163c9ffb63142062095451aabeb5f772b5ab98d70d44781a38eb2d0fe",
+        "core/intent_recognizer.py": "b281cf65acd6610859b650d5e8a40a528d2475ce787c8b2432e916cf050aca6c",
+        "core/llm_utils.py": "16d70bdfe42d0cde7f51a218fdd6b0ce91f91c56178b16b3342b3af7ef0babc8",
+        "api/main.py": "4eeead6beae0cebd5f8979405c39a0bf0cd387400d83ef1094a0af029e47438b",
+        "mcp/tool_manager.py": "89d8a2076a99c2caff587e42319ee5945b9f866c6fd31a7a5a11af2097277366",
+        "mcp/knowledge_base.py": "26821d69fb637bc605482041dd91d95e29963b8a8e3e47da5a1b012eb8eb1b74",
+        "memory/conversation_memory.py": "4492b9ff8cf854bb37b0c326ff7799caac7fbeaaf5d996b887a38ecf678c7fd5"
+      },
+      "generation_policy": {
+        "disable_thinking_components": "none",
+        "final_agent_provider_default": true
+      },
+      "conversation_namespace": "perf-ab-d097b2b-control-20261106-r1",
+      "run_totals": {
+        "provider_calls": 19,
+        "input_tokens": 16913,
+        "output_tokens": 19904,
+        "total_tokens": 36817,
+        "unknown_usage_calls": 0,
+        "halt_reason": ""
+      },
+      "cases": [
+        {
+          "id": "composite-regression-048",
+          "question": "密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+          "expected_behavior": "密码问题可给绑定手机或邮箱重置指引；发票时限缺少资料，应核实，不编造统一时限。",
+          "reference_titles": [
+            "账户安全"
+          ],
+          "answer": "关于您的两个问题，分别说明如下：\n\n**1. 密码找回**\n根据当前账户安全说明，忘记密码但手机号仍绑定在账户上的情况下，您可以直接通过该绑定的手机号完成密码重置。为保障账户安全，建议新密码长度至少8位并包含字母与数字，且请勿将密码分享给他人（客服人员也不会索要您的密码）。\n\n**2. 电子发票开具时效**\n当前知识库中暂无电子发票具体开具时效的直接依据，无法给出确切的最晚天数。该时效需以实际业务系统或人工核实结果为准。如您后续需要申请开具或查询具体订单的发票进度，可提供订单号或交易信息，我将为您整理已知信息并引导人工核实处理。",
+          "external_latency_ms": 105441.3,
+          "stage_timings": {
+            "memory_read_ms": 385.6,
+            "intent_recognition_ms": 48644.4,
+            "agent_billing_ms": 56371.4,
+            "orchestration_ms": 56371.9,
+            "memory_write_ms": 7.2,
+            "api_total_ms": 105409.3
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_partial",
+              "evidence_selected_titles": [
+                "账户安全"
+              ],
+              "evidence_complete": false,
+              "subquery_results": [
+                {
+                  "query": "密码忘了但手机号还在",
+                  "supported": true,
+                  "selected_titles": [
+                    "账户安全"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "电子发票最晚几天能开好",
+                  "supported": false,
+                  "selected_titles": [],
+                  "evidence_gate": "knowledge_gap",
+                  "retrieval_mode": "knowledge_gap"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 1,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 862,
+              "output_tokens": 2439,
+              "latency_ms": 48615.1,
+              "success": true
+            },
+            {
+              "call_id": 2,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 320,
+              "output_tokens": 1326,
+              "latency_ms": 26619.6,
+              "success": true
+            },
+            {
+              "call_id": 3,
+              "component": "agent.billing",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 1100,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2381,
+              "output_tokens": 1566,
+              "latency_ms": 29680.5,
+              "success": true
+            },
+            {
+              "call_id": 4,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 234,
+              "output_tokens": 1710,
+              "latency_ms": 32925.1,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "控制组正确回答手机号重置密码，并对电子发票开具时限明确标记知识缺口。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "04a65d690730f7a19f61b4c107408e033483484a06a3204cf02629317b45fc05"
+        },
+        {
+          "id": "composite-regression-049",
+          "question": "加急配送要付多少运费，退款审核通过后又需要多久到账？",
+          "expected_behavior": "两部分分别对应15元及审核通过后5–7个工作日；无法取得某部分充分证据时明确说明。",
+          "reference_titles": [
+            "配送说明",
+            "退款政策"
+          ],
+          "answer": "根据当前平台政策，为您逐项说明：\n\n- **加急配送运费**：15 元。\n- **退款到账时效**：退款审核通过后，款项将在 5-7 个工作日内退回至您的原支付账户。\n\n以上为平台通用规则。如您需为具体订单提交退款申请或查询进度，请提供订单号、支付金额及支付时间，我将为您整理信息并引导后续处理。",
+          "external_latency_ms": 68717,
+          "stage_timings": {
+            "memory_read_ms": 73.9,
+            "intent_recognition_ms": 32000,
+            "agent_billing_ms": 36610.5,
+            "orchestration_ms": 36610.8,
+            "memory_write_ms": 5.6,
+            "api_total_ms": 68690.4
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_complete",
+              "evidence_selected_titles": [
+                "配送说明",
+                "退款政策"
+              ],
+              "evidence_complete": true,
+              "subquery_results": [
+                {
+                  "query": "加急配送要付多少运费",
+                  "supported": true,
+                  "selected_titles": [
+                    "配送说明"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "退款审核通过后又需要多久到账",
+                  "supported": true,
+                  "selected_titles": [
+                    "退款政策"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 5,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 863,
+              "output_tokens": 1605,
+              "latency_ms": 31954.6,
+              "success": true
+            },
+            {
+              "call_id": 7,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 348,
+              "output_tokens": 391,
+              "latency_ms": 10786.3,
+              "success": true
+            },
+            {
+              "call_id": 6,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 341,
+              "output_tokens": 580,
+              "latency_ms": 15988.5,
+              "success": true
+            },
+            {
+              "call_id": 8,
+              "component": "agent.billing",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 1100,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2515,
+              "output_tokens": 871,
+              "latency_ms": 20545.2,
+              "success": true
+            },
+            {
+              "call_id": 9,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 175,
+              "output_tokens": 288,
+              "latency_ms": 9213.2,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "控制组准确回答加急配送15元及审核通过后5至7个工作日退回原支付账户。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "456e8e6a335b872b72e3d7001a9a206686b2078802c05f8ed7f35fc0583e814f"
+        },
+        {
+          "id": "composite-regression-051",
+          "question": "登录401该如何排查，另外100积分按规则能抵扣多少钱？",
+          "expected_behavior": "分别覆盖认证失败排查和100积分抵1元；不将积分换算当作付款执行。",
+          "reference_titles": [
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "answer": "根据您提供的信息，以下是针对两个问题的解答：\n\n**1. 登录 401 错误排查**\n401 错误表示**认证失败**。建议您按以下步骤排查：\n*   **核对账号信息**：请检查输入的用户名和密码是否正确（注意大小写及前后空格）。\n*   **重置密码**：如果确认账号密码无误但仍提示 401，建议尝试使用“忘记密码”功能重置密码后重新登录。\n\n**2. 积分抵扣规则**\n根据平台规则，**100 积分 = 1 元**。您可以在下次购物时使用积分进行抵扣。\n\n如果重置密码后仍无法登录，或需要进一步协助，请提供具体的错误提示或截图，我将为您进一步排查。",
+          "external_latency_ms": 76954.2,
+          "stage_timings": {
+            "memory_read_ms": 116.6,
+            "intent_recognition_ms": 36937.6,
+            "agent_technical_ms": 39869.3,
+            "orchestration_ms": 39869.5,
+            "memory_write_ms": 5.2,
+            "api_total_ms": 76929
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_complete",
+              "evidence_selected_titles": [
+                "技术故障排查",
+                "会员与积分"
+              ],
+              "evidence_complete": true,
+              "subquery_results": [
+                {
+                  "query": "登录401该如何排查",
+                  "supported": true,
+                  "selected_titles": [
+                    "技术故障排查"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "100积分按规则能抵扣多少钱",
+                  "supported": true,
+                  "selected_titles": [
+                    "会员与积分"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 10,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 865,
+              "output_tokens": 1966,
+              "latency_ms": 36916.9,
+              "success": true
+            },
+            {
+              "call_id": 12,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 347,
+              "output_tokens": 670,
+              "latency_ms": 15288.2,
+              "success": true
+            },
+            {
+              "call_id": 11,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 358,
+              "output_tokens": 650,
+              "latency_ms": 16237.5,
+              "success": true
+            },
+            {
+              "call_id": 13,
+              "component": "agent.technical",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 1200,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2900,
+              "output_tokens": 488,
+              "latency_ms": 23547.5,
+              "success": true
+            },
+            {
+              "call_id": 14,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 247,
+              "output_tokens": 446,
+              "latency_ms": 11292.4,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "控制组覆盖401认证失败排查及100积分抵1元，未声称已经执行抵扣。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "de2fae20691edae4bba41521e02edcece04decc49793b44e29b9e2a9a7c1980c"
+        },
+        {
+          "id": "composite-regression-052",
+          "question": "一边是标准配送什么时候能到，另一边是订单异常时应提供什么信息给客服？",
+          "expected_behavior": "分别说明标准配送3–5个工作日及异常订单提供订单号联系客服；不查询或编造实时状态。",
+          "reference_titles": [
+            "配送说明",
+            "订单查询"
+          ],
+          "answer": "关于您的两个问题，为您分别说明：\n\n1. **标准配送时效**：通常为 **3-5 个工作日**送达。偏远地区可能需要额外 2-3 天，节假日配送可能会有所延迟。\n2. **订单异常需提供的信息**：请您提供 **订单号**，以便客服为您核实具体状态并处理。\n\n如果您当前有订单显示异常，可以直接回复订单号，我会帮您进一步跟进。还有其他需要协助的吗？",
+          "external_latency_ms": 77782.8,
+          "stage_timings": {
+            "memory_read_ms": 103.1,
+            "intent_recognition_ms": 39972.9,
+            "agent_general_ms": 37673.8,
+            "orchestration_ms": 37674.1,
+            "memory_write_ms": 4.8,
+            "api_total_ms": 77755
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_complete",
+              "evidence_selected_titles": [
+                "配送说明",
+                "订单查询"
+              ],
+              "evidence_complete": true,
+              "subquery_results": [
+                {
+                  "query": "一边是标准配送什么时候能到",
+                  "supported": true,
+                  "selected_titles": [
+                    "配送说明"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "另一边是订单异常时应提供什么信息给客服",
+                  "supported": true,
+                  "selected_titles": [
+                    "订单查询"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 15,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 866,
+              "output_tokens": 2112,
+              "latency_ms": 39960.6,
+              "success": true
+            },
+            {
+              "call_id": 16,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 348,
+              "output_tokens": 626,
+              "latency_ms": 14042,
+              "success": true
+            },
+            {
+              "call_id": 17,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 328,
+              "output_tokens": 619,
+              "latency_ms": 14302.6,
+              "success": true
+            },
+            {
+              "call_id": 18,
+              "component": "agent.general",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 900,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2431,
+              "output_tokens": 1205,
+              "latency_ms": 23272.8,
+              "success": true
+            },
+            {
+              "call_id": 19,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 184,
+              "output_tokens": 346,
+              "latency_ms": 8604.9,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "控制组准确回答标准配送3至5个工作日及异常订单提供订单号联系客服。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "0fb93817f7eecd5773b08772024e34d31fb35ef1141284aae071c4ec0825f7e7"
+        }
+      ]
+    },
+    "treatment": {
+      "code_commit": "d097b2bd6b55679f5058ea66a0ffd73ca815a626",
+      "model": "qwen3.6-plus",
+      "corpus_sha256": "470cfaa0596674faaf8891b9eed5896a211fd7e502743ec3c63fb7d7f2e4a466",
+      "runtime_source_hashes": {
+        "agents/agent_orchestrator.py": "adcdd2f1dbc35f0c44258739389ac43bf509c0830fdf6c9aff413358d9eaa7da",
+        "agents/tools.py": "71efaf0b56dc6068c2a5e8bf89dee8172e9ddfd4dbd83b3daa3c3db92d27f5df",
+        "core/knowledge_routing.py": "80e407238b461a5e685fab07fe2fcd1da84646f02129e740e2d7a8cb84b3d84e",
+        "core/evidence_selector.py": "d2271e6163c9ffb63142062095451aabeb5f772b5ab98d70d44781a38eb2d0fe",
+        "core/intent_recognizer.py": "b281cf65acd6610859b650d5e8a40a528d2475ce787c8b2432e916cf050aca6c",
+        "core/llm_utils.py": "16d70bdfe42d0cde7f51a218fdd6b0ce91f91c56178b16b3342b3af7ef0babc8",
+        "api/main.py": "4eeead6beae0cebd5f8979405c39a0bf0cd387400d83ef1094a0af029e47438b",
+        "mcp/tool_manager.py": "89d8a2076a99c2caff587e42319ee5945b9f866c6fd31a7a5a11af2097277366",
+        "mcp/knowledge_base.py": "26821d69fb637bc605482041dd91d95e29963b8a8e3e47da5a1b012eb8eb1b74",
+        "memory/conversation_memory.py": "4492b9ff8cf854bb37b0c326ff7799caac7fbeaaf5d996b887a38ecf678c7fd5"
+      },
+      "generation_policy": {
+        "disable_thinking_components": "intent_recognizer,evidence_selector,memory.profile",
+        "final_agent_provider_default": true
+      },
+      "conversation_namespace": "perf-ab-d097b2b-treatment-20261106-r1",
+      "run_totals": {
+        "provider_calls": 19,
+        "input_tokens": 17049,
+        "output_tokens": 5050,
+        "total_tokens": 22099,
+        "unknown_usage_calls": 0,
+        "halt_reason": ""
+      },
+      "cases": [
+        {
+          "id": "composite-regression-048",
+          "question": "密码忘了但手机号还在，另外电子发票最晚几天能开好？",
+          "expected_behavior": "密码问题可给绑定手机或邮箱重置指引；发票时限缺少资料，应核实，不编造统一时限。",
+          "reference_titles": [
+            "账户安全"
+          ],
+          "answer": "针对您的两个问题，分别说明如下：\n\n1. **密码重置**：根据账户安全说明，忘记密码但手机号仍在使用的情况下，您可以直接通过绑定的手机号进行密码重置。为保障账户安全，建议新密码长度至少8位并包含字母与数字，您也可在安全设置中开启两步验证。\n\n2. **电子发票开具时效**：当前已验证的知识库中暂无关于电子发票最晚开具天数的明确平台规定（该部分缺少直接依据）。\n   【通用建议】发票开具时效通常以订单支付完成或业务确认节点起算，具体天数请以平台官方帮助中心或发票申请页面的公示为准。\n\n如您仅需了解规则，可参考上述说明；如您需为**具体订单**申请或查询发票进度，请提供**订单号（或交易号）**与**支付金额**，我将为您整理信息并引导至对应业务入口或人工核实。",
+          "external_latency_ms": 44856,
+          "stage_timings": {
+            "memory_read_ms": 329.8,
+            "intent_recognition_ms": 4959.4,
+            "agent_billing_ms": 39524.7,
+            "orchestration_ms": 39525,
+            "memory_write_ms": 4.8,
+            "api_total_ms": 44819.1
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_partial",
+              "evidence_selected_titles": [
+                "账户安全"
+              ],
+              "evidence_complete": false,
+              "subquery_results": [
+                {
+                  "query": "密码忘了但手机号还在",
+                  "supported": true,
+                  "selected_titles": [
+                    "账户安全"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "电子发票最晚几天能开好",
+                  "supported": false,
+                  "selected_titles": [],
+                  "evidence_gate": "knowledge_gap",
+                  "retrieval_mode": "knowledge_gap"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 1,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 864,
+              "output_tokens": 64,
+              "latency_ms": 4941.8,
+              "success": true
+            },
+            {
+              "call_id": 2,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 322,
+              "output_tokens": 29,
+              "latency_ms": 3857.7,
+              "success": true
+            },
+            {
+              "call_id": 3,
+              "component": "agent.billing",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 1100,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2381,
+              "output_tokens": 1632,
+              "latency_ms": 35587.1,
+              "success": true
+            },
+            {
+              "call_id": 4,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 276,
+              "output_tokens": 83,
+              "latency_ms": 4202.9,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "实验组正确回答手机号重置密码，并对电子发票开具时限明确标记知识缺口；通用建议已明确区分。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "f8b91eabdcbf6a6006bf6d79f495dcfb2e96dfe7de7a1437e3139ab9ad25dd32"
+        },
+        {
+          "id": "composite-regression-049",
+          "question": "加急配送要付多少运费，退款审核通过后又需要多久到账？",
+          "expected_behavior": "两部分分别对应15元及审核通过后5–7个工作日；无法取得某部分充分证据时明确说明。",
+          "reference_titles": [
+            "配送说明",
+            "退款政策"
+          ],
+          "answer": "根据当前平台政策，为您逐项说明：\n\n- **加急配送运费**：运费为 **15 元**。\n- **退款到账时效**：退款审核通过后，款项将在 **5-7 个工作日内** 退回至您的原支付账户。\n\n如您后续需要针对具体订单提交退款申请或查询进度，可提供订单号、支付时间及金额，我将为您整理信息并指引后续处理路径。",
+          "external_latency_ms": 29072.9,
+          "stage_timings": {
+            "memory_read_ms": 112.7,
+            "intent_recognition_ms": 3849.5,
+            "agent_billing_ms": 25079.1,
+            "orchestration_ms": 25079.3,
+            "memory_write_ms": 5,
+            "api_total_ms": 29046.6
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_complete",
+              "evidence_selected_titles": [
+                "配送说明",
+                "退款政策"
+              ],
+              "evidence_complete": true,
+              "subquery_results": [
+                {
+                  "query": "加急配送要付多少运费",
+                  "supported": true,
+                  "selected_titles": [
+                    "配送说明"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "退款审核通过后又需要多久到账",
+                  "supported": true,
+                  "selected_titles": [
+                    "退款政策"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 5,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 865,
+              "output_tokens": 73,
+              "latency_ms": 3816.1,
+              "success": true
+            },
+            {
+              "call_id": 7,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 343,
+              "output_tokens": 35,
+              "latency_ms": 3058.3,
+              "success": true
+            },
+            {
+              "call_id": 6,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 350,
+              "output_tokens": 26,
+              "latency_ms": 6288.9,
+              "success": true
+            },
+            {
+              "call_id": 8,
+              "component": "agent.billing",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 1100,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2515,
+              "output_tokens": 740,
+              "latency_ms": 18082.4,
+              "success": true
+            },
+            {
+              "call_id": 9,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 175,
+              "output_tokens": 71,
+              "latency_ms": 4415.1,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "实验组准确回答加急配送15元及审核通过后5至7个工作日退回原支付账户。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "6e35153ce5c889ebf0ef42f87bb99f515b63b403115111d833991e7caedf84ec"
+        },
+        {
+          "id": "composite-regression-051",
+          "question": "登录401该如何排查，另外100积分按规则能抵扣多少钱？",
+          "expected_behavior": "分别覆盖认证失败排查和100积分抵1元；不将积分换算当作付款执行。",
+          "reference_titles": [
+            "技术故障排查",
+            "会员与积分"
+          ],
+          "answer": "关于您的两个问题，回复如下：\n\n**1. 100积分抵扣规则**\n根据平台会员规则，**100积分 = 1元**，可在下次购物时直接抵扣。\n\n**2. 登录 401 错误排查步骤**\n根据技术文档，401 错误表示**认证失败**。请按以下顺序进行低风险排查：\n1. **核对账号与密码**：确认输入的用户名和密码是否准确，注意检查大小写、全半角符号及首尾空格。\n2. **尝试重置密码**：若确认密码无误但仍报错，或怀疑账号状态异常，请使用登录页的“忘记密码”功能重置密码后重试。\n3. **通用排查建议**（非平台特定规则）：\n   - 若通过 App 或 API 调用，请检查 Token 是否已过期、请求头中的认证信息是否完整。\n   - 检查当前网络环境是否稳定，尝试切换 Wi-Fi/移动数据或清除应用缓存后重试。\n\n如果完成上述步骤后问题依旧，请补充以下信息以便进一步定位：\n- 具体的错误提示截图或完整报错信息\n- 使用环境（如 App 版本号、浏览器类型、操作系统）\n- 问题发生的具体时间及是否持续复现",
+          "external_latency_ms": 46473.9,
+          "stage_timings": {
+            "memory_read_ms": 105.4,
+            "intent_recognition_ms": 8787.9,
+            "agent_technical_ms": 37548.8,
+            "orchestration_ms": 37549,
+            "memory_write_ms": 4.9,
+            "api_total_ms": 46447.4
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_complete",
+              "evidence_selected_titles": [
+                "技术故障排查",
+                "会员与积分"
+              ],
+              "evidence_complete": true,
+              "subquery_results": [
+                {
+                  "query": "登录401该如何排查",
+                  "supported": true,
+                  "selected_titles": [
+                    "技术故障排查"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "100积分按规则能抵扣多少钱",
+                  "supported": true,
+                  "selected_titles": [
+                    "会员与积分"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 10,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 867,
+              "output_tokens": 58,
+              "latency_ms": 8769.5,
+              "success": true
+            },
+            {
+              "call_id": 11,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 360,
+              "output_tokens": 41,
+              "latency_ms": 3570.2,
+              "success": true
+            },
+            {
+              "call_id": 12,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 349,
+              "output_tokens": 42,
+              "latency_ms": 4393.4,
+              "success": true
+            },
+            {
+              "call_id": 13,
+              "component": "agent.technical",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 1200,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2900,
+              "output_tokens": 1580,
+              "latency_ms": 33039.1,
+              "success": true
+            },
+            {
+              "call_id": 14,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 362,
+              "output_tokens": 92,
+              "latency_ms": 5008.4,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "实验组覆盖401认证失败排查及100积分抵1元；额外排障明确标记为非平台特定通用建议。",
+            "issue_category": "generic_advice_boundary"
+          },
+          "original_record_sha256": "402ec7567aa1fd9cab1e2fc1cc21c6cb8fd888e611378e20a94c381a06a6f479"
+        },
+        {
+          "id": "composite-regression-052",
+          "question": "一边是标准配送什么时候能到，另一边是订单异常时应提供什么信息给客服？",
+          "expected_behavior": "分别说明标准配送3–5个工作日及异常订单提供订单号联系客服；不查询或编造实时状态。",
+          "reference_titles": [
+            "配送说明",
+            "订单查询"
+          ],
+          "answer": "关于标准配送，通常需要 **3-5 个工作日** 送达（偏远地区可能额外需要 2-3 天）。\n\n如果订单显示异常，联系客服时请提供您的**订单号**，以便我们为您核实处理。",
+          "external_latency_ms": 18686.7,
+          "stage_timings": {
+            "memory_read_ms": 119.5,
+            "intent_recognition_ms": 4717.1,
+            "agent_general_ms": 13816,
+            "orchestration_ms": 13816.2,
+            "memory_write_ms": 5,
+            "api_total_ms": 18657.8
+          },
+          "evidence": [
+            {
+              "retrieval_mode": "composite_subqueries",
+              "evidence_gate": "composite_complete",
+              "evidence_selected_titles": [
+                "配送说明",
+                "订单查询"
+              ],
+              "evidence_complete": true,
+              "subquery_results": [
+                {
+                  "query": "一边是标准配送什么时候能到",
+                  "supported": true,
+                  "selected_titles": [
+                    "配送说明"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                },
+                {
+                  "query": "另一边是订单异常时应提供什么信息给客服",
+                  "supported": true,
+                  "selected_titles": [
+                    "订单查询"
+                  ],
+                  "evidence_gate": "semantic_topk_selected",
+                  "retrieval_mode": "fast_keyword"
+                }
+              ]
+            }
+          ],
+          "calls": [
+            {
+              "call_id": 15,
+              "component": "intent_recognizer",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 256,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 868,
+              "output_tokens": 44,
+              "latency_ms": 4699.4,
+              "success": true
+            },
+            {
+              "call_id": 16,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 330,
+              "output_tokens": 30,
+              "latency_ms": 2976.3,
+              "success": true
+            },
+            {
+              "call_id": 17,
+              "component": "evidence_selector",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 350,
+              "output_tokens": 26,
+              "latency_ms": 3430.6,
+              "success": true
+            },
+            {
+              "call_id": 18,
+              "component": "agent.general",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 900,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 2432,
+              "output_tokens": 302,
+              "latency_ms": 10279.3,
+              "success": true
+            },
+            {
+              "call_id": 19,
+              "component": "memory.profile",
+              "requested_model": "qwen3.6-plus",
+              "requested_max_tokens": 512,
+              "response_model": "qwen3.6-plus",
+              "input_tokens": 140,
+              "output_tokens": 82,
+              "latency_ms": 5439.4,
+              "success": true
+            }
+          ],
+          "review": {
+            "status": "verified",
+            "reviewer": "project_owner",
+            "reviewed_on": "2026-11-07",
+            "method": "paired_ab_evidence_review_confirmed_by_project_owner",
+            "verdict": "pass",
+            "factual_grounding": true,
+            "request_coverage": true,
+            "action_truthfulness": true,
+            "safety": true,
+            "overall_pass": true,
+            "notes": "实验组准确回答标准配送3至5个工作日及异常订单提供订单号联系客服。",
+            "issue_category": "none"
+          },
+          "original_record_sha256": "0a88d3c3ecb5da521bf6cb8ca3cbebfa3d5bda603080f508cf14488bee9e89cd"
+        }
+      ]
+    }
+  },
+  "frozen_corpus": {
+    "source_file_sha256": "470cfaa0596674faaf8891b9eed5896a211fd7e502743ec3c63fb7d7f2e4a466",
+    "documents": [
+      {
+        "title": "退款政策",
+        "content": "退款政策说明。用户在购买后 7 天内可以申请无理由退款。退款申请提交后，系统会在 1-3 个工作日内审核。审核通过后，款项将在 5-7 个工作日内退回原支付账户。如果商品已发货，需要先完成退货流程才能退款。退货运费由用户承担，除非是商品质量问题。超过 7 天但未超过 30 天的订单，需要提供商品质量问题的证据才能退款。"
+      },
+      {
+        "title": "订单查询",
+        "content": "订单查询指南。用户可以通过订单号查询订单状态。订单状态包括：待支付、已支付、已发货、运输中、已签收、已完成。如果订单显示已发货但超过 7 天未收到，可以联系客服申请查件。物流信息通常在发货后 24 小时内更新。如果订单显示异常，请提供订单号联系客服处理。"
+      },
+      {
+        "title": "账户安全",
+        "content": "账户安全说明。建议用户定期修改密码，密码长度至少 8 位，包含字母和数字。如果忘记密码，可以通过绑定的手机号或邮箱重置。发现账户异常登录时，系统会自动锁定账户并发送通知。用户可以在安全设置中开启两步验证，提高账户安全性。不要将密码分享给他人，客服人员不会索要用户密码。"
+      },
+      {
+        "title": "技术故障排查",
+        "content": "常见技术问题排查。应用崩溃：请尝试清除缓存后重启应用，如果问题持续请更新到最新版本。登录失败 401 错误：表示认证失败，请检查用户名密码是否正确，或尝试重置密码。页面加载慢：检查网络连接，尝试切换 WiFi 或移动数据。支付失败：确认银行卡余额充足，检查是否开启了网上支付功能。500 服务器错误：这是服务端问题，请稍后重试，如果持续出现请联系技术支持。"
+      },
+      {
+        "title": "会员与积分",
+        "content": "会员积分规则。每消费 1 元累积 1 积分。积分可以在下次购物时抵扣，100 积分 = 1 元。会员等级分为：普通会员、银卡会员（累计消费 1000 元）、金卡会员（累计消费 5000 元）。银卡会员享受 95 折优惠，金卡会员享受 9 折优惠。积分有效期为 1 年，过期自动清零。生日当月消费可获得双倍积分。"
+      },
+      {
+        "title": "配送说明",
+        "content": "配送服务说明。标准配送：3-5 个工作日送达，免运费（订单满 99 元）。加急配送：1-2 个工作日送达，运费 15 元。同城配送：当日达或次日达，运费 10 元。偏远地区可能需要额外 2-3 天。配送时间为每天 9:00-18:00，节假日可能延迟。如果需要修改收货地址，请在发货前联系客服。"
+      }
+    ]
+  }
+}
