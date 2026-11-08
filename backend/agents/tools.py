@@ -142,6 +142,8 @@ class AgentToolSpec:
     description: str
     input_schema: Dict[str, Any]
     handler: AgentToolHandler
+    allowed_agents: Optional[tuple[str, ...]] = None
+    retry_safe: bool = True
 
 
 def make_tool(

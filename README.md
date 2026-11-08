@@ -13,7 +13,7 @@
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-[![Tests](https://img.shields.io/badge/Tests-205_passed_2026--11--07-2EA44F)](docs/EVALUATION_COVERAGE.md)
+[![Tests](https://img.shields.io/badge/Tests-217_passed_2026--11--08-2EA44F)](docs/EVALUATION_COVERAGE.md)
 
 [▶ 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [产品方案](docs/AI_PRODUCT_CASE_STUDY.md) ·
@@ -63,7 +63,7 @@ EchoMind 面向同时处理产品咨询、技术问题和账单售后的客服�
 | 复合请求只回答一部分 | 拆分子问题、并行取证，按子问题保留证据状态 | 定向回归 4/4 完成目标，经人工复核 | 048、049、051、052 四条已知问题 |
 | 结构化任务产生较多思考 Token | 对意图识别、证据选择和画像提取关闭思考，最终回复保留原配置 | 总 Token 下降 40.0%；平均响应 82.22 → 34.77 秒 | 4 题配对、两组各 4 次请求，均为全新会话 |
 | 自动评分偏宽 | 双人评分、证据对齐复核与 Judge 校准 | 完成 24 条四维配对评分，采用人工复核进行质量验收 | 16 条校准、8 条同批留出验证 |
-| 迭代后功能稳定性 | 持续维护工具、记忆、路由和证据门控回归 | 205/205 自动化检查通过 | 2026-11-07 验证 |
+| 迭代后功能稳定性 | 持续维护工具、记忆、路由、证据门控和 MCP 协议回归 | 217/217 自动化检查通过 | 2026-11-08 验证 |
 
 效果按对应样本和版本报告。性能对照固定先运行控制组、再运行实验组；延迟结果同时受到供应商运行状态影响。详见[性能报告](docs/PERFORMANCE_TOKEN_PROFILE_20261106.md)与[评测总览](docs/EVALUATION_COVERAGE.md)。
 
@@ -101,6 +101,7 @@ flowchart LR
 | Agent 编排 | General、Technical、Billing、Escalation；主辅路由、并行执行和结果整合 |
 | Grounded RAG | 中文 BGE 召回、候选去重、Top-3 Evidence Selector、选中来源校验、复合诉求分项取证 |
 | 工具治理 | 项目内 MCPToolManager；参数校验、TTL 缓存、超时、熔断与降级 |
+| 标准 MCP | 官方 Python SDK；stdio / Streamable HTTP 客户端、工具白名单与角色权限；通过 `/mcp/` 提供知识检索和资源读取 |
 | 动态 Skills | 从 Markdown/JSON 加载业务规范，按 Agent 职责注入，支持运行时重载 |
 | 分层记忆 | Redis 工作记忆与摘要；ChromaDB 历史摘要和用户画像；用户与会话标识参与过滤 |
 | 可观测性 | 记录意图、路由、工具、证据、阶段耗时和模型调用；支持 Metrics 与评测报告 |
@@ -178,7 +179,7 @@ python -m pytest tests -q
 - **用户体验**：按五个固定任务开展小规模参与者测试，记录任务完成率、用时和可信度。
 - **回答质量**：完善事实查询、信息补充和操作请求的分流，增强交接摘要。
 - **响应效率**：在更多请求类型上验证思考策略、调用合并和上下文压缩。
-- **应用集成**：按业务需要扩展订单、工单及标准 MCP 适配。
+- **应用集成**：基于标准 MCP 接入更多知识服务，按业务需要扩展订单与工单接口。
 
 ## 项目来源
 

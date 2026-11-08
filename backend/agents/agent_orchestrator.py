@@ -241,7 +241,10 @@ class BaseAgent:
 
     def get_tools(self) -> Dict[str, AgentToolSpec]:
         """返回该角色真实可调用的工具白名单。"""
-        return dict(self._shared_tools)
+        return {
+            name: spec for name, spec in self._shared_tools.items()
+            if spec.allowed_agents is None or self.agent_type.value in spec.allowed_agents
+        }
 
     def set_shared_tools(self, tools: Optional[Dict[str, AgentToolSpec]]) -> None:
         self._shared_tools = dict(tools or {})
@@ -473,6 +476,9 @@ class BaseAgent:
                     "result_success": result_success,
                     "latency_ms": round(tool_latency_ms, 1),
                     "cached": bool(result.get("cached")) if isinstance(result, dict) else False,
+                    "source": str(result.get("source", "internal")) if isinstance(result, dict) else "internal",
+                    "mcp_server": str(result.get("mcp_server", "")) if isinstance(result, dict) else "",
+                    "mcp_tool": str(result.get("mcp_tool", "")) if isinstance(result, dict) else "",
                     "reranked": bool(result.get("reranked")) if isinstance(result, dict) else False,
                     "retrieval_mode": str(result.get("retrieval_mode", "")) if isinstance(result, dict) else "",
                     "candidate_count": int(result.get("candidate_count", 0)) if isinstance(result, dict) else 0,

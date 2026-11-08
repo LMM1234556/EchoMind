@@ -2,7 +2,7 @@ import asyncio
 import logging
 from types import SimpleNamespace
 
-from mcp.tool_manager import CircuitState, MCPToolManager, Tool, ToolResult
+from tooling.tool_manager import CircuitState, MCPToolManager, Tool, ToolResult
 
 
 class FakeRerankClient:
@@ -45,7 +45,7 @@ def test_search_with_rewrite_deduplicates_score_drift_without_dropping_chunks(ca
     manager.call = fake_call
     manager._rerank = fake_rerank
 
-    with caplog.at_level(logging.INFO, logger="mcp.tool_manager"):
+    with caplog.at_level(logging.INFO, logger="tooling.tool_manager"):
         result = asyncio.run(
             manager.search_with_rewrite("knowledge_search", "退款要多久", top_k=2)
         )

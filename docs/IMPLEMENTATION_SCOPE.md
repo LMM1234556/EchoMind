@@ -1,6 +1,6 @@
 # EchoMind 实现与贡献范围
 
-更新日期：2026-11-07。
+更新日期：2026-11-08。
 
 当前版本在原 EchoMind Python 后端和 Vue 前端上完成中文知识检索、证据回答、运行追踪与评测迭代。本文将基础模块与本仓库改进对应到源码和报告。
 
@@ -24,13 +24,15 @@
 
 ### 意图相似度与知识库向量
 
-[意图识别器](../backend/core/intent_recognizer.py)的本地相似度路径使用字符 n-gram；[知识库](../backend/mcp/knowledge_base.py)使用 BAAI/bge-small-zh-v1.5。两者分别服务于请求分类与中文文档召回。
+[意图识别器](../backend/core/intent_recognizer.py)的本地相似度路径使用字符 n-gram；[知识库](../backend/tooling/knowledge_base.py)使用 BAAI/bge-small-zh-v1.5。两者分别服务于请求分类与中文文档召回。
 
 ### 工具管理
 
-[工具管理器](../backend/mcp/tool_manager.py)沿用 MCPToolManager 名称，负责项目内 handler 注册、参数检查、缓存、超时、熔断和 fallback。当前 Agent 调用通过这一内部接口执行。
+[工具管理器](../backend/tooling/tool_manager.py)沿用 MCPToolManager 名称，负责项目内 handler 注册、参数检查、缓存、超时、熔断和 fallback。当前 Agent 调用通过这一内部接口执行。
 
-标准 MCP 客户端/服务端列为协议适配扩展。2026-11-05 核对的上游分发版本包含相应 SDK 及服务端能力，本仓库按现有 Grounded RAG 链路单独规划接入。
+已整合上游分发版本的标准 MCP 客户端和服务端，并适配当前 Grounded RAG 链路。客户端支持 stdio 与 Streamable HTTP，按服务、工具及 Agent 白名单注册调用；服务端在 `/mcp/` 提供只读知识检索和统计资源。原工具管理器继续承担校验、缓存、超时和熔断，Evidence Selector 保持在聊天取证链路中。
+
+实现见[客户端](../backend/tooling/mcp_client.py)、[服务端](../backend/tooling/mcp_server.py)和[接入与验证说明](MCP_INTEGRATION.md)。内部目录迁移为 `tooling`，官方 SDK 使用 `mcp` 包名。
 
 ### 证据选择
 
@@ -52,12 +54,13 @@
 | 回答覆盖 | [60 条首次请求验收](../backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md) |
 | 复合取证与性能 | [四题隔离配对](../backend/evaluation/reports/performance_ab_4cases_20261106.md) |
 | Judge 校准 | [双人参考与 16/8 分析](../backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
-| 工程回归 | [当前 205 项测试](../backend/tests/) |
+| 工程回归 | [当前 217 项测试](../backend/tests/) |
+| 标准 MCP | [接入与验证](MCP_INTEGRATION.md) · [协议回归](../backend/tests/test_standard_mcp.py) |
 | 历史配置与运行 | [2026-11-04 验证记录](REPOSITORY_VERIFICATION_20261104.md) |
 
 ## 4. 扩展规划
 
-- 标准 MCP 适配与真实订单、工单接口。
+- 扩展 MCP 知识服务和真实订单、工单接口。
 - 更大知识库和政策版本管理。
 - 更多类型的性能配对与并发验证。
 - 按五个固定任务开展参与者可用性测试。

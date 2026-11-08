@@ -22,7 +22,7 @@ from evaluation.retrieval_comparison import (
     collect_rankings,
     load_corpus,
 )
-from mcp.knowledge_base import BGE_ZH_EMBEDDING_MODEL, KnowledgeBase
+from tooling.knowledge_base import BGE_ZH_EMBEDDING_MODEL, KnowledgeBase
 
 
 def _sha256(path: pathlib.Path) -> str:

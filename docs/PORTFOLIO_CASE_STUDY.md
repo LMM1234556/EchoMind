@@ -15,15 +15,15 @@
 |---|---|---|
 | 意图融合 | LLM、相似度和 Pattern 加权；结构化实体与置信度 | [intent_recognizer.py](../backend/core/intent_recognizer.py) |
 | 主辅编排 | 职责评分、并行执行和结果整合 | [agent_orchestrator.py](../backend/agents/agent_orchestrator.py) |
-| 中文检索 | FastEmbed 中文 BGE、ChromaDB、候选合并与重排 | [knowledge_base.py](../backend/mcp/knowledge_base.py) |
+| 中文检索 | FastEmbed 中文 BGE、ChromaDB、候选合并与重排 | [knowledge_base.py](../backend/tooling/knowledge_base.py) |
 | 证据确认 | Top-3 候选、来源检查和充分性判定 | [evidence_selector.py](../backend/core/evidence_selector.py) |
 | 复合取证 | 子句主题拆分、并行证据门控、分项状态 | [knowledge_routing.py](../backend/core/knowledge_routing.py) · [tools.py](../backend/agents/tools.py) |
-| 工具治理 | 参数校验、TTL 缓存、超时、熔断与 fallback | [tool_manager.py](../backend/mcp/tool_manager.py) |
+| 工具治理 | 参数校验、TTL 缓存、超时、熔断与 fallback | [tool_manager.py](../backend/tooling/tool_manager.py) |
 | 记忆 | Redis 工作记忆、摘要压缩、ChromaDB 历史和画像 | [conversation_memory.py](../backend/memory/conversation_memory.py) |
 | 计算策略 | 根据组件决定思考模式，保留显式覆盖 | [llm_utils.py](../backend/core/llm_utils.py) |
 | 运行追踪 | 结构化工具、证据、调用来源和耗时 | [main.py](../backend/api/main.py) |
 
-工具层当前采用项目内 MCPToolManager handler 接口；标准 MCP 协议适配为单独扩展。[实现范围](IMPLEMENTATION_SCOPE.md)区分原有模块与当前改进。
+工具层通过 MCPToolManager 统一治理内部 handler 和标准 MCP 远程工具。已整合上游官方 SDK 客户端／服务端，支持工具发现、角色白名单、结构化结果和调用来源追踪。[接入与验证](MCP_INTEGRATION.md)说明配置与运行方式，[实现范围](IMPLEMENTATION_SCOPE.md)对应来源和分支改进。
 
 ## 改进一：中文知识检索
 
@@ -65,7 +65,7 @@ Redis 保存近期对话与摘要，默认 TTL 为 24 小时；ChromaDB 保存�
 - 冻结意图、检索、证据与回答数据，保存原始报告。
 - 60 条首次目标回答按事实、覆盖、操作真实性和安全验收，形成改动前基线。
 - 24 条回答完成双人四维评分与 Judge 校准，人工复核承担当前验收。
-- 205 项自动化检查通过，最近验证于 2026-11-07。
+- 217 项自动化检查通过，最近验证于 2026-11-08，包含标准 MCP 协议与故障场景。
 - 接口提供健康状态、运行摘要、工具 Trace、Metrics 与 Skills 重载。
 
 | 接口 | 用途 |

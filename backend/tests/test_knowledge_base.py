@@ -2,7 +2,7 @@ from pathlib import Path
 
 from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 
-from mcp.knowledge_base import (
+from tooling.knowledge_base import (
     BGE_ZH_EMBEDDING_MODEL,
     DEFAULT_EMBEDDING_MODEL,
     FastEmbedEmbeddingFunction,

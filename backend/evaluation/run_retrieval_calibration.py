@@ -24,7 +24,7 @@ from evaluation.retrieval_evaluator import (
     NEGATIVE_RETRIEVAL_CASES,
     SEED_RETRIEVAL_CASES,
 )
-from mcp.knowledge_base import (
+from tooling.knowledge_base import (
     BGE_ZH_EMBEDDING_MODEL,
     DEFAULT_EMBEDDING_MODEL,
     KnowledgeBase,

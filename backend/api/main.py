@@ -11,7 +11,7 @@ import pathlib
 import sys
 import time
 import uuid
-from contextlib import asynccontextmanager
+from contextlib import AsyncExitStack, asynccontextmanager
 from typing import Any, Dict, List, Literal, Optional
 
 
@@ -55,6 +55,17 @@ _tool_manager = None
 _monitor      = None
 _evaluator    = None
 _skill_manager = None
+_mcp_client = None
+_rag_tools: Dict[str, Any] = {}
+
+
+def _refresh_agent_tools():
+    """协议服务变更时刷新外部工具，保留原有证据选择器闭包。"""
+    if _orchestrator is not None:
+        tools = dict(_rag_tools)
+        if _mcp_client is not None:
+            tools.update(_mcp_client.agent_tools())
+        _orchestrator.set_shared_tools(tools)
 
 def _anthropic_cfg() -> Dict[str, Any]:
     key = os.getenv("ANTHROPIC_API_KEY", "")
@@ -73,6 +84,7 @@ def _anthropic_cfg() -> Dict[str, Any]:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global _orchestrator, _memory, _tool_manager, _monitor, _evaluator, _skill_manager
+    global _mcp_client, _rag_tools
 
     print(BANNER, flush=True)
 
@@ -80,8 +92,8 @@ async def lifespan(app: FastAPI):
     from core.intent_recognizer import IntentRecognizer
     from core.evidence_selector import SemanticEvidenceSelector
     from evaluation.evaluator import EndToEndEvaluator
-    from mcp.knowledge_base import KnowledgeBase
-    from mcp.tool_manager import MCPToolManager, Tool
+    from tooling.knowledge_base import KnowledgeBase
+    from tooling.tool_manager import MCPToolManager, Tool
     from memory.conversation_memory import MemoryManager
     from monitor.performance_monitor import PerformanceMonitor
     from core.skill_loader import SkillManager
@@ -176,10 +188,17 @@ async def lifespan(app: FastAPI):
             max_tokens=max(128, int(os.getenv("EVIDENCE_SELECTOR_MAX_TOKENS", "512"))),
             timeout_seconds=max(1.0, float(os.getenv("EVIDENCE_SELECTOR_TIMEOUT_SECONDS", "45"))),
         )
-    if _orchestrator is not None:
-        _orchestrator.set_shared_tools(
-            build_shared_rag_tools(_tool_manager, evidence_selector=evidence_selector)
-        )
+    _rag_tools = build_shared_rag_tools(_tool_manager, evidence_selector=evidence_selector)
+    from tooling.mcp_client import StandardMCPClient, load_servers
+    from tooling.mcp_server import configure
+    configure(kb, _tool_manager)
+    config_path = pathlib.Path(os.getenv("MCP_SERVERS_CONFIG", str(pathlib.Path(_ROOT) / "config/mcp_servers.json")))
+    external_enabled = os.getenv("MCP_EXTERNAL_ENABLED", "false").strip().lower() in {"1", "true", "yes", "on"}
+    _mcp_client = StandardMCPClient(
+        _tool_manager, load_servers(config_path) if external_enabled else [], _refresh_agent_tools
+    )
+    _refresh_agent_tools()
+    await _mcp_client.start()
 
     # 性能监控（可选启动 Prometheus）
     prom_port = int(os.getenv("PROMETHEUS_PORT", "0")) or None
@@ -206,21 +225,31 @@ async def lifespan(app: FastAPI):
     )
 
     logger.info("EchoMind 已就绪")
-    yield
-
-    await _monitor.stop()
-    if _memory is not None:
-        await _memory.close()
-    logger.info("EchoMind 已关闭")
+    async with AsyncExitStack() as stack:
+        if os.getenv("MCP_SERVER_ENABLED", "true").strip().lower() in {"1", "true", "yes", "on"}:
+            await stack.enter_async_context(standard_mcp_server.session_manager.run())
+        try:
+            yield
+        finally:
+            await _mcp_client.close()
+            await _monitor.stop()
+            if _memory is not None:
+                await _memory.close()
+            configure(None)
+            logger.info("EchoMind 已关闭")
 
 
 # ── FastAPI ───────────────────────────────────────────────────────────────────
+from tooling.mcp_server import http_app as standard_mcp_app, server as standard_mcp_server
+
 app = FastAPI(
     title="EchoMind 智能客服",
     version="2.0.0",
     lifespan=lifespan,
     docs_url="/docs",
 )
+if os.getenv("MCP_SERVER_ENABLED", "true").strip().lower() in {"1", "true", "yes", "on"}:
+    app.mount("/mcp", standard_mcp_app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -293,6 +322,15 @@ async def skills_summary():
     if _skill_manager is None:
         raise HTTPException(503, "Skills 未初始化")
     return _skill_manager.summary()
+
+
+@app.get("/integrations/mcp", tags=["MCP"])
+async def mcp_summary():
+    """查看标准 MCP 客户端连接和白名单工具，不返回凭据。"""
+    if _mcp_client is None:
+        raise HTTPException(503, "MCP 尚未初始化")
+    return {"server_enabled": os.getenv("MCP_SERVER_ENABLED", "true").strip().lower() in {"1", "true", "yes", "on"},
+            **_mcp_client.summary()}
 
 
 @app.post("/skills/reload", tags=["Skills"])

@@ -16,7 +16,7 @@ from evaluation.evidence_gate_evaluator import (
     load_evidence_gate_dataset,
 )
 from evaluation.retrieval_comparison import LocalCosineRetriever, collect_rankings, load_corpus
-from mcp.knowledge_base import BGE_ZH_EMBEDDING_MODEL, KnowledgeBase
+from tooling.knowledge_base import BGE_ZH_EMBEDDING_MODEL, KnowledgeBase
 
 
 REQUIRED_RULES = {

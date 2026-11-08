@@ -1,6 +1,6 @@
 import asyncio
 
-from mcp.tool_manager import ToolResult
+from tooling.tool_manager import ToolResult
 
 
 def test_search_defaults_to_local_mode_without_llm(monkeypatch):

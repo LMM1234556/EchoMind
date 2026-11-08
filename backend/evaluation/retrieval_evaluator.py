@@ -13,7 +13,7 @@ import time
 from dataclasses import asdict, dataclass
 from typing import Any, Callable, Dict, List, Optional
 
-from mcp.knowledge_base import KnowledgeBase
+from tooling.knowledge_base import KnowledgeBase
 
 
 @dataclass(frozen=True)

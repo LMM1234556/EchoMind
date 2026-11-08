@@ -146,11 +146,19 @@ class MCPToolManager:
     # ── 注册 / 注销 ───────────────────────────────────────────────────────────
 
     def register(self, tool: Tool) -> None:
+        from jsonschema import validators
+        validators.validator_for(tool.schema).check_schema(tool.schema)
+        if not hasattr(self, "_cache_versions"):
+            self._cache_versions = {}
+        self._cache_versions[tool.name] = self._cache_versions.get(tool.name, 0) + 1
         self._tools[tool.name] = tool
         logger.info(f"注册工具: {tool.name}")
 
     def unregister(self, name: str) -> None:
         self._tools.pop(name, None)
+        for key in list(self._cache):
+            if key.startswith(name + ":"):
+                del self._cache[key]
 
     # ── 核心调用 ──────────────────────────────────────────────────────────────
 
@@ -440,7 +448,8 @@ class MCPToolManager:
     # ── 缓存 ──────────────────────────────────────────────────────────────────
 
     def _cache_key(self, name: str, params: Dict, rerank_top_k: int = 0) -> str:
-        payload = {"params": params, "rerank_top_k": rerank_top_k}
+        payload = {"params": params, "rerank_top_k": rerank_top_k,
+                   "version": getattr(self, "_cache_versions", {}).get(name, 0)}
         return f"{name}:{hashlib.md5(json.dumps(payload, sort_keys=True).encode()).hexdigest()}"
 
     def _get_cache(self, name: str, params: Dict, rerank_top_k: int = 0) -> Optional[Tuple[Any, bool]]:
@@ -469,26 +478,15 @@ class MCPToolManager:
 
     # ── 参数校验 ──────────────────────────────────────────────────────────────
 
-    _TYPE_MAP = {"string": str, "number": (int, float), "integer": int, "boolean": bool, "array": list, "object": dict}
-
     def _validate_params(self, tool: Tool, params: Dict[str, Any]) -> None:
         """根据工具的 JSON Schema 校验参数，不合法时抛出 ValueError。"""
-        schema = tool.schema
-        required = schema.get("required", [])
-        properties = schema.get("properties", {})
-
-        for field in required:
-            if field not in params:
-                raise ValueError(f"工具 {tool.name} 缺少必需参数: {field}")
-
-        for key, value in params.items():
-            if key in properties:
-                expected_type = properties[key].get("type")
-                if expected_type and expected_type in self._TYPE_MAP:
-                    if not isinstance(value, self._TYPE_MAP[expected_type]):
-                        raise ValueError(
-                            f"工具 {tool.name} 参数 {key} 类型错误: 期望 {expected_type}，实际 {type(value).__name__}"
-                        )
+        from jsonschema import validators
+        validator = validators.validator_for(tool.schema)(tool.schema)
+        errors = sorted(validator.iter_errors(params), key=lambda error: str(list(error.path)))
+        if errors:
+            error = errors[0]
+            location = ".".join(str(part) for part in error.path) or "parameters"
+            raise ValueError(f"工具 {tool.name} 参数不符合 JSON Schema: {location} ({error.validator})")
 
     @staticmethod
     def _clean_text(value: Any) -> str:

@@ -138,8 +138,8 @@ agents/agent_orchestrator.py 多 Agent 编排
 core/intent_recognizer.py    三路融合意图识别
 core/skill_loader.py         动态 Skills 加载
 memory/conversation_memory.py  Redis + ChromaDB 记忆
-mcp/tool_manager.py          工具层、缓存、熔断、重排
-mcp/knowledge_base.py        ChromaDB 知识库
+tooling/tool_manager.py          工具层、缓存、熔断、重排
+tooling/knowledge_base.py        ChromaDB 知识库
 monitor/performance_monitor.py 在线监控
 evaluation/evaluator.py      端到端评测
 evaluation/judge_calibration.py  人工评分与 Judge 一致性分析

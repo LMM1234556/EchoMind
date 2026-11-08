@@ -18,7 +18,7 @@ from evaluation.retrieval_comparison import (
     load_test_dataset,
     summarize_retrieval,
 )
-from mcp.knowledge_base import KnowledgeBase
+from tooling.knowledge_base import KnowledgeBase
 
 
 def sha256(path: pathlib.Path) -> str:
