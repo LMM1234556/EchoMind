@@ -89,7 +89,7 @@
 
     <rect class="card" x="44" y="122" width="332" height="74" rx="12"/>
     <text class="label" x="76" y="152">知识库</text>
-    <text class="muted" x="76" y="178">knowledge_base / RAG 召回</text>
+    <text class="muted" x="76" y="178">knowledge_base_bge_v1 / RAG 召回</text>
 
     <rect class="card" x="44" y="224" width="332" height="74" rx="12"/>
     <text class="label" x="76" y="254">情景记忆</text>
