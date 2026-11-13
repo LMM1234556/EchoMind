@@ -81,12 +81,36 @@ _BILLING_KEYWORDS = (
     "order", "invoice", "payment", "billing", "charge", "shipping", "delivery",
 )
 
-# 只在用户已经用标点或连接词划开子问题时做确定性拆分。对于“登录401订单
-# 重复扣款99元”这类无法可靠划界的输入，宁可保留原文，也不猜测切分位置。
+# 标点、换行和显式连接词用于划开子问题；没有可靠边界时保留原文。
 _CLAUSE_SEPARATOR = re.compile(
-    r"(?:[，,；;。！？!?]+|而且|并且|同时|另外|此外|以及|\b(?:and|also|while)\b)",
+    r"(?:[，,；;。！？!?\r\n]+|而且|并且|同时|另外|此外|以及|\b(?:and|also|while)\b)",
     re.IGNORECASE,
 )
+
+# “还有”也可能只是描述资料内容。只有连接词两侧都含询问或故障信号，
+# 才按追加诉求处理，避免把“发票上还有退款信息”拆成两个问题。
+_FOLLOWUP_SEPARATOR = re.compile(
+    r"(?:还有(?:一个问题(?:是)?|想问(?:一下)?)?|还想问(?:一下)?|也想问(?:一下)?|顺便(?:再)?问(?:一下)?)"
+)
+_REQUEST_SIGNAL = re.compile(
+    r"怎么|如何|多久|何时|什么时候|什么|哪里|哪些|几天|多少|能否|是否|怎么办|吗|忘了|忘记|失败|报错|崩溃|闪退|"
+    r"重复扣款|扣了两次|扣费异常|(?<!\d)(?:401|403|404|500)(?!\d)"
+)
+
+
+def _explicit_clauses(message: str) -> list[str]:
+    """拆出明确边界；口语连接还须满足两侧都是请求或问题。"""
+    clauses = []
+    for clause in _CLAUSE_SEPARATOR.split(message):
+        clause = clause.strip()
+        if not clause:
+            continue
+        followups = [part.strip() for part in _FOLLOWUP_SEPARATOR.split(clause) if part.strip()]
+        if len(followups) > 1 and all(_REQUEST_SIGNAL.search(part) for part in followups):
+            clauses.extend(followups)
+        else:
+            clauses.append(clause)
+    return clauses
 
 
 # 复合问题只有在每个子句都能确定映射到一个知识主题时才拆分。
@@ -138,13 +162,13 @@ def infer_knowledge_scope(message: str) -> tuple[Optional[str], Optional[set[str
 def split_knowledge_queries(message: str) -> list[str]:
     """保守拆分需要不同知识文档的显式复合问题。
 
-    单一主题、多义子句或没有明确分隔符时保持原文。这样既支持逐项取证，
+    单一主题、多义子句或没有明确分隔依据时保持原文。这样既支持逐项取证，
     又不会把“登录401订单重复扣款99元”等不可可靠划界的文本强行拆开。
     """
     original = (message or "").strip()
     if not original:
         return []
-    clauses = [part.strip() for part in _CLAUSE_SEPARATOR.split(original) if part.strip()]
+    clauses = _explicit_clauses(original)
     if not 2 <= len(clauses) <= 3:
         return [original]
 
@@ -195,7 +219,7 @@ def scope_knowledge_query(message: str, agent_type: Any) -> str:
     if agent_value not in {"technical", "billing"}:
         return original
 
-    clauses = [part.strip() for part in _CLAUSE_SEPARATOR.split(original) if part.strip()]
+    clauses = _explicit_clauses(original)
     if len(clauses) < 2:
         return original
 
@@ -205,6 +229,8 @@ def scope_knowledge_query(message: str, agent_type: Any) -> str:
         is_technical = any(keyword in lowered for keyword in _TECHNICAL_KEYWORDS)
         is_billing = any(keyword in lowered for keyword in _BILLING_KEYWORDS)
         if is_technical and is_billing:
+            return original
+        if not is_technical and not is_billing:
             return original
         labels.append((clause, is_technical, is_billing))
 

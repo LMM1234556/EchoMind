@@ -1,6 +1,6 @@
 # EchoMind 实现与贡献范围
 
-更新日期：2026-11-08。
+更新日期：2026-11-13。
 
 当前版本在原 EchoMind Python 后端和 Vue 前端上完成中文知识检索、证据回答、运行追踪与评测迭代。本文将基础模块与本仓库改进对应到源码和报告。
 
@@ -40,6 +40,8 @@
 
 [复合取证工具](../backend/agents/tools.py)分别处理可识别的子问题，再合并来源与支持状态，最多保留三篇最终证据。生成阶段同时看到支持项和知识缺口，按项回复。
 
+2026-11-13 补充“还有”“顺便问”、追加问句和换行分项；口语连接的两侧需分别有询问或故障信号。不同主题共同触发分项取证，含未知目标的领域收窄继续保留原文。[开发回归与示例](COMPOSITE_FOLLOWUP_ROUTING_20261113.md)给出本轮检查范围。
+
 ### 思考模式
 
 [统一调用入口](../backend/core/llm_utils.py)按组件应用 Qwen 思考策略。意图识别、证据选择、画像提取默认关闭思考，最终 Agent 使用提供商默认配置。配置可覆盖，效果见[性能配对报告](../backend/evaluation/reports/performance_ab_4cases_20261106.md)。
@@ -54,7 +56,7 @@
 | 回答覆盖 | [60 条首次请求验收](../backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md) |
 | 复合取证与性能 | [四题隔离配对](../backend/evaluation/reports/performance_ab_4cases_20261106.md) |
 | Judge 校准 | [双人参考与 16/8 分析](../backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
-| 工程回归 | [当前 217 项测试](../backend/tests/) |
+| 工程回归 | [当前 239 项测试](../backend/tests/) |
 | 标准 MCP | [接入与验证](MCP_INTEGRATION.md) · [协议回归](../backend/tests/test_standard_mcp.py) |
 | 历史配置与运行 | [2026-11-04 验证记录](REPOSITORY_VERIFICATION_20261104.md) |
 
