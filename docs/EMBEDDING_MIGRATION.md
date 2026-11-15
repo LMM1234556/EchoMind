@@ -7,7 +7,7 @@ EchoMind 支持两套本地知识库 Embedding 配置：
 | `all-MiniLM-L6-v2` | 384 | `knowledge_base` |
 | `BAAI/bge-small-zh-v1.5` | 512 | `knowledge_base_bge_v1` |
 
-不同维度的向量不能写入同一个 collection。切换模型时必须同步切换 collection 名称。
+每个 collection 使用固定维度的向量；切换模型时同步切换 collection 名称，以匹配对应维度。
 
 ## 使用中文 BGE
 
@@ -38,6 +38,6 @@ docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --force-r
 
 原 `knowledge_base` collection 在迁移期间不会删除或覆盖，因此回滚不需要重新生成旧向量。
 
-## 验证边界
+## 验证范围
 
 本地小型回归集表明 BGE 更适合当前中文演示语料，该结果作为受控开发环境中的检索基线。完整链路继续结合意图路由、词面召回和证据门控判断知识库是否具备充分答案；生产表现将在真实业务试点中独立评估。
