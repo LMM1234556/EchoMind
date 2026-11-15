@@ -30,6 +30,8 @@ EchoMind 已具备可运行的多 Agent 客服原型、标准 MCP 接入、知�
 
 ## 当前迭代
 
+八个关键场景已执行原题 1/8：退款审核与到账。回复与政策逐项核对一致，同一知识主题保持整句取证；项目负责人复核待确认。详见[场景进展](KEY_SCENARIO_ACCEPTANCE.md)和[原始回复](../backend/evaluation/reports/key_001_first_run_20261115.json)。
+
 2026-11-15 的网页验收发现“？还有，”使连接词独立成段，导致密码重置诉求未进入分项取证。已修复拆分与顶部耗时展示，并针对真实复测中的证据外流程补充表达约束。原题两次复测、助手核对与待负责人复核状态见[标点复合提问回归](COMPOSITE_PUNCTUATION_REGRESSION_20261115.md)。
 
 评测工作台增加版本化参考证据、逐题验收条件与评分输入校验；意图与对话辅助结果分别展示。新增[复合诉求迭代案例](CASE_COMPOSITE_REQUEST.md)、[八个关键场景](KEY_SCENARIO_ACCEPTANCE.md)和[技术排障结果验收设计](TASK_RESOLUTION_DESIGN.md)。八个场景的真实模型回复和人工结论按后续实际运行记录；任务操作与结果回查目前处于设计阶段。
