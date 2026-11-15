@@ -13,7 +13,7 @@
 ![Redis](https://img.shields.io/badge/Memory-Redis-DC382D?logo=redis&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6F61)
 ![Docker](https://img.shields.io/badge/Runtime-Docker-2496ED?logo=docker&logoColor=white)
-[![Tests](https://img.shields.io/badge/Tests-255_passed_2026--11--15-2EA44F)](docs/EVALUATION_COVERAGE.md)
+[![Tests](https://img.shields.io/badge/Tests-265_passed_2026--11--15-2EA44F)](docs/EVALUATION_COVERAGE.md)
 
 [▶ 88 秒演示视频](https://github.com/LMM1234556/EchoMind/blob/main/docs/assets/portfolio/echomind-demo.mp4) ·
 [产品方案](docs/AI_PRODUCT_CASE_STUDY.md) ·
@@ -65,7 +65,7 @@ EchoMind 面向同时处理产品咨询、技术问题和账单售后的客服�
 | 复合请求只回答一部分 | 拆分子问题、并行取证，按子问题保留证据状态 | 定向回归 4/4 完成目标，经人工复核 | 048、049、051、052 四条已知问题 |
 | 结构化任务产生较多思考 Token | 对意图识别、证据选择和画像提取关闭思考，最终回复保留原配置 | 总 Token 下降 40.0%；平均响应 82.22 → 34.77 秒 | 4 题配对、两组各 4 次请求，均为全新会话 |
 | 自动评分偏宽 | 双人评分、证据对齐复核与 Judge 校准 | 完成 24 条四维配对评分，采用人工复核进行质量验收 | 16 条校准、8 条同批留出验证 |
-| 迭代后功能稳定性 | 持续维护工具、记忆、路由、证据门控、MCP 协议与评测输入回归 | 255/255 自动化检查通过 | 2026-11-15 验证 |
+| 迭代后功能稳定性 | 持续维护工具、记忆、路由、证据门控、MCP 协议与评测输入回归 | 265/265 自动化检查通过 | 2026-11-15 验证 |
 
 效果按对应样本和版本报告。性能对照固定先运行控制组、再运行实验组；延迟结果同时受到供应商运行状态影响。详见[性能报告](docs/PERFORMANCE_TOKEN_PROFILE_20261106.md)与[评测总览](docs/EVALUATION_COVERAGE.md)。
 

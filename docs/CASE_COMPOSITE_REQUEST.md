@@ -42,6 +42,8 @@
 
 ## 决策与下一步
 
+2026-11-15 的网页验收进一步覆盖“？还有，”的标点表达，完成拆分修复与两次真实复测，并补充政策知识缺口表达约束，详见[标点复合提问回归](COMPOSITE_PUNCTUATION_REGRESSION_20261115.md)。
+
 当前采用分项取证和组件级思考配置。后续先复核受影响表达的最终回答，再根据失败类型扩展覆盖；真实参与者观察用于了解用户是否理解核实路径和等待状态。
 
 [60 条首次覆盖](../backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md) · [分项取证](COMPOSITE_EVIDENCE_ROUTING_20261106.md) · [口语表达检查](COMPOSITE_FOLLOWUP_ROUTING_20261113.md) · [性能配对](../backend/evaluation/reports/performance_ab_4cases_20261106.md)

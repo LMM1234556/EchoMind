@@ -1,0 +1,362 @@
+{
+  "scope": "one_known_failure_development_regression",
+  "question": "密码忘了怎么重置？还有，发票申请后多久能开好？",
+  "review_status": "assistant_checked_pending_project_owner_review",
+  "reference_documents": [
+    {
+      "title": "退款政策",
+      "content": "退款政策说明。用户在购买后 7 天内可以申请无理由退款。退款申请提交后，系统会在 1-3 个工作日内审核。审核通过后，款项将在 5-7 个工作日内退回原支付账户。如果商品已发货，需要先完成退货流程才能退款。退货运费由用户承担，除非是商品质量问题。超过 7 天但未超过 30 天的订单，需要提供商品质量问题的证据才能退款。"
+    },
+    {
+      "title": "订单查询",
+      "content": "订单查询指南。用户可以通过订单号查询订单状态。订单状态包括：待支付、已支付、已发货、运输中、已签收、已完成。如果订单显示已发货但超过 7 天未收到，可以联系客服申请查件。物流信息通常在发货后 24 小时内更新。如果订单显示异常，请提供订单号联系客服处理。"
+    },
+    {
+      "title": "账户安全",
+      "content": "账户安全说明。建议用户定期修改密码，密码长度至少 8 位，包含字母和数字。如果忘记密码，可以通过绑定的手机号或邮箱重置。发现账户异常登录时，系统会自动锁定账户并发送通知。用户可以在安全设置中开启两步验证，提高账户安全性。不要将密码分享给他人，客服人员不会索要用户密码。"
+    },
+    {
+      "title": "技术故障排查",
+      "content": "常见技术问题排查。应用崩溃：请尝试清除缓存后重启应用，如果问题持续请更新到最新版本。登录失败 401 错误：表示认证失败，请检查用户名密码是否正确，或尝试重置密码。页面加载慢：检查网络连接，尝试切换 WiFi 或移动数据。支付失败：确认银行卡余额充足，检查是否开启了网上支付功能。500 服务器错误：这是服务端问题，请稍后重试，如果持续出现请联系技术支持。"
+    },
+    {
+      "title": "会员与积分",
+      "content": "会员积分规则。每消费 1 元累积 1 积分。积分可以在下次购物时抵扣，100 积分 = 1 元。会员等级分为：普通会员、银卡会员（累计消费 1000 元）、金卡会员（累计消费 5000 元）。银卡会员享受 95 折优惠，金卡会员享受 9 折优惠。积分有效期为 1 年，过期自动清零。生日当月消费可获得双倍积分。"
+    },
+    {
+      "title": "配送说明",
+      "content": "配送服务说明。标准配送：3-5 个工作日送达，免运费（订单满 99 元）。加急配送：1-2 个工作日送达，运费 15 元。同城配送：当日达或次日达，运费 10 元。偏远地区可能需要额外 2-3 天。配送时间为每天 9:00-18:00，节假日可能延迟。如果需要修改收货地址，请在发货前联系客服。"
+    }
+  ],
+  "before": {
+    "source": "user_screenshots_and_runtime_trace",
+    "code_commit": "3d4a00f6e12e9fb45ce9a18d311e6cb476098e94",
+    "response_transcribed_from_screenshot": "当前知识库未找到足够的可核验依据，因此我不能确认具体时效、费用或处理规则。若要继续核验，请提供订单号或交易号、发生时间和相关金额，或联系人工客服查询。请勿发送密码、验证码或完整支付凭证。",
+    "trace": {
+      "intent": "invoice",
+      "primary_agent": "billing",
+      "supporting_agents": [],
+      "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+      "tools_used": [
+        "search_knowledge_base"
+      ],
+      "tool_calls": [
+        {
+          "agent_type": "billing",
+          "tool_name": "search_knowledge_base",
+          "tool_use_id": "prefetch_b18a7619",
+          "input": {
+            "query": "密码忘了怎么重置？还有，发票申请后多久能开好？",
+            "top_k": 3
+          },
+          "success": true,
+          "result_success": true,
+          "latency_ms": 7.6,
+          "cached": false,
+          "reranked": false,
+          "retrieval_mode": "fast_keyword",
+          "candidate_count": 2,
+          "evidence_gate": "knowledge_gap",
+          "evidence_selector_used": false,
+          "evidence_selector_success": null,
+          "evidence_selected_title": "",
+          "evidence_selected_titles": [],
+          "evidence_complete": null,
+          "subquery_results": [],
+          "evidence_selector_error": "",
+          "invocation_source": "deterministic_prefetch",
+          "prefetched": true,
+          "error": "",
+          "evidence_found": false
+        }
+      ],
+      "latency_ms": 8.0,
+      "stage_timings": {
+        "memory_read_ms": 306.3,
+        "intent_recognition_ms": 9187.2,
+        "agent_billing_ms": 7.9,
+        "orchestration_ms": 8.0,
+        "memory_write_ms": 1.8,
+        "api_total_ms": 9503.5
+      }
+    },
+    "review": {
+      "coverage": "failed",
+      "reason": "Password reset request omitted."
+    }
+  },
+  "iterations": [
+    {
+      "code_commit": "edc8a9726cf4268de723590baab331d0d15c36c7",
+      "model_alias": "qwen3.6-plus",
+      "started_at": "2026-11-15T09:14:35.688180+00:00",
+      "http_elapsed_ms": 36875.0,
+      "response": {
+        "response": "关于您的两个问题，回复如下：\n\n1. **密码重置**：根据账户安全说明，如果您忘记密码，可以通过绑定的手机号或邮箱进行重置。\n2. **发票开具时效**：当前缺少关于发票申请后具体开具时效的已验证依据，无法为您提供确切时间。作为通用建议，发票处理通常需要经过审核流程，具体完成时间请以实际业务进度为准。",
+        "intent": "invoice",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 28554.9,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7303,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.2514594403022007,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 285.5,
+          "intent_recognition_ms": 7975.3,
+          "agent_billing_ms": 28554.8,
+          "orchestration_ms": 28554.9,
+          "memory_write_ms": 2.7,
+          "api_total_ms": 36818.4
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "timestamp": "2026-11-15T09:15:12.554436",
+        "intent": "invoice",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_85fe23f4",
+            "input": {
+              "query": "密码忘了怎么重置？还有，发票申请后多久能开好？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 4763.7,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "composite_subqueries",
+            "candidate_count": 2,
+            "evidence_gate": "composite_partial",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "账户安全",
+            "evidence_selected_titles": [
+              "账户安全"
+            ],
+            "evidence_complete": false,
+            "subquery_results": [
+              {
+                "query": "密码忘了怎么重置",
+                "supported": true,
+                "selected_titles": [
+                  "账户安全"
+                ],
+                "evidence_gate": "semantic_topk_selected",
+                "retrieval_mode": "fast_keyword"
+              },
+              {
+                "query": "发票申请后多久能开好",
+                "supported": false,
+                "selected_titles": [],
+                "evidence_gate": "knowledge_gap",
+                "retrieval_mode": "knowledge_gap"
+              }
+            ],
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 28554.9,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 285.5,
+          "intent_recognition_ms": 7975.3,
+          "agent_billing_ms": 28554.8,
+          "orchestration_ms": 28554.9,
+          "memory_write_ms": 2.7,
+          "api_total_ms": 36818.4
+        }
+      },
+      "assistant_review": {
+        "coverage": "passed",
+        "strict_evidence_faithfulness": "failed",
+        "issue": "Invoice review procedure asserted without reference evidence, despite a general-advice prefix."
+      },
+      "human_review": null
+    },
+    {
+      "code_commit": "e80f7db1717f813164db374b4f4018c49b0f8896",
+      "model_alias": "qwen3.6-plus",
+      "started_at": "2026-11-15T09:19:31.937597+00:00",
+      "http_elapsed_ms": 41781.0,
+      "response": {
+        "response": "关于您的两个问题，分别说明如下：\n\n1. **密码重置**：根据平台账户安全说明，忘记密码时，您可以通过绑定的手机号或邮箱进行重置。为保障账户安全，建议新密码长度至少为8位并包含字母与数字，您也可在安全设置中开启两步验证以提升安全性。\n2. **发票开具时效**：关于发票申请后的具体开具时长，当前可查证的资料中暂无明确依据。该信息需人工进一步核实。如需办理发票或查询具体进度，建议您直接联系人工客服咨询。",
+        "intent": "invoice",
+        "intent_group": "billing",
+        "agent_type": "billing",
+        "agent_types": [
+          "billing"
+        ],
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "routing_confidence": 0.93,
+        "escalated": false,
+        "latency_ms": 33686.0,
+        "knowledge_used": true,
+        "entities": {
+          "order_id": [],
+          "product": [],
+          "date": [],
+          "amount": [],
+          "error_code": []
+        },
+        "intent_confidence": 0.7303,
+        "intent_source_scores": {
+          "llm": 0.9,
+          "embedding": 0.2514594403022007,
+          "pattern": 0.5,
+          "llm_failed": 0.0
+        },
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 304.8,
+          "intent_recognition_ms": 7750.9,
+          "agent_billing_ms": 33685.9,
+          "orchestration_ms": 33686.1,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 41745.3
+        },
+        "llm_call_count": 3,
+        "llm_calls_by_component": {
+          "intent_recognizer": 1,
+          "evidence_selector": 1,
+          "agent.billing": 1
+        }
+      },
+      "trace": {
+        "timestamp": "2026-11-15T09:20:13.708903",
+        "intent": "invoice",
+        "primary_agent": "billing",
+        "supporting_agents": [],
+        "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]",
+        "tools_used": [
+          "search_knowledge_base"
+        ],
+        "tool_calls": [
+          {
+            "agent_type": "billing",
+            "tool_name": "search_knowledge_base",
+            "tool_use_id": "prefetch_1662b66a",
+            "input": {
+              "query": "密码忘了怎么重置？还有，发票申请后多久能开好？",
+              "top_k": 3
+            },
+            "success": true,
+            "result_success": true,
+            "latency_ms": 5865.7,
+            "cached": false,
+            "reranked": false,
+            "retrieval_mode": "composite_subqueries",
+            "candidate_count": 2,
+            "evidence_gate": "composite_partial",
+            "evidence_selector_used": true,
+            "evidence_selector_success": true,
+            "evidence_selected_title": "账户安全",
+            "evidence_selected_titles": [
+              "账户安全"
+            ],
+            "evidence_complete": false,
+            "subquery_results": [
+              {
+                "query": "密码忘了怎么重置",
+                "supported": true,
+                "selected_titles": [
+                  "账户安全"
+                ],
+                "evidence_gate": "semantic_topk_selected",
+                "retrieval_mode": "fast_keyword"
+              },
+              {
+                "query": "发票申请后多久能开好",
+                "supported": false,
+                "selected_titles": [],
+                "evidence_gate": "knowledge_gap",
+                "retrieval_mode": "knowledge_gap"
+              }
+            ],
+            "evidence_selector_error": "",
+            "invocation_source": "deterministic_prefetch",
+            "prefetched": true,
+            "error": "",
+            "evidence_found": true
+          }
+        ],
+        "escalated": false,
+        "latency_ms": 33686.0,
+        "failure_kind": "",
+        "stage_timings": {
+          "memory_read_ms": 304.8,
+          "intent_recognition_ms": 7750.9,
+          "agent_billing_ms": 33685.9,
+          "orchestration_ms": 33686.1,
+          "memory_write_ms": 3.5,
+          "api_total_ms": 41745.3
+        }
+      },
+      "assistant_review": {
+        "coverage": "passed",
+        "strict_evidence_faithfulness": "passed",
+        "basis": "Password reset route, minimum password length and 2FA match account-security source; invoice timing stays pending verification."
+      },
+      "human_review": null
+    }
+  ],
+  "engineering_checks": {
+    "backend_tests_passed": 265,
+    "frontend_build": "passed",
+    "browser_fixture_cases": 3,
+    "browser_fixture_model_calls": 0
+  },
+  "usage": {
+    "new_http_chat_requests": 2,
+    "foreground_llm_calls": 6,
+    "provider_token_usage": null,
+    "notes": "Foreground counts exclude async profile extraction and provider-internal retries."
+  }
+}
