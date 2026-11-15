@@ -1,6 +1,6 @@
 # EchoMind 实现与贡献范围
 
-更新日期：2026-11-13。
+更新日期：2026-11-15。
 
 当前版本在原 EchoMind Python 后端和 Vue 前端上完成中文知识检索、证据回答、运行追踪与评测迭代。本文将基础模块与本仓库改进对应到源码和报告。
 
@@ -56,7 +56,7 @@
 | 回答覆盖 | [60 条首次请求验收](../backend/evaluation/reports/answer_coverage_60_v1_summary_20261106.md) |
 | 复合取证与性能 | [四题隔离配对](../backend/evaluation/reports/performance_ab_4cases_20261106.md) |
 | Judge 校准 | [双人参考与 16/8 分析](../backend/evaluation/reports/judge_calibration_v1_findings_20261104.md) |
-| 工程回归 | [当前 239 项测试](../backend/tests/) |
+| 工程回归 | [2026-11-15 完整回归 265 项通过](COMPOSITE_PUNCTUATION_REGRESSION_20261115.md) · [测试源码](../backend/tests/) |
 | 标准 MCP | [接入与验证](MCP_INTEGRATION.md) · [协议回归](../backend/tests/test_standard_mcp.py) |
 | 历史配置与运行 | [2026-11-04 验证记录](REPOSITORY_VERIFICATION_20261104.md) |
 

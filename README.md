@@ -55,7 +55,7 @@ EchoMind 面向同时处理产品咨询、技术问题和账单售后的客服�
 
 [实现与贡献范围](docs/IMPLEMENTATION_SCOPE.md) · [变更记录](docs/CHANGES.md) · [项目来源](NOTICE.md)
 
-推荐阅读：[复合诉求迭代案例](docs/CASE_COMPOSITE_REQUEST.md)展示问题定位、方案取舍与验证；[关键场景验收](docs/KEY_SCENARIO_ACCEPTANCE.md)整理当前演示路径；[任务结果验收设计](docs/TASK_RESOLUTION_DESIGN.md)说明操作集成与结果回查的下一步方案。
+推荐阅读：[一页项目现状](docs/PROJECT_SNAPSHOT.md)汇总能力、结果与交付状态；[复合诉求迭代案例](docs/CASE_COMPOSITE_REQUEST.md)展示问题定位、方案取舍与验证；[关键场景验收](docs/KEY_SCENARIO_ACCEPTANCE.md)整理当前演示路径；[任务结果验收设计](docs/TASK_RESOLUTION_DESIGN.md)说明操作集成与结果回查的下一步方案。
 
 ## 关键迭代与结果
 
