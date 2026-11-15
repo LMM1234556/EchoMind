@@ -168,4 +168,6 @@ def test_billing_prefetch_keeps_supported_password_when_invoice_has_no_evidence(
     assert [part['question'] for part in evidence['subquery_evidence']] == [
         '密码忘了怎么重置', '发票申请后多久能开好',
     ]
+    assert any('政策知识缺口' in rule and '通用建议' in rule for rule in evidence['answer_constraints'])
+    assert 'insufficient 时，只说明该信息待核实' in calls[0]['system']
     assert response.tool_traces[0]['evidence_gate'] == 'composite_partial'
