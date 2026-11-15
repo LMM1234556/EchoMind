@@ -584,10 +584,13 @@ class EvalIntentInput(BaseModel):
 
 class EvalDialogInput(BaseModel):
     """对话质量评测用例。question 单轮，turns 多轮。"""
+    case_id: Optional[str] = None
     question: Optional[str] = None
     turns: Optional[List[str]] = None
     user_id: Optional[str] = None
     conv_id: Optional[str] = None
+    reference_evidence: List[str] = Field(default_factory=list)
+    acceptance_criteria: List[str] = Field(default_factory=list)
 
 
 class EvalRunInput(BaseModel):
@@ -715,6 +718,9 @@ async def run_eval(body: Optional[EvalRunInput] = None):
         "avg_scores":      report.avg_scores,
         "regressions":     report.regressions,
         "recommendations": report.recommendations,
+        "summary":         report.summary,
+        "case_set_id":     report.case_set_id,
+        "timestamp":       report.timestamp,
         "results": [
             {
                 "test_id": r.test_id,

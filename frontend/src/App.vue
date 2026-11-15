@@ -286,24 +286,26 @@
       <div class="page-heading">
         <div class="heading-copy">
           <span class="kicker">Evaluation lab</span>
-          <h1>评测 Agent</h1>
-          <p>运行 FastAPI 内置评测，查看意图识别、对话质量和回归结果。</p>
+          <h1>评测工作台</h1>
+          <p>分别查看意图识别、对话辅助评分和逐题验收材料。</p>
         </div>
-        <button @click="runEvaluation" :disabled="busy">{{ busy ? '运行中...' : '运行评测' }}</button>
+        <button @click="runEvaluation" :disabled="busy">{{ busy ? '运行中...' : '运行内置样例' }}</button>
       </div>
 
       <div v-if="evalData" class="evaluation-content">
         <div class="evaluation-summary">
-          <div class="score-hero"><span>Pass rate</span><strong>{{ formatPercent(evalData.pass_rate) }}</strong><small>{{ evalData.passed }} / {{ evalData.total }} cases passed</small></div>
-          <div><span>通过</span><strong>{{ evalData.passed }}</strong></div>
-          <div><span>总数</span><strong>{{ evalData.total }}</strong></div>
-          <div><span>回归</span><strong :class="evalData.regressions?.length ? 'danger' : 'success'">{{ evalData.regressions?.length || 0 }}</strong></div>
+          <div class="score-hero"><span>意图准确率</span><strong>{{ evalData.summary?.intent?.total ? formatPercent(evalData.summary.intent.accuracy) : '—' }}</strong><small>{{ evalData.summary?.intent?.correct || 0 }} / {{ evalData.summary?.intent?.total || 0 }} 条意图样例</small></div>
+          <div><span>对话辅助评分达标</span><strong>{{ evalData.summary?.dialog?.auxiliary_passed || 0 }} / {{ evalData.summary?.dialog?.total || 0 }}</strong></div>
+          <div><span>评分异常</span><strong>{{ evalData.summary?.dialog?.judge_failed || 0 }}</strong></div>
+          <div><span>待人工验收</span><strong>{{ evalData.summary?.dialog?.human_review_required || 0 }}</strong></div>
         </div>
+        <p class="evaluation-note">意图按标签匹配统计；对话分数用于辅助复核，参考阈值 {{ evalData.summary?.pass_threshold ?? '—' }}。质量验收结合业务证据、诉求覆盖和操作结果完成。</p>
+        <p class="evaluation-note">运行时间：{{ evalData.timestamp || '—' }} · 用例与量表指纹：{{ evalData.case_set_id?.slice(0, 12) || '—' }} · 指标回退提示：{{ evalData.regressions?.length || 0 }}</p>
         <div class="evaluation-layout">
           <section class="workspace-card">
-            <div class="card-heading"><div><span class="kicker">Scores</span><h2>平均评分</h2></div></div>
+            <div class="card-heading"><div><span class="kicker">Scores</span><h2>对话平均辅助评分（0–1）</h2></div></div>
             <div class="score-list">
-              <div v-for="(value, key) in evalData.avg_scores" :key="key"><span>{{ key }}</span><i><b :style="{ width: `${Math.min(Number(value) * 10, 100)}%` }"></b></i><strong>{{ Number(value).toFixed(2) }}</strong></div>
+              <div v-for="(value, key) in dialogAverageScores" :key="key"><span>{{ scoreLabels[key] }}</span><i><b :style="{ width: `${Math.min(Number(value) * 100, 100)}%` }"></b></i><strong>{{ Number(value).toFixed(2) }}</strong></div>
             </div>
           </section>
           <section class="workspace-card">
@@ -312,6 +314,14 @@
             <div v-else class="workspace-empty">本次评测没有返回额外建议。</div>
           </section>
         </div>
+        <section v-for="result in dialogEvaluationResults" :key="result.test_id" class="workspace-card evaluation-case">
+          <div class="card-heading"><h2>{{ result.test_id }}</h2><span>{{ result.metadata?.judge_failed ? '评分异常' : '待人工验收' }}</span></div>
+          <p><strong>问题：</strong>{{ result.metadata?.question }}</p>
+          <p class="evaluation-answer"><strong>回答：</strong>{{ result.metadata?.response }}</p>
+          <p><strong>评分依据：</strong>{{ result.metadata?.grading_scope === 'evidence_aligned' ? '参考证据与逐题验收条件' : '对话表现，业务事实待核验' }}</p>
+          <details><summary>参考证据与验收条件</summary><p v-if="!result.metadata?.reference_evidence?.length">本用例按对话表现评分，可补充业务文档用于事实核验。</p><p v-for="(item, index) in result.metadata?.reference_evidence || []" :key="`e-${index}`">{{ item }}</p><ul><li v-for="(item, index) in result.metadata?.acceptance_criteria || []" :key="`c-${index}`">{{ item }}</li></ul></details>
+          <p>{{ result.detail }}</p>
+        </section>
       </div>
       <div v-else class="evaluation-empty"><div class="empty-symbol">◎</div><h2>还没有评测结果</h2><p>点击右上角运行一次评测。</p></div>
     </section>
@@ -357,6 +367,9 @@ const skillsData = ref({ count: 0, skills: [], errors: [] })
 const lastResponse = ref(null)
 const lastTrace = ref(null)
 const evalData = ref(null)
+const scoreLabels = { relevance: '相关性', accuracy: '准确性', completeness: '完整性', helpfulness: '有用性' }
+const dialogAverageScores = computed(() => Object.fromEntries(Object.entries(evalData.value?.avg_scores || {}).filter(([key]) => key in scoreLabels)))
+const dialogEvaluationResults = computed(() => (evalData.value?.results || []).filter(result => result.test_id !== 'intent_recognition'))
 const toast = ref('')
 let toastTimer
 let messageSequence = 0
