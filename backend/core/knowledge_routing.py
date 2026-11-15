@@ -103,7 +103,9 @@ def _explicit_clauses(message: str) -> list[str]:
     clauses = []
     for clause in _CLAUSE_SEPARATOR.split(message):
         clause = clause.strip()
-        if not clause:
+        # 问号和逗号可能把连接词独立成段，例如“密码怎么重置？还有，发票多久”。
+        # 仅跳过完整匹配的连接词；带有实际内容的未知诉求仍保留给后续检查。
+        if not clause or _FOLLOWUP_SEPARATOR.fullmatch(clause):
             continue
         followups = [part.strip() for part in _FOLLOWUP_SEPARATOR.split(clause) if part.strip()]
         if len(followups) > 1 and all(_REQUEST_SIGNAL.search(part) for part in followups):

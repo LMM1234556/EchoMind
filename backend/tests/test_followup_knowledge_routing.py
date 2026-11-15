@@ -1,10 +1,11 @@
 """口语连接与换行请求的开发回归，使用工具和选择器替身。"""
 import asyncio
+import json
 from types import SimpleNamespace
 
 import pytest
 
-from agents.agent_orchestrator import BaseAgent, Request
+from agents.agent_orchestrator import BaseAgent, BillingAgent, Request
 from agents.tools import build_shared_rag_tools
 from core.intent_recognizer import IntentCategory
 from core.knowledge_routing import scope_knowledge_query, split_knowledge_queries
@@ -17,6 +18,9 @@ from core.knowledge_routing import scope_knowledge_query, split_knowledge_querie
     ('如何重置密码还想问一下电子发票何时开好', ['如何重置密码', '电子发票何时开好']),
     ('登录401顺便再问一下订单异常应提供什么', ['登录401', '订单异常应提供什么']),
     ('登录401\r\n退款审核多久\r\n电子发票何时开好', ['登录401', '退款审核多久', '电子发票何时开好']),
+    ('密码忘了怎么重置？还有，发票申请后多久能开好？', ['密码忘了怎么重置', '发票申请后多久能开好']),
+    ('密码忘了怎么重置？顺便问一下，电子发票何时开好？', ['密码忘了怎么重置', '电子发票何时开好']),
+    ('登录提示401。还想问一下：订单异常应提供什么', ['登录提示401', '还想问一下：订单异常应提供什么']),
 ])
 def test_explicit_followup_goals_are_split_with_their_fields(message, expected):
     assert split_knowledge_queries(message) == expected
@@ -31,6 +35,9 @@ def test_explicit_followup_goals_are_split_with_their_fields(message, expected):
     '退款审核多久，审核通过后多久能到账？',
     '登录401还有退款多久还有积分抵多少还有发票多久',
     '退款到账前还要验证密码吗',
+    '密码忘了怎么重置？还有，今天天气怎么样？',
+    '退款审核还有几天能完成？还有，具体是哪一天？',
+    '密码忘了怎么重置？还有，发票上还有退款信息吗？以及我该联系谁？',
 ])
 def test_references_single_topics_and_ambiguous_goals_keep_original(message):
     assert split_knowledge_queries(message) == [message]
@@ -91,7 +98,7 @@ def search(message, intent, selector):
     return result, manager
 
 
-@pytest.mark.parametrize('connector', ['还有', '顺便问', '\n'])
+@pytest.mark.parametrize('connector', ['还有', '顺便问', '\n', '？还有，', '？顺便问一下，'])
 def test_supported_password_and_invoice_gap_reach_generation_separately(connector):
     first, second = '密码忘了怎么重置', '电子发票何时开好'
     message = first + connector + second
@@ -124,3 +131,41 @@ def test_selector_timeout_only_blocks_its_own_goal():
     assert [part['supported'] for part in result['subquery_results']] == [False, True]
     assert result['subquery_results'][0]['evidence_gate'] == 'semantic_selector_failed'
     assert [row['title'] for row in result['results']] == ['退款政策']
+
+
+@pytest.mark.parametrize('message', [
+    '密码忘了怎么重置？还有，发票申请后多久能开好？',
+    '密码忘了怎么重置？顺便问一下，发票申请后多久能开好？',
+])
+def test_billing_prefetch_keeps_supported_password_when_invoice_has_no_evidence(message):
+    """走真实 Agent 预取和证据注入路径；远程生成仅使用可检查的替身。"""
+    calls = []
+
+    async def create(**kwargs):
+        calls.append(kwargs)
+        return SimpleNamespace(
+            content=[SimpleNamespace(type='text', text='fixture generation')],
+            stop_reason='end_turn',
+        )
+
+    manager = LocalRag()
+    selector = Selector()
+    agent = BillingAgent(SimpleNamespace(messages=SimpleNamespace(create=create)), 'test-model')
+    agent.set_shared_tools(build_shared_rag_tools(manager, selector))
+    req = Request(message=message, user_id='punctuation-test', conv_id='isolated',
+                  intent=IntentCategory.INVOICE, intent_confidence=0.93)
+    response = asyncio.run(agent.handle(req))
+    assert response.success
+    assert response.content == 'fixture generation'
+    assert len(calls) == 1, '有据子问题应进入生成阶段，不能被发票知识缺口整体关闭'
+    evidence_message = next(
+        item['content'] for item in calls[0]['messages']
+        if isinstance(item.get('content'), str) and item['content'].startswith('[已验证知识证据]\n')
+    )
+    evidence = json.loads(evidence_message.split('\n', 1)[1])
+    assert [doc['title'] for doc in evidence['selected_documents']] == ['账户安全']
+    assert [part['evidence_status'] for part in evidence['subquery_evidence']] == ['accepted', 'insufficient']
+    assert [part['question'] for part in evidence['subquery_evidence']] == [
+        '密码忘了怎么重置', '发票申请后多久能开好',
+    ]
+    assert response.tool_traces[0]['evidence_gate'] == 'composite_partial'

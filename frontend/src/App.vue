@@ -164,7 +164,7 @@
               <div v-if="lastResponse" class="trace-body">
                 <div class="latency">
                   <span>响应耗时</span>
-                  <strong>{{ lastResponse.latencyMs || '-' }}<small> ms</small></strong>
+                  <strong>{{ lastResponse.latencyMs ?? '-' }}<small> ms</small></strong>
                 </div>
                 <dl class="detail-list">
                   <div><dt>主 Agent</dt><dd>{{ lastResponse.primaryAgent || lastResponse.agentType || '-' }}</dd></div>

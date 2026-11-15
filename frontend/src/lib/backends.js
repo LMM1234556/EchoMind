@@ -131,7 +131,7 @@ function normalizeChatResponse(type, raw) {
     intentConfidence: Number(raw.intent_confidence ?? raw.intentConfidence ?? 0),
     intentSourceScores: raw.intent_source_scores || raw.intentSourceScores || {},
     escalated: Boolean(raw.escalated),
-    latencyMs: Number(raw.latency_ms ?? raw.latencyMs ?? 0),
+    latencyMs: Number(raw.stage_timings?.api_total_ms ?? raw.stageTimings?.api_total_ms ?? raw.latency_ms ?? raw.latencyMs ?? 0),
     stageTimings: raw.stage_timings || raw.stageTimings || {},
     knowledgeUsed: Boolean(raw.knowledge_used ?? raw.knowledgeUsed),
     verified: raw.verified,
